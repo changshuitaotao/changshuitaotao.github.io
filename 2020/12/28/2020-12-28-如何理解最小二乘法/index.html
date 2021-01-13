@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="机器学习," />
 
 
 
@@ -79,16 +79,20 @@
 
 
 
-<meta name="description" content="涉猎的内容主要有Python编程、可视化、数据挖掘、机器学习、生活感想等">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小凡大杰的博客">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="无论是传统的统计学，还是时下火热的机器学习，线性回归都是最基础但又十分重要的模型之一。线性回归使用了最小二乘法来估计模型参数，如何理解最小二乘法将成为掌握线性回归的关键。最小二乘法可以从定义、线性代数、概率论三个角度来理解，本文对此进行简单的整理。这样的整理不仅有助于我们学习线性回归，也有助于我们理解ridge回归、lasso回归等很多模型。接下来，我们就开始吧。 从定义看最小二乘法简单线性回归模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何理解最小二乘法？">
+<meta property="og:url" content="http://example.com/2020/12/28/2020-12-28-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/index.html">
 <meta property="og:site_name" content="小凡大杰的博客">
-<meta property="og:description" content="涉猎的内容主要有Python编程、可视化、数据挖掘、机器学习、生活感想等">
+<meta property="og:description" content="无论是传统的统计学，还是时下火热的机器学习，线性回归都是最基础但又十分重要的模型之一。线性回归使用了最小二乘法来估计模型参数，如何理解最小二乘法将成为掌握线性回归的关键。最小二乘法可以从定义、线性代数、概率论三个角度来理解，本文对此进行简单的整理。这样的整理不仅有助于我们学习线性回归，也有助于我们理解ridge回归、lasso回归等很多模型。接下来，我们就开始吧。 从定义看最小二乘法简单线性回归模">
 <meta property="og:locale">
+<meta property="og:image" content="c:/Users/yujie/Desktop/微信图片_20210113214544.png">
+<meta property="article:published_time" content="2020-12-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-27T16:00:00.000Z">
 <meta property="article:author" content="小凡大杰">
-<meta property="article:tag" content="Python,机器学习">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/yujie/Desktop/微信图片_20210113214544.png">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/"/>
+  <link rel="canonical" href="http://example.com/2020/12/28/2020-12-28-如何理解最小二乘法/"/>
 
 
 
 
 
-  <title>小凡大杰的博客</title>
+  <title>如何理解最小二乘法？ | 小凡大杰的博客</title>
   
 
 
@@ -143,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,9 +284,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -313,9 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/28/2020-12-28-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" itemprop="url">如何理解最小二乘法？</a></h1>
+          <h1 class="post-title" itemprop="name headline">如何理解最小二乘法？</h1>
         
 
         <div class="post-meta">
@@ -387,9 +388,7 @@
       
 
       
-        
-          
-            <p>无论是传统的统计学，还是时下火热的机器学习，线性回归都是最基础但又十分重要的模型之一。线性回归使用了最小二乘法来估计模型参数，如何理解最小二乘法将成为掌握线性回归的关键。最小二乘法可以从定义、线性代数、概率论三个角度来理解，本文对此进行简单的整理。这样的整理不仅有助于我们学习线性回归，也有助于我们理解ridge回归、lasso回归等很多模型。接下来，我们就开始吧。</p>
+        <p>无论是传统的统计学，还是时下火热的机器学习，线性回归都是最基础但又十分重要的模型之一。线性回归使用了最小二乘法来估计模型参数，如何理解最小二乘法将成为掌握线性回归的关键。最小二乘法可以从定义、线性代数、概率论三个角度来理解，本文对此进行简单的整理。这样的整理不仅有助于我们学习线性回归，也有助于我们理解ridge回归、lasso回归等很多模型。接下来，我们就开始吧。</p>
 <h1 id="从定义看最小二乘法"><a href="#从定义看最小二乘法" class="headerlink" title="从定义看最小二乘法"></a>从定义看最小二乘法</h1><p>简单线性回归模型通常设定为：<br>$$<br>y_i = ax_i+b+e_i<br>$$<br>我们的目的是求解a和b，但是我们希望求解出来的a和b能使得总的误差尽可能的小。也就是说，我们需要定义一个目标函数测量总误差，目标函数达到最小时的a和b，就是我们想要的a和b。</p>
 <p>单条观测数据的误差可以直接定义为$y_i-ax_i-b$，那么总的误差也就是目标函数可以定义为$\sum_{i=1}^{n}(y_i-ax_i-b)$，这样定义的误差有正有负，导致结果恒等于0，我们可以考虑将目标函数定义为$\sum_{i=1}^{n}|y_i-ax_i-b|$。这样的定义貌似解决了问题，但$|x|$不是一个处处可导的函数，这导致求解过程却遇到了麻烦，最终统计学家将线性回归的目标函数定义如下：<br>$$<br>J(a,b)=\sum_{i=1}^{n}(y_i-ax_i-b)^2<br>$$<br>这种定义目标函数的方法就是最小二乘法，最小就是求解最小值，二乘就是乘两次，同一个数据乘两次就是平方，这就是最小二乘法的基本含义，正因为如此，最小二乘法又被称为最小平方法。有了目标函数，接下来就是求解参数a和b，这是一个最优化问题，需要一些微积分的知识：<br>$$<br>arg\min_{a,b}\sum_{i=1}^{n}(y_i-ax_i-b)^2<br>$$<br>微积分中，函数的极值往往在导数为0处出现。参数b看上去求解更加简单，可以先进行求解，令：<br>$$<br>\frac{\partial J(a,b)}{\partial b}=0\<br>$$<br>这是一个复合函数求导问题，根据链式求导法则，可知：<br>$$<br>\sum_{i=1}^n 2(y_i-ax_i-b)(-1)=0\<br>$$<br>$$<br>\sum_{i=1}^n (y_i-ax_i-b)=0\<br>$$</p>
 <p>$$<br>\sum_{i=1}^ny_i-a\sum_{i=1}^nx_i=\sum_{i=1}^nb<br>$$</p>
@@ -416,8 +415,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleLinearRegression</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x, y</span>):</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(x) == <span class="built_in">len</span>(y), \</span><br><span class="line">            <span class="string">&#x27;Simple linear regression reqires the length of x is equal to the length of y&#x27;</span></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line">        self._a = <span class="literal">None</span></span><br><span class="line">        self._b = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#123;&#125;,you can fit a simple linear regression by calling the method of fit and make a prediction by calling the method of predict&#x27;</span>.<span class="built_in">format</span>(self.__class__)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Simple Linear Regression class at &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">hex</span>(<span class="built_in">id</span>(self)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;you can use this method to fit a simple linear regression&quot;&quot;&quot;</span></span><br><span class="line">        x_mean = np.mean(self.x)</span><br><span class="line">        y_mean = np.mean(self.y)</span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line">        den = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> x_i, y_i <span class="keyword">in</span> <span class="built_in">zip</span>(x, y):</span><br><span class="line">            num += (x_i - x_mean) * (y_i - y_mean)</span><br><span class="line">            den += (x_i - x_mean) ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        self._a = num / den</span><br><span class="line">        self._b = y_mean - self._a * x_mean</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit2</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;you can use this method to fit a simple linear regression&quot;&quot;&quot;</span></span><br><span class="line">        x_mean = np.mean(self.x)</span><br><span class="line">        y_mean = np.mean(self.y)</span><br><span class="line">        num = np.dot(x-x_mean,y-y_mean)</span><br><span class="line">        den = np.dot(x-x_mean,x-x_mean)</span><br><span class="line">        self._a = num/den</span><br><span class="line">        self._b = y_mean - self._a * x_mean</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">self, x_predict</span>):</span></span><br><span class="line">        <span class="keyword">assert</span> self._a <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> self._b <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>, \</span><br><span class="line">            <span class="string">&#x27;Please fit the model before calling the predict function&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(x_predict,<span class="built_in">int</span>):</span><br><span class="line">            <span class="keyword">return</span> self.__predict(x_predict)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> np.array([self.__predict(i) <span class="keyword">for</span> i <span class="keyword">in</span> x_predict])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__predict</span>(<span class="params">self, x_predict_i</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self._a * x_predict_i + self._b</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&gt;[<span class="number">0.45293553</span> <span class="number">0.85601313</span> <span class="number">1.66216834</span>]</span><br><span class="line">&lt;class &#x27;__main__.SimpleLinearRegression&#x27;&gt;,you can fit a simple linear regression by calling the method of fit and make a prediction by calling the method of predict</span><br><span class="line"><span class="number">0.40307760585901276</span></span><br><span class="line"><span class="number">0.049857919190661626</span></span><br><span class="line"><span class="number">0.4529355250496744</span></span><br><span class="line">&lt;class &#x27;__main__.SimpleLinearRegression&#x27;&gt;,you can fit a simple linear regression by calling the method of fit and make a prediction by calling the method of predict</span><br><span class="line"><span class="number">0.40307760585901276</span></span><br><span class="line"><span class="number">0.049857919190661626</span></span><br></pre></td></tr></table></figure>
 <p>这里设计了fit和fit2两个方法来拟合模型，前者使用循环来实现累加运算，后者使用numpy的向量化运算来求解模型参数，显然后者的性能更高一些。</p>
 
-          
-        
       
     </div>
     
@@ -427,143 +424,70 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/25/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小凡大杰的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/25/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-25T21:04:47+08:00">
-                2020-12-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/12/25/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/25/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -573,10 +497,17 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -584,6 +515,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -604,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -679,6 +623,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E5%AE%9A%E4%B9%89%E7%9C%8B%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">从定义看最小二乘法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%9C%8B%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">从线性代数看最小二乘法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E6%A6%82%E7%8E%87%E8%AE%BA%E6%9D%A5%E7%9C%8B%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">从概率论来看最小二乘法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -821,6 +781,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
