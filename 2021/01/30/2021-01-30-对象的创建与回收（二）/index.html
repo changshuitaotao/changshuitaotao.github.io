@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -79,15 +79,17 @@
 
 
 
-<meta name="description" content="涉猎的内容主要有Python编程、可视化、数据挖掘、机器学习、生活感想等">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小凡大杰的博客">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="上一次我们简单的介绍了Python中对象的创建，今天我们来介绍对象的回收。在Python中，有一套完整的对象回收的机制，其中最主要的是引用计数机制，然而对于循环引用问题，仅靠引用计数机制还是不够的，Python又提供了分代回收与标记清除机制来解决循环引用问题，我们在编写程序时还可以使用弱引用来避免出现循环引用问题，接下来我们就来学习这些机制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象的创建与回收">
+<meta property="og:url" content="http://example.com/2021/01/30/2021-01-30-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%9B%9E%E6%94%B6%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
 <meta property="og:site_name" content="小凡大杰的博客">
-<meta property="og:description" content="涉猎的内容主要有Python编程、可视化、数据挖掘、机器学习、生活感想等">
+<meta property="og:description" content="上一次我们简单的介绍了Python中对象的创建，今天我们来介绍对象的回收。在Python中，有一套完整的对象回收的机制，其中最主要的是引用计数机制，然而对于循环引用问题，仅靠引用计数机制还是不够的，Python又提供了分代回收与标记清除机制来解决循环引用问题，我们在编写程序时还可以使用弱引用来避免出现循环引用问题，接下来我们就来学习这些机制。">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-01-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-30T06:37:04.189Z">
 <meta property="article:author" content="小凡大杰">
-<meta property="article:tag" content="Python,机器学习">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/"/>
+  <link rel="canonical" href="http://example.com/2021/01/30/2021-01-30-对象的创建与回收（二）/"/>
 
 
 
 
 
-  <title>小凡大杰的博客</title>
+  <title>对象的创建与回收 | 小凡大杰的博客</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,9 +282,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -313,9 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/01/30/2021-01-30-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%9B%9E%E6%94%B6%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url">对象的创建与回收</a></h1>
+          <h1 class="post-title" itemprop="name headline">对象的创建与回收</h1>
         
 
         <div class="post-meta">
@@ -387,16 +386,65 @@
       
 
       
-        
-          <p>上一次我们简单的介绍了Python中对象的创建，今天我们来介绍对象的回收。在Python中，有一套完整的对象回收的机制，其中最主要的是引用计数机制，然而对于循环引用问题，仅靠引用计数机制还是不够的，Python又提供了分代回收与标记清除机制来解决循环引用问题，我们在编写程序时还可以使用弱引用来避免出现循环引用问题，接下来我们就来学习这些机制。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/01/30/2021-01-30-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%9B%9E%E6%94%B6%EF%BC%88%E4%BA%8C%EF%BC%89/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>上一次我们简单的介绍了Python中对象的创建，今天我们来介绍对象的回收。在Python中，有一套完整的对象回收的机制，其中最主要的是引用计数机制，然而对于循环引用问题，仅靠引用计数机制还是不够的，Python又提供了分代回收与标记清除机制来解决循环引用问题，我们在编写程序时还可以使用弱引用来避免出现循环引用问题，接下来我们就来学习这些机制。</p>
+<a id="more"></a>
+
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>在python解释器交互界面键入如下命令，在计算机底层会发生什么呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">300.0</span></span><br><span class="line">b = a</span><br><span class="line"><span class="keyword">del</span> a</span><br></pre></td></tr></table></figure>
+<p>第一条命令显然是创建一个对象，根据前面我们介绍的内容，这条命令肯定是调用一个C API的函数来创建浮点数实例300.0，创建过程中无非就是在堆上开辟内存空间，并初始化设置浮点数实例对象PyFloatObject结构体的成员字段。包括将PyFloatObject中的类型指针指向一个PyFloatType结构体，将数值300.0存储在ob_fval字段中。除此之外，初始化动作还会将PyFloatObject中的ob_refcnt字段设置为1。当PyFloatObject结构体的成员字段都被设置完毕之后，对象就创建完成了，C API会返回这个整数实例对象的内存地址给外界，由变量a来接收。变量a存储了实例对象300.0的内存地址，因此我们说变量本质上是一个指针。可以看到上述创建对象过程中，引用计数也即ob_refcnt字段被设置为了1，这个1到底表达了怎样的含义呢，先不要着急，我们接着往下看。</p>
+<p>第二条命令是<code>b=a</code>，可能很多人会认为这条命令的含义是创建一个与实例对象300.0相同的对象，将新的对象的内存地址赋给b，其实这样的理解是错误的。我们已经知道了python中的变量实际上是一个指针变量，存储的是一个内存地址，这条命令的正确含义就是将a中存储的内存地址复制一份交给b，使b也存储实例对象300.0的内存地址，而非创建一个新的实例对象。看到这里可能有人会问了，如果这样的赋值只是内存地址的传递，似乎对实例对象没有任何影响呀？当然不是了，这条命令发挥作用时，实例对象的ob_refcnt字段会增加1，变为2。</p>
+<p>第三条命令是<code>del a</code>，我们知道关键字<code>del</code>是删除命令，这条命令到底是怎样发挥作用的呢？是不是从堆上将实例对象300.0对应的PyFloatObject删除呢？我们已经知道，a和b都是存储了实例对象300.0的内存地址，如果删除了堆上的结构体，那么再通过b岂不是无法访问这个对象了？那么第2条赋值语句就是无效的了。显然<code>del</code>语句的作用绝对不是从堆上删除对象。其实很简单，这个del的作用其实是接触a和实例对象内存地址的关联关系，并将实例对象的ob_refcnt字段会减少1，变为1。</p>
+<p>看到这里，相信聪明的你已经知道引用计数的含义了。引用计数的英文是reference count，顾名思义，指的就是一个对象被引用的次数，<code>a = 300.0</code>就是变量a引用了实例对象300.0，一个对象每被引用一次，引用计数就会加1，b = a发挥作用时，表示实例对象300.0又被引用一次，因此引用计数增加到2。而<code>del</code>的作用是解除这种引用，每个del生效时，引用计数就会减少1，因此第三条命令中引用计数会减1，变为1。如果再上面程序之后再增加一条命令<code>del b</code>，实例对象的引用计数会再减少1，变为0。引用变为0会产生什么后果呢？引用计数一旦变为0，表示没有变量引用这个对象，我们就无法找到并使用这个对象了，那么这个对象会被当做垃圾被python解释器回收。</p>
+<p>通过PyObject中的ob_refcnt字段，我们了解了Python中对象回收的基本逻辑。空口无凭，接下来我们使用一个案例来验证上述说法是否正确。</p>
+<p>Python内置库sys提供了一个函数<code>getrefcount</code>可以获得一个对象的引用计数，我们可以调用这个函数作一个试验：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">300.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.getrefcount(a)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.getrefcount(a)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> b</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.getrefcount(a)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>第一次输出<code>sys.getrefcount(a)</code>时，结果是2，并不是我们预期的1，这是因为，变量a作为<code>getrefcount(a)</code>的参数传入了函数中，这相当于实例对象300.0新增加了一条引用，因此为2，随后a赋值给b，引用计数会再增加1变为3，然后del b，会删除一条引用，变为2，我们实验的结果与我们的分析是一致的。</p>
+<p>至此，我们就清楚了引用计数ob_refcnt以及python回收对象的基本机制，现在我们有一个问题：哪些行为能增加一次引用，使得引用计数增加1呢，概括而言有以下四种情况：</p>
+<ul>
+<li>对象的创建：如<code>a = 300.0</code></li>
+<li>变量传递使得对象被新的变量所引用，如<code>b = a</code></li>
+<li>引用该对象的某个变量作为参数出现在函数或类中，如<code>func(name)</code>；</li>
+<li>引用对象的某个变量作为容器对象如列表、元组、集合中的元素<code>l = [a,b]</code>。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">300.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.getrefcount(a)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.getrefcount(a)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [a]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.getrefcount(a)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">a</span>):</span></span><br><span class="line"><span class="meta">... </span>    print(sys.getrefcount(a))</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>func(a)</span><br><span class="line"><span class="number">300.0</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>除了del语句之外，也有一些操作可以使引用计数减少：</p>
+<ul>
+<li>将一个新的对象赋给变量，如<code>a = 255</code></li>
+<li>一个对象离开它的作用域中，例如一个函数执行完毕时</li>
+<li>对象所在容器被销毁，或从容器中删除对象。</li>
+</ul>
+<h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><p>引用计数机制实现了由python解释器自动回收对象，将编程人员从繁重的内存管理中解放了出来，但是在实际使用过程中，引用计数机制仍然存在一些重大的缺陷，那就是循环引用问题。什么是循环引用呢？</p>
+<p>我们知道，对于容器对象如list实例来说，其内部存储了很多元素，每个元素也都是一个对象。实际上，容器对象中存储的并不是元素对象本身，而是这些对象的引用。这也是为什么上面提到的，当一个变量作为容器对象的元素时，变量指向对象的引用计数会增加1的原因，因为把一个变量放入容器对象中，相当于内存地址拷贝了一份，引用计数自然增加1。我们来看一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">l1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">l2 = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">l1.append(l2)</span><br><span class="line">l2.append(l1)</span><br></pre></td></tr></table></figure>
+<p>现在我们分析一下上面程序中引用计数的变化，首先，l1和l2创建的时候，引用计数都是1。然后l1追加了一个列表l2，按照上面我们提到的，列表中存储的都是引用，因此l2的内存地址会拷贝一份放入l1索引为3的位置，因此l2的引用会增加1变为2，同理l1的引用计数也变为2。上述分析应该都是没有问题的，我们接着做实验：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> l1</span><br><span class="line"><span class="keyword">del</span> l2</span><br></pre></td></tr></table></figure>
+<p>我们使用del语句显式的销毁了l1和l2的引用，各自的引用计数都减去1，变为1。看到这里，聪明的你是不是已经发现了问题：两个对象的引用计数都不为0，其占用的内存空间都不会被回收，但是已经没有外界变量引用他们，也就是说我们无法再访问到这两个对象，这就出现了内存泄漏问题。</p>
+<p>对象之间互相引用导致引用计数机制失效，这就是循环引用。一般来说循环引用主要出现在容器对象中，类对象与实例对象互项引用，也会出现循环引用问题。那么怎么解决呢，python提供的办法是标记清除，这一机制的基本思想如下：</p>
+<p>对于容器这类对象，在创建后python都会用一个链表将其连在一起，组成一个集合。python每隔一段时间扫描一次这个链表，遍历链表中的每一个容器对象。遍历前，python会将每个容器对象的引用计数拷贝一份，遍历时，会从每个容器对象中的每个元素出发，找到其引用的容器对象，将后者的引用计数减1（在拷贝的引用计数上减1），这样在遍历完所有容器对象后，引用计数为0（拷贝的引用计数）的容器对象是待清理的对象，python会对其进行回收。</p>
+<h2 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h2><p>上面我们提到，每个一段时间，python会扫描一次容器对象链表，并执行标记清除。那么这个时间有多久呢？其实，这里面隐含了python的另一个垃圾回收机制——分代回收。</p>
+<p>分代回收机制基于这样一个假设：存活时间越长的对象，是垃圾的可能性越低，这样我们就可以降低对存活时间长的对象的扫描频率。python确实就是这样做的，python中其实维护了三个容器对象链表，分别为0代链表，1代链表和2代链表。每个新创建的容器对象，会先进入0代链表中，当0代链表中容器对象个数达到一个阈值（默认为700）时，会触发0代链表中容器对象的标记清除，执行完毕后没被清除的对象进入1代链表，1代链表维护一个计数变量加1。接着，新创建的容器对象继续进入0代链表，达到阈值后，1代链表再增加1。当1代链表计数变量达到阈值时（默认为10），会对1代链表和0代链表执行1次标记清除，没被回收的对象再进入2代链表中。如此反复进行下去，很显然，代数越高，扫描的频率越低。</p>
+<p>python提供了gc模块可以帮助我们学习对象回收机制。gc模块提供了几个主要的函数：</p>
+<ul>
+<li><code>gc.enable()</code>：开启标记清除和分代回收，默认开启；</li>
+<li><code>gc.disable()</code>：关闭标记清除和分代回收</li>
+<li><code>gc.isenable()</code>：判定当前标记清除和分代回收机制是否开启。</li>
+<li><code>gc.get_threshold()</code>：查看分代回收的阈值。</li>
+<li><code>gc.set_threshold()</code>：设置分代回收的阈值。</li>
+<li><code>gc.collect()</code>：可以手动触发标记清除和分代回收，这个方法接收一个整数，代表对象的代数。如果是0，表示触发0代垃圾回收，如果是1，表示触发0代和1代垃圾回收，如果是2表示触发0代、1代和2代垃圾回收。如果不传入参数表示触发所有代的垃圾回收。</li>
+</ul>
+<p>限于篇幅，我们仅仅举一个例子来看一下这些函数的使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> gc</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: gc.isenabled()</span><br><span class="line">Out[<span class="number">2</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: gc.get_threshold()</span><br><span class="line">Out[<span class="number">3</span>]: (<span class="number">700</span>, <span class="number">10</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>我们看到，默认的标记清除和分代回收是开启的，而且0代、1代和2代阈值分别是700，10和10。</p>
+<h2 id="强引用与弱引用"><a href="#强引用与弱引用" class="headerlink" title="强引用与弱引用"></a>强引用与弱引用</h2><p>实际在编写程序过程中应该尽量避免循环引用，但是实际需求中确实会出现循环引用。例如张三有一个宠物是小狗，而小狗的主人是张三，这就出现了循环引用。这种情况是实际存在的，针对这种情况，为避免出现循环引用，其实可以使用弱引用。这里需要先区分一下强引用和弱引用：</p>
+<ul>
+<li>强引用：能使对象的引用计数增加1的引用。</li>
+<li>弱引用：使对象的引用计数不必加1的引用。</li>
+</ul>
+<p>使用弱引用需要导入<code>weakref</code>包：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> weakref,gc</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用p变量引用Person实例，属于强引用，引用计数+1为1</span></span><br><span class="line">p = Person()</span><br><span class="line"><span class="comment"># 使用d变量引用Dog实例，属于强引用，引用计数+1为1</span></span><br><span class="line">d = Dog()</span><br><span class="line"><span class="comment"># p的一个属性引用了d，属于强引用，d的引用计数+1为2</span></span><br><span class="line">p.pet = d</span><br><span class="line"><span class="comment"># 创建弱引用，p的引用计数不变，为1</span></span><br><span class="line">d.master = weakref.ref(p)</span><br><span class="line"><span class="comment"># p的引用计数-1，为0，p被回收。p回收的同时，d的引用也随之-1，d的引用变为1</span></span><br><span class="line"><span class="keyword">del</span> p</span><br><span class="line"><span class="comment"># d的引用计数再-1，为0，d被回收。</span></span><br><span class="line"><span class="keyword">del</span> d</span><br></pre></td></tr></table></figure>
+<p>综上，使用弱引用的目的是可以避免出现循环引用。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文主要介绍了python中对象的回收机制，python主要通过引用计数来实现对象的回收，当一个对象的引用计数变为0时，会自动回收这个对象。但是对于循环引用的对象，引用计数无能为力，python提供了标记清除和分代回收机制，python会每隔一段时间扫描一下可能存在循环引用的对象，将循环引用导致的引用计数增加的部分扣除，经此过程后，引用计数变为0的对象会被回收，而且对于存活时间越长的对象，扫描的频率会越低。在本文，我们还学习了避免出现循环引用的一种方法，就是使用弱引用。相信读完本文，你会对python对象的回收有一个系统完整的认识，也能够在开发过程中根据自己的需求开启、关闭标记清除和分代回收，对于相互引用，你也可以考虑使用弱引用了。</p>
+
       
     </div>
     
@@ -406,289 +454,70 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/13/2020-12-28-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小凡大杰的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/01/13/2020-12-28-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" itemprop="url">如何理解最小二乘法？</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-13T00:00:00+08:00">
-                2021-01-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>无论是传统的统计学，还是时下火热的机器学习，线性回归都是最基础但又十分重要的模型之一。线性回归使用了最小二乘法来估计模型参数，如何理解最小二乘法将成为掌握线性回归的关键。最小二乘法可以从定义、线性代数、概率论三个角度来理解，本文对此进行简单的整理。这样的整理不仅有助于我们学习线性回归，也有助于我们理解ridge回归、lasso回归等很多模型。接下来，我们就开始吧。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/01/13/2020-12-28-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/13/2020-12-28-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" rel="next" title="如何理解最小二乘法？">
+                <i class="fa fa-chevron-left"></i> 如何理解最小二乘法？
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/25/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小凡大杰的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/25/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-25T21:04:47+08:00">
-                2020-12-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/12/25/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -698,10 +527,17 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -709,6 +545,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -729,8 +569,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -804,6 +653,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4"><span class="nav-number">2.</span> <span class="nav-text">标记清除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E5%9B%9E%E6%94%B6"><span class="nav-number">3.</span> <span class="nav-text">分代回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%BC%95%E7%94%A8%E4%B8%8E%E5%BC%B1%E5%BC%95%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">强引用与弱引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -946,6 +811,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
