@@ -367,310 +367,6 @@ alt="sns_多维两两自定义图" />
       </tags>
   </entry>
   <entry>
-    <title>线性混合模型</title>
-    <url>/2023/01/27/12.%E7%BA%BF%E6%80%A7%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="模型形式和假定">模型形式和假定</h1>
-<p>假设数据按照某分组变量分为<span
-class="math inline">\(I\)</span>组，用<span
-class="math inline">\(i\)</span>表示组索引，<span
-class="math inline">\(i=1,2,...,I\)</span>，每组包括的观测数目为<span
-class="math inline">\(n_i\)</span>，总样本量为<span
-class="math inline">\(n=\sum_{i=1}^In_i\)</span>。</p>
-<p>线性混合模型的基本形式为： <span class="math display">\[
-\vec y_{i}=X_i\vec \beta+Z_i\vec \alpha_i +\vec \epsilon_i\\
-\vec y_i\in R^{n_i},X_i\in R^{n_i×p},\vec \beta\in R^p,Z_i\in
-R^{n_i×q},\vec \alpha_i \in R^{q},\vec \epsilon_i \in R^{n_i}
-\]</span> 模型中：</p>
-<ul>
-<li><span class="math inline">\(\vec y_i\)</span>表示第<span
-class="math inline">\(i\)</span>组标签向量，向量长度为<span
-class="math inline">\(n_i\)</span>；</li>
-<li><span class="math inline">\(X_i\)</span>表示第<span
-class="math inline">\(i\)</span>组固定效应的数据矩阵，矩阵大小为<span
-class="math inline">\(n_i×p\)</span>；</li>
-<li><span class="math inline">\(\vec
-\beta\)</span>表示固定效应向量，向量长度为<span
-class="math inline">\(p\)</span>，注意没有下标<span
-class="math inline">\(i\)</span>，这意味着<span
-class="math inline">\(X_i\)</span>变量的效应不会跨组发生变化；</li>
-<li><span class="math inline">\(Z_i\)</span>表示第<span
-class="math inline">\(i\)</span>组随机效应的数据矩阵，矩阵大小为<span
-class="math inline">\(n_i×q\)</span>，<span
-class="math inline">\(Z_i\)</span><strong>可以来源于<span
-class="math inline">\(X_i\)</span>中部分列</strong>；</li>
-<li><span class="math inline">\(\vec
-\alpha_i\)</span>表示随机效应向量，向量长度为<span
-class="math inline">\(q\)</span>。注意<span class="math inline">\(\vec
-\alpha_i\)</span>有下标<span
-class="math inline">\(i\)</span>，这意味着<strong>对于同一组共享同一个<span
-class="math inline">\(\vec
-\alpha_i\)</span>，这将导致同一组内数据产生组内相关。同时对于不同组，<span
-class="math inline">\(\vec
-\alpha_i\)</span>相互独立</strong>。<strong>另外<span
-class="math inline">\(\vec
-\alpha_i\)</span>中的每一个分量，可以相互独立也可以存在相关</strong>，需要根据数据确定；</li>
-<li><span class="math inline">\(\vec \epsilon_i\)</span>表示第<span
-class="math inline">\(i\)</span>组的随机误差向量，长度为<span
-class="math inline">\(n_i\)</span>，<strong>对于同一组误差向量，其每一个分量都是相互独立的，对于不同的组，误差也是相互独立</strong>。</li>
-</ul>
-<p>模型中固定效应参数<span class="math inline">\(\vec
-\beta\)</span>是需要估计和推断的，随机效应<span
-class="math inline">\(\vec
-\alpha_i\)</span>是一个随机变量，无法进行估计，只能进行预测。 关于<span
-class="math inline">\(\vec \alpha_i\)</span>和<span
-class="math inline">\(\vec \epsilon_i\)</span>一般还有如下的分布假定：
-<span class="math display">\[
-\begin{bmatrix}
-\vec \alpha_i\\
-\vec \epsilon_i
-\end{bmatrix}\sim
-N_{q+n_i}
-\begin{bmatrix}
-\begin{bmatrix}
-\vec 0\\
-\vec 0
-\end{bmatrix},
-\begin{bmatrix}
-\tilde G&amp;0_{n_i}\\
-0_{q}&amp;R_i
-\end{bmatrix}
-\end{bmatrix}
-\]</span> <span class="math inline">\(\vec \alpha_i\sim N(\vec 0,\tilde
-G),\vec \epsilon_i\sim N(\vec 0,R_i)\)</span>。<strong>注意<span
-class="math inline">\(\vec \alpha_i\)</span>的协方差矩阵没有下标<span
-class="math inline">\(i\)</span>，这意味着任一组有相同的协方差矩阵</strong>。<span
-class="math inline">\(\vec\alpha_i\)</span>是一个<span
-class="math inline">\(q\)</span>维的随机向量，<span
-class="math inline">\(\vec \epsilon_i\)</span>是一个<span
-class="math inline">\(n_i\)</span>维的随机向量，组合起来就是<span
-class="math inline">\(q+n_i\)</span>维的随机向量。这个<span
-class="math inline">\(q+n_i\)</span>维随机向量的均值为<span
-class="math inline">\(\vec 0\)</span>，协方差矩阵为维度为<span
-class="math inline">\((q+n_i)×(q+n_i)\)</span>，协方差矩阵的主对角线元素为<span
-class="math inline">\(G\)</span>和<span
-class="math inline">\(R_i\)</span>，其他为0，这意味着<span
-class="math inline">\(\vec \alpha_i\)</span>和<span
-class="math inline">\(\vec \epsilon_i\)</span>不相关。</p>
-<p>以上只是第<span
-class="math inline">\(i\)</span>组的模型，现将所有组合并给出总模型。我们将所有的<span
-class="math inline">\(\vec y_i\)</span>摞起来得到列向量<span
-class="math inline">\(\vec y\)</span>，其长度为<span
-class="math inline">\(n\)</span>，<span
-class="math inline">\(X_i\)</span>摞起来得到<span
-class="math inline">\(X\)</span>，其大小为<span
-class="math inline">\(n×p\)</span>，<span class="math inline">\(\vec
-\beta\)</span>不变，<span
-class="math inline">\(Z_i\)</span>沿着对角线合并成大小为<span
-class="math inline">\(n×qI\)</span>大小的矩阵（矩阵没有元素的位置用0补全），即<span
-class="math inline">\(Z=diag(Z_1,...Z_i,...Z_I)\)</span>，<span
-class="math inline">\(\vec \alpha_i\)</span>摞起来得到长度为<span
-class="math inline">\(qI\)</span>的列向量，<span
-class="math inline">\(\vec \epsilon_i\)</span>摞起来得到长度为<span
-class="math inline">\(n\)</span>的列向量。因此线性混合模型的完整表达为：
-<span class="math display">\[
-\vec y=X\vec \beta+Z\vec \alpha+\vec \epsilon\\
-\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},Z\in R^{n×qI},\vec
-\alpha\in R^{qI},\vec \epsilon\in R^n
-\]</span> 其中 <span class="math display">\[
-\begin{bmatrix}
-\vec \alpha\\
-\vec \epsilon
-\end{bmatrix}\sim
-N_{qI+n}
-\begin{bmatrix}
-\begin{bmatrix}
-\vec 0\\
-\vec 0
-\end{bmatrix},
-\begin{bmatrix}
-G&amp;0_{n}\\
-0_{qI}&amp;R
-\end{bmatrix}
-\end{bmatrix}
-\]</span> <span class="math inline">\(\vec\alpha\)</span>是一个<span
-class="math inline">\(qI\)</span>维的随机向量，<span
-class="math inline">\(\vec \epsilon\)</span>是一个<span
-class="math inline">\(n\)</span>维随机向量，组合起来就是<span
-class="math inline">\(qI+n\)</span>维随机向量。这个<span
-class="math inline">\(qI+n\)</span>维随机向量的均值为<span
-class="math inline">\(\vec 0\)</span>，协方差矩阵为维度为<span
-class="math inline">\((qI+n)*(qI+n)\)</span>，协方差矩阵的主对角线元素为<span
-class="math inline">\(G\)</span>和<span
-class="math inline">\(R\)</span>，其他为0，这意味着<span
-class="math inline">\(\vec \alpha\)</span>和<span
-class="math inline">\(\vec \epsilon\)</span>不相关。另外<span
-class="math inline">\(G=diag(\tilde G,\tilde G,...,\tilde
-G),R=diag(R_1,...R_i,...,R_I)\)</span>。</p>
-<h1 id="矩阵构造">矩阵构造</h1>
-<p>下面简单介绍一下重要矩阵的构造方法： <span class="math display">\[
-\vec y=\begin{bmatrix}
-\vec y_1\\
-\cdot\cdot\cdot\\
-\vec y_i\\
-\cdot\cdot\cdot\\
-\vec y_I
-\end{bmatrix};
-X=\begin{bmatrix}
-X_1\\
-\cdot\cdot\cdot\\
-X_i\\
-\cdot\cdot\cdot\\
-X_I
-\end{bmatrix};
-\vec \beta=\vec\beta;
-Z=\begin{bmatrix}
-Z_1&amp;0&amp;\cdot\cdot\cdot&amp;0\\
-0&amp;Z_2&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;0&amp;0&amp;Z_I\\
-\end{bmatrix};
-\vec \alpha=\begin{bmatrix}
-\vec \alpha_1\\
-\cdot\cdot\cdot\\
-\vec \alpha_i\\
-\cdot\cdot\cdot\\
-\vec \alpha_I
-\end{bmatrix};
-\vec \epsilon=\begin{bmatrix}
-\vec \epsilon_1\\
-\cdot\cdot\cdot\\
-\vec \epsilon_i\\
-\cdot\cdot\cdot\\
-\vec \epsilon_I
-\end{bmatrix};
-\\
-G=\begin{bmatrix}
-G&amp;0&amp;\cdot\cdot\cdot&amp;0\\
-0&amp;G&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;0&amp;0&amp;G\\
-\end{bmatrix};
-R=\begin{bmatrix}
-R_1&amp;0&amp;\cdot\cdot\cdot&amp;0\\
-0&amp;R_2&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;0&amp;0&amp;R_I\\
-\end{bmatrix};
-\]</span></p>
-<h1 id="因变量的分布">因变量的分布</h1>
-<h2 id="条件分布">条件分布</h2>
-<p>对于线性混合模型： <span class="math display">\[
-\vec y=X\vec \beta+Z\vec \alpha+\vec \epsilon\\
-\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},Z\in R^{n×qI},\vec
-\alpha\in R^{qI},\vec \epsilon\in R^n
-\]</span> <span class="math inline">\(\vec \alpha\)</span>和<span
-class="math inline">\(\vec \epsilon\)</span>均为随机的，当<span
-class="math inline">\(\vec \alpha\)</span>固定时，可以导出<span
-class="math inline">\(\vec y\)</span>的条件分布为多元正态分布： <span
-class="math display">\[
-\vec y|\vec \alpha\sim N(X\vec \beta+Z\vec \alpha,R)\\
-\vec \alpha\sim N(\vec 0,G)
-\]</span></p>
-<h2 id="边缘分布">边缘分布</h2>
-<p><span class="math inline">\(\vec
-y\)</span>的边缘分布同样为多元正态分布： <span class="math display">\[
-\vec y\sim N(X\vec\beta,ZGZ^T+R)
-\]</span> 方便起见，我们可以定义<span class="math inline">\(V\)</span>：
-<span class="math display">\[
-V=ZGZ^T+R
-\]</span> 从给定<span class="math inline">\(\vec \alpha\)</span>后<span
-class="math inline">\(\vec
-y\)</span>的条件分布及其边缘分布来看，固定效应系数<span
-class="math inline">\(\vec \beta\)</span>起到了相同的作用，
-可以将其看成总体（所有受试者）所共有的特性。也就是说，对于总体的平均估计为<span
-class="math inline">\(X\vec \beta\)</span>，对于某个特定组的预测为<span
-class="math inline">\(X\vec \beta+Z\vec \alpha\)</span>。</p>
-<h1 id="参数估计">参数估计</h1>
-<h2 id="混合模型方程">混合模型方程</h2>
-<p>由于已经假定<span class="math inline">\(\vec \alpha\sim N(\vec
-0,G)\)</span>，其密度函数为： <span class="math display">\[
-f(\vec \alpha)=\frac{1}{\sqrt{(2\pi)^{qI}|G|}}exp^{[-\frac{1}{2}\vec
-\alpha^TG^{-1}\vec \alpha]}
-\]</span> 并且我们推导出<span class="math inline">\(\vec y|\vec
-\alpha\sim N(X\vec \beta+Z\vec \alpha,R)\)</span>，其密度函数为： <span
-class="math display">\[
-f(\vec y|\vec
-\alpha)=\frac{1}{\sqrt{(2\pi)^{qI}|R|}}exp^{[-\frac{1}{2}(\vec y-X\vec
-\beta-Z\vec \alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)]}
-\]</span> 这样就可以写出<span class="math inline">\(\vec
-\alpha\)</span>与<span class="math inline">\(\vec y\)</span>的联合密度：
-<span class="math display">\[
-f(\vec y,\vec \alpha)=f(\vec y|\vec \alpha)f(\vec \alpha)\\
-=\frac{1}{\sqrt{(2\pi)^{qJ}|G|}}exp^{[-\frac{1}{2}\vec
-\alpha^TG^{-1}\vec
-\alpha]}\frac{1}{\sqrt{(2\pi)^{qJ}|R|}}exp^{[-\frac{1}{2}(\vec y-X\vec
-\beta-Z\vec \alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)]}
-\]</span> 将其看作是参数为<span class="math inline">\(\vec
-\alpha\)</span>和<span class="math inline">\(\vec
-\beta\)</span>的似然函数，并取对数为： <span class="math display">\[
-\mathop{ln}f(\vec y,\vec \alpha)=-\mathop
-{ln}\sqrt{(2\pi)^{qI}|G|}-\mathop{ln}\sqrt{(2\pi)^{qI}|R|}-\frac{1}{2}\vec
-\alpha^TG^{-1}\vec \alpha-\frac{1}{2}(\vec y-X\vec \beta-Z\vec
-\alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)
-\]</span> 只需要最小化下面式子即可： <span class="math display">\[
-L=\vec \alpha^TG^{-1}\vec \alpha+(\vec y-X\vec \beta-Z\vec
-\alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)
-\]</span> 将式子展开： <span class="math display">\[
-L=\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^TR^{-1}\vec y-\vec
-y^TR^{-1}X\vec \beta-\vec y^TR^{-1}Z\vec \alpha\\-\vec
-\beta^TX^TR^{-1}\vec y+\vec \beta^T X^TR^{-1}X\vec \beta+\vec
-\beta^TX^TR^{-1}Z\vec \alpha\\-\vec \alpha^TZ^TR^{-1}\vec y+\vec
-\alpha^TZ^TR^{-1}X\vec \beta+\vec \alpha^TZ^TR^{-1}Z\vec \alpha
-\]</span> 合并同类项得： <span class="math display">\[
-L=\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^TR^{-1}\vec y\\-2\vec
-\beta^TX^TR^{-1}\vec y+\vec \beta^T X^TR^{-1}X\vec \beta+\vec
-2\beta^TX^TR^{-1}Z\vec \alpha\\-2\vec \alpha^TZ^TR^{-1}\vec y+\vec
-\alpha^TZ^TR^{-1}Z\vec \alpha
-\]</span> 该式子分别对<span class="math inline">\(\vec
-\alpha\)</span>和<span class="math inline">\(\vec
-\beta\)</span>求偏导可得： <span class="math display">\[
-\frac{\partial L}{\partial \vec \alpha}=2(G^{-1}\vec
-\alpha+Z^TR^{-1}X\vec \beta-Z^TR^{-1}\vec y+Z^TR^{-1}Z\vec \alpha)\\
-\frac{\partial L}{\partial \vec \beta}=2(X^TR^{-1}X\vec
-\beta+X^TR^{-1}Z\vec \alpha-X^TR^{-1}\vec y)
-\]</span> 令偏导数为0，可以得到下面的方程系统： <span
-class="math display">\[
-\begin{bmatrix}
-Z^TR^{-1}X&amp;G^{-1}+Z^TR^{-1}Z\\
-X^TR^{-1}X&amp;X^TR^{-1}Z
-\end{bmatrix}
-\begin{bmatrix}
-\vec \beta\\
-\vec \alpha
-\end{bmatrix}=
-\begin{bmatrix}
-Z^TR^{-1}\vec y\\
-X^TR^{-1}\vec y
-\end{bmatrix}
-\]</span></p>
-<p>这个方程系统被称为混合模型方程。这个方程的解为： <span
-class="math display">\[
-\begin{bmatrix}
-\tilde{\vec \beta}\\
-\tilde{\vec \alpha}
-\end{bmatrix}=
-\begin{bmatrix}
-(X^TV^{-1}X)^{-1}X^TV^{-1}\vec y\\
-GZ^TV^{-1}(\vec y-X(X^TV^{-1}X)^{-1}X^TV^{-1}\vec y)
-\end{bmatrix}
-\]</span></p>
-<h2 id="混合模型方程求解">混合模型方程求解</h2>
-<p>我们令两个偏导数为0，可得： <span class="math display">\[
-X^TR^{-1}X\tilde {\vec \beta}+X^TR^{-1}Z\vec \alpha=X^TR^{-1}\vec y\\
-(G^{-1}+Z^TR^{-1}Z)\tilde{\vec \alpha}+Z^TR^{-1}X\vec
-\beta=Z^TR^{-1}\vec y
-\]</span></p>
-]]></content>
-      <categories>
-        <category>数理统计</category>
-      </categories>
-      <tags>
-        <tag>回归</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>回归分析</title>
     <url>/2023/01/20/11.%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>​</p>
@@ -1081,6 +777,310 @@ class="math inline">\(X^TX\)</span>的条件数，条件数较大（例如大于
 class="math inline">\(x\)</span>和<span
 class="math inline">\(x^2\)</span>的相关性就比较强，此时解决办法是将<span
 class="math inline">\(x\)</span>做标准化，并引入标准化变量的平方。</p>
+]]></content>
+      <categories>
+        <category>数理统计</category>
+      </categories>
+      <tags>
+        <tag>回归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性混合模型</title>
+    <url>/2023/01/27/12.%E7%BA%BF%E6%80%A7%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="模型形式和假定">模型形式和假定</h1>
+<p>假设数据按照某分组变量分为<span
+class="math inline">\(I\)</span>组，用<span
+class="math inline">\(i\)</span>表示组索引，<span
+class="math inline">\(i=1,2,...,I\)</span>，每组包括的观测数目为<span
+class="math inline">\(n_i\)</span>，总样本量为<span
+class="math inline">\(n=\sum_{i=1}^In_i\)</span>。</p>
+<p>线性混合模型的基本形式为： <span class="math display">\[
+\vec y_{i}=X_i\vec \beta+Z_i\vec \alpha_i +\vec \epsilon_i\\
+\vec y_i\in R^{n_i},X_i\in R^{n_i×p},\vec \beta\in R^p,Z_i\in
+R^{n_i×q},\vec \alpha_i \in R^{q},\vec \epsilon_i \in R^{n_i}
+\]</span> 模型中：</p>
+<ul>
+<li><span class="math inline">\(\vec y_i\)</span>表示第<span
+class="math inline">\(i\)</span>组标签向量，向量长度为<span
+class="math inline">\(n_i\)</span>；</li>
+<li><span class="math inline">\(X_i\)</span>表示第<span
+class="math inline">\(i\)</span>组固定效应的数据矩阵，矩阵大小为<span
+class="math inline">\(n_i×p\)</span>；</li>
+<li><span class="math inline">\(\vec
+\beta\)</span>表示固定效应向量，向量长度为<span
+class="math inline">\(p\)</span>，注意没有下标<span
+class="math inline">\(i\)</span>，这意味着<span
+class="math inline">\(X_i\)</span>变量的效应不会跨组发生变化；</li>
+<li><span class="math inline">\(Z_i\)</span>表示第<span
+class="math inline">\(i\)</span>组随机效应的数据矩阵，矩阵大小为<span
+class="math inline">\(n_i×q\)</span>，<span
+class="math inline">\(Z_i\)</span><strong>可以来源于<span
+class="math inline">\(X_i\)</span>中部分列</strong>；</li>
+<li><span class="math inline">\(\vec
+\alpha_i\)</span>表示随机效应向量，向量长度为<span
+class="math inline">\(q\)</span>。注意<span class="math inline">\(\vec
+\alpha_i\)</span>有下标<span
+class="math inline">\(i\)</span>，这意味着<strong>对于同一组共享同一个<span
+class="math inline">\(\vec
+\alpha_i\)</span>，这将导致同一组内数据产生组内相关。同时对于不同组，<span
+class="math inline">\(\vec
+\alpha_i\)</span>相互独立</strong>。<strong>另外<span
+class="math inline">\(\vec
+\alpha_i\)</span>中的每一个分量，可以相互独立也可以存在相关</strong>，需要根据数据确定；</li>
+<li><span class="math inline">\(\vec \epsilon_i\)</span>表示第<span
+class="math inline">\(i\)</span>组的随机误差向量，长度为<span
+class="math inline">\(n_i\)</span>，<strong>对于同一组误差向量，其每一个分量都是相互独立的，对于不同的组，误差也是相互独立</strong>。</li>
+</ul>
+<p>模型中固定效应参数<span class="math inline">\(\vec
+\beta\)</span>是需要估计和推断的，随机效应<span
+class="math inline">\(\vec
+\alpha_i\)</span>是一个随机变量，无法进行估计，只能进行预测。 关于<span
+class="math inline">\(\vec \alpha_i\)</span>和<span
+class="math inline">\(\vec \epsilon_i\)</span>一般还有如下的分布假定：
+<span class="math display">\[
+\begin{bmatrix}
+\vec \alpha_i\\
+\vec \epsilon_i
+\end{bmatrix}\sim
+N_{q+n_i}
+\begin{bmatrix}
+\begin{bmatrix}
+\vec 0\\
+\vec 0
+\end{bmatrix},
+\begin{bmatrix}
+\tilde G&amp;0_{n_i}\\
+0_{q}&amp;R_i
+\end{bmatrix}
+\end{bmatrix}
+\]</span> <span class="math inline">\(\vec \alpha_i\sim N(\vec 0,\tilde
+G),\vec \epsilon_i\sim N(\vec 0,R_i)\)</span>。<strong>注意<span
+class="math inline">\(\vec \alpha_i\)</span>的协方差矩阵没有下标<span
+class="math inline">\(i\)</span>，这意味着任一组有相同的协方差矩阵</strong>。<span
+class="math inline">\(\vec\alpha_i\)</span>是一个<span
+class="math inline">\(q\)</span>维的随机向量，<span
+class="math inline">\(\vec \epsilon_i\)</span>是一个<span
+class="math inline">\(n_i\)</span>维的随机向量，组合起来就是<span
+class="math inline">\(q+n_i\)</span>维的随机向量。这个<span
+class="math inline">\(q+n_i\)</span>维随机向量的均值为<span
+class="math inline">\(\vec 0\)</span>，协方差矩阵为维度为<span
+class="math inline">\((q+n_i)×(q+n_i)\)</span>，协方差矩阵的主对角线元素为<span
+class="math inline">\(G\)</span>和<span
+class="math inline">\(R_i\)</span>，其他为0，这意味着<span
+class="math inline">\(\vec \alpha_i\)</span>和<span
+class="math inline">\(\vec \epsilon_i\)</span>不相关。</p>
+<p>以上只是第<span
+class="math inline">\(i\)</span>组的模型，现将所有组合并给出总模型。我们将所有的<span
+class="math inline">\(\vec y_i\)</span>摞起来得到列向量<span
+class="math inline">\(\vec y\)</span>，其长度为<span
+class="math inline">\(n\)</span>，<span
+class="math inline">\(X_i\)</span>摞起来得到<span
+class="math inline">\(X\)</span>，其大小为<span
+class="math inline">\(n×p\)</span>，<span class="math inline">\(\vec
+\beta\)</span>不变，<span
+class="math inline">\(Z_i\)</span>沿着对角线合并成大小为<span
+class="math inline">\(n×qI\)</span>大小的矩阵（矩阵没有元素的位置用0补全），即<span
+class="math inline">\(Z=diag(Z_1,...Z_i,...Z_I)\)</span>，<span
+class="math inline">\(\vec \alpha_i\)</span>摞起来得到长度为<span
+class="math inline">\(qI\)</span>的列向量，<span
+class="math inline">\(\vec \epsilon_i\)</span>摞起来得到长度为<span
+class="math inline">\(n\)</span>的列向量。因此线性混合模型的完整表达为：
+<span class="math display">\[
+\vec y=X\vec \beta+Z\vec \alpha+\vec \epsilon\\
+\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},Z\in R^{n×qI},\vec
+\alpha\in R^{qI},\vec \epsilon\in R^n
+\]</span> 其中 <span class="math display">\[
+\begin{bmatrix}
+\vec \alpha\\
+\vec \epsilon
+\end{bmatrix}\sim
+N_{qI+n}
+\begin{bmatrix}
+\begin{bmatrix}
+\vec 0\\
+\vec 0
+\end{bmatrix},
+\begin{bmatrix}
+G&amp;0_{n}\\
+0_{qI}&amp;R
+\end{bmatrix}
+\end{bmatrix}
+\]</span> <span class="math inline">\(\vec\alpha\)</span>是一个<span
+class="math inline">\(qI\)</span>维的随机向量，<span
+class="math inline">\(\vec \epsilon\)</span>是一个<span
+class="math inline">\(n\)</span>维随机向量，组合起来就是<span
+class="math inline">\(qI+n\)</span>维随机向量。这个<span
+class="math inline">\(qI+n\)</span>维随机向量的均值为<span
+class="math inline">\(\vec 0\)</span>，协方差矩阵为维度为<span
+class="math inline">\((qI+n)*(qI+n)\)</span>，协方差矩阵的主对角线元素为<span
+class="math inline">\(G\)</span>和<span
+class="math inline">\(R\)</span>，其他为0，这意味着<span
+class="math inline">\(\vec \alpha\)</span>和<span
+class="math inline">\(\vec \epsilon\)</span>不相关。另外<span
+class="math inline">\(G=diag(\tilde G,\tilde G,...,\tilde
+G),R=diag(R_1,...R_i,...,R_I)\)</span>。</p>
+<h1 id="矩阵构造">矩阵构造</h1>
+<p>下面简单介绍一下重要矩阵的构造方法： <span class="math display">\[
+\vec y=\begin{bmatrix}
+\vec y_1\\
+\cdot\cdot\cdot\\
+\vec y_i\\
+\cdot\cdot\cdot\\
+\vec y_I
+\end{bmatrix};
+X=\begin{bmatrix}
+X_1\\
+\cdot\cdot\cdot\\
+X_i\\
+\cdot\cdot\cdot\\
+X_I
+\end{bmatrix};
+\vec \beta=\vec\beta;
+Z=\begin{bmatrix}
+Z_1&amp;0&amp;\cdot\cdot\cdot&amp;0\\
+0&amp;Z_2&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;0&amp;0&amp;Z_I\\
+\end{bmatrix};
+\vec \alpha=\begin{bmatrix}
+\vec \alpha_1\\
+\cdot\cdot\cdot\\
+\vec \alpha_i\\
+\cdot\cdot\cdot\\
+\vec \alpha_I
+\end{bmatrix};
+\vec \epsilon=\begin{bmatrix}
+\vec \epsilon_1\\
+\cdot\cdot\cdot\\
+\vec \epsilon_i\\
+\cdot\cdot\cdot\\
+\vec \epsilon_I
+\end{bmatrix};
+\\
+G=\begin{bmatrix}
+G&amp;0&amp;\cdot\cdot\cdot&amp;0\\
+0&amp;G&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;0&amp;0&amp;G\\
+\end{bmatrix};
+R=\begin{bmatrix}
+R_1&amp;0&amp;\cdot\cdot\cdot&amp;0\\
+0&amp;R_2&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;0&amp;0&amp;R_I\\
+\end{bmatrix};
+\]</span></p>
+<h1 id="因变量的分布">因变量的分布</h1>
+<h2 id="条件分布">条件分布</h2>
+<p>对于线性混合模型： <span class="math display">\[
+\vec y=X\vec \beta+Z\vec \alpha+\vec \epsilon\\
+\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},Z\in R^{n×qI},\vec
+\alpha\in R^{qI},\vec \epsilon\in R^n
+\]</span> <span class="math inline">\(\vec \alpha\)</span>和<span
+class="math inline">\(\vec \epsilon\)</span>均为随机的，当<span
+class="math inline">\(\vec \alpha\)</span>固定时，可以导出<span
+class="math inline">\(\vec y\)</span>的条件分布为多元正态分布： <span
+class="math display">\[
+\vec y|\vec \alpha\sim N(X\vec \beta+Z\vec \alpha,R)\\
+\vec \alpha\sim N(\vec 0,G)
+\]</span></p>
+<h2 id="边缘分布">边缘分布</h2>
+<p><span class="math inline">\(\vec
+y\)</span>的边缘分布同样为多元正态分布： <span class="math display">\[
+\vec y\sim N(X\vec\beta,ZGZ^T+R)
+\]</span> 方便起见，我们可以定义<span class="math inline">\(V\)</span>：
+<span class="math display">\[
+V=ZGZ^T+R
+\]</span> 从给定<span class="math inline">\(\vec \alpha\)</span>后<span
+class="math inline">\(\vec
+y\)</span>的条件分布及其边缘分布来看，固定效应系数<span
+class="math inline">\(\vec \beta\)</span>起到了相同的作用，
+可以将其看成总体（所有受试者）所共有的特性。也就是说，对于总体的平均估计为<span
+class="math inline">\(X\vec \beta\)</span>，对于某个特定组的预测为<span
+class="math inline">\(X\vec \beta+Z\vec \alpha\)</span>。</p>
+<h1 id="参数估计">参数估计</h1>
+<h2 id="混合模型方程">混合模型方程</h2>
+<p>由于已经假定<span class="math inline">\(\vec \alpha\sim N(\vec
+0,G)\)</span>，其密度函数为： <span class="math display">\[
+f(\vec \alpha)=\frac{1}{\sqrt{(2\pi)^{qI}|G|}}exp^{[-\frac{1}{2}\vec
+\alpha^TG^{-1}\vec \alpha]}
+\]</span> 并且我们推导出<span class="math inline">\(\vec y|\vec
+\alpha\sim N(X\vec \beta+Z\vec \alpha,R)\)</span>，其密度函数为： <span
+class="math display">\[
+f(\vec y|\vec
+\alpha)=\frac{1}{\sqrt{(2\pi)^{qI}|R|}}exp^{[-\frac{1}{2}(\vec y-X\vec
+\beta-Z\vec \alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)]}
+\]</span> 这样就可以写出<span class="math inline">\(\vec
+\alpha\)</span>与<span class="math inline">\(\vec y\)</span>的联合密度：
+<span class="math display">\[
+f(\vec y,\vec \alpha)=f(\vec y|\vec \alpha)f(\vec \alpha)\\
+=\frac{1}{\sqrt{(2\pi)^{qJ}|G|}}exp^{[-\frac{1}{2}\vec
+\alpha^TG^{-1}\vec
+\alpha]}\frac{1}{\sqrt{(2\pi)^{qJ}|R|}}exp^{[-\frac{1}{2}(\vec y-X\vec
+\beta-Z\vec \alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)]}
+\]</span> 将其看作是参数为<span class="math inline">\(\vec
+\alpha\)</span>和<span class="math inline">\(\vec
+\beta\)</span>的似然函数，并取对数为： <span class="math display">\[
+\mathop{ln}f(\vec y,\vec \alpha)=-\mathop
+{ln}\sqrt{(2\pi)^{qI}|G|}-\mathop{ln}\sqrt{(2\pi)^{qI}|R|}-\frac{1}{2}\vec
+\alpha^TG^{-1}\vec \alpha-\frac{1}{2}(\vec y-X\vec \beta-Z\vec
+\alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)
+\]</span> 只需要最小化下面式子即可： <span class="math display">\[
+L=\vec \alpha^TG^{-1}\vec \alpha+(\vec y-X\vec \beta-Z\vec
+\alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)
+\]</span> 将式子展开： <span class="math display">\[
+L=\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^TR^{-1}\vec y-\vec
+y^TR^{-1}X\vec \beta-\vec y^TR^{-1}Z\vec \alpha\\-\vec
+\beta^TX^TR^{-1}\vec y+\vec \beta^T X^TR^{-1}X\vec \beta+\vec
+\beta^TX^TR^{-1}Z\vec \alpha\\-\vec \alpha^TZ^TR^{-1}\vec y+\vec
+\alpha^TZ^TR^{-1}X\vec \beta+\vec \alpha^TZ^TR^{-1}Z\vec \alpha
+\]</span> 合并同类项得： <span class="math display">\[
+L=\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^TR^{-1}\vec y\\-2\vec
+\beta^TX^TR^{-1}\vec y+\vec \beta^T X^TR^{-1}X\vec \beta+\vec
+2\beta^TX^TR^{-1}Z\vec \alpha\\-2\vec \alpha^TZ^TR^{-1}\vec y+\vec
+\alpha^TZ^TR^{-1}Z\vec \alpha
+\]</span> 该式子分别对<span class="math inline">\(\vec
+\alpha\)</span>和<span class="math inline">\(\vec
+\beta\)</span>求偏导可得： <span class="math display">\[
+\frac{\partial L}{\partial \vec \alpha}=2(G^{-1}\vec
+\alpha+Z^TR^{-1}X\vec \beta-Z^TR^{-1}\vec y+Z^TR^{-1}Z\vec \alpha)\\
+\frac{\partial L}{\partial \vec \beta}=2(X^TR^{-1}X\vec
+\beta+X^TR^{-1}Z\vec \alpha-X^TR^{-1}\vec y)
+\]</span> 令偏导数为0，可以得到下面的方程系统： <span
+class="math display">\[
+\begin{bmatrix}
+Z^TR^{-1}X&amp;G^{-1}+Z^TR^{-1}Z\\
+X^TR^{-1}X&amp;X^TR^{-1}Z
+\end{bmatrix}
+\begin{bmatrix}
+\vec \beta\\
+\vec \alpha
+\end{bmatrix}=
+\begin{bmatrix}
+Z^TR^{-1}\vec y\\
+X^TR^{-1}\vec y
+\end{bmatrix}
+\]</span></p>
+<p>这个方程系统被称为混合模型方程。这个方程的解为： <span
+class="math display">\[
+\begin{bmatrix}
+\tilde{\vec \beta}\\
+\tilde{\vec \alpha}
+\end{bmatrix}=
+\begin{bmatrix}
+(X^TV^{-1}X)^{-1}X^TV^{-1}\vec y\\
+GZ^TV^{-1}(\vec y-X(X^TV^{-1}X)^{-1}X^TV^{-1}\vec y)
+\end{bmatrix}
+\]</span></p>
+<h2 id="混合模型方程求解">混合模型方程求解</h2>
+<p>我们令两个偏导数为0，可得： <span class="math display">\[
+X^TR^{-1}X\tilde {\vec \beta}+X^TR^{-1}Z\vec \alpha=X^TR^{-1}\vec y\\
+(G^{-1}+Z^TR^{-1}Z)\tilde{\vec \alpha}+Z^TR^{-1}X\vec
+\beta=Z^TR^{-1}\vec y
+\]</span></p>
 ]]></content>
       <categories>
         <category>数理统计</category>
@@ -1781,6 +1781,206 @@ aggregating。基本思想是通过bootstrap抽样方法从原始数据集中抽
       </tags>
   </entry>
   <entry>
+    <title>似然理论综述</title>
+    <url>/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="最大似然估计的基本思想">最大似然估计的基本思想</h1>
+<p>记随机变量<span class="math inline">\(Y\)</span>的概率密度函数为<span
+class="math inline">\(f(y_i;\vec w)\)</span>，其中<span
+class="math inline">\(\vec w\)</span>为概率密度函数中的参数向量，<span
+class="math inline">\(\vec w\in R^p\)</span>。现在<span
+class="math inline">\(\vec
+w\)</span>未知需要进行估计，可抽取包括n个观测数据的随机样本<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>，用样本来估计参数<span
+class="math inline">\(\vec w\)</span>。记这<span
+class="math inline">\(n\)</span>个观测数据的联合密度为： <span
+class="math display">\[
+L(\vec w;y_1,y_2,...,y_n)=\prod_{i=1}^nf(y_i;\vec w)
+\]</span> 在这个表达式中，<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>已经通过抽样获得，是已知的，而<span
+class="math inline">\(\vec
+w\)</span>是未知的，因此可以将表达式看作给定<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>后关于未知参数<span
+class="math inline">\(\vec
+w\)</span>的函数，这个函数被称为似然函数。由于参数<span
+class="math inline">\(\vec
+w\)</span>是未知的，因此似然函数衡量的是在不同的<span
+class="math inline">\(\vec w\)</span>取值下出现当前随机样本<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>的可能性。究竟哪个<span
+class="math inline">\(\vec
+w\)</span>导致了当前样本的出现呢？我们可以认为使当前样本出现可能性最大的那个<span
+class="math inline">\(\vec w\)</span>就是最有可能的<span
+class="math inline">\(\vec
+w\)</span>。因此我们需要做的就是使可能性达到最大，即最大化上述的似然函数：
+<span class="math display">\[
+max \,L(\vec w;y_1,y_2,...,y_n)
+\]</span>
+这就是最大似然估计。由于似然函数是一个乘积的形式，不便进行运算，常对其取对数转换为求和的形式，因此最大似然最终往往转换为最大化对数似然，即：
+<span class="math display">\[
+max\, ln L(\vec w;y_1,y_2,...,y_n)
+\]</span> 记最大似然估计的估计值为<span class="math inline">\(\hat {\vec
+w}_{ML}\)</span>，常写为： <span class="math display">\[
+\hat{\vec w}_{ML}=argmax\,lnL(\vec w;\vec y)
+\]</span> 这里的<span class="math inline">\(argmax\)</span>表示使得<span
+class="math inline">\(lnL(\vec w,\vec y)\)</span>取得最大时的<span
+class="math inline">\(\vec
+w\)</span>的取值。这里额外提一句，对数似然函数往往就是机器学习中的损失函数。</p>
+<h1 id="最大似然估计的求解">最大似然估计的求解</h1>
+<p>最大似然估计的求解并没有什么不同，我们对对数似然函数求一阶导数得到梯度向量<span
+class="math inline">\(\vec u(\vec w)\)</span>： <span
+class="math display">\[
+\vec u(\vec w)=\frac{\partial lnL(\vec w;\vec y)}{\partial \vec w}
+\]</span>
+如果似然函数是凹函数，就可以令梯度向量为0，从而得到最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>。有时候梯度向量是一个非线性函数，此时可以使用我们熟悉的迭代法求解。即先给<span
+class="math inline">\(\vec
+w\)</span>一个初始值，然后一轮一轮迭代，直到达到收敛条件。如果使用牛顿法，则第<span
+class="math inline">\(k+1\)</span>轮牛顿迭代公式为： <span
+class="math display">\[
+\vec w_{k+1}=\vec w_k-H(\vec w_k)^{-1}\vec u(\vec w_k)
+\]</span></p>
+<p><span class="math inline">\(H(\vec w_k)\)</span>为<span
+class="math inline">\(\vec
+w_k\)</span>处的hessian矩阵，即对数似然函数的二阶导数。</p>
+<h1 id="最大似然估计的性质">最大似然估计的性质</h1>
+<p>最大似然估计之所以常用，在于其有良好的性质。在介绍这些性质之前，需要再补充两个概念：得分函数和信息矩阵。</p>
+<h2 id="得分函数">得分函数</h2>
+<p>对数似然函数的一阶导数即梯度向量<span class="math inline">\(\vec
+u(\vec
+w)\)</span>有另外的名称：得分函数或得分向量。它有下面几个特点：</p>
+<ul>
+<li>得分函数是一个随机向量。这是因为我们是使用样本来估计参数<span
+class="math inline">\(\vec
+w\)</span>的，我们得到的样本只是抽样后的一次具体实现值，在抽样前为随机向量，所以得分函数是随机向量；</li>
+<li>得分函数是参数<span class="math inline">\(\vec
+w\)</span>的函数，这一点无需多说；</li>
+<li>既然得分函数是随机向量，自然有期望和协方差矩阵；</li>
+<li>当参数<span class="math inline">\(\vec w\)</span>取真实值<span
+class="math inline">\(\vec w_0\)</span>时，得分函数的期望为0；</li>
+<li>得分函数的协方差矩阵为信息矩阵。</li>
+</ul>
+<h2 id="信息矩阵">信息矩阵</h2>
+<p>得分函数的协方差矩阵为信息矩阵，如参数<span
+class="math inline">\(\vec w\)</span>取真实值<span
+class="math inline">\(\vec w_0\)</span>时，信息矩阵为： <span
+class="math display">\[
+var[\vec u(\vec w_0)]=E[(\vec u(\vec w_0)-\vec 0)(\vec u(\vec w_0)-\vec
+0)^T]\\
+=E[\vec u(\vec w_0)(\vec u(\vec w_0))^T]\\
+=I(\vec w_0)
+\]</span>
+称这个矩阵为信息矩阵。信息矩阵有什么作用呢？后面我们就会看到，信息矩阵与最大似然估计值的渐进方差有关。信息矩阵由于做了期望运算，因此不再是随机矩阵。信息矩阵往往还等于对数似然函数二阶导数期望的相反数：
+<span class="math display">\[
+I(\vec w_0)=-E[H(\vec w_0)]
+\]</span>
+这两个公式都是理论计算公式，实际中我们还是需要用样本来估计信息矩阵。常用的计算信息矩阵的方法有两种：</p>
+<h3 id="梯度向量外积法">梯度向量外积法</h3>
+<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
+w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
+w_{ML}\)</span>处的梯度向量，然后对梯度向量做外积，得到信息矩阵的估计值。</p>
+<h3 id="观测信息矩阵法">观测信息矩阵法</h3>
+<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
+w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
+w_{ML}\)</span>处的hessian矩阵，对hessian矩阵直接取相反数得到信息矩阵的估计值。</p>
+<h2 id="最大似然估计的性质-1">最大似然估计的性质</h2>
+<p>有了上述两个概念为基础，下面介绍一下最大似然估计的几个性质：</p>
+<h3 id="一致性">一致性</h3>
+<p>一致性是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>依概率收敛到真实值<span
+class="math inline">\(\vec w_0\)</span>，即： <span
+class="math display">\[
+\hat{\vec w}_{ML}\mathop{\rightarrow}^{p}\vec w_0
+\]</span> 一致性告诉我们，随着样本量逐渐增大，最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>等于真实值<span
+class="math inline">\(\vec w_0\)</span>的概率越来越接近1。</p>
+<h3 id="渐进正态">渐进正态</h3>
+<p>渐进正态是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>依分布收敛于正态分布，即： <span class="math display">\[
+\sqrt n(\hat{\vec w}_{ML}-\vec w_0)\mathop{\rightarrow}^dN(0,nI(\vec
+w_0)^{-1})
+\]</span> 这里的<span class="math inline">\(nI(\vec
+w_0)^{-1}\)</span>是正态分布的方差协方差矩阵，称为最大似然估计的渐进方差。这个性质告诉我们，随着样本量增大，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的概率分布越来越接近正态分布。这个性质也告诉我们最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>的渐进方差为： <span
+class="math display">\[
+I(\vec w_0)^{-1}
+\]</span> 也就是说最大似然估计值<span class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的渐进方差为信息矩阵<span class="math inline">\(I(\vec
+w_0)\)</span>的逆。</p>
+<h3 id="有效性">有效性</h3>
+<p>这个性质是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的方差达到了克莱默-劳下限。简而言之，可以理解为最大似然估计的方差是最小的。</p>
+<h1 id="最大似然估计的假设检验">最大似然估计的假设检验</h1>
+<p>在涉及统计推断时，会需要对参数估计值进行假设检验，这里顺带也回顾一下常见的几种假设检验方法。令无效假设为：
+<span class="math display">\[
+H_0:\hat{\vec w}_{ML}=\vec w_s
+\]</span> 这里的<span class="math inline">\(\vec
+w_s\)</span>是已知的，常见如<span class="math inline">\(\vec
+0\)</span>。</p>
+<h2 id="wald检验">wald检验</h2>
+<p>根据上面介绍的最大似然估计的基本性质，我们已经知道在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>近似服从均数为真实值<span class="math inline">\(\vec
+w_0\)</span>，方差协方差矩阵为信息矩阵逆矩阵的正态分布： <span
+class="math display">\[
+\hat{\vec w}_{ML}\sim N(\vec w_0,I(\vec w_0)^{-1})
+\]</span> <span class="math inline">\(I(\vec
+w_0)^{-1}\)</span>通常难以获得，故采用<span
+class="math inline">\(I(\hat{\vec w}_{ML})^{-1}\)</span>来估计。</p>
+<p>wald检验的思路其实很简单，其实就是借助正态分布来做假设检验。因为<span
+class="math inline">\(\vec w_s\)</span>是已知的常数向量，若<span
+class="math inline">\(H_0\)</span>假设成立，则<span
+class="math inline">\(\hat{\vec w}_{ML}-\vec
+w_s\)</span>将同样近似服从正态分布。因此，可构造如下二次型统计量： <span
+class="math display">\[
+W =(\hat{\vec w}_{ML}-\vec w_s)^T[var(\hat{\vec w}_{ML})]^{-1}(\hat{\vec
+w}_{ML}-\vec w_s)\\
+=(\hat{\vec w}_{ML}-\vec w_s)^TI(\hat{\vec w}_{ML})(\hat{\vec
+w}_{ML}-\vec w_s)
+\]</span> 它将服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布，<span
+class="math inline">\(p\)</span>为参数向量的维度。</p>
+<h2 id="似然比检验">似然比检验</h2>
+<p>似然比检验的基本思路为：将<span class="math inline">\(\hat{\vec
+w}_{ML}\)</span>和<span class="math inline">\(\vec
+w_s\)</span>分别带入对数似然函数公式求得对数似然函数值，若<span
+class="math inline">\(H_0\)</span>成立，二者应该相差不大，若二者相差很大，则有理由拒绝<span
+class="math inline">\(H_0\)</span>假设。为此构造如下统计量： <span
+class="math display">\[
+LR=2(lnL(\hat{\vec w}_{ML})-lnL(\vec w_s))
+\]</span> 可以证明，该统计量同样服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布。</p>
+<h2 id="得分检验">得分检验</h2>
+<p>从得分检验名称可以看出，这个检验应该和得分向量有关，事实上确实如此。得分检验的基本思路如下：由于对数似然函数在估计值<span
+class="math inline">\(\hat {\vec
+w}_{ML}\)</span>处的得分函数为0，若<span
+class="math inline">\(H_0\)</span>成立，对数似然函数在<span
+class="math inline">\(\vec
+w_s\)</span>处的得分函数也应该接近0。得分函数的<span
+class="math inline">\(\vec w_s\)</span>的渐进方差可以用<span
+class="math inline">\(I(\vec
+w_s)\)</span>来估计，注意这里没有取逆，因此可以构造如下二次型统计量：
+<span class="math display">\[
+LM=\frac{\partial ln L(\vec w_s)}{\partial \vec w}^T[I(\vec
+w_s)]^{-1}\frac{\partial ln L(\vec w_s)}{\partial \vec w}
+\]</span> 可以证明，上述统计量同样服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布。</p>
+<h1 id="总结">总结</h1>
+<p>最后我们对本文内容做一下总结。似然函数的表达式在形式上等于联合密度函数，只不过是数据已知，参数未定，通过最大化对数似然来得到参数估计值。最大似然估计值的一阶导数为梯度向量，梯度向量为随机向量，协方差矩阵为信息矩阵。若密度函数设定是正确的，最大似然估计值在大样本下服从均数为0，协方差矩阵为信息矩阵逆矩阵的正态分布，信息矩阵常用样本数据对数似然函数在最大似然估计值处的hessian矩阵取负，或者梯度向量外积来估计。常用的基于最大似然的假设检验方法为wald检验、似然比检验和得分检验。</p>
+]]></content>
+      <categories>
+        <category>数理统计</category>
+      </categories>
+      <tags>
+        <tag>数理统计</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>生存分析</title>
     <url>/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>​</p>
@@ -2070,206 +2270,6 @@ w}}}
       </tags>
   </entry>
   <entry>
-    <title>似然理论综述</title>
-    <url>/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="最大似然估计的基本思想">最大似然估计的基本思想</h1>
-<p>记随机变量<span class="math inline">\(Y\)</span>的概率密度函数为<span
-class="math inline">\(f(y_i;\vec w)\)</span>，其中<span
-class="math inline">\(\vec w\)</span>为概率密度函数中的参数向量，<span
-class="math inline">\(\vec w\in R^p\)</span>。现在<span
-class="math inline">\(\vec
-w\)</span>未知需要进行估计，可抽取包括n个观测数据的随机样本<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>，用样本来估计参数<span
-class="math inline">\(\vec w\)</span>。记这<span
-class="math inline">\(n\)</span>个观测数据的联合密度为： <span
-class="math display">\[
-L(\vec w;y_1,y_2,...,y_n)=\prod_{i=1}^nf(y_i;\vec w)
-\]</span> 在这个表达式中，<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>已经通过抽样获得，是已知的，而<span
-class="math inline">\(\vec
-w\)</span>是未知的，因此可以将表达式看作给定<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>后关于未知参数<span
-class="math inline">\(\vec
-w\)</span>的函数，这个函数被称为似然函数。由于参数<span
-class="math inline">\(\vec
-w\)</span>是未知的，因此似然函数衡量的是在不同的<span
-class="math inline">\(\vec w\)</span>取值下出现当前随机样本<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>的可能性。究竟哪个<span
-class="math inline">\(\vec
-w\)</span>导致了当前样本的出现呢？我们可以认为使当前样本出现可能性最大的那个<span
-class="math inline">\(\vec w\)</span>就是最有可能的<span
-class="math inline">\(\vec
-w\)</span>。因此我们需要做的就是使可能性达到最大，即最大化上述的似然函数：
-<span class="math display">\[
-max \,L(\vec w;y_1,y_2,...,y_n)
-\]</span>
-这就是最大似然估计。由于似然函数是一个乘积的形式，不便进行运算，常对其取对数转换为求和的形式，因此最大似然最终往往转换为最大化对数似然，即：
-<span class="math display">\[
-max\, ln L(\vec w;y_1,y_2,...,y_n)
-\]</span> 记最大似然估计的估计值为<span class="math inline">\(\hat {\vec
-w}_{ML}\)</span>，常写为： <span class="math display">\[
-\hat{\vec w}_{ML}=argmax\,lnL(\vec w;\vec y)
-\]</span> 这里的<span class="math inline">\(argmax\)</span>表示使得<span
-class="math inline">\(lnL(\vec w,\vec y)\)</span>取得最大时的<span
-class="math inline">\(\vec
-w\)</span>的取值。这里额外提一句，对数似然函数往往就是机器学习中的损失函数。</p>
-<h1 id="最大似然估计的求解">最大似然估计的求解</h1>
-<p>最大似然估计的求解并没有什么不同，我们对对数似然函数求一阶导数得到梯度向量<span
-class="math inline">\(\vec u(\vec w)\)</span>： <span
-class="math display">\[
-\vec u(\vec w)=\frac{\partial lnL(\vec w;\vec y)}{\partial \vec w}
-\]</span>
-如果似然函数是凹函数，就可以令梯度向量为0，从而得到最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>。有时候梯度向量是一个非线性函数，此时可以使用我们熟悉的迭代法求解。即先给<span
-class="math inline">\(\vec
-w\)</span>一个初始值，然后一轮一轮迭代，直到达到收敛条件。如果使用牛顿法，则第<span
-class="math inline">\(k+1\)</span>轮牛顿迭代公式为： <span
-class="math display">\[
-\vec w_{k+1}=\vec w_k-H(\vec w_k)^{-1}\vec u(\vec w_k)
-\]</span></p>
-<p><span class="math inline">\(H(\vec w_k)\)</span>为<span
-class="math inline">\(\vec
-w_k\)</span>处的hessian矩阵，即对数似然函数的二阶导数。</p>
-<h1 id="最大似然估计的性质">最大似然估计的性质</h1>
-<p>最大似然估计之所以常用，在于其有良好的性质。在介绍这些性质之前，需要再补充两个概念：得分函数和信息矩阵。</p>
-<h2 id="得分函数">得分函数</h2>
-<p>对数似然函数的一阶导数即梯度向量<span class="math inline">\(\vec
-u(\vec
-w)\)</span>有另外的名称：得分函数或得分向量。它有下面几个特点：</p>
-<ul>
-<li>得分函数是一个随机向量。这是因为我们是使用样本来估计参数<span
-class="math inline">\(\vec
-w\)</span>的，我们得到的样本只是抽样后的一次具体实现值，在抽样前为随机向量，所以得分函数是随机向量；</li>
-<li>得分函数是参数<span class="math inline">\(\vec
-w\)</span>的函数，这一点无需多说；</li>
-<li>既然得分函数是随机向量，自然有期望和协方差矩阵；</li>
-<li>当参数<span class="math inline">\(\vec w\)</span>取真实值<span
-class="math inline">\(\vec w_0\)</span>时，得分函数的期望为0；</li>
-<li>得分函数的协方差矩阵为信息矩阵。</li>
-</ul>
-<h2 id="信息矩阵">信息矩阵</h2>
-<p>得分函数的协方差矩阵为信息矩阵，如参数<span
-class="math inline">\(\vec w\)</span>取真实值<span
-class="math inline">\(\vec w_0\)</span>时，信息矩阵为： <span
-class="math display">\[
-var[\vec u(\vec w_0)]=E[(\vec u(\vec w_0)-\vec 0)(\vec u(\vec w_0)-\vec
-0)^T]\\
-=E[\vec u(\vec w_0)(\vec u(\vec w_0))^T]\\
-=I(\vec w_0)
-\]</span>
-称这个矩阵为信息矩阵。信息矩阵有什么作用呢？后面我们就会看到，信息矩阵与最大似然估计值的渐进方差有关。信息矩阵由于做了期望运算，因此不再是随机矩阵。信息矩阵往往还等于对数似然函数二阶导数期望的相反数：
-<span class="math display">\[
-I(\vec w_0)=-E[H(\vec w_0)]
-\]</span>
-这两个公式都是理论计算公式，实际中我们还是需要用样本来估计信息矩阵。常用的计算信息矩阵的方法有两种：</p>
-<h3 id="梯度向量外积法">梯度向量外积法</h3>
-<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
-w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
-w_{ML}\)</span>处的梯度向量，然后对梯度向量做外积，得到信息矩阵的估计值。</p>
-<h3 id="观测信息矩阵法">观测信息矩阵法</h3>
-<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
-w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
-w_{ML}\)</span>处的hessian矩阵，对hessian矩阵直接取相反数得到信息矩阵的估计值。</p>
-<h2 id="最大似然估计的性质-1">最大似然估计的性质</h2>
-<p>有了上述两个概念为基础，下面介绍一下最大似然估计的几个性质：</p>
-<h3 id="一致性">一致性</h3>
-<p>一致性是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>依概率收敛到真实值<span
-class="math inline">\(\vec w_0\)</span>，即： <span
-class="math display">\[
-\hat{\vec w}_{ML}\mathop{\rightarrow}^{p}\vec w_0
-\]</span> 一致性告诉我们，随着样本量逐渐增大，最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>等于真实值<span
-class="math inline">\(\vec w_0\)</span>的概率越来越接近1。</p>
-<h3 id="渐进正态">渐进正态</h3>
-<p>渐进正态是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>依分布收敛于正态分布，即： <span class="math display">\[
-\sqrt n(\hat{\vec w}_{ML}-\vec w_0)\mathop{\rightarrow}^dN(0,nI(\vec
-w_0)^{-1})
-\]</span> 这里的<span class="math inline">\(nI(\vec
-w_0)^{-1}\)</span>是正态分布的方差协方差矩阵，称为最大似然估计的渐进方差。这个性质告诉我们，随着样本量增大，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的概率分布越来越接近正态分布。这个性质也告诉我们最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>的渐进方差为： <span
-class="math display">\[
-I(\vec w_0)^{-1}
-\]</span> 也就是说最大似然估计值<span class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的渐进方差为信息矩阵<span class="math inline">\(I(\vec
-w_0)\)</span>的逆。</p>
-<h3 id="有效性">有效性</h3>
-<p>这个性质是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的方差达到了克莱默-劳下限。简而言之，可以理解为最大似然估计的方差是最小的。</p>
-<h1 id="最大似然估计的假设检验">最大似然估计的假设检验</h1>
-<p>在涉及统计推断时，会需要对参数估计值进行假设检验，这里顺带也回顾一下常见的几种假设检验方法。令无效假设为：
-<span class="math display">\[
-H_0:\hat{\vec w}_{ML}=\vec w_s
-\]</span> 这里的<span class="math inline">\(\vec
-w_s\)</span>是已知的，常见如<span class="math inline">\(\vec
-0\)</span>。</p>
-<h2 id="wald检验">wald检验</h2>
-<p>根据上面介绍的最大似然估计的基本性质，我们已经知道在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>近似服从均数为真实值<span class="math inline">\(\vec
-w_0\)</span>，方差协方差矩阵为信息矩阵逆矩阵的正态分布： <span
-class="math display">\[
-\hat{\vec w}_{ML}\sim N(\vec w_0,I(\vec w_0)^{-1})
-\]</span> <span class="math inline">\(I(\vec
-w_0)^{-1}\)</span>通常难以获得，故采用<span
-class="math inline">\(I(\hat{\vec w}_{ML})^{-1}\)</span>来估计。</p>
-<p>wald检验的思路其实很简单，其实就是借助正态分布来做假设检验。因为<span
-class="math inline">\(\vec w_s\)</span>是已知的常数向量，若<span
-class="math inline">\(H_0\)</span>假设成立，则<span
-class="math inline">\(\hat{\vec w}_{ML}-\vec
-w_s\)</span>将同样近似服从正态分布。因此，可构造如下二次型统计量： <span
-class="math display">\[
-W =(\hat{\vec w}_{ML}-\vec w_s)^T[var(\hat{\vec w}_{ML})]^{-1}(\hat{\vec
-w}_{ML}-\vec w_s)\\
-=(\hat{\vec w}_{ML}-\vec w_s)^TI(\hat{\vec w}_{ML})(\hat{\vec
-w}_{ML}-\vec w_s)
-\]</span> 它将服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布，<span
-class="math inline">\(p\)</span>为参数向量的维度。</p>
-<h2 id="似然比检验">似然比检验</h2>
-<p>似然比检验的基本思路为：将<span class="math inline">\(\hat{\vec
-w}_{ML}\)</span>和<span class="math inline">\(\vec
-w_s\)</span>分别带入对数似然函数公式求得对数似然函数值，若<span
-class="math inline">\(H_0\)</span>成立，二者应该相差不大，若二者相差很大，则有理由拒绝<span
-class="math inline">\(H_0\)</span>假设。为此构造如下统计量： <span
-class="math display">\[
-LR=2(lnL(\hat{\vec w}_{ML})-lnL(\vec w_s))
-\]</span> 可以证明，该统计量同样服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布。</p>
-<h2 id="得分检验">得分检验</h2>
-<p>从得分检验名称可以看出，这个检验应该和得分向量有关，事实上确实如此。得分检验的基本思路如下：由于对数似然函数在估计值<span
-class="math inline">\(\hat {\vec
-w}_{ML}\)</span>处的得分函数为0，若<span
-class="math inline">\(H_0\)</span>成立，对数似然函数在<span
-class="math inline">\(\vec
-w_s\)</span>处的得分函数也应该接近0。得分函数的<span
-class="math inline">\(\vec w_s\)</span>的渐进方差可以用<span
-class="math inline">\(I(\vec
-w_s)\)</span>来估计，注意这里没有取逆，因此可以构造如下二次型统计量：
-<span class="math display">\[
-LM=\frac{\partial ln L(\vec w_s)}{\partial \vec w}^T[I(\vec
-w_s)]^{-1}\frac{\partial ln L(\vec w_s)}{\partial \vec w}
-\]</span> 可以证明，上述统计量同样服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布。</p>
-<h1 id="总结">总结</h1>
-<p>最后我们对本文内容做一下总结。似然函数的表达式在形式上等于联合密度函数，只不过是数据已知，参数未定，通过最大化对数似然来得到参数估计值。最大似然估计值的一阶导数为梯度向量，梯度向量为随机向量，协方差矩阵为信息矩阵。若密度函数设定是正确的，最大似然估计值在大样本下服从均数为0，协方差矩阵为信息矩阵逆矩阵的正态分布，信息矩阵常用样本数据对数似然函数在最大似然估计值处的hessian矩阵取负，或者梯度向量外积来估计。常用的基于最大似然的假设检验方法为wald检验、似然比检验和得分检验。</p>
-]]></content>
-      <categories>
-        <category>数理统计</category>
-      </categories>
-      <tags>
-        <tag>数理统计</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数理统计中的一些基本概念</title>
     <url>/2023/01/07/8.%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<p>​</p>
@@ -2511,35 +2511,6 @@ class="math inline">\(X\)</span>是出现阳性结果的次数，不是样本均
       <tags>
         <tag>数理统计</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/12/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a
-href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a
-href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>常用假设检验方法</title>
@@ -3895,5 +3866,34 @@ s.t.\quad \alpha_i\ge0\\
       <tags>
         <tag>分类</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/12/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a
+href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a
+href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
 </search>
