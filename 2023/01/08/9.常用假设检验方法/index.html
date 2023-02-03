@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用假设检验方法">
+<meta property="og:url" content="http://example.com/2023/01/08/9.%E5%B8%B8%E7%94%A8%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-03T16:24:09.071Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数理统计">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/01/08/9.%E5%B8%B8%E7%94%A8%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/01/08/9.%E5%B8%B8%E7%94%A8%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95/","path":"2023/01/08/9.常用假设检验方法/","title":"常用假设检验方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>常用假设检验方法 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E7%9A%84%E6%A3%80%E9%AA%8C"><span class="nav-number">1.</span> <span class="nav-text">分布的检验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pearson%E6%8B%9F%E5%90%88%E4%BC%98%E5%BA%A6chi2%E6%A3%80%E9%AA%8C"><span class="nav-number">1.1.</span> <span class="nav-text">Pearson拟合优度\(\chi^2\)检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E5%88%86%E5%B8%83%E5%AE%8C%E5%85%A8%E5%B7%B2%E7%9F%A5"><span class="nav-number">1.1.1.</span> <span class="nav-text">理论分布完全已知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E5%88%86%E5%B8%83%E5%B7%B2%E7%9F%A5%E4%BD%86%E6%98%AF%E5%88%86%E5%B8%83%E4%B8%AD%E5%8F%82%E6%95%B0%E6%9C%AA%E7%9F%A5"><span class="nav-number">1.1.2.</span> <span class="nav-text">理论分布已知但是分布中参数未知</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kolmogorov%E6%A3%80%E9%AA%8C"><span class="nav-number">1.2.</span> <span class="nav-text">Kolmogorov检验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%80%81%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-number">1.3.</span> <span class="nav-text">正态性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%A4%BA%E6%B3%95qq%E5%9B%BE"><span class="nav-number">1.3.1.</span> <span class="nav-text">图示法（QQ图）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%AD%A3%E6%80%81%E6%A6%82%E7%8E%87%E5%9B%BE%E7%9A%84%E6%A3%80%E9%AA%8C"><span class="nav-number">1.3.2.</span> <span class="nav-text">基于正态概率图的检验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#correlation-coefficient-with-normal-probability-plots"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Correlation
+Coefficient with Normal Probability Plots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shapiro-wilk-test"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Shapiro-Wilk Test</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%BB%8F%E9%AA%8C%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E7%9A%84%E6%A3%80%E9%AA%8C"><span class="nav-number">1.3.3.</span> <span class="nav-text">基于经验分布函数的检验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#anderson-darling-test"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">Anderson-Darling Test</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cramer-von-mises-test"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">Cramer-von Mises Test</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jarquebera-test"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">Jarque–Bera Test</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">常用的一些假设检验方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#z%E6%A3%80%E9%AA%8C"><span class="nav-number">2.1.</span> <span class="nav-text">Z检验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%87%E7%9A%84z%E6%A3%80%E9%AA%8C"><span class="nav-number">2.2.</span> <span class="nav-text">率的Z检验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%BC%E7%84%B6%E6%AF%94%E6%A3%80%E9%AA%8C"><span class="nav-number">2.3.</span> <span class="nav-text">似然比检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E5%88%86%E5%B8%83%E5%AE%8C%E5%85%A8%E5%B7%B2%E7%9F%A5-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">理论分布完全已知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E5%88%86%E5%B8%83%E5%B7%B2%E7%9F%A5%E4%BD%86%E6%98%AF%E5%88%86%E5%B8%83%E4%B8%AD%E5%8F%82%E6%95%B0%E6%9C%AA%E7%9F%A5-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">理论分布已知但是分布中参数未知</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-number">3.</span> <span class="nav-text">单样本的假设检验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">连续变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83"><span class="nav-number">3.1.1.</span> <span class="nav-text">正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma2%E5%B7%B2%E7%9F%A5"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">\(\sigma^2\)已知</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma2%E6%9C%AA%E7%9F%A5%E4%B8%94%E5%B0%8F%E6%A0%B7%E6%9C%AC"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">\(\sigma^2\)未知，且小样本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma2%E6%9C%AA%E7%9F%A5%E4%BD%86%E6%98%AF%E5%A4%A7%E6%A0%B7%E6%9C%AC"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">\(\sigma^2\)未知，但是大样本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83"><span class="nav-number">3.1.2.</span> <span class="nav-text">非正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%A3%80%E9%AA%8C"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">符号检验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B2%BE%E7%A1%AE%E6%A3%80%E9%AA%8C"><span class="nav-number">3.1.2.1.1.</span> <span class="nav-text">精确检验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%91%E4%BC%BC%E6%A3%80%E9%AA%8C"><span class="nav-number">3.1.2.1.2.</span> <span class="nav-text">近似检验</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wilcoxon%E7%AC%A6%E5%8F%B7%E7%A7%A9%E6%A3%80%E9%AA%8C"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">Wilcoxon符号秩检验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F"><span class="nav-number">3.2.</span> <span class="nav-text">分类变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AF%E5%8A%AA%E5%88%A9%E5%88%86%E5%B8%83"><span class="nav-number">3.2.1.</span> <span class="nav-text">伯努利分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B2%BE%E7%A1%AE%E6%A3%80%E9%AA%8C-1"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">精确检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%91%E4%BC%BC%E6%A3%80%E9%AA%8C-1"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">近似检验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E9%A1%B9%E5%88%86%E5%B8%83"><span class="nav-number">3.2.2.</span> <span class="nav-text">多项分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%8F%98%E9%87%8F"><span class="nav-number">3.3.</span> <span class="nav-text">有序变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%A4%E5%A4%9A%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">两&#x2F;多独立样本的假设检验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F-1"><span class="nav-number">4.1.</span> <span class="nav-text">连续变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83-1"><span class="nav-number">4.1.1.</span> <span class="nav-text">正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma_12%E5%92%8Csigma_22%E5%9D%87%E5%B7%B2%E7%9F%A5"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">\(\sigma_1^2\)和\(\sigma_2^2\)均已知</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma_12-sigma_22%E4%BD%86%E6%9C%AA%E7%9F%A5"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">\(\sigma_1^2
+&#x3D; \sigma_2^2\)但未知</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma_12ne-sigma_22%E4%B8%94%E6%9C%AA%E7%9F%A5"><span class="nav-number">4.1.1.3.</span> <span class="nav-text">\(\sigma_1^2\ne \sigma_2^2\)且未知</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83-1"><span class="nav-number">4.1.2.</span> <span class="nav-text">非正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#wilcoxon%E7%A7%A9%E5%92%8C%E6%A3%80%E9%AA%8C"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">Wilcoxon秩和检验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F-1"><span class="nav-number">4.2.</span> <span class="nav-text">分类变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#chi2%E6%A3%80%E9%AA%8C%E4%BC%BC%E7%84%B6%E6%AF%94%E6%A3%80%E9%AA%8C"><span class="nav-number">4.2.1.</span> <span class="nav-text">\(\chi^2\)检验&#x2F;似然比检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%81%94%E8%A1%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.2.</span> <span class="nav-text">2×2列联表的几种检验方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%81%87%E5%AE%9A"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">分布假定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fisher%E7%B2%BE%E7%A1%AE%E6%A3%80%E9%AA%8C"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">Fisher精确检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mantel-haenszel-%E5%8D%A1%E6%96%B9%E6%A3%80%E9%AA%8C"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">Mantel-Haenszel 卡方检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF%E6%AF%94%E6%A3%80%E9%AA%8C"><span class="nav-number">4.2.2.4.</span> <span class="nav-text">优势比检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cochran-mantel-haenszel-%E5%8D%A1%E6%96%B9%E6%A3%80%E9%AA%8C%E5%88%86%E5%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">4.2.2.5.</span> <span class="nav-text">Cochran-Mantel-Haenszel
+卡方检验（分层分析）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%8F%98%E9%87%8F-1"><span class="nav-number">4.3.</span> <span class="nav-text">有序变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E5%AF%B9%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-number">5.</span> <span class="nav-text">配对样本的假设检验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F-2"><span class="nav-number">5.1.</span> <span class="nav-text">连续变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E5%80%BC%E4%B8%BA%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83"><span class="nav-number">5.1.1.</span> <span class="nav-text">差值为正态分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%AE%E5%80%BC%E4%B8%8D%E6%9C%8D%E4%BB%8E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83"><span class="nav-number">5.1.2.</span> <span class="nav-text">差值不服从正态分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%A3%80%E9%AA%8C-1"><span class="nav-number">5.1.2.1.</span> <span class="nav-text">符号检验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wilcoxon%E7%AC%A6%E5%8F%B7%E7%A7%A9%E5%92%8C%E6%A3%80%E9%AA%8C"><span class="nav-number">5.1.2.2.</span> <span class="nav-text">Wilcoxon符号秩和检验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F-2"><span class="nav-number">5.2.</span> <span class="nav-text">分类变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E9%BD%90%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-number">5.2.1.</span> <span class="nav-text">边缘齐性检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-number">5.2.2.</span> <span class="nav-text">一致性检验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%8F%98%E9%87%8F-2"><span class="nav-number">5.3.</span> <span class="nav-text">有序变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E6%A3%80%E9%AA%8C-1"><span class="nav-number">5.3.1.</span> <span class="nav-text">一致性检验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E5%8F%98%E9%87%8F%E7%9A%84%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9B%B8%E5%90%88%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-number">6.</span> <span class="nav-text">双变量的相关性&#x2F;相合性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F-3"><span class="nav-number">6.1.</span> <span class="nav-text">连续变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83-2"><span class="nav-number">6.1.1.</span> <span class="nav-text">正态分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83-2"><span class="nav-number">6.1.2.</span> <span class="nav-text">非正态分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F-3"><span class="nav-number">6.2.</span> <span class="nav-text">分类变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#phi%E7%B3%BB%E6%95%B0"><span class="nav-number">6.2.1.</span> <span class="nav-text">\(\phi\)系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cramerquad-v%E7%B3%BB%E6%95%B0"><span class="nav-number">6.2.2.</span> <span class="nav-text">\(Cramer\quad
+V\)系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pearson%E5%88%97%E8%81%94%E7%B3%BB%E6%95%B0"><span class="nav-number">6.2.3.</span> <span class="nav-text">\(Pearson\)列联系数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%8F%98%E9%87%8F-3"><span class="nav-number">6.3.</span> <span class="nav-text">有序变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="nav-number">6.3.1.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kendallsquad-tau_a"><span class="nav-number">6.3.2.</span> <span class="nav-text">\(kendall&#39;s\quad \tau_a\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kendallsquad-tau_b"><span class="nav-number">6.3.3.</span> <span class="nav-text">\(kendall&#39;s\quad \tau_b\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kendallsquad-tau_c"><span class="nav-number">6.3.4.</span> <span class="nav-text">\(kendall&#39;s\quad \tau_c\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gamma%E7%B3%BB%E6%95%B0"><span class="nav-number">6.3.5.</span> <span class="nav-text">\(gamma\)系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#somers-d%E7%B3%BB%E6%95%B0"><span class="nav-number">6.3.6.</span> <span class="nav-text">Somers&#39; D系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%90%88%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-number">6.3.7.</span> <span class="nav-text">相合性检验</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/08/9.%E5%B8%B8%E7%94%A8%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="常用假设检验方法 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常用假设检验方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-08 00:00:00" itemprop="dateCreated datePublished" datetime="2023-01-08T00:00:00+08:00">2023-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-04 00:24:09" itemprop="dateModified" datetime="2023-02-04T00:24:09+08:00">2023-02-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">数理统计</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>37 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​</p>
+<span id="more"></span>
+<h1 id="分布的检验">分布的检验</h1>
+<p>主要用来检验样本来自的总体，是否服从某个特定分布。</p>
+<h2 id="pearson拟合优度chi2检验">Pearson拟合优度<span
+class="math inline">\(\chi^2\)</span>检验</h2>
+<h3 id="理论分布完全已知">理论分布完全已知</h3>
+<p>如果理论分布以及分布中的参数都已知，这时候可以将数轴<span
+class="math inline">\((-\infty,+\infty)\)</span>划分为m个区间，根据密度函数就可以计算数据落入各个区间的概率<span
+class="math inline">\(p_1,p_2,...p_i,...,p_m\)</span>。记样本数据落入各个区间的频数分别为<span
+class="math inline">\(n_1,n_2,...n_i,...,n_m\)</span>，那么如果<span
+class="math inline">\(H_0\)</span>成立，则理论上落入各个区间的频数（理论频数）应该为<span
+class="math inline">\(np_i,n=n_1+n_2+...+n_m\)</span>，此时统计量：
+<span class="math display">\[
+K=\sum_{i=1}^m\frac{(n_i-np_i)^2}{np_i}\mathop{\rightarrow}^d
+\chi^2(m-1)
+\]</span>
+Pearson卡方检验要求分组后每组理论频数不应该小于5，如果小于5需要做连续型矫正。</p>
+<blockquote>
+<p>R中<code>chisq.test()</code>函数可以做Pearson卡方检验。其主要参数为：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chisq.test<span class="punctuation">(</span>x<span class="punctuation">,</span> y <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> correct <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span></span><br><span class="line">           p <span class="operator">=</span> <span class="built_in">rep</span><span class="punctuation">(</span><span class="number">1</span><span class="operator">/</span><span class="built_in">length</span><span class="punctuation">(</span>x<span class="punctuation">)</span><span class="punctuation">,</span> <span class="built_in">length</span><span class="punctuation">(</span>x<span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">,</span> rescale.p <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span></span><br><span class="line">           simulate.p.value <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span> B <span class="operator">=</span> <span class="number">2000</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><span
+class="math inline">\(x\)</span>是由观测数据构成的向量或矩阵，如果是向量，一般直接将其转换为区间频数，从而与参数<span
+class="math inline">\(p\)</span>相对应；</li>
+<li><span class="math inline">\(y\)</span>是数据向量（当<span
+class="math inline">\(x\)</span>为矩阵时，<span
+class="math inline">\(y\)</span>无效）；</li>
+<li><span
+class="math inline">\(correct\)</span>是逻辑向量，表明是否进行连续性修正，<span
+class="math inline">\(TRUE\)</span>时表示修正；</li>
+<li><span
+class="math inline">\(p\)</span>为原假设落在小区间的理论概率，缺省时表示均匀分布</li>
+</ul>
+</blockquote>
+<h3
+id="理论分布已知但是分布中参数未知">理论分布已知但是分布中参数未知</h3>
+<p>若理论分布中存在未知参数，例如我们想检验样本对应的总体是否是正态分布，而正态分布有两个参数，我们并不知道这两个参数。此时可以先通过极大似然估计来估计出这些未知参数，然后再按照理论分布已知的<span
+class="math inline">\(Pearson\quad \chi^2\)</span>
+的方法进行检验。不同的是，<strong>此时检验统计量将渐进服从自由度为<span
+class="math inline">\(m − 1 − r\)</span>的卡方分布，<span
+class="math inline">\(r\)</span>为分布中未知参数的个数。</strong>因为估计这些未知参数消耗了<span
+class="math inline">\(r\)</span>个自由度，因此最终自由度需要减去<span
+class="math inline">\(r\)</span>。</p>
+<h2 id="kolmogorov检验">Kolmogorov检验</h2>
+<p>一般只用来对<strong>理论分布为连续型分布</strong>进行检验，该连续型分布为一维分布且<strong>不能有未知参数</strong>。在满足条件的情况下，一般认为Kolmogorov检验优于Pearson卡方拟合优度检验。该检验的检验统计量为：
+<span class="math display">\[
+D_n=\mathop{sup}_x|F_n(x)-F_0(x)|
+\]</span> 这里的<span
+class="math inline">\(sup\)</span>为上确界（类似最大值），<span
+class="math inline">\(F_n(x)\)</span>为经验分布函数，<span
+class="math inline">\(F_0(x)\)</span>为<span
+class="math inline">\(H_0\)</span>假设中的理论分布函数。</p>
+<p>当检验两个样本是否来源于同一个分布时，Kolmogorov检验推广为Kolmogorov-Smirnov检验，其检验统计量为：
+<span class="math display">\[
+D_{m,n}=\mathop{sup}_x|F_n(x)-G_m(y)|
+\]</span> 这里的<span class="math inline">\(F_n(x)\)</span>和<span
+class="math inline">\(G_m(y)\)</span>为两个样本对应的经验分布函数。</p>
+<blockquote>
+<p>R中<code>ks.test()</code>函数可以进行Kolmogorov-Smirnov检验。</p>
+</blockquote>
+<h2 id="正态性检验">正态性检验</h2>
+<h3 id="图示法qq图">图示法（QQ图）</h3>
+<p>将正态分布的分位数与数据的分位数画成散点图，如果数据来源于正态分布，则散点应该集中在45°线附近，这就是分位数-分位数图（quantile-quantile
+plot，简称QQ图）。</p>
+<h3 id="基于正态概率图的检验">基于正态概率图的检验</h3>
+<h4
+id="correlation-coefficient-with-normal-probability-plots">Correlation
+Coefficient with Normal Probability Plots</h4>
+<h4 id="shapiro-wilk-test">Shapiro-Wilk Test</h4>
+<h3 id="基于经验分布函数的检验">基于经验分布函数的检验</h3>
+<h4 id="anderson-darling-test">Anderson-Darling Test</h4>
+<p>基于经验分布于理论分布之间差异平方的加权平均进行的检验。</p>
+<h4 id="cramer-von-mises-test">Cramer-von Mises Test</h4>
+<p>基于经验分布于理论分布之间差异平方的简单平均进行的检验。</p>
+<h4 id="jarquebera-test">Jarque–Bera Test</h4>
+<p>该检验主要基于样本的偏度和峰度来检验正态性。检验统计量为： <span
+class="math display">\[
+JB=\frac{n}{6}(S^2+\frac{(K-3)^2}{4})\mathop{\rightarrow}^d \chi(2)
+\]</span> 这个检验的零假设是偏度为0以及超额峰度为0。这里的<span
+class="math inline">\(S\)</span>是样本偏度，<span
+class="math inline">\(K\)</span>是样本峰度，<span
+class="math inline">\(K-3\)</span>就是超额峰度。其中： <span
+class="math display">\[
+\begin{aligned}
+S=\frac{1}{n}\sum_{i=1}^n(\frac{x_i-\bar x}{\hat{\sigma}})^3\\
+K=\frac{1}{n}\sum_{i=1}^n(\frac{x_i-\bar x}{\hat{\sigma}})^4
+\end{aligned}
+\]</span> 如果数据服从正态分布，<span
+class="math inline">\(JB\)</span>统计量将渐进服从2个自由度的卡方分布，<span
+class="math inline">\(JB\)</span>统计量收敛速度较慢，对样本容量要求较高。</p>
+<h1 id="常用的一些假设检验方法">常用的一些假设检验方法</h1>
+<p>除了上面介绍的几种分布的检验之外，数理统计中还有一些非常常用的假设检验方法，这些方法在下文中将会频繁出现，这里先进行一些整理。</p>
+<h2 id="z检验">Z检验</h2>
+<p>如果随机变量<span class="math inline">\(X\)</span>满足： <span
+class="math display">\[
+X\sim N(\mu,\sigma^2)
+\]</span> 则统计量<span class="math inline">\(Z\)</span>： <span
+class="math display">\[
+Z=\frac{X-\mu}{\sigma}\sim N(0,1)
+\]</span> 这就是<span class="math inline">\(Z\)</span>检验。<span
+class="math inline">\(Z\)</span>统计量的平方服从： <span
+class="math display">\[
+\chi^2=Z^2\sim \chi^2(1)
+\]</span> 所以有时候用<span
+class="math inline">\(\chi^2\)</span>统计量代替<span
+class="math inline">\(Z\)</span>统计量。</p>
+<p>数理统计中，由于中心极限定理，很多统计量在大样本下都服从渐进正态分布，这使得大样本下都可以构造<span
+class="math inline">\(Z\)</span>统计量进行<span
+class="math inline">\(Z\)</span>检验，因此<span
+class="math inline">\(Z\)</span>检验非常常用，例如<span
+class="math inline">\(t\)</span>检验在大样本下就可以用<span
+class="math inline">\(Z\)</span>检验来代替。</p>
+<h2 id="率的z检验">率的Z检验</h2>
+<p>这里介绍一下样本率在大样本下的<span
+class="math inline">\(Z\)</span>检验。若随机变量<span
+class="math inline">\(X\sim B(1,\pi)\)</span>，样本率<span
+class="math inline">\(p\)</span>在大样本<span
+class="math inline">\((n\pi\gt 5,n(1-\pi)\gt 5)\)</span>下有： <span
+class="math display">\[
+p\mathop{\rightarrow}^d N(\pi,\frac{\pi(1-\pi)}{n})
+\]</span> 因此<span class="math inline">\(Z\)</span>统计量为： <span
+class="math display">\[
+Z=\frac{|p-\pi|-\frac{0.5}{n}}{\sqrt\frac{\pi(1-\pi)}{n}}\mathop{\rightarrow}^dN(0,1)
+\]</span> 这里的<span
+class="math inline">\(\frac{0.5}{n}\)</span>为连续性矫正系数。同时我们还知道大样本下，出现阳性个体的次数<span
+class="math inline">\(Y\)</span>也是一个随机变量，它服从： <span
+class="math display">\[
+Y\mathop{\rightarrow}^d N(n\pi,n\pi(1-\pi))
+\]</span> 此时<span class="math inline">\(Z\)</span>统计量为： <span
+class="math display">\[
+Z=\frac{|Y-n\pi|-0.5}{\sqrt {n\pi(1-\pi)}}\mathop{\rightarrow}^d N(0,1)
+\]</span></p>
+<h2 id="似然比检验">似然比检验</h2>
+<p>对于分类数据，除了可以使用Pearson拟合优度<span
+class="math inline">\(\chi^2\)</span>检验之外，还可以用似然比检验，通常需要假定数据服从伯努利分布或多项分布。</p>
+<h3 id="理论分布完全已知-1">理论分布完全已知</h3>
+<p>假定随机变量<span class="math inline">\(X\)</span>服从多项分布，<span
+class="math inline">\(X\)</span>属于可以取<span
+class="math inline">\(m\)</span>种类别，各种类别的取值概率分别为<span
+class="math inline">\(\pi_1,\pi_2,...\pi_i,...,\pi_m\)</span>。现收集一部分数据，数据中属于各个类别的频数分别为<span
+class="math inline">\(n_1,n_2,...n_i,...,n_m\)</span>，样本量为<span
+class="math inline">\(n=n_1+n_2+...+n_m\)</span>，这样用样本来估计各个类别的概率为：
+<span class="math display">\[
+\frac{n_1}{n},\frac{n_2}{n},...,\frac{n_m}{n}
+\]</span> 此时可以定义两个似然<span
+class="math inline">\(L1\)</span>和<span
+class="math inline">\(L2\)</span>： <span class="math display">\[
+\begin{aligned}
+L1=\prod_{i=1}^m\pi_i^{n_i}\\
+L2=\prod_{i=1}^m(\frac{n_i}{n})^{n_i}
+\end{aligned}
+\]</span> 两个负对数似然为： <span class="math display">\[
+\begin{aligned}
+-lnL1=-\sum_{i=1}^mn_iln\pi_i\\
+-lnL2=-\sum_{i=1}^mn_iln\frac{n_i}{n}
+\end{aligned}
+\]</span> 可以证明，如果样本和<span
+class="math inline">\(X\)</span>的分布相同，则两个负对数似然函数之差的2倍服从：
+<span class="math display">\[
+-2ln\frac{L1}{L2}=-\sum_{i=1}^mn_iln\frac{\pi_i}{\frac{n_i}{n}}\mathop{\rightarrow}^d
+\chi^2(m-1)
+\]</span></p>
+<h3
+id="理论分布已知但是分布中参数未知-1">理论分布已知但是分布中参数未知</h3>
+<p>若理论分布中存在未知参数，类似前面的<span
+class="math inline">\(Pearson\quad \chi^2\)</span>
+检验，我们需要先估计未知参数，然后做似然比检验，不过<strong>此时检验统计量将渐进服从自由度为<span
+class="math inline">\(m − 1 − r\)</span>的卡方分布，<span
+class="math inline">\(r\)</span>为分布中未知参数的个数。</strong>下面将要介绍的两组或多组分类变量的检验就是这种情况。</p>
+<h1 id="单样本的假设检验">单样本的假设检验</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">单样本--&gt;连续变量</span><br><span class="line">连续变量--正态分布--&gt;σ已知?</span><br><span class="line">σ已知?--已知--&gt;Z1[Z检验]</span><br><span class="line">σ已知?--未知,且小样本--&gt;t检验</span><br><span class="line">σ已知?--未知,但大样本--&gt;Z1</span><br><span class="line">连续变量--非正态分布--&gt;符号检验/wilcoxon秩和检验</span><br><span class="line">单样本--&gt;二分类变量--二项分布--&gt;大样本?</span><br><span class="line">大样本?--是--&gt;Z检验</span><br><span class="line">大样本?--否--&gt;精确检验</span><br><span class="line">单样本--&gt;多分类变量--多项分布--&gt;卡方拟合优度检验/似然比检验</span><br><span class="line">单样本--&gt;有序变量--多项分布--&gt;卡方拟合优度检验/似然比检验</span><br></pre></td></tr></table></figure>
+<h2 id="连续变量">连续变量</h2>
+<p>对于单样本的连续变量，先检验数据分布，判断是否服从正态分布。如果服从正态分布，则均值是反应总体集中趋势的重要指标，可对均值进行假设检验。如果不服从正态分布，则样本中位数是反应总体集中趋势的重要指标，可对中位数进行假设检验。</p>
+<h3 id="正态分布">正态分布</h3>
+<p>若总体服从正态分布<span
+class="math inline">\(N(\mu,\sigma^2)\)</span>，样本均值<span
+class="math inline">\(\bar X\)</span>将服从： <span
+class="math display">\[
+\bar X\sim N(\mu,\frac{\sigma^2}{n})
+\]</span></p>
+<p><span
+class="math inline">\(\mu\)</span>一般会给出，这时候检验的目标是样本对应的总体均值是否为<span
+class="math inline">\(\mu\)</span>，需要根据总体分布中的参数<span
+class="math inline">\(\sigma^2\)</span>是否已知来选择合适的假设检验方法。</p>
+<h4 id="sigma2已知"><span
+class="math inline">\(\sigma^2\)</span>已知</h4>
+<p>若<span
+class="math inline">\(\sigma^2\)</span>已知，就可以构造Z检验： <span
+class="math display">\[
+Z=\frac{\bar X-\mu}{\sigma/\sqrt{n}}\sim N(0,1)
+\]</span></p>
+<p>这是一个精确检验。</p>
+<h4 id="sigma2未知且小样本"><span
+class="math inline">\(\sigma^2\)</span>未知，且小样本</h4>
+<p>虽然<span
+class="math inline">\(\sigma^2\)</span>未知，但是我们知道样本方差服从<span
+class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\sim
+\chi^2(n-1)\)</span>，且与样本均值<span class="math inline">\(\bar
+X\)</span>独立，因此： <span class="math display">\[
+\begin{align}
+T=\frac{Z}{\sqrt{(n-1)S^2/(n-1)\sigma^2}}\\
+=\frac{\sqrt{n}(\bar X-\mu)}{\sigma}\frac{\sigma}{S}\\
+=\frac{\bar X-\mu}{S/\sqrt{n}}\sim t(n-1)
+\end{align}
+\]</span> 因此构造T统计量进行检验： <span class="math display">\[
+T=\frac{\bar X-\mu}{S/\sqrt{n}}\sim t(n-1)
+\]</span></p>
+<p>这就是著名的<span
+class="math inline">\(t\)</span>检验，这个检验也是精确检验。</p>
+<blockquote>
+<p>R中用<code>t.test()</code>做单样本的t检验。</p>
+</blockquote>
+<h4 id="sigma2未知但是大样本"><span
+class="math inline">\(\sigma^2\)</span>未知，但是大样本</h4>
+<p>由于<span
+class="math inline">\(t\)</span>分布的渐进分布是正态分布，因此在大样本下还可以用Z检验来进行近似。即用<span
+class="math inline">\(S\)</span>代替<span
+class="math inline">\(\sigma\)</span>： <span class="math display">\[
+Z=\frac{\bar X-\mu}{S/\sqrt{n}}\sim N(0,1)
+\]</span></p>
+<p>很显然，这是一个近似检验。</p>
+<h3 id="非正态分布">非正态分布</h3>
+<p>非正态分布时，我们主要检验样本对应的总体，其中位数是否等于某个确定值<span
+class="math inline">\(M_0\)</span>。主要有符号检验和Wilcoxon符号秩检验两种。</p>
+<h4 id="符号检验">符号检验</h4>
+<p>思想：用样本数据减去<span
+class="math inline">\(M_0\)</span>，如果<span
+class="math inline">\(H_0\)</span>成立，差值中将有一半数据为负数，一半数据为正数，也就是说有50%的概率出现正号或者负号，记即出现正号的频率为<span
+class="math inline">\(p\)</span>，它将服从<span
+class="math inline">\(p\sim
+B(1,\pi),\pi=0.5\)</span>。或者记正号出现的次数为<span
+class="math inline">\(F\)</span>，它将服从<span
+class="math inline">\(F\sim
+B(n,\pi),\pi=0.5\)</span>。假定分布后，就可以用基于二项分布的精确检验，或者大样本下率的Z检验。</p>
+<h5 id="精确检验">精确检验</h5>
+<p>直接根据二项分布的分布律计算<span
+class="math inline">\(p\)</span>值。</p>
+<p>若<span class="math inline">\(F\gt \frac{n}{2}\)</span>，<span
+class="math inline">\(p\)</span>值为 <span class="math display">\[
+p=2×\sum_{k=F}^nC_{n}^F(0.5)^k(0.5)^{n-k}=2×\sum_{k=F}^nC_{n}^F(0.5)^n
+\]</span> 若<span class="math inline">\(F\lt \frac{n}{2}\)</span>，<span
+class="math inline">\(p\)</span>值为 <span class="math display">\[
+p=2×\sum_{k=1}^FC_n^F(0.5)^k(0.5)^{n-k}=2\sum_{k=1}^FC_n^F(0.5)^n
+\]</span> 若<span class="math inline">\(F=\frac{n}{2}\)</span>，<span
+class="math inline">\(p=1\)</span></p>
+<h5 id="近似检验">近似检验</h5>
+<p>在大样本下<span class="math inline">\(n\pi\gt 5,n\pi(1-\pi)\gt
+5\)</span>，出现正号的频率<span class="math inline">\(\hat
+p\)</span>应该服从： <span class="math display">\[
+p\mathop{\rightarrow}^d N(0.5,\frac{0.5×0.5}{n})
+\]</span> 或者出现正号的次数<span
+class="math inline">\(F\)</span>应该服从： <span class="math display">\[
+F\mathop{\rightarrow}^d N(\frac{n}{2},\frac{n}{4})
+\]</span></p>
+<p>因此，检验统计量为： <span class="math display">\[
+Z=\frac{|p-0.5|-\frac{0.5}{n}}{\sqrt{\frac{0.25}{n}}}
+\]</span></p>
+<p>或 <span class="math display">\[
+Z=\frac{|F-n/2|-0.5}{\sqrt{n/4}}
+\]</span> &gt;
+R中使用<code>binom.test()</code>函数做单样本的符号检验。</p>
+<h4 id="wilcoxon符号秩检验">Wilcoxon符号秩检验</h4>
+<p>思想：在符号检验的基础上引入了秩和。用样本数据减去<span
+class="math inline">\(M_0\)</span>，得到差值。记录差值的符号，若差值为0则舍去。对差值取绝对值，然后排序记录每个差值的秩次（若差值的绝对值相等取平均秩次）。记删除差值为0之后的样本数目为n，显然总的秩次和为<span
+class="math inline">\(\frac{n(n+1)}{2}\)</span>，然后统计符号为正的秩次之和。若<span
+class="math inline">\(H_0\)</span>成立，大样本下（<span
+class="math inline">\(n\gt 50\)</span>）符号为正的秩次之和<span
+class="math inline">\(T_+\)</span>近似服从： <span
+class="math display">\[
+T_+\mathop{\rightarrow}^d N(\frac{n(n+1)}{4},\frac{n(n+1)(2n+1)}{4})
+\]</span> 因此，使用<span class="math inline">\(Z\)</span>检验为： <span
+class="math display">\[
+Z=\frac{T_+-\frac{n(n+1)}{4}-0.5}{\frac{n(n+1)(2n+1)}{4}}
+\]</span>
+0.5为连续性矫正。取差值之后，可能有多个差值绝对值相等，称为“结”，若“结”较多时，上述公式需要修正。</p>
+<blockquote>
+<p>R中用<code>wilcox.test()</code>做单样本的wilcoxon检验。</p>
+</blockquote>
+<h2 id="分类变量">分类变量</h2>
+<p>如果是二分类变量，常常假定数据服从伯努利分布，问题转化为样本率的检验，可以使用二项分布的精确检验，也可以使用大样本下的<span
+class="math inline">\(Z\)</span>检验。如果是多分类变量，常常假定数据服从多项分布，可以使用<span
+class="math inline">\(Pearson\quad
+\chi^2\)</span>拟合优度检验或者似然比检验。</p>
+<h3 id="伯努利分布">伯努利分布</h3>
+<p>假定数据服从伯努利分布，分布率的<span
+class="math inline">\(\pi\)</span>一般会给出，可以进行精确检验或近似检验</p>
+<h4 id="精确检验-1">精确检验</h4>
+<p>直接根据二项分布的性质计算<span
+class="math inline">\(p\)</span>值。记阳性样本出现的次数为<span
+class="math inline">\(F\)</span>。</p>
+<p>若<span class="math inline">\(F\gt \frac{n}{2}\)</span>，<span
+class="math inline">\(p\)</span>值为 <span class="math display">\[
+p=2×\sum_{k=F}^nC_{n}^F(\pi)^k(1-\pi)^{n-k}
+\]</span> 若<span class="math inline">\(F\lt \frac{n}{2}\)</span>，<span
+class="math inline">\(p\)</span>值为 <span class="math display">\[
+p=2×\sum_{k=1}^FC_n^F(\pi)^k(1-\pi)^{n-k}
+\]</span> 若<span class="math inline">\(F=\frac{n}{2}\)</span>，<span
+class="math inline">\(p=1\)</span></p>
+<h4 id="近似检验-1">近似检验</h4>
+<p>在大样本下<span class="math inline">\(n\pi\gt 5,n\pi(1-\pi)\gt
+5\)</span>，出现正号的频率<span
+class="math inline">\(p\)</span>应该服从： <span class="math display">\[
+p\sim N(\pi,\frac{\pi×(1-\pi)}{n})
+\]</span> 或者出现正号的次数<span
+class="math inline">\(F\)</span>应该服从： <span class="math display">\[
+F\sim N(n\pi,n\pi(1-\pi))
+\]</span></p>
+<p>因此，检验统计量为： <span class="math display">\[
+Z=\frac{|p-\pi|-\frac{0.5}{n}}{\sqrt{\frac{\pi(1-\pi)}{n}}}
+\]</span></p>
+<p>或 <span class="math display">\[
+Z=\frac{|F-n\pi|-0.5}{n\pi(1-\pi)}
+\]</span> 0.5为连续性修正</p>
+<blockquote>
+<p>R中使用<code>binom.test()</code>函数做单样本的符号检验。</p>
+</blockquote>
+<h3 id="多项分布">多项分布</h3>
+<p>可以假定多分类变量服从多项分布，这时候一般会给出各个类别的概率，使用参数已知时的<span
+class="math inline">\(Pearson\quad
+\chi^2\)</span>拟合优度检验或者似然比检验。</p>
+<h2 id="有序变量">有序变量</h2>
+<p>有序变量同样可以看作服从多项分布，使用参数已知时的卡方拟合优度检验。</p>
+<h1 id="两多独立样本的假设检验">两/多独立样本的假设检验</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">两独立样本--&gt;a1[连续变量]</span><br><span class="line">a1--均服从正态分布--&gt;方差均已知?</span><br><span class="line">方差均已知?--是--&gt;Z检验</span><br><span class="line">方差均已知?--否,但知道相等--&gt;t检验</span><br><span class="line">方差均已知?--否,且知道不相等--&gt;S[Satterthwaite t检验]</span><br><span class="line">a1--至少有一个不服从正态分布--&gt;W1[Wilcoxon秩和检验]</span><br><span class="line">两独立样本--&gt;a2[分类变量]</span><br><span class="line">a2[分类变量]--近似法--&gt;卡方检验/似然比检验/优势比检验/MH检验/CMH检验</span><br><span class="line">a2[分类变量]--精确法--&gt;Fisher精确检验</span><br><span class="line">两独立样本--&gt;a3[有序变量]--&gt;W1[Wilcoxon秩和检验]</span><br><span class="line">多独立样本--&gt;b1[连续变量]</span><br><span class="line">b1--均服从正态分布--&gt;j</span><br><span class="line">b1--至少有一个不服从正态分布--&gt;k</span><br><span class="line">多独立样本--&gt;b2[分类变量]</span><br><span class="line">多独立样本--&gt;b3[有序变量]</span><br></pre></td></tr></table></figure>
+<h2 id="连续变量-1">连续变量</h2>
+<p>对于连续变量，这里只讨论两独立样本问题，多独立样本主要用方差分析和KW检验，后面会专门写一篇文章进行介绍。</p>
+<h3 id="正态分布-1">正态分布</h3>
+<p>两独立样本，如果均服从正态分布，且总体方差已知。根据正态分布的性质，独立样本的和也将服从正态分布，可构造<span
+class="math inline">\(Z\)</span>统计量进行假设检验。即：总体1：<span
+class="math inline">\(X\sim N(\mu_1,\sigma_1^2)\)</span>，总体2：<span
+class="math inline">\(Y\sim
+N(\mu_2,\sigma_2^2)\)</span>，且相互独立，则： <span
+class="math display">\[
+\begin{aligned}
+\bar X\sim N(\mu_1,\sigma^2_1/n_1)\\
+\bar Y\sim N(\mu_2,\sigma_2^2/n_2)
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+E(\bar X-\bar Y)=E(\bar X)-E(\bar Y)=\mu_1-\mu_2\\
+Var(\bar X-\bar Y)=Var(\bar X)+Var(\bar Y)-2Cov(\bar X,\bar Y)
+\end{aligned}
+\]</span></p>
+<p>因为<span class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>独立，因此： <span
+class="math display">\[
+\begin{align}
+Cov(\bar X,\bar Y)=0\\
+Var(\bar X-\bar Y)=Var(\bar X)+Var(\bar Y)
+\end{align}
+\]</span> 且因为<span class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>均为正态总体，因此<span
+class="math inline">\(\bar X-\bar Y\)</span>也服从正态分布： <span
+class="math display">\[
+\bar X-\bar Y\sim
+N(\mu_1-\mu_2,\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2})
+\]</span>
+若总体方差未知但样本方差齐，可以用样本的联合方差估计总体方差，构造<span
+class="math inline">\(t\)</span>统计量进行检验。若总体方差未知且样本方差不齐，可用矫正的<span
+class="math inline">\(t\)</span>检验。</p>
+<h4 id="sigma_12和sigma_22均已知"><span
+class="math inline">\(\sigma_1^2\)</span>和<span
+class="math inline">\(\sigma_2^2\)</span>均已知</h4>
+<p><span class="math inline">\(Z\)</span>统计量： <span
+class="math display">\[
+Z=\frac{\bar X-\bar
+Y-(\mu_1-\mu_2)}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}\sim N(0,1)
+\]</span> 因为<span class="math inline">\(H_0\)</span>假设实际为<span
+class="math inline">\(\mu_1=\mu_2\)</span>，所以统计量实际为： <span
+class="math display">\[
+Z=\frac{\bar X-\bar Y}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}\sim N(0,1)
+\]</span></p>
+<p>此为精确检验。</p>
+<h4 id="sigma_12-sigma_22但未知"><span class="math inline">\(\sigma_1^2
+= \sigma_2^2\)</span>但未知</h4>
+<p>此时称为方差齐。先要进行方差齐性检验，即检验<span
+class="math inline">\(\sigma_1^2=\sigma_2^2\)</span>。已知两个独立样本都来自正态总体，因此有：
+<span class="math display">\[
+\begin{aligned}
+\frac{(n_1-1)S_1^2}{\sigma_1^2}\sim \chi^2(n_1-1)\\
+\frac{(n_2-1)S_1^2}{\sigma_2^2}\sim \chi^2(n_2-1)
+\end{aligned}
+\]</span> 可以证明<span class="math inline">\(S_1^2\)</span>和<span
+class="math inline">\(S_2^2\)</span>相互独立，则以下统计量： <span
+class="math display">\[
+\begin{aligned}
+F=\frac{(n_1-1)S_1^2}{\sigma_1^2(n_1-1)}/\frac{(n_2-1)S_1^2}{\sigma_2^2(n_1-1)}\\
+=\frac{S_1^2}{\sigma_1^2}/\frac{S_1^2}{\sigma_2^2}
+\end{aligned}
+\]</span> 若方差齐性假设成立，则统计量可简化为： <span
+class="math display">\[
+F=\frac{S_1^2}{S_2^2}\sim F(n_1-1,n_2-1)
+\]</span> 若检验结果认为方差齐，即可以认为<span
+class="math inline">\(\sigma_1^2=\sigma_2^2=\sigma^2\)</span>，可以导出均值差的分布为：
+<span class="math display">\[
+\begin{aligned}
+Z=\frac{\bar X_1-\bar
+X_2-(\mu_1-\mu_2)}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}\\
+=\frac{\bar X_1-\bar X_2}{\sigma\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim
+N(0,1)
+\end{aligned}
+\]</span> 这里的<span
+class="math inline">\(\sigma\)</span>仍然未知，仍不能用这个检验。根据卡方分布的可加性，有：
+<span class="math display">\[
+\begin{aligned}
+V=\frac{(n_1-1)S_1^2}{\sigma_1^2}+\frac{(n_2-1)S_1^2}{\sigma_2^2}\\
+=\frac{(n_1-1)S_1^2}{\sigma^2}+\frac{(n_2-1)S_1^2}{\sigma^2}\sim
+\chi^2(n_1+n_2-2)
+\end{aligned}
+\]</span> 可以证明<span class="math inline">\(Z\)</span>和<span
+class="math inline">\(V\)</span>独立，根据t分布定义，有： <span
+class="math display">\[
+\begin{aligned}
+T=\frac{Z}{\sqrt{V/(n_1+n_2-2)}}\\
+=\frac{\bar X_1-\bar
+X_2}{\sigma\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}/\sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{\sigma^2(n_1+n_2-2)}}\\
+=\frac{\bar X_1-\bar X_2}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim
+t(n_1+n_2-2)
+\end{aligned}
+\]</span> 其中<span
+class="math inline">\(S_p=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{(n_1+n_2-2)}\)</span>。此也为精确检验。</p>
+<blockquote>
+<p>R中用<code>t.test()</code>并指定参数<code>var.equal = TRUE</code>时做方差齐时的两独立样本的t检验。</p>
+</blockquote>
+<h4 id="sigma_12ne-sigma_22且未知"><span
+class="math inline">\(\sigma_1^2\ne \sigma_2^2\)</span>且未知</h4>
+<p>当<span class="math inline">\(\sigma_1^2\ne
+\sigma_2^2\)</span>时，难以构造一个统计量并找出其精确分布，不过统计量：
+<span class="math display">\[
+t^*=\frac{\bar X_1-\bar X_2}{\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}}
+\]</span> 近似服从<span
+class="math inline">\(t\)</span>分布，但是自由度需要修正为： <span
+class="math display">\[
+v=\frac{(\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2})^2}{\frac{(\frac{S_1^2}{n_1})^2}{n_1-1}+\frac{(\frac{S_2^2}{n_2})^2}{n_2-1}}
+\]</span> 此方法称为Satterthwaite近似方法。</p>
+<blockquote>
+<p>R中用<code>t.test()</code>并指定参数<code>var.equal = FALSE</code>时做方差不齐时的两独立样本的t检验。</p>
+</blockquote>
+<h3 id="非正态分布-1">非正态分布</h3>
+<p>若至少有一个连续变量不服从正态分布，此时就不能使用基于正态分布的<span
+class="math inline">\(Z\)</span>检验和<span
+class="math inline">\(t\)</span>检验了，应该使用非参数检验。</p>
+<h4 id="wilcoxon秩和检验">Wilcoxon秩和检验</h4>
+<p>两组数据混合之后统一编秩，碰到数据相同时取平均秩次。记两组数据样本量分别为<span
+class="math inline">\(n_1,n_2\)</span>，统计两组的秩和。若<span
+class="math inline">\(H_0\)</span>成立，在大样本下，第一组秩和<span
+class="math inline">\(T_1\)</span>服从： <span class="math display">\[
+T_1\mathop{\rightarrow}^d
+N(\frac{n_1(n_1+n_2+1)}{2},\frac{n_1n_2(n_1+n_2+1)}{12})
+\]</span> 构造统计量： <span class="math display">\[
+Z_1=\frac{T_1-\frac{n_1(n_1+n_2+1)}{2}-0.5}{\sqrt{\frac{n_1n_2(n_1+n_2+1)}{12}}}
+\]</span> 0.5为连续性矫正，结较多时，公式同样需要进行修正。</p>
+<blockquote>
+<p>R中用<code>wilcox.test()</code>做两独立样本的wilcoxon检验。</p>
+</blockquote>
+<h2 id="分类变量-1">分类变量</h2>
+<p>无论是两独立样本还是多独立样本之间分类变量的检验，都可用<span
+class="math inline">\(Pearson\quad
+\chi^2\)</span>检验或似然比检验，通常假定数据服从二项分布或者多项分布，此为近似检验。对于2×2数据而言，还可以用优势比检验和Fisher精确检验（很多统计软件也提供了R×C
+Fisher精确检验），Fisher检验实际上假定某个单元格服从超几何分布，在大样本下从Fisher检验可以导出<span
+class="math inline">\(Mantel-Haenszel\)</span>
+卡方检验，在引入分层变量之后，又可以导出<span
+class="math inline">\(Cochran-Mantel-Haenszel\)</span> 卡方检验。</p>
+<h3 id="chi2检验似然比检验"><span
+class="math inline">\(\chi^2\)</span>检验/似然比检验</h3>
+<p>这里仅介绍<span
+class="math inline">\(\chi^2\)</span>检验，似然比检验也是类似的。</p>
+<p>假设列联表有<span class="math inline">\(R\)</span>行<span
+class="math inline">\(C\)</span>列，即有<span
+class="math inline">\(R\)</span>个样本（即认为行变量为分组变量），每个样本有<span
+class="math inline">\(C\)</span>种类别，令列联表每个单元格取值为<span
+class="math inline">\(n_{ij},i=1,2,...,R,j=1,2,...,C\)</span>。检验目的是比较<span
+class="math inline">\(R\)</span>个样本的频率或构成比分布是否一致。检验的基本思想是利用卡方拟合优度检验。</p>
+<p>零假设为：<span
+class="math inline">\(R\)</span>个样本的频率或构成比分布一致。假设总体中各个类别的取值概率均已知，为<span
+class="math inline">\(\pi_1,\pi_2,...,\pi_C\)</span>，如果零假设是成立的，对于任意一个样本<span
+class="math inline">\(i,i=1,2,...,R\)</span>，我们做一个<span
+class="math inline">\(\chi^2\)</span>拟合优度检验： <span
+class="math display">\[
+\chi^2=\sum_{j=1}^C\frac{(n_{ij}-n_i\pi_j)^2}{n_i\pi_j}\mathop{\rightarrow}^d\chi^2(C-1)
+\]</span> <span class="math inline">\(n_i\)</span>为第<span
+class="math inline">\(i\)</span>个样本的样本量。由于卡方分布的可加性，统计量：
+<span class="math display">\[
+\chi^2=\sum_{i=1}^R\sum_{j=1}^C\frac{(n_{ij}-n_i\pi_j)^2}{n_i\pi_j}\mathop{\rightarrow}^d\chi^2(R(C-1))
+\]</span> 但是<span
+class="math inline">\(\pi_1,\pi_2,...,\pi_C\)</span>通常是未知的，我们需要用<span
+class="math inline">\(R\)</span>个样本来估计，最大似然估计将用样本频率<span
+class="math inline">\(p_1,p_2,..p_C\)</span>作为总体<span
+class="math inline">\(\pi_1,\pi_2,...\pi_C\)</span>的估计值，待估参数有<span
+class="math inline">\(C-1\)</span>个。因此统计量： <span
+class="math display">\[
+\chi^2=\sum_{i=1}^R\sum_{j=1}^C\frac{(n_{ij}-n_ip_j)^2}{n_ip_j}\mathop{\rightarrow}^d\chi^2(R(C-1)-(C-1))
+\]</span> 因为<span
+class="math inline">\(R(C-1)-(C-1)=(R-1)(C-1)\)</span>，因此该统计量的自由度为<span
+class="math inline">\((R-1)(C-1)\)</span>。</p>
+<p><strong>注意</strong></p>
+<ul>
+<li>卡方拟合优度检验实际用到了二项分布的大样本近似（要求<span
+class="math inline">\(n\pi \gt5,n(1-\pi)\gt
+5\)</span>），因此卡方齐性检验也要求：不宜有20%以上的单元格<span
+class="math inline">\(n_i\pi_j\lt 5\)</span>，或者不宜有一个格子的<span
+class="math inline">\(n_i\pi_j\)</span>小于1。如果不满足，可以对组进行合并。</li>
+<li>对于四格表，还要求样本量不小于40。当样本量大于等于<span
+class="math inline">\(40\)</span>，但是某个格子<span
+class="math inline">\(n_i\pi_j\in
+[1,5)\)</span>，需要进行连续性矫正。不过多独立样本无需矫正。</li>
+<li>不服从条件时可以使用Fisher精确检验。</li>
+</ul>
+<p><strong>多重比较</strong></p>
+<p>若检验结果为拒绝零假设，则表明至少有一个样本频率分布与其他样本不同，此时可进行两两比较，共有<span
+class="math inline">\(C_R^2\)</span>种组合，需要将单次比较的检验水准进行调整。可使用<span
+class="math inline">\(Bonferroni\)</span>法，调整单次检验水准为<span
+class="math inline">\(\alpha/C_R^2\)</span>，以保证整个试验犯一类错误的概率不超过<span
+class="math inline">\(\alpha\)</span>。</p>
+<h3 id="列联表的几种检验方法">2×2列联表的几种检验方法</h3>
+<h4 id="分布假定">分布假定</h4>
+<p>对于四格表：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>B1</th>
+<th>B2</th>
+<th>合计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><span class="math inline">\(n_{11}\)</span></td>
+<td><span class="math inline">\(n_{12}\)</span></td>
+<td><span class="math inline">\(n_{1+}\)</span></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><span class="math inline">\(n_{21}\)</span></td>
+<td><span class="math inline">\(n_{22}\)</span></td>
+<td><span class="math inline">\(n_{2+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>合计</td>
+<td><span class="math inline">\(n_{+1}\)</span></td>
+<td><span class="math inline">\(n_{+2}\)</span></td>
+<td><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>四格表的边际有<span
+class="math inline">\(n_{1+},n_{2+},n_{+1},n_{+2},n\)</span>共5个数，它们可以是给定的，也可以是随机的，根据这5个数据是否给定，有以下四种分布：</p>
+<ol type="1">
+<li>单侧给定，如<span class="math inline">\(n_{1+}\)</span>和<span
+class="math inline">\(n_{2+}\)</span>给定，则<span
+class="math inline">\(n_{11},n_{21}\)</span>都服从二项分布；</li>
+<li>只有总样本量<span class="math inline">\(n\)</span>给定，则<span
+class="math inline">\(n_{11},n_{12},n_{21},n_{22}\)</span>都服从多项分布；</li>
+<li>两侧都不给定，则<span
+class="math inline">\(n_{11},n_{12},n_{21},n_{22}\)</span>都是随机变量，通常假设他们服从Poisson分布；</li>
+<li>两侧都给定，则<span
+class="math inline">\(n_{11},n_{12},n_{21},n_{22}\)</span>中只有一个是随机变量，它服从超几何分布。</li>
+</ol>
+<h4 id="fisher精确检验">Fisher精确检验</h4>
+<p>卡方检验和似然比检验都是近似检验，对于<span
+class="math inline">\(2×2\)</span>四格表而言，我们还可以推出一个精确检验，这就是Fisher精确检验。</p>
+<p>对于如下四格表：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>B1</th>
+<th>B2</th>
+<th>合计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><span class="math inline">\(n_{11}\)</span></td>
+<td><span class="math inline">\(n_{12}\)</span></td>
+<td><span class="math inline">\(n_{1+}\)</span></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><span class="math inline">\(n_{21}\)</span></td>
+<td><span class="math inline">\(n_{22}\)</span></td>
+<td><span class="math inline">\(n_{2+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>合计</td>
+<td><span class="math inline">\(n_{+1}\)</span></td>
+<td><span class="math inline">\(n_{+2}\)</span></td>
+<td><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>在已知<span
+class="math inline">\(n\)</span>后，如果我们假定行边缘频数<span
+class="math inline">\(n_{1+},n_{2+}\)</span>和列边缘频数<span
+class="math inline">\(n_{+1},n_{+2}\)</span>均已知，易知<span
+class="math inline">\(n_{11},n_{12},n_{21},n_{22}\)</span>只要知道一个，另外三个自然也就知道了，因此<span
+class="math inline">\(n_{11},n_{12},n_{21},n_{22}\)</span>中实际上只有一个随机变量，假设为<span
+class="math inline">\(n_{11}\)</span>，可以证明<span
+class="math inline">\(n_{11}\)</span>服从超几何分布。</p>
+<p>根据超几何分布，可以计算<span
+class="math inline">\(n_{11}\)</span>取不同值的概率。根据零假设，Fisher精确检验将取不利于零假设的累计概率之和作为最终检验的<span
+class="math inline">\(p\)</span>值。</p>
+<h4 id="mantel-haenszel-卡方检验">Mantel-Haenszel 卡方检验</h4>
+<p>Fisher检验在大样本时有一个渐进形式，即MH检验。根据超几何分布的性质，<span
+class="math inline">\(n_{11}\)</span>的期望和方差为： <span
+class="math display">\[
+\begin{aligned}
+E(n_{11})=\frac{n_{+1}n_{1+}}{n}\\
+D(n_{11})=\frac{n_{1+}}{n}\frac{n_{2+}}{n}\frac{n_{+1}n_{+2}}{n-1}
+\end{aligned}
+\]</span> 可以证明，在大样本下<span
+class="math inline">\(n_{11}\)</span>渐进正态，因此以下<span
+class="math inline">\(Z\)</span>统计量： <span class="math display">\[
+Z=\frac{n_{11}-\frac{n_{+1}n_{1+}}{n}}{\sqrt{\frac{n_{1+}}{n}\frac{n_{2+}}{n}\frac{n_{+1}n_{+2}}{n-1}}}\mathop{\rightarrow}^d
+N(0,1)
+\]</span> 或者卡方统计量： <span class="math display">\[
+\chi^2=\frac{(n_{11}-\frac{n_{+1}n_{1+}}{n})^2}{\frac{n_{1+}}{n}\frac{n_{2+}}{n}\frac{n_{+1}n_{+2}}{n-1}}\mathop{\rightarrow}^d
+\chi^2(1)
+\]</span> 这个检验称为Mantel-Haenszel
+卡方检验，实际上它最终化简形式与<span
+class="math inline">\(2×2\)</span>的pearson卡方检验只差<span
+class="math inline">\(\frac{n-1}{n}\)</span>。</p>
+<h4 id="优势比检验">优势比检验</h4>
+<p>对于2×2四格表，还可进行优势比检验。假设研究对象有<span
+class="math inline">\(A\)</span>和<span
+class="math inline">\(B\)</span>两个属性，属性<span
+class="math inline">\(A\)</span>有<span
+class="math inline">\(A1,A2\)</span>两种取值，属性<span
+class="math inline">\(B\)</span>有<span
+class="math inline">\(B1,B2\)</span>两种取值，各种取值的概率见下面四格表。</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>B1</th>
+<th>B2</th>
+<th>合计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><span class="math inline">\(p_{11}\)</span></td>
+<td><span class="math inline">\(p_{12}\)</span></td>
+<td><span class="math inline">\(p_{1+}\)</span></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><span class="math inline">\(p_{21}\)</span></td>
+<td><span class="math inline">\(p_{22}\)</span></td>
+<td><span class="math inline">\(p_{2+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>合计</td>
+<td><span class="math inline">\(p_{+1}\)</span></td>
+<td><span class="math inline">\(p_{+2}\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>对象有<span class="math inline">\(A1\)</span>属性的条件下，还有<span
+class="math inline">\(B1\)</span>属性的条件概率为<span
+class="math inline">\(P(B1|A1)=p_{11}/p_{1+}\)</span>，还有<span
+class="math inline">\(B2\)</span>属性的条件概率为<span
+class="math inline">\(P(B2|A1)=p_{12}/p_{1+}\)</span>，此时可定义对象有属性<span
+class="math inline">\(A1\)</span>时，有属性<span
+class="math inline">\(B1\)</span>比有属性<span
+class="math inline">\(B2\)</span>的优势为： <span
+class="math display">\[
+\frac{p_{11}/p_{1+}}{p_{12}/p_{1+}}=p_{11}/p_{12}
+\]</span> 同理，对象有属性<span
+class="math inline">\(A2\)</span>时，有属性<span
+class="math inline">\(B1\)</span>比有属性<span
+class="math inline">\(B2\)</span>的优势为： <span
+class="math display">\[
+\frac{p_{21}/p_{2+}}{p_{22}/p_{2+}}=p_{21}/p_{22}
+\]</span> 优势比<span
+class="math inline">\(\theta\)</span>为两个优势之比： <span
+class="math display">\[
+\theta=\frac{p_{11}}{p_{12}}/\frac{p_{21}}{p_{22}}=\frac{p_{11}p_{22}}{p_{12}p_{21}}
+\]</span> 当属性<span class="math inline">\(A\)</span>和<span
+class="math inline">\(B\)</span>相互独立时，优势比<span
+class="math inline">\(\theta=1\)</span>，因此可以检验优势比是否为1来判断两个属性的独立性。</p>
+<p>对于样本而言，对于如下四格表：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>B1</th>
+<th>B2</th>
+<th>合计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><span class="math inline">\(n_{11}\)</span></td>
+<td><span class="math inline">\(n_{12}\)</span></td>
+<td><span class="math inline">\(n_{1+}\)</span></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><span class="math inline">\(n_{21}\)</span></td>
+<td><span class="math inline">\(n_{22}\)</span></td>
+<td><span class="math inline">\(n_{2+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>合计</td>
+<td><span class="math inline">\(n_{+1}\)</span></td>
+<td><span class="math inline">\(n_{+2}\)</span></td>
+<td><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>优势比的估计值<span class="math inline">\(\hat \theta\)</span>为：
+<span class="math display">\[
+\hat \theta=\frac{n_{11}n_{22}}{n_{12}n_{21}}
+\]</span> 优势比的对数<span class="math inline">\(\sqrt{n}(ln \hat
+\theta-ln \theta)\)</span>渐进正态，即： <span class="math display">\[
+\sqrt{n}(ln \hat \theta-ln \theta)\mathop{\rightarrow}^d
+N(0,\frac{1}{p_{11}}+\frac{1}{p_{12}}+\frac{1}{p_{21}}+\frac{1}{p_{22}})
+\]</span> 用样本估计<span
+class="math inline">\(p_{11},p_{22},p_{12},p_{21}\)</span>为： <span
+class="math display">\[
+\sqrt{n}(ln \hat \theta-ln \theta)\mathop{\rightarrow}^d
+N(0,\frac{n}{n_{11}}+\frac{n}{n_{12}}+\frac{n}{n_{21}}+\frac{n}{n_{22}})
+\]</span> 因此： <span class="math display">\[
+ln \hat \theta\mathop{\rightarrow}^d
+N(ln\theta,\frac{1}{n_{11}}+\frac{1}{n_{12}}+\frac{1}{n_{21}}+\frac{1}{n_{22}})
+\]</span> 当属性<span class="math inline">\(A\)</span>和属性<span
+class="math inline">\(B\)</span>独立时，<span
+class="math inline">\(\theta=1,ln\theta =0\)</span>，因此： <span
+class="math display">\[
+ln \hat \theta\mathop{\rightarrow}^d
+N(0,\frac{1}{n_{11}}+\frac{1}{n_{12}}+\frac{1}{n_{21}}+\frac{1}{n_{22}})
+\]</span> 可构造<span class="math inline">\(Z\)</span>或者卡方统计量：
+<span class="math display">\[
+\begin{aligned}
+Z=\frac{ln \hat
+\theta}{\sqrt{\frac{1}{n_{11}}+\frac{1}{n_{12}}+\frac{1}{n_{21}}+\frac{1}{n_{22}}}}\mathop{\rightarrow}^d
+N(0,1)\\
+\chi^2=Z^2=\frac{[ln \hat
+\theta]^2}{\frac{1}{n_{11}}+\frac{1}{n_{12}}+\frac{1}{n_{21}}+\frac{1}{n_{22}}}\mathop{\rightarrow}^d
+\chi^2(1)
+\end{aligned}
+\]</span></p>
+<h4
+id="cochran-mantel-haenszel-卡方检验分层分析">Cochran-Mantel-Haenszel
+卡方检验（分层分析）</h4>
+<p>该检验其实是对Mantel-Haenszel 卡方检验的扩展，增加了一个层变量<span
+class="math inline">\(C\)</span>。假定层变量<span
+class="math inline">\(C\)</span>有<span
+class="math inline">\(k\)</span>个取值，这样就有<span
+class="math inline">\(k\)</span>个<span
+class="math inline">\(2×2\)</span>列联表。检验的目的是给定<span
+class="math inline">\(C\)</span>后，属性<span
+class="math inline">\(A\)</span>和<span
+class="math inline">\(B\)</span>相互独立（条件独立）。</p>
+<p>对于<span class="math inline">\(k\)</span>个<span
+class="math inline">\(2×2\)</span>列联表，根据Mantel-Haenszel
+卡方检验，每个<span
+class="math inline">\(2×2\)</span>列联表都可以构造一个<span
+class="math inline">\(Z\)</span>检验或者卡方检验，这样就能构造<span
+class="math inline">\(k\)</span>个<span
+class="math inline">\(Z\)</span>检验或者卡方检验，我们将这<span
+class="math inline">\(k\)</span>个检验合并到一块，可以证明： <span
+class="math display">\[
+Z=\frac{\sum_{i=1}^kn_{i11}-\sum_{i=1}^k\frac{n_{i1+}n_{i+1}}{n_i}}{\sqrt{\sum_{i=1}^k\frac{n_{i1+}}{n_i}\frac{n_{i2+}}{n_i}\frac{n_{i+1}n_{i+2}}{n_i-1}}}\mathop{\rightarrow}^dN(0,1)
+\]</span> 这里的<span
+class="math inline">\(n_{i11},i=1,2,...,k\)</span>表示第<span
+class="math inline">\(i\)</span>层那个随机变量的实际取值，<span
+class="math inline">\(n_{i1+}\)</span>表示第<span
+class="math inline">\(i\)</span>层第1行合计，<span
+class="math inline">\(n_{i2+}\)</span>表示第<span
+class="math inline">\(i\)</span>层第2行合计，<span
+class="math inline">\(n_{i+1}\)</span>表示第<span
+class="math inline">\(i\)</span>层第1列合计，<span
+class="math inline">\(n_{i+2}\)</span>表示第<span
+class="math inline">\(i\)</span>层第2列合计，<span
+class="math inline">\(n_i\)</span>表示第<span
+class="math inline">\(i\)</span>层总样本量。</p>
+<p>或者可以使用卡方统计量： <span class="math display">\[
+\chi^2=Z^2\mathop{\rightarrow}^d \chi^2(1)
+\]</span> Cochran-Mantel-Haenszel
+卡方检验的前提是各层是同质的，也就是说，无论那一层，属性A和属性B都是条件独立的，只有同质性满足，才能直接合并。这个需要先进行同质性检验，可以用<span
+class="math inline">\(Breslow-Day\)</span>方法来进行同质性检验。</p>
+<p><span
+class="math inline">\(Breslow-Day\)</span>检验其实是对各层的优势比<span
+class="math inline">\(\theta_i,i=1,2,...,k\)</span>是否相等进行的检验，零假设为<span
+class="math inline">\(H_0:\theta_1=\theta_2=...=\theta_k\)</span>，检验统计量为：
+<span class="math display">\[
+\chi^2=\sum_{i=1}^k\frac{(\eta_i-\bar
+\eta)^2}{Var(\eta_i)}\mathop{\rightarrow}^d\chi^2(k-1)
+\]</span> 其中<span class="math inline">\(\eta_i=ln\hat
+\theta_i\)</span>，<span
+class="math inline">\(Var(\eta_i)=\frac{1}{n_{i11}}+\frac{1}{n_{i12}}+\frac{1}{n_{i21}}+\frac{1}{n_{i22}}\)</span>，<span
+class="math inline">\(\bar \eta\)</span>是以方差的导数为权重的<span
+class="math inline">\(\eta_i\)</span>的加权平均： <span
+class="math display">\[
+\bar
+\eta=\frac{\sum_{i=1}^k\frac{\eta_i}{Var(\eta_i)}}{\sum_{i=1}^k\frac{1}{Var(\eta_i)}}
+\]</span> ##### 混杂因素</p>
+<p>在分层分析中，如果层变量与行变量或列变量相关，列变量又与行变量相关。这时候如果不分层，层变量可能会混淆行变量与列变量之间的真实关系，层变量将成为混杂因素。</p>
+<h2 id="有序变量-1">有序变量</h2>
+<p>两独立样本用Wilcoxon秩和检验，和上面非正态连续变量检验方法相同。多独立样本用Kruskal-Wallis
+H检验，见方差分析一文介绍。</p>
+<h1 id="配对样本的假设检验">配对样本的假设检验</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">配对样本--&gt;连续变量--计算差值--&gt;正态分布</span><br><span class="line">正态分布--是--&gt;t检验</span><br><span class="line">正态分布--否--&gt;d[1.符号检验&lt;/br&gt;2.Wilcoxon符号秩和检验]</span><br><span class="line">配对样本--&gt;分类变量</span><br><span class="line">分类变量--边缘齐性检验--&gt;McNemar检验</span><br><span class="line">分类变量--一致性检验--&gt;Kappa检验</span><br><span class="line">配对样本--&gt;有序变量--一致性检验--&gt;加权Kappa检验</span><br></pre></td></tr></table></figure>
+<h2 id="连续变量-2">连续变量</h2>
+<p>主要计算配对之间的差值<span
+class="math inline">\(d\)</span>，根据差值的分布决定使用那种检验方法。</p>
+<h3 id="差值为正态分布">差值为正态分布</h3>
+<p>若差值服从正态分布，则差值的均数应该服从： <span
+class="math display">\[
+\bar d\sim N(0,\sigma^2/n)
+\]</span> 因为<span
+class="math inline">\(\sigma^2\)</span>未知，因此可以用t检验： <span
+class="math display">\[
+T=\frac{\bar d}{S_{d}/\sqrt n}
+\]</span></p>
+<blockquote>
+<p>R中用<code>t.test()</code>并指定参数<code>paired = TRUE</code>时做配对t检验。</p>
+</blockquote>
+<h3 id="差值不服从正态分布">差值不服从正态分布</h3>
+<p>若差值不服从正态分布，可以使用符号检验或者Wilcoxon符号秩检验。</p>
+<h4 id="符号检验-1">符号检验</h4>
+<p>若<span
+class="math inline">\(H_0\)</span>成立，出现差值中出现正号和负号的概率同样各为0.5，然后用伯努利分布的精确检验或者大样本下的<span
+class="math inline">\(Z\)</span>检验。</p>
+<blockquote>
+<p>R中使用<code>binom.test()</code>函数做配对样本的符号检验。</p>
+</blockquote>
+<h4 id="wilcoxon符号秩和检验">Wilcoxon符号秩和检验</h4>
+<p>记录差值的符号，若差值为0则舍去。对差值取绝对值，然后排序记录每个差值的秩次（若差值的绝对值相等取平均秩次）。记删除差值为0之后的样本数目为n，显然总的秩次和为<span
+class="math inline">\(\frac{n(n+1)}{2}\)</span>，然后统计符号为正的秩次之和。若<span
+class="math inline">\(H_0\)</span>成立，大样本下（<span
+class="math inline">\(n\gt 50\)</span>）符号为正的秩次之和<span
+class="math inline">\(T_+\)</span>近似服从： <span
+class="math display">\[
+T_+\sim N(\frac{n(n+1)}{4},\frac{n(n+1)(2n+1)}{4})
+\]</span> 因此，使用<span class="math inline">\(Z\)</span>检验为： <span
+class="math display">\[
+Z=\frac{T_+-\frac{n(n+1)}{4}-0.5}{\frac{n(n+1)(2n+1)}{4}}
+\]</span>
+0.5为连续性矫正。取差值之后，可能有多个差值绝对值相等，称为“结”，若“结”较多时，上述公式需要修正。</p>
+<blockquote>
+<p>R中用<code>wilcox.test()</code>指定参数<code>paired=T</code>做配对样本的wilcoxon检验。</p>
+</blockquote>
+<h2 id="分类变量-2">分类变量</h2>
+<h3 id="边缘齐性检验">边缘齐性检验</h3>
+<p>McNeMar检验主要用于<span
+class="math inline">\(2×2\)</span>四格表。对于下面的配对四格表：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>B1</th>
+<th>B2</th>
+<th>合计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><span class="math inline">\(p_{11}\)</span></td>
+<td><span class="math inline">\(p_{12}\)</span></td>
+<td><span class="math inline">\(p_{1+}\)</span></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><span class="math inline">\(p_{21}\)</span></td>
+<td><span class="math inline">\(p_{22}\)</span></td>
+<td><span class="math inline">\(p_{2+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>合计</td>
+<td><span class="math inline">\(p_{+1}\)</span></td>
+<td><span class="math inline">\(p_{+2}\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>McNeMar检验主要检验边缘齐性，即： <span class="math display">\[
+p_{1+}=p_{+1}\rightarrow p_{11}+p_{12}=p_{11}+p_{21}\\
+p_{2+}=p_{+2}\rightarrow p_{12}+p_{22}=p_{21}+p_{22}
+\]</span> 对于样本数据：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>B1</th>
+<th>B2</th>
+<th>合计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><span class="math inline">\(n_{11}\)</span></td>
+<td><span class="math inline">\(n_{12}\)</span></td>
+<td><span class="math inline">\(n_{1+}\)</span></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><span class="math inline">\(n_{21}\)</span></td>
+<td><span class="math inline">\(n_{22}\)</span></td>
+<td><span class="math inline">\(n_{2+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>合计</td>
+<td><span class="math inline">\(n_{+1}\)</span></td>
+<td><span class="math inline">\(n_{+2}\)</span></td>
+<td><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>统计量为： <span class="math display">\[
+\chi^2=\frac{(n_{12}-n_{21})^2}{n_{12}+n_{21}}\mathop{\rightarrow}^d\chi^2(1)
+\]</span> 当$n_{12}+n_{21}$40时，需要使用矫正公式： <span
+class="math display">\[
+\chi_C^2=\frac{(|n_{12}-n_{21}|-1)^2}{n_{12}+n_{21}}\mathop{\rightarrow}^d\chi^2(1)
+\]</span></p>
+<h3 id="一致性检验">一致性检验</h3>
+<p>主要用于方表的一致性比较，典型例子就是两位检验员<span
+class="math inline">\(A\)</span>和<span
+class="math inline">\(B\)</span>对同一份样本进行检验，对两位检验员检验结果的一致性进行评价。最终得到如下的方表：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>B1</th>
+<th>B2</th>
+<th>...</th>
+<th>Bk</th>
+<th>合计</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><span class="math inline">\(n_{11}\)</span></td>
+<td><span class="math inline">\(n_{12}\)</span></td>
+<td>...</td>
+<td><span class="math inline">\(n_{1k}\)</span></td>
+<td><span class="math inline">\(n_{1+}\)</span></td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><span class="math inline">\(n_{21}\)</span></td>
+<td><span class="math inline">\(n_{22}\)</span></td>
+<td>...</td>
+<td><span class="math inline">\(n_{2k}\)</span></td>
+<td><span class="math inline">\(n_{2+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="even">
+<td>Ak</td>
+<td><span class="math inline">\(n_{k1}\)</span></td>
+<td>...</td>
+<td>...</td>
+<td><span class="math inline">\(n_{kk}\)</span></td>
+<td><span class="math inline">\(n_{k+}\)</span></td>
+</tr>
+<tr class="odd">
+<td>合计</td>
+<td><span class="math inline">\(n_{+1}\)</span></td>
+<td><span class="math inline">\(n_{+2}\)</span></td>
+<td>...</td>
+<td><span class="math inline">\(n_{+k}\)</span></td>
+<td><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>行表示<span
+class="math inline">\(A\)</span>检验员的检验结果，列表示<span
+class="math inline">\(B\)</span>检验员的检验结果。很显然二位检验员之间的一致性主要体现在方表的对角线上，可用二者一致的数目占总样本的比例来评价一致性：
+<span class="math display">\[
+q1=\frac{n_{11}+n_{22}+...+n_{kk}}{n}
+\]</span> <span
+class="math inline">\(q_{11}\)</span>显然是有问题的，因为如果两位检验员都是随机检验，仍然可能有部分样本被两位检验员检出相同的结果，即方表的主对角线上不可能为0。话句话说，我们需要从<span
+class="math inline">\(q1\)</span>中扣除随机导致的一致性。可以证明对角线上的元素<span
+class="math inline">\(n_{ii},i=1,2,...,k\)</span>的期望为： <span
+class="math display">\[
+E(n_{ii})=\frac{n_{+i}n_{i+}}{n}
+\]</span> 那么随机导致的一致性为： <span class="math display">\[
+q2=\frac{E(n_{11})+...+E(n_{kk})}{n}=\frac{\sum_{i=1}^kn_{+i}n_{i+}}{n^2}
+\]</span> 实际的一致性为<span class="math inline">\(q1-q2\)</span>：
+<span class="math display">\[
+q1-q2=\frac{\sum_{i=1}^kn_{ii}}{n}-\frac{\sum_{i=1}^kn_{+i}n_{i+}}{n^2}
+\]</span> <span class="math inline">\(q1-q2\)</span>的最大值为<span
+class="math inline">\(1-q2\)</span>，我们将<span
+class="math inline">\(q1-q2\)</span>除以最大值，可以将统计量归一化到<span
+class="math inline">\([0,1]\)</span>，这就是<span
+class="math inline">\(cohen\)</span>等人提出的<span
+class="math inline">\(kappa\)</span>统计量： <span
+class="math display">\[
+kappa=\frac{\frac{\sum_{i=1}^kn_{ii}}{n}-\frac{\sum_{i=1}^kn_{+i}n_{i+}}{n^2}}{1-\frac{\sum_{i=1}^kn_{+i}n_{i+}}{n^2}}
+\]</span>
+很显然，当两个检验员都是随机检验时，kappa值为0，当非主对角线元素都为0时，kappa值为1。</p>
+<p><span
+class="math inline">\(kappa\)</span>检验的零假设为：两位检验员均为随机检验，此时kappa统计量分子为0，kappa的期望为0。可以证明kappa值的方差为：
+<span class="math display">\[
+\hat
+Var(kappa)=\frac{1}{n-1}\frac{q_2+q_2^2-\sum_{i=1}^kp_{i+}p_{+i}(p_{i+}+p_{+i})}{(1-q_2)^2}
+\]</span> 同样可以证明，<span
+class="math inline">\(kappa\)</span>统计量的渐进分布同样为正态分布，因此构造<span
+class="math inline">\(Z\)</span>统计量进行检验： <span
+class="math display">\[
+Z=\frac{kappa}{\sqrt{\hat {Var}(kappa)}}\mathop{\rightarrow}^d N(0,1)
+\]</span> 也可以将<span
+class="math inline">\(Z\)</span>平方得到卡方检验。</p>
+<h2 id="有序变量-2">有序变量</h2>
+<h3 id="一致性检验-1">一致性检验</h3>
+<p>使用加权kappa检验。</p>
+<h1 id="双变量的相关性相合性检验">双变量的相关性/相合性检验</h1>
+<h2 id="连续变量-3">连续变量</h2>
+<p>若数据服从双变量正态分布，则可以使用<span
+class="math inline">\(Pearson\)</span>矩相关系数，否则使用<span
+class="math inline">\(Spearman\)</span>秩相关系数。</p>
+<h3 id="正态分布-2">正态分布</h3>
+<p>公式为： <span class="math display">\[
+r=\frac{\sum_{i=1}^n(x_i-\bar x)(y_i-\bar
+y)}{\sqrt{\sum_{i=1}^n(x_i-\bar x)^2}\sqrt{\sum_{i=1}^n(y_i-\bar y)^2}}
+\]</span> 得到样本相关系数的<span
+class="math inline">\(r\)</span>后，还需要对总体相关系数<span
+class="math inline">\(\rho=0\)</span>进行假设检验，样本量较大时<span
+class="math inline">\(n\gt 50\)</span>，一般用的是<span
+class="math inline">\(t\)</span>检验： <span class="math display">\[
+t=\frac{r-0}{S_r}\\
+S_r=\sqrt{\frac{1-r^2}{n-2}}
+\]</span></p>
+<h3 id="非正态分布-2">非正态分布</h3>
+<p>基本思路是对两个变量<span class="math inline">\(x\)</span>和<span
+class="math inline">\(y\)</span>编秩，然后用秩代替原始值带入<span
+class="math inline">\(Pearson\)</span>矩相关系数公式中，由此得到的是秩相关系数，它的含义与<span
+class="math inline">\(Pearson\)</span>矩相关系数类似。秩相关系数也可以做假设检验，样本量较大时也是使用<span
+class="math inline">\(t\)</span>检验。</p>
+<h2 id="分类变量-3">分类变量</h2>
+<p>对于两个分类变量之间的关联性分析，主要是做两种属性的<span
+class="math inline">\(\chi^2\)</span>检验（假定各单元格服从多项分布），然后计算关联系数，常用的关联系数有：</p>
+<h3 id="phi系数"><span class="math inline">\(\phi\)</span>系数</h3>
+<p>对于四格表，可以用<span
+class="math inline">\(\phi\)</span>系数，公式为： <span
+class="math display">\[
+\phi=\sqrt{\frac{\chi^2}{n}}
+\]</span> <span class="math inline">\(\chi^2\)</span>为<span
+class="math inline">\(Pearson\quad\chi^2\)</span>值，<span
+class="math inline">\(n\)</span>为样本总列数。</p>
+<h3 id="cramerquad-v系数"><span class="math inline">\(Cramer\quad
+V\)</span>系数</h3>
+<p>对于多行多列的列联表，可以用<span class="math inline">\(Cramer\quad
+V\)</span>系数，公式为： <span class="math display">\[
+V=\sqrt{\frac{\chi^2}{n(k-1)}},\quad k=min(R,C)
+\]</span> <span
+class="math inline">\(k\)</span>为行数或列数的最小值。</p>
+<h3 id="pearson列联系数"><span
+class="math inline">\(Pearson\)</span>列联系数</h3>
+<p><span class="math inline">\(Pearson\)</span>列联系数
+一般无法取到1，因此用的不多，公式为： <span class="math display">\[
+r=\sqrt{\frac{\chi^2}{\chi^2+n}}
+\]</span> 这些系数理论上也应该做假设检验，实际上已经与<span
+class="math inline">\(\chi^2\)</span>检验等价。</p>
+<h2 id="有序变量-3">有序变量</h2>
+<p>对于有序变量之间的相关性，有时候也称为相合性。相合性高意味着行变量等级高列变量等级也会高。行变量等级高列变量等级也高称为正相合，行变量等级高列变量等级低称为负相合。</p>
+<p>测量有序变量之间相合性的指标有很多，但他们都是以<span
+class="math inline">\(kendall&#39;s\quad
+\tau_a\)</span>系数衍生出来的，为了推导这些指标，需要先介绍一些概念。</p>
+<h3 id="一些概念">一些概念</h3>
+<p>如果一个点，由<span class="math inline">\(x\)</span>和<span
+class="math inline">\(y\)</span>组成的坐标<span
+class="math inline">\((x,y)\)</span>代表，一对点就是<span
+class="math inline">\((x_1,y_1)\)</span>和<span
+class="math inline">\((x_2,y_2)\)</span>这样的点对。假设有<span
+class="math inline">\(n\)</span>个样本点，这样的点对将有<span
+class="math inline">\(C_n^2=\frac{n(n-1)}{2}\)</span>个，我们令其为<span
+class="math inline">\(T=\frac{n(n-1)}{2}\)</span>。我们考察每一对中<span
+class="math inline">\((x,y)\)</span>是否同时增加或减小。例如有点对<span
+class="math inline">\((x_1,y_1)\)</span>和<span
+class="math inline">\((x_2,y_2)\)</span>，可以计算乘积<span
+class="math inline">\((x_1-x_2)(y_1-y_2)\)</span>，判断乘积是否大于0，对于这<span
+class="math inline">\(T\)</span>对，有下面这几种情况：</p>
+<ul>
+<li>乘积大于0，我们称这一点对为同序对；</li>
+<li>乘积小于0，我们称这一点对为异序对；</li>
+<li>乘积为0，此时意味这这一对点要么<span
+class="math inline">\(x\)</span>坐标相同，要么<span
+class="math inline">\(y\)</span>坐标相同，我们称这一点对为同分对；</li>
+</ul>
+<p>我们记同序对个数为<span
+class="math inline">\(P\)</span>，异序对个数为<span
+class="math inline">\(Q\)</span>，<span
+class="math inline">\(x\)</span>坐标相同的同分对个数为<span
+class="math inline">\(P_x\)</span>，<span
+class="math inline">\(y\)</span>坐标相同的同分对个数为<span
+class="math inline">\(P_y\)</span>，<span
+class="math inline">\(x,y\)</span>坐标都相同的同分对个数为<span
+class="math inline">\(P_{xy}\)</span>，则有： <span
+class="math display">\[
+P+Q+P_{x}+P_{y}-P_{xy}=T
+\]</span> 因为<span
+class="math inline">\(x,y\)</span>坐标都相同的点对会同时计入<span
+class="math inline">\(P_x\)</span>和<span
+class="math inline">\(P_y\)</span>，相当于算了两次，所以最后减掉一个<span
+class="math inline">\(P_{xy}\)</span>。</p>
+<h3 id="kendallsquad-tau_a"><span
+class="math inline">\(kendall&#39;s\quad \tau_a\)</span></h3>
+<p>计算公式为： <span class="math display">\[
+\tau_a=\frac{P-Q}{T}
+\]</span> 当所有点的<span class="math inline">\(x\)</span>和<span
+class="math inline">\(y\)</span>坐标都不同，此时<span
+class="math inline">\(P_x=P_y=P_{xy}=0\)</span>，当<span
+class="math inline">\(Q=0\)</span>时，<span
+class="math inline">\(P=n(n-1)2\)</span>，<span
+class="math inline">\(\tau_a\)</span>取得最大值<span
+class="math inline">\(1\)</span>，当<span
+class="math inline">\(P=0\)</span>时，<span
+class="math inline">\(\tau_a\)</span>取得最小值<span
+class="math inline">\(-1\)</span>。然而数据中常常有一些点的<span
+class="math inline">\(x\)</span>坐标或<span
+class="math inline">\(y\)</span>坐标是相同的，这将导致<span
+class="math inline">\(\tau_a\)</span>取不到最大值<span
+class="math inline">\(1\)</span>或最小值<span
+class="math inline">\(-1\)</span>，这是<span
+class="math inline">\(\tau_a\)</span>系数的缺点。</p>
+<h3 id="kendallsquad-tau_b"><span
+class="math inline">\(kendall&#39;s\quad \tau_b\)</span></h3>
+<p>针对<span
+class="math inline">\(\tau_a\)</span>往往取不到1或-1的问题，<span
+class="math inline">\(\tau_b\)</span>对<span
+class="math inline">\(\tau_a\)</span>的分母进行了修正，实际上就是从总对数中减去<span
+class="math inline">\(x\)</span>坐标或<span
+class="math inline">\(y\)</span>坐标相同的点对，计算公式为： <span
+class="math display">\[
+\tau_b=\frac{P-Q}{\sqrt{T-P_x}\sqrt{T-P_y}}
+\]</span> 可以发现<span class="math inline">\(P_x\)</span>和<span
+class="math inline">\(P_y\)</span>为0时，<span
+class="math inline">\(\tau_b\)</span>退化为<span
+class="math inline">\(\tau_a\)</span>。观察这个公式容易发现，只有当<span
+class="math inline">\(P_x=P_y=P_{xy}\)</span>且<span
+class="math inline">\(Q=0\)</span>时，<span
+class="math inline">\(P=T-P_x\)</span>，此时<span
+class="math inline">\(\tau_b=1\)</span>，当<span
+class="math inline">\(P_x=P_y=P_{xy}\)</span>且<span
+class="math inline">\(P=0\)</span>时，<span
+class="math inline">\(Q=T-P_x\)</span>，此时<span
+class="math inline">\(\tau_b=-1\)</span>。而<span
+class="math inline">\(P_x=P_y=P_{xy}\)</span>时，意味着列联表必须为方表才行，对于长方形表，<span
+class="math inline">\(\tau_b\)</span>无法取到±1，这是<span
+class="math inline">\(\tau_b\)</span>系数的缺点。</p>
+<h3 id="kendallsquad-tau_c"><span
+class="math inline">\(kendall&#39;s\quad \tau_c\)</span></h3>
+<p>公式为： <span class="math display">\[
+\tau_c=\frac{P-Q}{\frac{n^2}{2}\frac{m-1}{m}}
+\]</span> <span
+class="math inline">\(m\)</span>表示列联表中较小的行数（或列数）。<span
+class="math inline">\(\tau_c\)</span>一般用于长方形表的相合性评价。</p>
+<h3 id="gamma系数"><span class="math inline">\(gamma\)</span>系数</h3>
+<p>计算公式为： <span class="math display">\[
+gamma=\frac{P-Q}{P+Q}
+\]</span></p>
+<h3 id="somers-d系数">Somers' D系数</h3>
+<p>Somers'
+D系数也主要用于长方形表的相合性评价，它是一种不对称相合关系的评价指标。可以计算两个系数<span
+class="math inline">\(d_{xy},d_{yx}\)</span>： <span
+class="math display">\[
+\begin{aligned}
+d_{xy}=\frac{P-Q}{T-P_y}\\
+d_{yx}=\frac{P-Q}{T-P_x}
+\end{aligned}
+\]</span> <span class="math inline">\(d_{xy}\)</span>表示<span
+class="math inline">\(y\)</span>为自变量<span
+class="math inline">\(x\)</span>为因变量时的情况，<span
+class="math inline">\(d_{yx}\)</span>为自变量为<span
+class="math inline">\(x\)</span>因变量为<span
+class="math inline">\(y\)</span>时的情况。</p>
+<h3 id="相合性检验">相合性检验</h3>
+<p>上面介绍的5种相合系数都需要做假设检验，由于公式十分复杂，这里就不过多介绍了，感兴趣的可以参考其他文档。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"># 数理统计</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/07/8.%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="prev" title="数理统计中的一些基本概念">
+                  <i class="fa fa-chevron-left"></i> 数理统计中的一些基本概念
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/" rel="next" title="可视化库seaborn快速入门">
+                  可视化库seaborn快速入门 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">33k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

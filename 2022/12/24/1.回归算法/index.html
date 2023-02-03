@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回归算法">
+<meta property="og:url" content="http://example.com/2022/12/24/1.%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-28T14:54:02.952Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="回归">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/12/24/1.%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/12/24/1.%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/","path":"2022/12/24/1.回归算法/","title":"回归算法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>回归算法 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1"><span class="nav-number">2.2.</span> <span class="nav-text">损失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">2.3.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6"><span class="nav-number">2.3.1.</span> <span class="nav-text">梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hessian%E7%9F%A9%E9%98%B5"><span class="nav-number">2.3.2.</span> <span class="nav-text">Hessian矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3"><span class="nav-number">2.3.3.</span> <span class="nav-text">解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#x%E6%BB%A1%E7%A7%A9"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">X满秩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x%E4%B8%8D%E6%BB%A1%E7%A7%A9"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">X不满秩</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B2%AD%E5%9B%9E%E5%BD%92"><span class="nav-number">3.</span> <span class="nav-text">岭回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B-1"><span class="nav-number">3.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1-1"><span class="nav-number">3.2.</span> <span class="nav-text">损失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-1"><span class="nav-number">3.3.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hessian%E7%9F%A9%E9%98%B5-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">Hessian矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3-1"><span class="nav-number">3.3.3.</span> <span class="nav-text">解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lasso%E5%9B%9E%E5%BD%92"><span class="nav-number">4.</span> <span class="nav-text">lasso回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B-2"><span class="nav-number">4.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1-2"><span class="nav-number">4.2.</span> <span class="nav-text">损失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-2"><span class="nav-number">4.3.</span> <span class="nav-text">优化</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/24/1.%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="回归算法 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          回归算法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-24 00:00:00" itemprop="dateCreated datePublished" datetime="2022-12-24T00:00:00+08:00">2022-12-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-28 22:54:02" itemprop="dateModified" datetime="2022-12-28T22:54:02+08:00">2022-12-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​</p>
+<span id="more"></span>
+<h1 id="符号">符号</h1>
+<p><span class="math inline">\(X\)</span>：数据矩阵，<span
+class="math inline">\(X\in R^{n*p}\)</span></p>
+<p><span class="math inline">\(\vec
+y\)</span>：标签向量（列向量），<span class="math inline">\(\vec y\in
+R^n\)</span></p>
+<p><span class="math inline">\(\vec
+w\)</span>：参数向量（列向量），<span class="math inline">\(\vec w\in
+R^p\)</span></p>
+<p><span class="math inline">\(\vec
+x\)</span>：一条观测数据的特征向量（列向量），<span
+class="math inline">\(\vec x\in R^p\)</span></p>
+<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
+<p><span class="math inline">\(L\)</span>：总损失</p>
+<p><span class="math inline">\(dL\)</span>：损失函数的微分</p>
+<p><span class="math inline">\(\nabla_{\vec w}L\)</span>：损失函数<span
+class="math inline">\(L\)</span>对<span class="math inline">\(\vec
+w\)</span>的梯度</p>
+<p><span class="math inline">\(\nabla^2_\vec w L\)</span>：损失函数<span
+class="math inline">\(L\)</span>对<span class="math inline">\(\vec
+w\)</span>的Hessian矩阵</p>
+<h1 id="线性回归">线性回归</h1>
+<h2 id="模型">模型</h2>
+<p><span class="math display">\[
+\hat y=\vec x^T\vec w
+\]</span></p>
+<h2 id="损失">损失</h2>
+<p><span class="math display">\[
+l=(y-\hat y)^2=(y-\vec x^T\vec w)^2
+\]</span></p>
+<p><span class="math display">\[
+L=(\vec y-X\vec w)^T(\vec y-X\vec w)\\
+=\vec y^T\vec y-\vec y^TX\vec w-\vec w^TX^T\vec y+\vec w^TX^TX\vec w\\
+=\vec y^T\vec y-2\vec y^TX\vec w+\vec w^TX^TX\vec w
+\]</span></p>
+<h2 id="优化">优化</h2>
+<h3 id="梯度">梯度</h3>
+<p>微分： <span class="math display">\[
+dL=-2\vec y^TXd\vec w+d\vec w^T(X^TX\vec w)+\vec w^TX^TXd\vec w\\
+=2(\vec w^TX^TX-\vec y^TX)d\vec w\\
+=2(X^TX\vec w-X^T\vec y)^Td\vec w
+\]</span> 梯度： <span class="math display">\[
+\nabla_{\vec w}L=\frac{\partial L}{\partial \vec w}=2(X^TX\vec w-X^T\vec
+y)
+\]</span></p>
+<h3 id="hessian矩阵">Hessian矩阵</h3>
+<p>微分： <span class="math display">\[
+d\nabla_{\vec w}L=2X^TXd\vec w\\
+=2[X^TX]^Td\vec w
+\]</span> hessian矩阵： <span class="math display">\[
+\nabla_{\vec w}^2L=\frac{\partial^2L}{\partial \vec w\partial \vec
+w^T}=2X^TX
+\]</span></p>
+<h3 id="解">解</h3>
+<h4 id="x满秩">X满秩</h4>
+<p>hessian矩阵正定： <span class="math display">\[
+\vec v^TX^TX\vec v=(X\vec v)^T(X\vec v)\gt0,\vec v\ne0
+\]</span></p>
+<p>解为： <span class="math display">\[
+\vec w=(X^TX)^{-1}X^T\vec y
+\]</span> 矩阵<span class="math inline">\(X\)</span>的左逆：<span
+class="math inline">\((X^TX)^{-1}X^T\)</span>。</p>
+<p>投影矩阵：<span class="math inline">\(X(X^TX)^{-1}X^T\)</span></p>
+<h4 id="x不满秩">X不满秩</h4>
+<p>hessian矩阵半正定。 <span class="math display">\[
+X=U\Sigma V^{-1}\\
+X^{+}=V\Sigma^{-1}U^{-1}\\
+XX^{+}=U\Sigma\Sigma^{-1}U^{-1}=U\Sigma\Sigma^{-1}U^T
+\]</span></p>
+<p><span class="math inline">\(XX^{+}\)</span>是投影矩阵，解为： <span
+class="math display">\[
+\vec w=X^{+}\vec y
+\]</span></p>
+<h1 id="岭回归">岭回归</h1>
+<h2 id="模型-1">模型</h2>
+<p><span class="math display">\[
+\hat y=\vec x^T\vec w
+\]</span></p>
+<h2 id="损失-1">损失</h2>
+<p><span class="math display">\[
+L=(\vec y-X\vec w)^T(\vec y-X\vec w)+\lambda\vec w^T\vec w\\
+=(\vec y^T-\vec w^TX^T)(\vec y-X\vec w)+\lambda \vec w^T\vec w\\
+=\vec y^T\vec y-\vec y^TX\vec w-\vec w^TX^T\vec y+\vec w^TX^TX\vec
+w+\lambda w^T\vec w\\
+=\vec y^T\vec y-2\vec y^TX\vec w+\vec w^TX^TX\vec w+\lambda \vec w^T\vec
+w
+\]</span></p>
+<h2 id="优化-1">优化</h2>
+<h3 id="梯度-1">梯度</h3>
+<p>微分： <span class="math display">\[
+dL=-2\vec y^TXd\vec w+d\vec w^T(X^TX\vec w)+\vec w^TX^TXd\vec
+w+\lambda(d\vec w^T)\vec w+\lambda \vec w^Td\vec w\\
+=-2\vec y^TXd\vec w+2\vec w^TX^TXd\vec w+2\lambda \vec w^Td\vec w\\
+=(2\vec w^TX^TX+2\lambda \vec w^T-2\vec y^TX)d\vec w\\
+=(2X^TX\vec w+2\lambda \vec w-2X^T\vec y)^Td\vec w
+\]</span></p>
+<p>梯度： <span class="math display">\[
+\nabla_{\vec w}L=2(X^TX\vec w+\lambda\vec w-X^T\vec y)
+\]</span></p>
+<h3 id="hessian矩阵-1">Hessian矩阵</h3>
+<p>微分： <span class="math display">\[
+d\nabla_{\vec w}L=2X^TXd\vec w+2\lambda Id\vec w\\
+=2(X^TX+\lambda I)^Td\vec w
+\]</span></p>
+<p>hessian矩阵为： <span class="math display">\[
+\nabla_{\vec w}^2L=2(X^TX+\lambda I)
+\]</span></p>
+<p>hessian矩阵必然正定： <span class="math display">\[
+\vec v^T(X^TX+\lambda I)\vec v,\vec v\ne 0\\
+=\vec v^TX^TX\vec v+\vec v^T\lambda I\vec v\gt0
+\]</span></p>
+<h3 id="解-1">解</h3>
+<p><span class="math display">\[
+2(X^TX\vec w+\lambda \vec w-X^T\vec y)=0\\
+\rightarrow\\
+\vec w=(X^TX+\lambda I)^{-1}X^T\vec y
+\]</span></p>
+<h1 id="lasso回归">lasso回归</h1>
+<h2 id="模型-2">模型</h2>
+<p><span class="math display">\[
+\hat y=\vec x^T\vec w=\sum_{j=1}^px_jw_j
+\]</span></p>
+<h2 id="损失-2">损失</h2>
+<p><span class="math display">\[
+L=\sum_{i=1}^n(y_i-\sum_{j=1}^px_{ij}w_j)^2+\alpha\sum_{j=1}^p|w_j|
+\]</span></p>
+<h2 id="优化-2">优化</h2>
+<p>用坐标下降法进行优化，计算<span
+class="math inline">\(w_k(k=1,2,...,p)\)</span>的偏导数： <span
+class="math display">\[
+\frac{\partial L}{\partial
+w_k}=2\sum_{i=1}^n(y_i-\sum_{j=1}^px_{ij}w_j)(-x_{ik})+\alpha\frac{\partial
+|w_k|}{\partial w_k}\\
+=2\sum_{i=1}^n(y_i-\sum_{j\ne
+k}^px_{ij}w_j-x_{ik}w_k)(-x_{ik})+\alpha\frac{\partial |w_k|}{\partial
+w_k}\\
+=-2\sum_{i=1}^n(y_i-\sum_{j\ne
+k}^px_{ij}w_j)x_{ik}+2w_k\sum_{i=1}^nx_{ik}^2+\alpha\frac{\partial
+|w_k|}{\partial w_k}\\
+=-A_k+w_kB_k+\alpha\frac{\partial |w_k|}{\partial w_k}
+\]</span> 其中<span
+class="math inline">\(A_k=2\sum_{i=1}^n(y_i-\sum_{j\ne
+k}^px_{ij}w_j)x_{ik},B_k=2\sum_{i=1}^nx_{ik}^2\gt 0\)</span>。进一步：
+<span class="math display">\[
+\frac{\partial L}{\partial w_k}=-A_k+w_kB_k+\alpha \frac{\partial
+|w_k|}{\partial w_k}\\=
+\left\{\begin{aligned}
+  -A_k+w_kB_k+\alpha,w_k&gt;0\\
+  -A_k±\alpha,w_k=0\\
+  -A_k+w_kB_k-\alpha,w_k&lt;0
+\end{aligned}\right.
+\]</span> 令偏导数为0，解<span class="math inline">\(w_k^*\)</span>为：
+<span class="math display">\[
+w_k^*=
+\left\{\begin{aligned}
+  \frac{A_k-\alpha}{B_k},w_k^*&gt;0\\
+  0,w_k^*=0\\
+  \frac{A_k+\alpha}{B_k},w_k^*&lt;0
+\end{aligned}\right.
+\]</span> 进而为： <span class="math display">\[
+w_k^*=
+\left\{\begin{aligned}
+  \frac{A_k-\alpha}{B_k},A_k&gt;\alpha\\
+  0,-\alpha \le A_k\le\alpha\\
+  \frac{A_k+\alpha}{B_k},A_k&lt;-\alpha
+\end{aligned}\right.
+\]</span> 从<span
+class="math inline">\(w_1\)</span>开始，依次对参数<span
+class="math inline">\(w_2,...,w_p\)</span>进行迭代，同时判断是否满足收敛条件。到<span
+class="math inline">\(w_p\)</span>后仍然不收敛则进行下一轮迭代，直到最终收敛。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%9E%E5%BD%92/" rel="tag"># 回归</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/23/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/25/2.%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/" rel="next" title="分类算法">
+                  分类算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">33k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

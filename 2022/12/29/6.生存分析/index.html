@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生存分析">
+<meta property="og:url" content="http://example.com/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-29T13:47:22.540Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="回归">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/","path":"2022/12/29/6.生存分析/","title":"生存分析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>生存分析 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">分布函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">密度函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%AD%98%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">生存函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A3%8E%E9%99%A9%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">风险函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%AF%E7%A7%AF%E9%A3%8E%E9%99%A9%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">累积风险函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">对数似然函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%9E%E5%8F%82%E6%95%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">非参数方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%AD%98%E5%87%BD%E6%95%B0%E7%9A%84kaplan-meier%E4%BC%B0%E8%AE%A1"><span class="nav-number">2.1.</span> <span class="nav-text">生存函数的Kaplan-Meier估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%AF%E7%A7%AF%E9%A3%8E%E9%99%A9%E5%87%BD%E6%95%B0%E7%9A%84nelson-aalen%E4%BC%B0%E8%AE%A1"><span class="nav-number">2.2.</span> <span class="nav-text">累积风险函数的Nelson-Aalen估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#km%E4%BC%B0%E8%AE%A1%E9%87%8F%E6%B8%90%E8%BF%9B%E6%96%B9%E5%B7%AE%E7%9A%84greenwood%E4%BC%B0%E8%AE%A1"><span class="nav-number">2.3.</span> <span class="nav-text">KM估计量渐进方差的Greenwood估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log-rank%E6%A3%80%E9%AA%8C"><span class="nav-number">2.4.</span> <span class="nav-text">Log-rank检验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">参数模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E9%80%9F%E5%A4%B1%E6%95%88%E6%97%B6%E9%97%B4%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">加速失效时间模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.2.</span> <span class="nav-text">常见模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E4%BE%8B%E9%A3%8E%E9%99%A9%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">比例风险模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C"><span class="nav-number">3.2.2.</span> <span class="nav-text">检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%AD%A3"><span class="nav-number">3.2.3.</span> <span class="nav-text">修正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E5%9B%9E%E5%BD%92"><span class="nav-number">3.2.4.</span> <span class="nav-text">指数回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A8%81%E5%B8%83%E5%B0%94%E5%9B%9E%E5%BD%92"><span class="nav-number">3.2.5.</span> <span class="nav-text">威布尔回归</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8A%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">半参数模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cox%E5%9B%9E%E5%BD%92"><span class="nav-number">4.1.</span> <span class="nav-text">Cox回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E5%AD%98%E6%97%B6%E9%97%B4%E6%B2%A1%E6%9C%89%E6%89%93%E7%BB%93"><span class="nav-number">4.1.1.</span> <span class="nav-text">生存时间没有“打结”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E5%AD%98%E6%97%B6%E9%97%B4%E6%9C%89%E6%89%93%E7%BB%93"><span class="nav-number">4.1.2.</span> <span class="nav-text">生存时间有“打结”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%B0%E8%AE%A1%E5%9F%BA%E7%BA%BF%E7%94%9F%E5%AD%98%E5%87%BD%E6%95%B0"><span class="nav-number">4.1.3.</span> <span class="nav-text">估计基线生存函数</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="生存分析 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          生存分析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-29 00:00:00 / 修改时间：21:47:22" itemprop="dateCreated datePublished" datetime="2022-12-29T00:00:00+08:00">2022-12-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">数理统计</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​</p>
+<span id="more"></span>
+<h1 id="常用函数">常用函数</h1>
+<h2 id="分布函数">分布函数</h2>
+<p><span class="math display">\[
+F(t)=P(T\le t)
+\]</span></p>
+<h2 id="密度函数">密度函数</h2>
+<p><span class="math display">\[
+f(t)=F\prime(t)
+\]</span></p>
+<h2 id="生存函数">生存函数</h2>
+<p><span class="math display">\[
+S(t)=1-F(t)
+\]</span></p>
+<h2 id="风险函数">风险函数</h2>
+<p><span class="math display">\[
+h(t)=\frac{f(t)}{S(t)}
+\]</span></p>
+<h2 id="累积风险函数">累积风险函数</h2>
+<p><span class="math display">\[
+H(t)=\int_{0}^th(u)du=-lnS(t)
+\]</span></p>
+<h2 id="对数似然函数">对数似然函数</h2>
+<p><span class="math display">\[
+L=\prod_{i=1}^nf(t_i)^{y_i}S(t_i)^{1-y_i}\\
+lnL=\sum_{i=1}^n[y_ilnf(t_i)+(1-y_i)lnS(t_i)]\\
+=\sum_{i=1}^n[y_ilnh(t_i)+y_ilnS(t_i)+lnS(t_i)-y_ilnS(t_i)]\\
+=\sum_{i=1}^n[y_ilnh(t_i)-H(t_i)]
+\]</span></p>
+<p><span class="math inline">\(y_i\)</span>标记了是否删失，0为删失。</p>
+<h1 id="非参数方法">非参数方法</h1>
+<h2 id="生存函数的kaplan-meier估计">生存函数的Kaplan-Meier估计</h2>
+<p>记有<span
+class="math inline">\(J\)</span>个生存时间的完整数据，且已经排好序：<span
+class="math inline">\(t_1,t_2,...,t_j,...t_J\)</span>，<span
+class="math inline">\([t_{j-1},t_j)\)</span>期间尚存人数为<span
+class="math inline">\(n_j\)</span>，<span
+class="math inline">\(t_j\)</span>时死亡人数为<span
+class="math inline">\(d_j\)</span>，删失人数为<span
+class="math inline">\(c_j\)</span>，尚存人数为<span
+class="math inline">\(n_{j+1}\)</span>，有<span
+class="math inline">\(n_j=d_j+c_j+n_{j+1}\)</span>。则Kaplan-Meier估计为：
+<span class="math display">\[
+\hat S(t)=\prod_{j:t_j\le t}\frac{n_j-d_j}{n_j}
+\]</span></p>
+<h2
+id="累积风险函数的nelson-aalen估计">累积风险函数的Nelson-Aalen估计</h2>
+<p>使用Nelson-Aalen估计量： <span class="math display">\[
+\hat H(t)=\sum_{j:t_j\le t}\frac{d_j}{n_j}
+\]</span> 风险函数估计为： <span class="math display">\[
+\hat h(t_j)=\frac{d_j}{n_j}
+\]</span> 风险函数的方差估计为： <span class="math display">\[
+\hat {Var}(\hat
+h(t_j))=\frac{\frac{d_j}{n_j}(1-\frac{d_j}{n_j})}{n_j}=\frac{d_j(n_j-d_j)}{n_j^3}
+\]</span></p>
+<h2
+id="km估计量渐进方差的greenwood估计">KM估计量渐进方差的Greenwood估计</h2>
+<p>已知： <span class="math display">\[
+ln\hat S(t)=\sum_{j:t_j\le t}ln(1-\hat h(t_j))
+\]</span> 令： <span class="math display">\[
+g=ln(1-\hat h(t_j))
+\]</span> 由delta法： <span class="math display">\[
+\hat{Var}(ln\hat S(t))\sim \sum_{j:t_j\le t}\hat{Var(\hat
+h(t_j))}[g\prime]^2\\
+=\sum_{j:t_j\le t}\frac{d_j(n_j-d_j)}{n_j^3}[\frac{1}{1-\hat
+{h}(t_j)}(-1)]^2\\
+=\sum_{j:t_j\le t}\frac{d_j(n_j-d_j)}{n_j^3}\frac{n_j^2}{(n_j-d_j)^2}\\
+=\sum_{j:t_j\le t}\frac{d_j}{n_j(n_j-d_j)}
+\]</span> 又有delta法： <span class="math display">\[
+\hat{Var}(ln\hat{S}(t))\sim \hat{Var}(\hat S(t))[\frac{1}{\hat S(t)}]^2
+\]</span> 因此： <span class="math display">\[
+\hat{Var}(\hat S(t))=[\hat S(t)]^2\hat{Var}(ln\hat S(t))\\
+=[\hat S(t)]^2\sum_{j:t_j\le t}\frac{d_j}{n_j(n_j-d_j)}
+\]</span></p>
+<h2 id="log-rank检验">Log-rank检验</h2>
+<p>思路：任意一组<span class="math inline">\(i(i=1,2)\)</span>在<span
+class="math inline">\(t_j\)</span>时的死亡人数服从超几何分布<span
+class="math inline">\(H(n_j,n_{ij},d_{j})\)</span>。<span
+class="math inline">\(n_j\)</span>为<span
+class="math inline">\([t_{j-1},t_j)\)</span>风险集中的总人数，<span
+class="math inline">\(n_{ij}\)</span>为<span
+class="math inline">\([t_{j-1},t_j)\)</span>时第<span
+class="math inline">\(i\)</span>组风险集人数，<span
+class="math inline">\(d_{j}\)</span>为<span
+class="math inline">\(t_j\)</span>时死亡总人数。任取一组如<span
+class="math inline">\(i=1\)</span>，超几何分布的期望和方差为： <span
+class="math display">\[
+E_{1j}=\frac{n_{1j}d_{j}}{n_j}\\
+V_{1j}=\frac{n_{1j}d_{j}}{n_j}(1-\frac{d_{j}}{n_j})\frac{n_j-n_{1j}}{n_j-1}
+\]</span> 检验统计量： <span class="math display">\[
+Z=\frac{\sum_{j=1}^J(d_{1j}-E_{1j})}{\sqrt{\sum_{j=1}^JV_{1j}}}\mathop{\rightarrow}^dN(0,1)
+\]</span>
+wilcoxon检验、Tarone-Ware、和Peto等加权log-rank检验只是在log-rank检验中加入了不同权重。</p>
+<h1 id="参数模型">参数模型</h1>
+<h2 id="加速失效时间模型">加速失效时间模型</h2>
+<h3 id="结构">结构</h3>
+<p><span class="math display">\[
+ln T = \vec x^T\vec w+\epsilon\\
+T=e^{\vec x^T\vec w+\epsilon}\\
+T=T_0e^{\vec x^T\vec w}
+\]</span></p>
+<p>意义：<span class="math inline">\(\vec x^T\vec
+w\)</span>延长或缩短了基线生存时间<span
+class="math inline">\(T_0\)</span>。</p>
+<h3 id="常见模型">常见模型</h3>
+<table>
+<thead>
+<tr class="header">
+<th>模型</th>
+<th>ε的分布</th>
+<th>T的分布</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>指数回归</td>
+<td>标准Ⅰ型极值分布</td>
+<td>指数分布</td>
+</tr>
+<tr class="even">
+<td>威布尔回归</td>
+<td>Ⅰ型极值分布</td>
+<td>威布尔分布</td>
+</tr>
+<tr class="odd">
+<td>对数正态模型</td>
+<td>正态分布</td>
+<td>对数正态分布</td>
+</tr>
+<tr class="even">
+<td>对数logistic模型</td>
+<td>logistic分布</td>
+<td>对数logistic分布</td>
+</tr>
+</tbody>
+</table>
+<h2 id="比例风险模型">比例风险模型</h2>
+<h3 id="结构-1">结构</h3>
+<p><span class="math display">\[
+h(t)=h_0(t)e^{\vec x^T\vec w}
+\]</span></p>
+<p>意义：<span class="math inline">\(\vec x^T\vec
+w\)</span>增大或缩小了基线风险<span
+class="math inline">\(h_0(t)\)</span>，且影响程度不随时间发生变化。</p>
+<h3 id="检验">检验</h3>
+<p>用生存函数的对数负对数图 <span class="math display">\[
+S(t)=e^{-H(t)}\\
+=e^{-\int_0^th(u)du}\\
+=e^{-\int_0^th_0(u)e^{\vec x^T\vec w}du}\\
+=[e^{-\int_0^th_0(u)du}]^{e^{\vec x^T\vec w}}\\
+=[S_0(t)]^{e^{\vec x^T\vec w}}
+\]</span> 取负对数： <span class="math display">\[
+-lnS(t)=-e^{\vec x^T\vec w}lnS_0(t)\gt0
+\]</span> 再取对数： <span class="math display">\[
+ln[-lnS(t)]=\vec x^T\vec w+ln[-lnS_0(t)]
+\]</span>
+因此，若比例风险假定成立，对某变量的不同取值画生存函数，生存函数将互相平行。</p>
+<h3 id="修正">修正</h3>
+<p>违背比例风险假定时的修正方案有：</p>
+<p>方案一：引入随时间变化的变量 <span class="math display">\[
+h(t)=h_0(t)e^{\vec x^T(t)\vec w}
+\]</span> 方案二：引入随时间变化的参数 <span class="math display">\[
+h(t)=h_0(t)e^{\vec x^T(\vec w+\vec\gamma^T\vec g(t))}
+\]</span> <span class="math inline">\(g\)</span>为时间<span
+class="math inline">\(t\)</span>的函数，如对数函数等。</p>
+<h3 id="指数回归">指数回归</h3>
+<p>指数分布为： <span class="math display">\[
+F(t)=1-e^{-\lambda t},\lambda\gt 0\\
+f(t)=\lambda e^{-\lambda t}\\
+S(t)=e^{-\lambda t}\\
+h(t)=\lambda\\
+H(t)=\lambda t
+\]</span> 指数回归为对<span
+class="math inline">\(\lambda\)</span>进行回归： <span
+class="math display">\[
+\lambda = e^{\vec x^T\vec w}
+\]</span> 对数似然函数为： <span class="math display">\[
+lnL=\sum_{i=1}^n[y_ilne^{\vec x_i^T\vec w}-e^{\vec x_i^T\vec w}t_i]\\
+=\sum_{i=1}^n[y_i\vec x_i^T\vec w-e^{\vec x_i^T\vec w}t_i]\\
+=\vec y^TX\vec w-\vec t^Te^{X\vec w}
+\]</span> 对数似然函数的微分： <span class="math display">\[
+dlnL=\vec y^TXd\vec w-\vec t^Tde^{X\vec w}\\
+=\vec y^TXd\vec w-\vec t^T(e^{X\vec w}\odot(Xd\vec w))\\
+=tr(\vec y^TXd\vec w-[\vec t\odot e^{X\vec w}]^TXd\vec w)\\
+=tr([\vec y-\vec t\odot e^{X\vec w}]^TXd\vec w)\\
+=tr([X^T(\vec y-\vec t\odot e^{X\vec w})]^Td\vec w)
+\]</span> <span
+class="math inline">\(\odot\)</span>为向量或矩阵对应元素相乘，<span
+class="math inline">\(tr\)</span>为计算矩阵的迹。梯度为： <span
+class="math display">\[
+\nabla_{\vec w}lnL=X^T(\vec y-\vec t\odot e^{X\vec w})
+\]</span> 梯度微分： <span class="math display">\[
+d\nabla_{\vec w}lnL=-X^Td(\vec t\odot e^{X\vec w})\\
+=-X^T(\vec t\odot de^{X\vec w})\\
+=-X^T(\vec t\odot(e^{X\vec w}\odot (Xd\vec w)))\\
+=-X^T(\vec t\odot (diag(e^{X\vec w})Xd\vec w))\\
+=-X^Tdiag(\vec t)diag(e^{X\vec w})Xd\vec w\\
+-X^Tdiag(\vec t\odot e^{X\vec w})Xd\vec w\\
+=-[X^Tdiag(\vec t\odot e^{X\vec w})X]^Td\vec w
+\]</span> <span
+class="math inline">\(diag\)</span>作用是生成一个对角矩阵。hessian矩阵为：
+<span class="math display">\[
+\nabla_{\vec w}^2lnL=-X^Tdiag(\vec t\odot e^{X\vec w})X
+\]</span></p>
+<p><span
+class="math inline">\(X\)</span>满秩时，为凹函数，用牛顿迭代求解。</p>
+<h3 id="威布尔回归">威布尔回归</h3>
+<p>威布尔分布为： <span class="math display">\[
+F(t)=1-e^{-\gamma t^p},\gamma&gt;0,p&gt;0\\
+f(t)=\gamma pt^{p-1}e^{-\gamma t^p}\\
+S(t)=e^{-\gamma t^p}\\
+h(t)=\gamma pt^{p-1}\\
+H(t)=\gamma t^p
+\]</span> 威布尔回归是对<span
+class="math inline">\(\gamma\)</span>做回归： <span
+class="math display">\[
+\gamma=e^{\vec x^T\vec w}\\
+h(t)=e^{\vec x^T\vec w}pt^{p-1}\\
+H(t)=e^{\vec x^T\vec w}t^p
+\]</span> 似然函数为： <span class="math display">\[
+L=\sum_{i=1}^n[y_i\mathop{ln}(e^{\vec x_i^T\vec w}pt_i^{p-1})-e^{\vec
+x_i^T\vec w}t_i^p]\\
+=\sum_{i=1}^n[y_i\vec x_i^T\vec w+y_ilnp+y_i(p-1)lnt_i)-e^{\vec
+x_i^T\vec w}t_i^p]\\
+=\vec y^TX\vec w+\vec y^T\vec 1lnp+\vec y^T(p-1)ln\vec t-[\vec
+t^p]^Te^{X\vec w}
+\]</span></p>
+<h1 id="半参数模型">半参数模型</h1>
+<h2 id="cox回归">Cox回归</h2>
+<p>Cox回归也为比例风险模型： <span class="math display">\[
+h(t)=h_0(t)e^{\vec x^T\vec w}
+\]</span></p>
+<h3 id="生存时间没有打结">生存时间没有“打结”</h3>
+<p>似然函数为： <span class="math display">\[
+L=\prod_{i=1}^nf(t_i)^{y_i}S(t_i)^{1-y_i}\\
+=\prod_{i=1}^nh(t_i)^{y_i}S(t_i)^{y_i}S(t_i)^{1-y_i}\\
+=\prod_{i=1}^nh(t_i)^{y_i}S(t_i)\\
+=\prod_{i=1}^n\frac{h(t_i)^{y_i}}{\sum_{l\in
+R(t_i)}h(t_i)^{y_i}}\sum_{l\in R(t_i)}h(t_i)^{y_i}S(t_i)\\
+\]</span> Cox回归使用部分似然： <span class="math display">\[
+PL=\prod_{i=1}^n\frac{h(t_i)^{y_i}}{\sum_{l\in R(t_i)}h(t_i)^{y_i}}\\
+=\prod_{i=1}^n[\frac{h_0(t_i)e^{\vec x_i^T\vec w}}{\sum_{l\in
+R(t_i)}h_0(t_i)e^{\vec x_l^T\vec w}}]^{y_i}\\
+=\prod_{i=1}^n[\frac{e^{\vec x_i\vec w}}{\sum_{l\in R(t_i)}e^{\vec
+x_l^T\vec w}}]^{y_i}
+\]</span> <span class="math inline">\(R(t_i)\)</span>为<span
+class="math inline">\(t_i\)</span>时的风险集。记没有打结的排好序的时间为<span
+class="math inline">\(t_1,t_2,...t_j,...,t_J\)</span>，部分似然函数可以简化为：
+<span class="math display">\[
+PL=\prod_{j=1}^J\frac{e^{\vec x_j^T\vec w}}{\sum_{l\in R(t_j)}e^{\vec
+x_l^T\vec w}}
+\]</span></p>
+<h3 id="生存时间有打结">生存时间有“打结”</h3>
+<p>Exact方法：将打结的时间看作是有顺序的，假设<span
+class="math inline">\(t_j\)</span>时死亡<span
+class="math inline">\(d_j\)</span>人，则可能的死亡顺序有<span
+class="math inline">\(d_j!\)</span>，计算每一种可能顺序的部分似然，然后加到一起作为<span
+class="math inline">\(t_j\)</span>时的部分似然。</p>
+<p>Breslow方法：对于<span
+class="math inline">\(d_j!\)</span>种顺序，在计算部分似然时都使用同一个分母，即使用<span
+class="math inline">\(t_j\)</span>时刻前所有处于风险的个体作为分母。</p>
+<h3 id="估计基线生存函数">估计基线生存函数</h3>
+<p><span class="math display">\[
+S(t)
+=S_0(t)^{e^{\vec x^T\vec w}}
+\]</span></p>
+<p>借鉴Nelson-Aalen估计量来估计基线累积风险函数： <span
+class="math display">\[
+\hat H_0(t)=\sum_{j:t_j\le t}\frac{d_j}{\sum_{l\in R(t_j)}e^{\vec
+x_l^T\vec w}}
+\]</span> 因此： <span class="math display">\[
+\hat S_0(t)=e^{-\hat H_0(t)}\\
+=e^{-\sum_{j:t_j\le t}\frac{d_j}{\sum_{l\in R(t_j)}e^{\vec x_l^T\vec
+w}}}\\
+=\prod_{j:t_j\le t}e^{-\frac{d_j}{\sum_{l\in R(t_j)}e^{\vec x_l^T\vec
+w}}}
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%9E%E5%BD%92/" rel="tag"># 回归</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/28/5.%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" rel="prev" title="集成学习">
+                  <i class="fa fa-chevron-left"></i> 集成学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/" rel="next" title="似然理论综述">
+                  似然理论综述 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">33k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

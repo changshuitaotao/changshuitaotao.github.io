@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="硬间隔支持向量机">
+<meta property="og:url" content="http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-12T14:46:25.133Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="分类">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/","path":"2023/01/12/硬间隔SVM/","title":"硬间隔支持向量机"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>硬间隔支持向量机 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1"><span class="nav-number">2.</span> <span class="nav-text">损失</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="硬间隔支持向量机 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          硬间隔支持向量机
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-12 00:00:00 / 修改时间：22:46:25" itemprop="dateCreated datePublished" datetime="2023-01-12T00:00:00+08:00">2023-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​</p>
+<span id="more"></span>
+<h1 id="模型">模型</h1>
+<p>SVM模型其实是寻找一个超平面： <span class="math display">\[
+\vec x^T\vec w+b=0
+\]</span> 然后用<span
+class="math inline">\(sign\)</span>函数来帮助决策： <span
+class="math display">\[
+sign(\vec x^T\vec w+b)
+\]</span> 当<span class="math inline">\(z\gt0\)</span>时，就判为为<span
+class="math inline">\(+1\)</span>，当<span class="math inline">\(z\lt
+0\)</span>时判为<span class="math inline">\(-1\)</span>。</p>
+<h1 id="损失">损失</h1>
+<p>在SVM模型中，如果将所有的正样本都分配到超平面<span
+class="math inline">\(\vec x^T\vec
+w+b=0\)</span>的一侧，所有的负样本都分配到超平面<span
+class="math inline">\(\vec x^T\vec
+w+b=0\)</span>的另一侧，就表示所有样本都分类正确了。容易发现，这时候的超平面满足：
+<span class="math display">\[
+y_i(\vec x_i^T\vec w+b)\gt0 \quad i=1,2,...,n
+\]</span>
+很显然这样的超平面有很多个，我们希望从中找到一个最优的超平面。怎么定义这个最优的超平面呢？一个自然的想法就是要求每一个数据点距离超平面都应该尽可能的远，只有这样才能保证所有数据都能分类正确，特别是对于那些本身距离超平面很接近的“危险点”。如果再深入思考一下，容易发现，其实我们只要能够保证距离超平面最近的数据点距离超平面尽可能的远，就能够实现这个目的了。由于超平面位于正负样本之间，因此我们需要既保证超平面距离最近负样本尽可能的远，也需要保证超平面距最近正样本尽可能的远，因此这个超平面只能过最近负样本和最近正样本连线的中点处，且与最近正样本和最近负样本距离相等才行，记这个距离为“间隔”，用字母<span
+class="math inline">\(d\)</span>表示，它表示了最近正样本或最近负样本距离超平面的距离。已知点到超平面的距离公式为：
+<span class="math display">\[
+d=\frac{|\vec x^T\vec w+b|}{||\vec w||_2}
+\]</span> 我们需要做的就是最大化这个间隔<span
+class="math inline">\(d\)</span>。为了方便运算，我们可以令公式的分子部分等于1，即：
+<span class="math display">\[
+d=\frac{1}{||\vec w||_2}
+\]</span>
+这是可行的，因为分母部分会自动进行缩放，并不影响最终的超平面。进一步，最大化<span
+class="math inline">\(d\)</span>，等价于： <span class="math display">\[
+\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w
+\]</span> 别忘了还有约束条件呢。由于最近正样本/负样本<span
+class="math inline">\(x_j\)</span>满足<span class="math inline">\(|\vec
+x_j^T\vec w+b|=1\)</span>，因此对于所有样本点都会有<span
+class="math inline">\(|\vec x_i^T\vec w+b|\ge
+1\)</span>，最终SVM实际上要解决的是： <span class="math display">\[
+\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w\\
+s.t. \quad y_i(\vec x_i^T\vec w+b)\ge 1\quad i=1,2,...,n
+\]</span> 我们定义这个约束优化问题为SVM的原问题。</p>
+<h1 id="优化">优化</h1>
+<p>容易发现SVM最终是一个约束优化问题，我们通常使用拉格朗日对偶来解决。首先构造拉格朗日函数：
+<span class="math display">\[
+L=\frac{1}{2}\vec w^T\vec w+\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
+w+b))
+\]</span> 上述约束优化问题实际上等价于： <span class="math display">\[
+\mathop{min}_{\vec w,b}\mathop{max}_{\alpha_i}L\\
+s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
+\]</span> 这是显然易见的。因为如果<span class="math inline">\(\vec
+x_i\)</span>满足约束条件<span class="math inline">\(1-y_i(\vec x_i^T\vec
+w+b)\le0\)</span>，则<span class="math inline">\(\alpha_i(1-y_i(\vec
+x_i^T\vec w+b))\le 0\)</span>，这时候<span
+class="math inline">\(\mathop{max}_{\alpha}L\)</span>就要要求<span
+class="math inline">\(\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
+w+b))=0\)</span>，这时候<span
+class="math inline">\(\mathop{max}_{\alpha_i}L=\frac{1}{2}\vec w^T\vec
+w\)</span>。</p>
+<p>相反，如果<span class="math inline">\(\vec
+x_i\)</span>不满足约束条件，即<span class="math inline">\(1-y_i(\vec
+x_i^T\vec w+b)\gt0\)</span>，则<span
+class="math inline">\(\alpha_i(1-y_i(\vec x_i^T\vec w+b))\gt
+0\)</span>，则<span class="math inline">\(max_{\alpha_i}L\rightarrow
++\infty\)</span>。</p>
+<p>进而再取最小值<span class="math inline">\(\mathop{min}_{\vec
+w,b}\)</span>时，其实就是<span class="math inline">\(min_{\vec
+w,b}(\frac{1}{2}\vec w^T\vec w,+\infty)=min_{\vec w,b}\frac{1}{2}\vec
+w^T\vec w\)</span>，因此与上面推导的约束问题等价。</p>
+<p>拉格朗日对偶问题为： <span class="math display">\[
+\mathop{max}_{\alpha_i}\mathop{min}_{\vec w,b}L\\
+s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
+\]</span>
+可以证明，对于SVM，原问题和拉格朗日对偶问题的最优解和最优值都是相同的（参见凸优化教程）。因此对原问题的求解
+可以转化为对拉格朗日对偶问题的求解。</p>
+<p>先看内层<span class="math inline">\(min_{\vec
+w,b}L\)</span>，容易发现它是关于<span class="math inline">\(\vec
+w,b\)</span>的凸函数，因此最优解在梯度为0处取得： <span
+class="math display">\[
+\frac{\partial L}{\partial \vec w}=\vec w-\sum_{i=1}^n\alpha_iy_i\vec
+x_i\\
+\frac{\partial L}{\partial b}=\sum_{i=1}^n\alpha_iy_i
+\]</span> 可得： <span class="math display">\[
+\vec w=\sum_{i=1}^n\alpha_iy_i\vec x_i\\
+\sum_{i=1}^n\alpha_iy_i=0
+\]</span> 将得到的解带回到拉格朗日函数中，可以得到： <span
+class="math display">\[
+L=\frac{1}{2}\sum_{i=1}^n\alpha_iy_i\vec
+x_i^T\sum_{j=1}^n\alpha_jy_j\vec
+x_j^T+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\alpha_iy_i\vec
+x_i^T\sum_{j=1}^n\alpha_jy_j\vec x_j-b\sum_{i=1}^n\alpha_iy_i
+\]</span> 整理得： <span class="math display">\[
+L=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec
+x_j+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j\\
+=\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j
+\]</span> 再看外层是针对<span
+class="math inline">\(max_{\alpha_i}\)</span>的最大化问题，因此问题转换为：
+<span class="math display">\[
+\mathop{max}_{\alpha_i}[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j]
+\]</span> 别忘了还有两个约束条件：<span
+class="math inline">\(\alpha_i\ge
+0,\sum_{i=1}^n\alpha_iy_i=0\)</span>。由于我们习惯求最小化，因此问题还等价于：
+<span class="math display">\[
+\mathop{min}_{\alpha_i}[\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j-\sum_{i=1}^n\alpha_i]\\
+s.t.\quad \alpha_i\ge0\\
+\sum_{i=1}^n\alpha_iy_i=0,\quad i=1,2,...,n
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E7%B1%BB/" rel="tag"># 分类</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/" rel="prev" title="可视化库seaborn快速入门">
+                  <i class="fa fa-chevron-left"></i> 可视化库seaborn快速入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/20/11.%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/" rel="next" title="回归分析">
+                  回归分析 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">33k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可视化库seaborn快速入门">
+<meta property="og:url" content="http://example.com/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="​">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/sns_%E7%9B%B4%E6%96%B9%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E6%A0%B8%E5%AF%86%E5%BA%A6%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E6%95%A3%E7%82%B9%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_lineplot.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_relplot.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E5%9B%9E%E5%BD%92%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E5%88%86%E5%B1%82%E5%9B%9E%E5%BD%92.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E6%AE%8B%E5%B7%AE%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E7%83%AD%E5%8A%9B%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E6%95%A3%E7%82%B9%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E5%9B%9E%E5%BD%92%E6%AE%8B%E5%B7%AE%E5%9B%BE.png">
+<meta property="og:image" content="c:\Users\Yujie\Desktop\%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\%E5%8F%AF%E8%A7%86%E5%8C%96\sns_%E4%BA%8C%E7%BB%B4%E7%9B%B4%E6%96%B9%E5%9B%BE.png">
+<meta property="article:published_time" content="2023-01-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-08T14:20:49.725Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数据可视化">
+<meta property="article:tag" content="seaborn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/sns_%E7%9B%B4%E6%96%B9%E5%9B%BE.png">
+
+
+<link rel="canonical" href="http://example.com/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/","path":"2023/01/09/10.可视化库seaborn/","title":"可视化库seaborn快速入门"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>可视化库seaborn快速入门 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">连续变量统计图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E5%8F%98%E9%87%8F%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">单变量图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="nav-number">1.1.1.</span> <span class="nav-text">直方图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%AF%86%E5%BA%A6%E5%9B%BE"><span class="nav-number">1.1.2.</span> <span class="nav-text">核密度图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83%E5%9B%BE"><span class="nav-number">1.1.3.</span> <span class="nav-text">累积分布图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%BB%98%E5%9B%BE%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.4.</span> <span class="nav-text">其他绘图函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">双变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="nav-number">1.2.1.</span> <span class="nav-text">散点图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lineplot"><span class="nav-number">1.2.2.</span> <span class="nav-text">lineplot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#relplot"><span class="nav-number">1.2.3.</span> <span class="nav-text">relplot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%9B%BE"><span class="nav-number">1.2.4.</span> <span class="nav-text">回归分析图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E5%8A%9B%E5%9B%BE"><span class="nav-number">1.2.5.</span> <span class="nav-text">热力图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%9B%BE"><span class="nav-number">1.2.6.</span> <span class="nav-text">联合分布图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%A4%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E7%9F%A9%E9%98%B5%E5%9B%BE"><span class="nav-number">1.2.7.</span> <span class="nav-text">两两联合分布矩阵图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">分类变量统计图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E5%BD%A2%E5%9B%BE"><span class="nav-number">2.1.</span> <span class="nav-text">条形图</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="可视化库seaborn快速入门 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          可视化库seaborn快速入门
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2023-01-09T00:00:00+08:00">2023-01-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-08 22:20:49" itemprop="dateModified" datetime="2023-01-08T22:20:49+08:00">2023-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">数据可视化</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​</p>
+<span id="more"></span>
+<p>Seaborn可以分为<code>Figure-level</code>的接口（操作对象是<code>matplotlib</code>中figure）和<code>axes-level</code>的接口（对应操作对象是matplotlib中的axes）。</p>
+<h1 id="连续变量统计图">连续变量统计图</h1>
+<h2 id="单变量图">单变量图</h2>
+<p>所用的数据集为威斯康星州乳腺癌数据集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib</span><br><span class="line">cancer = load_breast_cancer()</span><br><span class="line">df = cancer[<span class="string">&#x27;data&#x27;</span>]</span><br><span class="line">df = pd.DataFrame(df,columns=cancer[<span class="string">&#x27;feature_names&#x27;</span>])</span><br><span class="line">df[<span class="string">&#x27;y&#x27;</span>] = cancer[<span class="string">&#x27;target&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="直方图">直方图</h3>
+<p><code>sns.histplot</code>接口绘制直方图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sns.histplot(df <span class="comment"># 数据集</span></span><br><span class="line">             ,x=<span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             ,kde=<span class="literal">True</span> <span class="comment"># 绘制核密度估计</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="sns_直方图.png" alt="sns_直方图" />
+<figcaption aria-hidden="true">sns_直方图</figcaption>
+</figure>
+<h3 id="核密度图">核密度图</h3>
+<p><code>sns.kdeplot</code>接口绘制核密度图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sns.kdeplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_核密度图.png"
+alt="sns_核密度图" />
+<figcaption aria-hidden="true">sns_核密度图</figcaption>
+</figure>
+<h3 id="累积分布图">累积分布图</h3>
+<p><code>sns.ecdfplot</code>接口绘制累积分布图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sns.ecdfplot(data = df  <span class="comment"># 数据集</span></span><br><span class="line">             ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat= <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns累积分布图.png"
+alt="sns累积分布图" />
+<figcaption aria-hidden="true">sns累积分布图</figcaption>
+</figure>
+<h3 id="其他绘图函数">其他绘图函数</h3>
+<p><code>sns.displot</code>接口可以绘制<code>直方图，核密度图，经验分布图</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1. 直方图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 2.核密度图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,row = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 3.累计分布图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,col = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;ecdf&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<p><strong><code>row,col,hue</code>三个参数都指定一个分类变量，表示对这个分类变量的不同水平分别绘图。<code>hue</code>绘出的图会显示在同一个<code>axes</code>中，<code>row</code>和<code>col</code>参数绘制的不会在同一个<code>axes</code>中，<code>row</code>会使<code>axes</code>按行排列，<code>col</code>参数会使<code>axes</code>按列排列。</strong></p>
+<h2 id="双变量">双变量</h2>
+<h3 id="散点图">散点图</h3>
+<p><code>sns.scatterplot</code>接口绘制散点图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 散点图</span></span><br><span class="line">sns.scatterplot(data = df <span class="comment"># 散点图</span></span><br><span class="line">                ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">                ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">                ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">                )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
+alt="sns_散点图" />
+<figcaption aria-hidden="true">sns_散点图</figcaption>
+</figure>
+<h3 id="lineplot">lineplot</h3>
+<p>sns.lineplot将每一个x对应的y取均值和置信区间绘图：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sns.lineplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_lineplot.png"
+alt="sns_lineplot" />
+<figcaption aria-hidden="true">sns_lineplot</figcaption>
+</figure>
+<h3 id="relplot">relplot</h3>
+<p><code>sns.relplot</code>既能画散点图也可以画<code>lineplot</code>，不过它是一个<code>Figure-level</code>的接口，而上面两个是<code>axes-level</code>的接口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 画散点图</span></span><br><span class="line">sns.relplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;scatter&#x27;</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_relplot.png"
+alt="sns_relplot" />
+<figcaption aria-hidden="true">sns_relplot</figcaption>
+</figure>
+<h3 id="回归分析图">回归分析图</h3>
+<p><code>sns.regplot</code>绘制散点图、回归直线和置信区间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sns.regplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归图.png"
+alt="sns_回归图" />
+<figcaption aria-hidden="true">sns_回归图</figcaption>
+</figure>
+<p><code>sns.lmplot</code>可以对分类变量的不同水平分别做回归</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分层回归</span></span><br><span class="line">sns.lmplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_分层回归.png"
+alt="sns_分层回归" />
+<figcaption aria-hidden="true">sns_分层回归</figcaption>
+</figure>
+<p><code>sns.lmplot</code>中还可添加row和col参数（二者均为FacetGrid中的常规参数，用于添加多子图的行和列）实现更多的分类回归关系。</p>
+<p><code>sns.residplot</code>提供了拟合后的残差分布图.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sns.residplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_残差图.png"
+alt="sns_残差图" />
+<figcaption aria-hidden="true">sns_残差图</figcaption>
+</figure>
+<h3 id="热力图">热力图</h3>
+<p><code>sns.heatmap</code>接口绘制热力图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">corr = df[[<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>]].corr()</span><br><span class="line">sns.heatmap(corr)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_热力图.png"
+alt="sns_热力图" />
+<figcaption aria-hidden="true">sns_热力图</figcaption>
+</figure>
+<h3 id="联合分布图">联合分布图</h3>
+<p><code>sns.jointplot</code>接口可以绘制<code>联合分布图</code>。<code>联合分布图</code>可以是散点图、带回归直线的散点图、密度图、直方图、残差图和六边形分箱图等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.双连续变量图</span></span><br><span class="line"><span class="comment"># =============================================================================</span></span><br><span class="line"><span class="comment"># 2.1.1 散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
+alt="sns_散点图" />
+<figcaption aria-hidden="true">sns_散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.1.2 带回归直线的散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 带回归直线的散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图带回归直线.png"
+alt="sns_散点图带回归直线" />
+<figcaption aria-hidden="true">sns_散点图带回归直线</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.1.3 回归残差图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;resid&#x27;</span>  <span class="comment"># 回归残差图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归残差图.png"
+alt="sns_回归残差图" />
+<figcaption aria-hidden="true">sns_回归残差图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.1.4 密度图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 核密度图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维核密度图.png"
+alt="sns_二维核密度图" />
+<figcaption aria-hidden="true">sns_二维核密度图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.1.5 直方图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 二维直方图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维直方图.png"
+alt="sns_二维直方图" />
+<figcaption aria-hidden="true">sns_二维直方图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.1.6 六边形分箱图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hex&#x27;</span>  <span class="comment"># 六边形分箱图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_六边形分箱图.png"
+alt="sns_六边形分箱图" />
+<figcaption aria-hidden="true">sns_六边形分箱图</figcaption>
+</figure>
+<h3 id="两两联合分布矩阵图">两两联合分布矩阵图</h3>
+<p><code>sns.pairplot</code>接口可以绘制<code>两两联合分布图</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.2.1 散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 绘制散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两散点图.png"
+alt="sns_多维两两散点图" />
+<figcaption aria-hidden="true">sns_多维两两散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.2.2 带回归线的散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 绘制带回归线的散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两带回归直线散点图.png"
+alt="sns_多维两两带回归直线散点图" />
+<figcaption aria-hidden="true">sns_多维两两带回归直线散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 密度图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 绘制密度图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两密度图.png"
+alt="sns_多维两两密度图" />
+<figcaption aria-hidden="true">sns_多维两两密度图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 直方图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 绘制直方图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两二维直方图.png"
+alt="sns_多维两两二维直方图" />
+<figcaption aria-hidden="true">sns_多维两两二维直方图</figcaption>
+</figure>
+<p>实际上<code>sns.pairplot</code>依赖<code>sns.PairGrid</code>类来实现，我们也可以先调用<code>sns.PairGrid</code>类，然后可以自定义矩阵的对角线、上三角和下三角的图形种类。类似地<code>sns.jointplot</code>依赖<code>sns.JointGrid</code>类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.2.4 自定义</span></span><br><span class="line">pp = sns.PairGrid(data = df <span class="comment"># 数据集</span></span><br><span class="line">                  ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">                  )</span><br><span class="line">pp.map_diag(plt.hist)</span><br><span class="line">pp.map_lower(plt.scatter)</span><br><span class="line">pp.map_upper(sns.kdeplot)</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两自定义图.png"
+alt="sns_多维两两自定义图" />
+<figcaption aria-hidden="true">sns_多维两两自定义图</figcaption>
+</figure>
+<h1 id="分类变量统计图">分类变量统计图</h1>
+<h2 id="条形图">条形图</h2>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" rel="tag"># 数据可视化</a>
+              <a href="/tags/seaborn/" rel="tag"># seaborn</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/01/08/9.%E5%B8%B8%E7%94%A8%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95/" rel="prev" title="常用假设检验方法">
+                  <i class="fa fa-chevron-left"></i> 常用假设检验方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/" rel="next" title="硬间隔支持向量机">
+                  硬间隔支持向量机 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">33k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
