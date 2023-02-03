@@ -440,7 +440,18 @@ class="math inline">\(Pearson\quad \chi^2\)</span>
 class="math inline">\(m − 1 − r\)</span>的卡方分布，<span
 class="math inline">\(r\)</span>为分布中未知参数的个数。</strong>下面将要介绍的两组或多组分类变量的检验就是这种情况。</p>
 <h1 id="单样本的假设检验">单样本的假设检验</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">单样本--&gt;连续变量</span><br><span class="line">连续变量--正态分布--&gt;σ已知?</span><br><span class="line">σ已知?--已知--&gt;Z1[Z检验]</span><br><span class="line">σ已知?--未知,且小样本--&gt;t检验</span><br><span class="line">σ已知?--未知,但大样本--&gt;Z1</span><br><span class="line">连续变量--非正态分布--&gt;符号检验/wilcoxon秩和检验</span><br><span class="line">单样本--&gt;二分类变量--二项分布--&gt;大样本?</span><br><span class="line">大样本?--是--&gt;Z检验</span><br><span class="line">大样本?--否--&gt;精确检验</span><br><span class="line">单样本--&gt;多分类变量--多项分布--&gt;卡方拟合优度检验/似然比检验</span><br><span class="line">单样本--&gt;有序变量--多项分布--&gt;卡方拟合优度检验/似然比检验</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph LR;
+单样本-->连续变量
+连续变量--正态分布-->σ已知?
+σ已知?--已知-->Z1[Z检验]
+σ已知?--未知,且小样本-->t检验
+σ已知?--未知,但大样本-->Z1
+连续变量--非正态分布-->符号检验/wilcoxon秩和检验
+单样本-->二分类变量--二项分布-->大样本?
+大样本?--是-->Z检验
+大样本?--否-->精确检验
+单样本-->多分类变量--多项分布-->卡方拟合优度检验/似然比检验
+单样本-->有序变量--多项分布-->卡方拟合优度检验/似然比检验</pre>
 <h2 id="连续变量">连续变量</h2>
 <p>对于单样本的连续变量，先检验数据分布，判断是否服从正态分布。如果服从正态分布，则均值是反应总体集中趋势的重要指标，可对均值进行假设检验。如果不服从正态分布，则样本中位数是反应总体集中趋势的重要指标，可对中位数进行假设检验。</p>
 <h3 id="正态分布">正态分布</h3>
@@ -593,7 +604,22 @@ class="math inline">\(Pearson\quad
 <h2 id="有序变量">有序变量</h2>
 <p>有序变量同样可以看作服从多项分布，使用参数已知时的卡方拟合优度检验。</p>
 <h1 id="两多独立样本的假设检验">两/多独立样本的假设检验</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">两独立样本--&gt;a1[连续变量]</span><br><span class="line">a1--均服从正态分布--&gt;方差均已知?</span><br><span class="line">方差均已知?--是--&gt;Z检验</span><br><span class="line">方差均已知?--否,但知道相等--&gt;t检验</span><br><span class="line">方差均已知?--否,且知道不相等--&gt;S[Satterthwaite t检验]</span><br><span class="line">a1--至少有一个不服从正态分布--&gt;W1[Wilcoxon秩和检验]</span><br><span class="line">两独立样本--&gt;a2[分类变量]</span><br><span class="line">a2[分类变量]--近似法--&gt;卡方检验/似然比检验/优势比检验/MH检验/CMH检验</span><br><span class="line">a2[分类变量]--精确法--&gt;Fisher精确检验</span><br><span class="line">两独立样本--&gt;a3[有序变量]--&gt;W1[Wilcoxon秩和检验]</span><br><span class="line">多独立样本--&gt;b1[连续变量]</span><br><span class="line">b1--均服从正态分布--&gt;j</span><br><span class="line">b1--至少有一个不服从正态分布--&gt;k</span><br><span class="line">多独立样本--&gt;b2[分类变量]</span><br><span class="line">多独立样本--&gt;b3[有序变量]</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph LR;
+两独立样本-->a1[连续变量]
+a1--均服从正态分布-->方差均已知?
+方差均已知?--是-->Z检验
+方差均已知?--否,但知道相等-->t检验
+方差均已知?--否,且知道不相等-->S[Satterthwaite t检验]
+a1--至少有一个不服从正态分布-->W1[Wilcoxon秩和检验]
+两独立样本-->a2[分类变量]
+a2[分类变量]--近似法-->卡方检验/似然比检验/优势比检验/MH检验/CMH检验
+a2[分类变量]--精确法-->Fisher精确检验
+两独立样本-->a3[有序变量]-->W1[Wilcoxon秩和检验]
+多独立样本-->b1[连续变量]
+b1--均服从正态分布-->j
+b1--至少有一个不服从正态分布-->k
+多独立样本-->b2[分类变量]
+多独立样本-->b3[有序变量]</pre>
 <h2 id="连续变量-1">连续变量</h2>
 <p>对于连续变量，这里只讨论两独立样本问题，多独立样本主要用方差分析和KW检验，后面会专门写一篇文章进行介绍。</p>
 <h3 id="正态分布-1">正态分布</h3>
@@ -1081,7 +1107,14 @@ class="math display">\[
 <p>两独立样本用Wilcoxon秩和检验，和上面非正态连续变量检验方法相同。多独立样本用Kruskal-Wallis
 H检验，见方差分析一文介绍。</p>
 <h1 id="配对样本的假设检验">配对样本的假设检验</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">配对样本--&gt;连续变量--计算差值--&gt;正态分布</span><br><span class="line">正态分布--是--&gt;t检验</span><br><span class="line">正态分布--否--&gt;d[1.符号检验&lt;/br&gt;2.Wilcoxon符号秩和检验]</span><br><span class="line">配对样本--&gt;分类变量</span><br><span class="line">分类变量--边缘齐性检验--&gt;McNemar检验</span><br><span class="line">分类变量--一致性检验--&gt;Kappa检验</span><br><span class="line">配对样本--&gt;有序变量--一致性检验--&gt;加权Kappa检验</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph LR;
+配对样本-->连续变量--计算差值-->正态分布
+正态分布--是-->t检验
+正态分布--否-->d[1.符号检验</br>2.Wilcoxon符号秩和检验]
+配对样本-->分类变量
+分类变量--边缘齐性检验-->McNemar检验
+分类变量--一致性检验-->Kappa检验
+配对样本-->有序变量--一致性检验-->加权Kappa检验</pre>
 <h2 id="连续变量-2">连续变量</h2>
 <p>主要计算配对之间的差值<span
 class="math inline">\(d\)</span>，根据差值的分布决定使用那种检验方法。</p>
@@ -1534,7 +1567,7 @@ class="math inline">\(y\)</span>时的情况。</p>
 
 
 <div class="copyright">
-  &copy; 
+  &copy; 2022 – 
   <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -1579,6 +1612,8 @@ class="math inline">\(y\)</span>时的情况。</p>
 <script src="/js/third-party/search/local-search.js"></script>
 
 
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js","integrity":"sha256-QdTG1YTLLTwD3b95jLqFxpQX9uYuJMNAtVZgwKX4oYU="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
 
 
 

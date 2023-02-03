@@ -184,6 +184,189 @@ class="math inline">\(w_p\)</span>后仍然不收敛则进行下一轮迭代，�
       </tags>
   </entry>
   <entry>
+    <title>可视化库seaborn快速入门</title>
+    <url>/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<p>Seaborn可以分为<code>Figure-level</code>的接口（操作对象是<code>matplotlib</code>中figure）和<code>axes-level</code>的接口（对应操作对象是matplotlib中的axes）。</p>
+<h1 id="连续变量统计图">连续变量统计图</h1>
+<h2 id="单变量图">单变量图</h2>
+<p>所用的数据集为威斯康星州乳腺癌数据集。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib</span><br><span class="line">cancer = load_breast_cancer()</span><br><span class="line">df = cancer[<span class="string">&#x27;data&#x27;</span>]</span><br><span class="line">df = pd.DataFrame(df,columns=cancer[<span class="string">&#x27;feature_names&#x27;</span>])</span><br><span class="line">df[<span class="string">&#x27;y&#x27;</span>] = cancer[<span class="string">&#x27;target&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="直方图">直方图</h3>
+<p><code>sns.histplot</code>接口绘制直方图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.histplot(df <span class="comment"># 数据集</span></span><br><span class="line">             ,x=<span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             ,kde=<span class="literal">True</span> <span class="comment"># 绘制核密度估计</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="sns_直方图.png" alt="sns_直方图" />
+<figcaption aria-hidden="true">sns_直方图</figcaption>
+</figure>
+<h3 id="核密度图">核密度图</h3>
+<p><code>sns.kdeplot</code>接口绘制核密度图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.kdeplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_核密度图.png"
+alt="sns_核密度图" />
+<figcaption aria-hidden="true">sns_核密度图</figcaption>
+</figure>
+<h3 id="累积分布图">累积分布图</h3>
+<p><code>sns.ecdfplot</code>接口绘制累积分布图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.ecdfplot(data = df  <span class="comment"># 数据集</span></span><br><span class="line">             ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat= <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns累积分布图.png"
+alt="sns累积分布图" />
+<figcaption aria-hidden="true">sns累积分布图</figcaption>
+</figure>
+<h3 id="其他绘图函数">其他绘图函数</h3>
+<p><code>sns.displot</code>接口可以绘制<code>直方图，核密度图，经验分布图</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1. 直方图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 2.核密度图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,row = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 3.累计分布图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,col = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;ecdf&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<p><strong><code>row,col,hue</code>三个参数都指定一个分类变量，表示对这个分类变量的不同水平分别绘图。<code>hue</code>绘出的图会显示在同一个<code>axes</code>中，<code>row</code>和<code>col</code>参数绘制的不会在同一个<code>axes</code>中，<code>row</code>会使<code>axes</code>按行排列，<code>col</code>参数会使<code>axes</code>按列排列。</strong></p>
+<h2 id="双变量">双变量</h2>
+<h3 id="散点图">散点图</h3>
+<p><code>sns.scatterplot</code>接口绘制散点图</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 散点图</span></span><br><span class="line">sns.scatterplot(data = df <span class="comment"># 散点图</span></span><br><span class="line">                ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">                ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">                ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">                )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
+alt="sns_散点图" />
+<figcaption aria-hidden="true">sns_散点图</figcaption>
+</figure>
+<h3 id="lineplot">lineplot</h3>
+<p>sns.lineplot将每一个x对应的y取均值和置信区间绘图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lineplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_lineplot.png"
+alt="sns_lineplot" />
+<figcaption aria-hidden="true">sns_lineplot</figcaption>
+</figure>
+<h3 id="relplot">relplot</h3>
+<p><code>sns.relplot</code>既能画散点图也可以画<code>lineplot</code>，不过它是一个<code>Figure-level</code>的接口，而上面两个是<code>axes-level</code>的接口</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 画散点图</span></span><br><span class="line">sns.relplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;scatter&#x27;</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_relplot.png"
+alt="sns_relplot" />
+<figcaption aria-hidden="true">sns_relplot</figcaption>
+</figure>
+<h3 id="回归分析图">回归分析图</h3>
+<p><code>sns.regplot</code>绘制散点图、回归直线和置信区间</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.regplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归图.png"
+alt="sns_回归图" />
+<figcaption aria-hidden="true">sns_回归图</figcaption>
+</figure>
+<p><code>sns.lmplot</code>可以对分类变量的不同水平分别做回归</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 分层回归</span></span><br><span class="line">sns.lmplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_分层回归.png"
+alt="sns_分层回归" />
+<figcaption aria-hidden="true">sns_分层回归</figcaption>
+</figure>
+<p><code>sns.lmplot</code>中还可添加row和col参数（二者均为FacetGrid中的常规参数，用于添加多子图的行和列）实现更多的分类回归关系。</p>
+<p><code>sns.residplot</code>提供了拟合后的残差分布图.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.residplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_残差图.png"
+alt="sns_残差图" />
+<figcaption aria-hidden="true">sns_残差图</figcaption>
+</figure>
+<h3 id="热力图">热力图</h3>
+<p><code>sns.heatmap</code>接口绘制热力图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">corr = df[[<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>]].corr()</span><br><span class="line">sns.heatmap(corr)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_热力图.png"
+alt="sns_热力图" />
+<figcaption aria-hidden="true">sns_热力图</figcaption>
+</figure>
+<h3 id="联合分布图">联合分布图</h3>
+<p><code>sns.jointplot</code>接口可以绘制<code>联合分布图</code>。<code>联合分布图</code>可以是散点图、带回归直线的散点图、密度图、直方图、残差图和六边形分箱图等。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.双连续变量图</span></span><br><span class="line"><span class="comment"># =============================================================================</span></span><br><span class="line"><span class="comment"># 2.1.1 散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
+alt="sns_散点图" />
+<figcaption aria-hidden="true">sns_散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.2 带回归直线的散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 带回归直线的散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图带回归直线.png"
+alt="sns_散点图带回归直线" />
+<figcaption aria-hidden="true">sns_散点图带回归直线</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.3 回归残差图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;resid&#x27;</span>  <span class="comment"># 回归残差图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归残差图.png"
+alt="sns_回归残差图" />
+<figcaption aria-hidden="true">sns_回归残差图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.4 密度图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 核密度图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维核密度图.png"
+alt="sns_二维核密度图" />
+<figcaption aria-hidden="true">sns_二维核密度图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.5 直方图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 二维直方图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维直方图.png"
+alt="sns_二维直方图" />
+<figcaption aria-hidden="true">sns_二维直方图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.6 六边形分箱图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hex&#x27;</span>  <span class="comment"># 六边形分箱图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_六边形分箱图.png"
+alt="sns_六边形分箱图" />
+<figcaption aria-hidden="true">sns_六边形分箱图</figcaption>
+</figure>
+<h3 id="两两联合分布矩阵图">两两联合分布矩阵图</h3>
+<p><code>sns.pairplot</code>接口可以绘制<code>两两联合分布图</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.1 散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 绘制散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两散点图.png"
+alt="sns_多维两两散点图" />
+<figcaption aria-hidden="true">sns_多维两两散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.2 带回归线的散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 绘制带回归线的散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两带回归直线散点图.png"
+alt="sns_多维两两带回归直线散点图" />
+<figcaption aria-hidden="true">sns_多维两两带回归直线散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 密度图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 绘制密度图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两密度图.png"
+alt="sns_多维两两密度图" />
+<figcaption aria-hidden="true">sns_多维两两密度图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 直方图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 绘制直方图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两二维直方图.png"
+alt="sns_多维两两二维直方图" />
+<figcaption aria-hidden="true">sns_多维两两二维直方图</figcaption>
+</figure>
+<p>实际上<code>sns.pairplot</code>依赖<code>sns.PairGrid</code>类来实现，我们也可以先调用<code>sns.PairGrid</code>类，然后可以自定义矩阵的对角线、上三角和下三角的图形种类。类似地<code>sns.jointplot</code>依赖<code>sns.JointGrid</code>类。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.4 自定义</span></span><br><span class="line">pp = sns.PairGrid(data = df <span class="comment"># 数据集</span></span><br><span class="line">                  ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">                  )</span><br><span class="line">pp.map_diag(plt.hist)</span><br><span class="line">pp.map_lower(plt.scatter)</span><br><span class="line">pp.map_upper(sns.kdeplot)</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两自定义图.png"
+alt="sns_多维两两自定义图" />
+<figcaption aria-hidden="true">sns_多维两两自定义图</figcaption>
+</figure>
+<h1 id="分类变量统计图">分类变量统计图</h1>
+<h2 id="条形图">条形图</h2>
+]]></content>
+      <categories>
+        <category>数据可视化</category>
+      </categories>
+      <tags>
+        <tag>数据可视化</tag>
+        <tag>seaborn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>回归分析</title>
     <url>/2023/01/20/11.%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>​</p>
@@ -603,6 +786,169 @@ class="math inline">\(x\)</span>做标准化，并引入标准化变量的平方
       </tags>
   </entry>
   <entry>
+    <title>分类算法</title>
+    <url>/2022/12/25/2.%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="逻辑回归">逻辑回归</h1>
+<h2 id="符号">符号</h2>
+<p><span class="math inline">\(X\)</span>：数据矩阵，<span
+class="math inline">\(X\in R^{n*p}\)</span></p>
+<p><span class="math inline">\(\vec
+y\)</span>：标签向量（列向量），<span class="math inline">\(\vec y\in
+R^n\)</span></p>
+<p><span class="math inline">\(\hat y\)</span>：标签的预测值</p>
+<p><span class="math inline">\(y\)</span>：标签的真实值</p>
+<p><span class="math inline">\(\vec
+w\)</span>：参数向量（列向量），<span class="math inline">\(\vec w\in
+R^p\)</span></p>
+<p><span class="math inline">\(\vec
+x\)</span>：一条观测数据的特征向量（列向量），<span
+class="math inline">\(\vec x\in R^p\)</span></p>
+<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
+<p><span class="math inline">\(L\)</span>：总损失</p>
+<p><span class="math inline">\(\nabla_{\vec
+w}L\)</span>：损失函数关于<span class="math inline">\(\vec
+w\)</span>的梯度</p>
+<p><span class="math inline">\(\nabla_{\vec
+w}^2L\)</span>：损失函数关于<span class="math inline">\(\vec
+w\)</span>的hessian矩阵</p>
+<p><span
+class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
+<p><span class="math inline">\(diag(a)\)</span>：用<span
+class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
+class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
+<h2 id="模型">模型</h2>
+<p><span class="math display">\[
+\hat y=\frac{1}{1+e^{-\vec x^T\vec w}}=sigmoid(\vec x^T\vec w)
+\]</span></p>
+<h2 id="损失">损失</h2>
+<p><span class="math display">\[
+l=-[yln\hat y+(1-y)ln(1-\hat y)]\\
+=-[yln\frac{1}{1+e^{-\vec x^T\vec w}}+(1-y)ln(1-\frac{1}{1+e^{-\vec
+x^T\vec w}})]\\
+=-[yln\frac{e^{\vec x^T\vec w}}{e^{\vec x^T\vec
+w}+1}+(1-y)ln\frac{1}{e^{\vec x^T\vec w}+1}]\\
+=-[ylne^{\vec x^T\vec w}-yln(e^{\vec x^T\vec w}+1)+yln(e^{\vec x^T\vec
+w}+1)-ln(e^{\vec x^T\vec w}+1)]\\
+=-y\vec x^T\vec w+ln(e^{\vec x^T\vec w}+1)
+\]</span></p>
+<p><span class="math display">\[
+L=-\vec y^TX\vec w+\vec 1^Tln(e^{X\vec w}+\vec 1)
+\]</span></p>
+<h2 id="优化">优化</h2>
+<h3 id="梯度">梯度</h3>
+<p>求微分 <span class="math display">\[
+dL=-\vec y^TXd\vec w+\vec 1^Td(ln(e^{X\vec w}+\vec 1))\\
+=-\vec y^TXd\vec w+\vec 1^T[\frac{1}{e^{X\vec w}+\vec 1}\odot d(e^{X\vec
+w}+\vec 1)]\\
+=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^Td(e^{X\vec w})\\
+=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
+Xd\vec w]
+\]</span> <span class="math display">\[
+=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
+Xd\vec w])\\
+=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}\odot e^{X\vec
+w}]^TXd\vec w)\\
+=tr([\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y]^TXd\vec w)\\
+=tr([X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1})]^Td\vec w)
+\]</span></p>
+<p>梯度： <span class="math display">\[
+\nabla_{\vec w}L=X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y)\\
+=X^T(sigmoid(X\vec w)-\vec y)
+\]</span></p>
+<h3 id="hessian矩阵">hessian矩阵</h3>
+<p>微分： <span class="math display">\[
+d\nabla_{\vec w}L=X^Td(sigmoid(X\vec w))\\
+=X^T[sigmoid\prime(X\vec w)\odot Xd\vec w]\\
+=X^Tdiag(sigmoid\prime(X\vec w))Xd\vec w\\=[X^Tdiag(sigmoid\prime(X\vec
+w))X]^Td\vec w
+\]</span> 所以Hessian为： <span class="math display">\[
+\nabla_{\vec w}^2L=X^Tdiag(sigmoid\prime(X\vec w))X\\
+=X^Tdiag(sigmoid(X\vec w)\odot(\vec 1-sigmoid(X\vec w)))X
+\]</span></p>
+<p>容易看出，当<span
+class="math inline">\(X\)</span>满秩时hessian矩阵正定，故可用迭代下降算法求解参数<span
+class="math inline">\(\vec w\)</span>。</p>
+<h1 id="softmax回归">softmax回归</h1>
+<p>主要用来做多分类，假设有<span
+class="math inline">\(k\)</span>类。</p>
+<h2 id="符号-1">符号</h2>
+<p><span class="math inline">\(\vec
+y\)</span>：标签向量（列向量）的真实值（经过one-hot编码），<span
+class="math inline">\(\vec y\in R^k\)</span></p>
+<p><span class="math inline">\(\hat{\vec
+y}\)</span>：标签的预测值（列向量），<span
+class="math inline">\(\hat{\vec y}\in R^k\)</span></p>
+<p><span class="math inline">\(W\)</span>：参数矩阵，<span
+class="math inline">\(W\in R^{k*p}\)</span>，每一行对应一个类别</p>
+<p><span class="math inline">\(\vec
+x\)</span>：一条观测数据的特征向量（列向量），<span
+class="math inline">\(\vec x\in R^p\)</span></p>
+<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
+<p><span
+class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
+<p><span class="math inline">\(\otimes\)</span>：Kronecker积</p>
+<p><span class="math inline">\(diag(a)\)</span>：用<span
+class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
+class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
+<h2 id="模型-1">模型</h2>
+<p><span class="math display">\[
+\hat{\vec y}=softmax(W\vec x)=\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}
+\]</span></p>
+<h2 id="损失-1">损失</h2>
+<p><span class="math display">\[
+l=-\vec y^Tln\hat {\vec y}\\
+=-\vec y^Tln\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}\\
+=-\vec y^T(lne^{W\vec x}-\vec 1ln(\vec 1^Te^{W\vec x}))\\
+=-\vec y^TW\vec x+ln(\vec 1^Te^{W\vec x})
+\]</span></p>
+<h2 id="优化-1">优化</h2>
+<h3 id="梯度-1">梯度</h3>
+<p>微分： <span class="math display">\[
+dl=-\vec y^T (dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\odot d(\vec
+1^Te^{W\vec x})\\
+=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\vec 1^T de^{W\vec
+x}\\
+=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}(\vec 1^T(e^{W\vec
+x}\odot d(W)\vec x))\\
+=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec
+x}]^{T}(dW)\vec x\\
+=(\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec x}]^T-\vec y^T)(dW)\vec x\\
+=tr(\vec x(\frac{[e^{W\vec x]^T}}{\vec 1^Te^{W\vec x}}-\vec y^T)dW)\\
+=tr([(\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}-\vec y)\vec x^T]^TdW)
+\]</span> 梯度： <span class="math display">\[
+\nabla_{W}l=(\frac{e^{W\vec x}}{\vec 1^T e^{W\vec x}}-\vec y)\vec
+x^T=(softmax(W\vec x)-\vec y)\vec x^T
+\]</span></p>
+<h3 id="hessian矩阵-1">hessian矩阵</h3>
+<p>令： <span class="math display">\[
+\vec z=W\vec x
+\]</span></p>
+<p>求梯度微分： <span class="math display">\[
+d\nabla_Wl=(\frac{e^{\vec z}\odot d\vec z}{\vec 1^Te^{\vec
+z}}-\frac{e^{\vec z}(\vec 1^T(e^{\vec z}\odot d\vec z))}{(\vec 1^T
+e^{\vec z})^2})\vec x^T\\
+=(\frac{diag(e^{\vec z})}{\vec 1^Te^{\vec z}}-\frac{e^{\vec z}[e^{\vec
+z}]^T}{(\vec 1^Te^{\vec z})^2})(d\vec z) \vec x^T\\
+=(diag(softmax(\vec z))-softmax(\vec z)[softmax(\vec z)]^T)(d\vec z)\vec
+x^T\\
+=(diag(softmax(W\vec x))-softmax(W\vec x)[softmax(W\vec x)]^T)(dW)\vec
+x\vec x^T
+\]</span> hessian矩阵为： <span class="math display">\[
+\nabla_W^2l=(\vec x\vec x^T)\otimes (diag(softmax(W\vec
+x))-softmax(W\vec x)[softmax(W\vec x)]^T)
+\]</span> 同样用迭代下降算法求解参数<span
+class="math inline">\(W\)</span>。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>分类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>线性混合模型</title>
     <url>/2023/01/27/12.%E7%BA%BF%E6%80%A7%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<p>​</p>
@@ -904,352 +1250,6 @@ X^TR^{-1}X\tilde {\vec \beta}+X^TR^{-1}Z\vec \alpha=X^TR^{-1}\vec y\\
       </categories>
       <tags>
         <tag>回归</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>可视化库seaborn快速入门</title>
-    <url>/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<p>Seaborn可以分为<code>Figure-level</code>的接口（操作对象是<code>matplotlib</code>中figure）和<code>axes-level</code>的接口（对应操作对象是matplotlib中的axes）。</p>
-<h1 id="连续变量统计图">连续变量统计图</h1>
-<h2 id="单变量图">单变量图</h2>
-<p>所用的数据集为威斯康星州乳腺癌数据集。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib</span><br><span class="line">cancer = load_breast_cancer()</span><br><span class="line">df = cancer[<span class="string">&#x27;data&#x27;</span>]</span><br><span class="line">df = pd.DataFrame(df,columns=cancer[<span class="string">&#x27;feature_names&#x27;</span>])</span><br><span class="line">df[<span class="string">&#x27;y&#x27;</span>] = cancer[<span class="string">&#x27;target&#x27;</span>]</span><br></pre></td></tr></table></figure>
-<h3 id="直方图">直方图</h3>
-<p><code>sns.histplot</code>接口绘制直方图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.histplot(df <span class="comment"># 数据集</span></span><br><span class="line">             ,x=<span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             ,kde=<span class="literal">True</span> <span class="comment"># 绘制核密度估计</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="sns_直方图.png" alt="sns_直方图" />
-<figcaption aria-hidden="true">sns_直方图</figcaption>
-</figure>
-<h3 id="核密度图">核密度图</h3>
-<p><code>sns.kdeplot</code>接口绘制核密度图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.kdeplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_核密度图.png"
-alt="sns_核密度图" />
-<figcaption aria-hidden="true">sns_核密度图</figcaption>
-</figure>
-<h3 id="累积分布图">累积分布图</h3>
-<p><code>sns.ecdfplot</code>接口绘制累积分布图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.ecdfplot(data = df  <span class="comment"># 数据集</span></span><br><span class="line">             ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat= <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns累积分布图.png"
-alt="sns累积分布图" />
-<figcaption aria-hidden="true">sns累积分布图</figcaption>
-</figure>
-<h3 id="其他绘图函数">其他绘图函数</h3>
-<p><code>sns.displot</code>接口可以绘制<code>直方图，核密度图，经验分布图</code>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1. 直方图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 2.核密度图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,row = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 3.累计分布图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,col = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;ecdf&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
-<p><strong><code>row,col,hue</code>三个参数都指定一个分类变量，表示对这个分类变量的不同水平分别绘图。<code>hue</code>绘出的图会显示在同一个<code>axes</code>中，<code>row</code>和<code>col</code>参数绘制的不会在同一个<code>axes</code>中，<code>row</code>会使<code>axes</code>按行排列，<code>col</code>参数会使<code>axes</code>按列排列。</strong></p>
-<h2 id="双变量">双变量</h2>
-<h3 id="散点图">散点图</h3>
-<p><code>sns.scatterplot</code>接口绘制散点图</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 散点图</span></span><br><span class="line">sns.scatterplot(data = df <span class="comment"># 散点图</span></span><br><span class="line">                ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">                ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">                ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">                )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
-alt="sns_散点图" />
-<figcaption aria-hidden="true">sns_散点图</figcaption>
-</figure>
-<h3 id="lineplot">lineplot</h3>
-<p>sns.lineplot将每一个x对应的y取均值和置信区间绘图：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lineplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_lineplot.png"
-alt="sns_lineplot" />
-<figcaption aria-hidden="true">sns_lineplot</figcaption>
-</figure>
-<h3 id="relplot">relplot</h3>
-<p><code>sns.relplot</code>既能画散点图也可以画<code>lineplot</code>，不过它是一个<code>Figure-level</code>的接口，而上面两个是<code>axes-level</code>的接口</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 画散点图</span></span><br><span class="line">sns.relplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;scatter&#x27;</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_relplot.png"
-alt="sns_relplot" />
-<figcaption aria-hidden="true">sns_relplot</figcaption>
-</figure>
-<h3 id="回归分析图">回归分析图</h3>
-<p><code>sns.regplot</code>绘制散点图、回归直线和置信区间</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.regplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归图.png"
-alt="sns_回归图" />
-<figcaption aria-hidden="true">sns_回归图</figcaption>
-</figure>
-<p><code>sns.lmplot</code>可以对分类变量的不同水平分别做回归</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 分层回归</span></span><br><span class="line">sns.lmplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_分层回归.png"
-alt="sns_分层回归" />
-<figcaption aria-hidden="true">sns_分层回归</figcaption>
-</figure>
-<p><code>sns.lmplot</code>中还可添加row和col参数（二者均为FacetGrid中的常规参数，用于添加多子图的行和列）实现更多的分类回归关系。</p>
-<p><code>sns.residplot</code>提供了拟合后的残差分布图.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.residplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_残差图.png"
-alt="sns_残差图" />
-<figcaption aria-hidden="true">sns_残差图</figcaption>
-</figure>
-<h3 id="热力图">热力图</h3>
-<p><code>sns.heatmap</code>接口绘制热力图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">corr = df[[<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>]].corr()</span><br><span class="line">sns.heatmap(corr)</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_热力图.png"
-alt="sns_热力图" />
-<figcaption aria-hidden="true">sns_热力图</figcaption>
-</figure>
-<h3 id="联合分布图">联合分布图</h3>
-<p><code>sns.jointplot</code>接口可以绘制<code>联合分布图</code>。<code>联合分布图</code>可以是散点图、带回归直线的散点图、密度图、直方图、残差图和六边形分箱图等。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.双连续变量图</span></span><br><span class="line"><span class="comment"># =============================================================================</span></span><br><span class="line"><span class="comment"># 2.1.1 散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
-alt="sns_散点图" />
-<figcaption aria-hidden="true">sns_散点图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.2 带回归直线的散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 带回归直线的散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图带回归直线.png"
-alt="sns_散点图带回归直线" />
-<figcaption aria-hidden="true">sns_散点图带回归直线</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.3 回归残差图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;resid&#x27;</span>  <span class="comment"># 回归残差图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归残差图.png"
-alt="sns_回归残差图" />
-<figcaption aria-hidden="true">sns_回归残差图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.4 密度图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 核密度图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维核密度图.png"
-alt="sns_二维核密度图" />
-<figcaption aria-hidden="true">sns_二维核密度图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.5 直方图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 二维直方图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维直方图.png"
-alt="sns_二维直方图" />
-<figcaption aria-hidden="true">sns_二维直方图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.6 六边形分箱图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hex&#x27;</span>  <span class="comment"># 六边形分箱图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_六边形分箱图.png"
-alt="sns_六边形分箱图" />
-<figcaption aria-hidden="true">sns_六边形分箱图</figcaption>
-</figure>
-<h3 id="两两联合分布矩阵图">两两联合分布矩阵图</h3>
-<p><code>sns.pairplot</code>接口可以绘制<code>两两联合分布图</code>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.1 散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 绘制散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两散点图.png"
-alt="sns_多维两两散点图" />
-<figcaption aria-hidden="true">sns_多维两两散点图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.2 带回归线的散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 绘制带回归线的散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两带回归直线散点图.png"
-alt="sns_多维两两带回归直线散点图" />
-<figcaption aria-hidden="true">sns_多维两两带回归直线散点图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 密度图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 绘制密度图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两密度图.png"
-alt="sns_多维两两密度图" />
-<figcaption aria-hidden="true">sns_多维两两密度图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 直方图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 绘制直方图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两二维直方图.png"
-alt="sns_多维两两二维直方图" />
-<figcaption aria-hidden="true">sns_多维两两二维直方图</figcaption>
-</figure>
-<p>实际上<code>sns.pairplot</code>依赖<code>sns.PairGrid</code>类来实现，我们也可以先调用<code>sns.PairGrid</code>类，然后可以自定义矩阵的对角线、上三角和下三角的图形种类。类似地<code>sns.jointplot</code>依赖<code>sns.JointGrid</code>类。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.4 自定义</span></span><br><span class="line">pp = sns.PairGrid(data = df <span class="comment"># 数据集</span></span><br><span class="line">                  ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">                  )</span><br><span class="line">pp.map_diag(plt.hist)</span><br><span class="line">pp.map_lower(plt.scatter)</span><br><span class="line">pp.map_upper(sns.kdeplot)</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两自定义图.png"
-alt="sns_多维两两自定义图" />
-<figcaption aria-hidden="true">sns_多维两两自定义图</figcaption>
-</figure>
-<h1 id="分类变量统计图">分类变量统计图</h1>
-<h2 id="条形图">条形图</h2>
-]]></content>
-      <categories>
-        <category>数据可视化</category>
-      </categories>
-      <tags>
-        <tag>数据可视化</tag>
-        <tag>seaborn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>分类算法</title>
-    <url>/2022/12/25/2.%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="逻辑回归">逻辑回归</h1>
-<h2 id="符号">符号</h2>
-<p><span class="math inline">\(X\)</span>：数据矩阵，<span
-class="math inline">\(X\in R^{n*p}\)</span></p>
-<p><span class="math inline">\(\vec
-y\)</span>：标签向量（列向量），<span class="math inline">\(\vec y\in
-R^n\)</span></p>
-<p><span class="math inline">\(\hat y\)</span>：标签的预测值</p>
-<p><span class="math inline">\(y\)</span>：标签的真实值</p>
-<p><span class="math inline">\(\vec
-w\)</span>：参数向量（列向量），<span class="math inline">\(\vec w\in
-R^p\)</span></p>
-<p><span class="math inline">\(\vec
-x\)</span>：一条观测数据的特征向量（列向量），<span
-class="math inline">\(\vec x\in R^p\)</span></p>
-<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
-<p><span class="math inline">\(L\)</span>：总损失</p>
-<p><span class="math inline">\(\nabla_{\vec
-w}L\)</span>：损失函数关于<span class="math inline">\(\vec
-w\)</span>的梯度</p>
-<p><span class="math inline">\(\nabla_{\vec
-w}^2L\)</span>：损失函数关于<span class="math inline">\(\vec
-w\)</span>的hessian矩阵</p>
-<p><span
-class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
-<p><span class="math inline">\(diag(a)\)</span>：用<span
-class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
-class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
-<h2 id="模型">模型</h2>
-<p><span class="math display">\[
-\hat y=\frac{1}{1+e^{-\vec x^T\vec w}}=sigmoid(\vec x^T\vec w)
-\]</span></p>
-<h2 id="损失">损失</h2>
-<p><span class="math display">\[
-l=-[yln\hat y+(1-y)ln(1-\hat y)]\\
-=-[yln\frac{1}{1+e^{-\vec x^T\vec w}}+(1-y)ln(1-\frac{1}{1+e^{-\vec
-x^T\vec w}})]\\
-=-[yln\frac{e^{\vec x^T\vec w}}{e^{\vec x^T\vec
-w}+1}+(1-y)ln\frac{1}{e^{\vec x^T\vec w}+1}]\\
-=-[ylne^{\vec x^T\vec w}-yln(e^{\vec x^T\vec w}+1)+yln(e^{\vec x^T\vec
-w}+1)-ln(e^{\vec x^T\vec w}+1)]\\
-=-y\vec x^T\vec w+ln(e^{\vec x^T\vec w}+1)
-\]</span></p>
-<p><span class="math display">\[
-L=-\vec y^TX\vec w+\vec 1^Tln(e^{X\vec w}+\vec 1)
-\]</span></p>
-<h2 id="优化">优化</h2>
-<h3 id="梯度">梯度</h3>
-<p>求微分 <span class="math display">\[
-dL=-\vec y^TXd\vec w+\vec 1^Td(ln(e^{X\vec w}+\vec 1))\\
-=-\vec y^TXd\vec w+\vec 1^T[\frac{1}{e^{X\vec w}+\vec 1}\odot d(e^{X\vec
-w}+\vec 1)]\\
-=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^Td(e^{X\vec w})\\
-=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
-Xd\vec w]
-\]</span> <span class="math display">\[
-=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
-Xd\vec w])\\
-=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}\odot e^{X\vec
-w}]^TXd\vec w)\\
-=tr([\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y]^TXd\vec w)\\
-=tr([X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1})]^Td\vec w)
-\]</span></p>
-<p>梯度： <span class="math display">\[
-\nabla_{\vec w}L=X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y)\\
-=X^T(sigmoid(X\vec w)-\vec y)
-\]</span></p>
-<h3 id="hessian矩阵">hessian矩阵</h3>
-<p>微分： <span class="math display">\[
-d\nabla_{\vec w}L=X^Td(sigmoid(X\vec w))\\
-=X^T[sigmoid\prime(X\vec w)\odot Xd\vec w]\\
-=X^Tdiag(sigmoid\prime(X\vec w))Xd\vec w\\=[X^Tdiag(sigmoid\prime(X\vec
-w))X]^Td\vec w
-\]</span> 所以Hessian为： <span class="math display">\[
-\nabla_{\vec w}^2L=X^Tdiag(sigmoid\prime(X\vec w))X\\
-=X^Tdiag(sigmoid(X\vec w)\odot(\vec 1-sigmoid(X\vec w)))X
-\]</span></p>
-<p>容易看出，当<span
-class="math inline">\(X\)</span>满秩时hessian矩阵正定，故可用迭代下降算法求解参数<span
-class="math inline">\(\vec w\)</span>。</p>
-<h1 id="softmax回归">softmax回归</h1>
-<p>主要用来做多分类，假设有<span
-class="math inline">\(k\)</span>类。</p>
-<h2 id="符号-1">符号</h2>
-<p><span class="math inline">\(\vec
-y\)</span>：标签向量（列向量）的真实值（经过one-hot编码），<span
-class="math inline">\(\vec y\in R^k\)</span></p>
-<p><span class="math inline">\(\hat{\vec
-y}\)</span>：标签的预测值（列向量），<span
-class="math inline">\(\hat{\vec y}\in R^k\)</span></p>
-<p><span class="math inline">\(W\)</span>：参数矩阵，<span
-class="math inline">\(W\in R^{k*p}\)</span>，每一行对应一个类别</p>
-<p><span class="math inline">\(\vec
-x\)</span>：一条观测数据的特征向量（列向量），<span
-class="math inline">\(\vec x\in R^p\)</span></p>
-<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
-<p><span
-class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
-<p><span class="math inline">\(\otimes\)</span>：Kronecker积</p>
-<p><span class="math inline">\(diag(a)\)</span>：用<span
-class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
-class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
-<h2 id="模型-1">模型</h2>
-<p><span class="math display">\[
-\hat{\vec y}=softmax(W\vec x)=\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}
-\]</span></p>
-<h2 id="损失-1">损失</h2>
-<p><span class="math display">\[
-l=-\vec y^Tln\hat {\vec y}\\
-=-\vec y^Tln\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}\\
-=-\vec y^T(lne^{W\vec x}-\vec 1ln(\vec 1^Te^{W\vec x}))\\
-=-\vec y^TW\vec x+ln(\vec 1^Te^{W\vec x})
-\]</span></p>
-<h2 id="优化-1">优化</h2>
-<h3 id="梯度-1">梯度</h3>
-<p>微分： <span class="math display">\[
-dl=-\vec y^T (dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\odot d(\vec
-1^Te^{W\vec x})\\
-=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\vec 1^T de^{W\vec
-x}\\
-=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}(\vec 1^T(e^{W\vec
-x}\odot d(W)\vec x))\\
-=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec
-x}]^{T}(dW)\vec x\\
-=(\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec x}]^T-\vec y^T)(dW)\vec x\\
-=tr(\vec x(\frac{[e^{W\vec x]^T}}{\vec 1^Te^{W\vec x}}-\vec y^T)dW)\\
-=tr([(\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}-\vec y)\vec x^T]^TdW)
-\]</span> 梯度： <span class="math display">\[
-\nabla_{W}l=(\frac{e^{W\vec x}}{\vec 1^T e^{W\vec x}}-\vec y)\vec
-x^T=(softmax(W\vec x)-\vec y)\vec x^T
-\]</span></p>
-<h3 id="hessian矩阵-1">hessian矩阵</h3>
-<p>令： <span class="math display">\[
-\vec z=W\vec x
-\]</span></p>
-<p>求梯度微分： <span class="math display">\[
-d\nabla_Wl=(\frac{e^{\vec z}\odot d\vec z}{\vec 1^Te^{\vec
-z}}-\frac{e^{\vec z}(\vec 1^T(e^{\vec z}\odot d\vec z))}{(\vec 1^T
-e^{\vec z})^2})\vec x^T\\
-=(\frac{diag(e^{\vec z})}{\vec 1^Te^{\vec z}}-\frac{e^{\vec z}[e^{\vec
-z}]^T}{(\vec 1^Te^{\vec z})^2})(d\vec z) \vec x^T\\
-=(diag(softmax(\vec z))-softmax(\vec z)[softmax(\vec z)]^T)(d\vec z)\vec
-x^T\\
-=(diag(softmax(W\vec x))-softmax(W\vec x)[softmax(W\vec x)]^T)(dW)\vec
-x\vec x^T
-\]</span> hessian矩阵为： <span class="math display">\[
-\nabla_W^2l=(\vec x\vec x^T)\otimes (diag(softmax(W\vec
-x))-softmax(W\vec x)[softmax(W\vec x)]^T)
-\]</span> 同样用迭代下降算法求解参数<span
-class="math inline">\(W\)</span>。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>分类</tag>
       </tags>
   </entry>
   <entry>
@@ -1781,206 +1781,6 @@ aggregating。基本思想是通过bootstrap抽样方法从原始数据集中抽
       </tags>
   </entry>
   <entry>
-    <title>似然理论综述</title>
-    <url>/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="最大似然估计的基本思想">最大似然估计的基本思想</h1>
-<p>记随机变量<span class="math inline">\(Y\)</span>的概率密度函数为<span
-class="math inline">\(f(y_i;\vec w)\)</span>，其中<span
-class="math inline">\(\vec w\)</span>为概率密度函数中的参数向量，<span
-class="math inline">\(\vec w\in R^p\)</span>。现在<span
-class="math inline">\(\vec
-w\)</span>未知需要进行估计，可抽取包括n个观测数据的随机样本<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>，用样本来估计参数<span
-class="math inline">\(\vec w\)</span>。记这<span
-class="math inline">\(n\)</span>个观测数据的联合密度为： <span
-class="math display">\[
-L(\vec w;y_1,y_2,...,y_n)=\prod_{i=1}^nf(y_i;\vec w)
-\]</span> 在这个表达式中，<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>已经通过抽样获得，是已知的，而<span
-class="math inline">\(\vec
-w\)</span>是未知的，因此可以将表达式看作给定<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>后关于未知参数<span
-class="math inline">\(\vec
-w\)</span>的函数，这个函数被称为似然函数。由于参数<span
-class="math inline">\(\vec
-w\)</span>是未知的，因此似然函数衡量的是在不同的<span
-class="math inline">\(\vec w\)</span>取值下出现当前随机样本<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>的可能性。究竟哪个<span
-class="math inline">\(\vec
-w\)</span>导致了当前样本的出现呢？我们可以认为使当前样本出现可能性最大的那个<span
-class="math inline">\(\vec w\)</span>就是最有可能的<span
-class="math inline">\(\vec
-w\)</span>。因此我们需要做的就是使可能性达到最大，即最大化上述的似然函数：
-<span class="math display">\[
-max \,L(\vec w;y_1,y_2,...,y_n)
-\]</span>
-这就是最大似然估计。由于似然函数是一个乘积的形式，不便进行运算，常对其取对数转换为求和的形式，因此最大似然最终往往转换为最大化对数似然，即：
-<span class="math display">\[
-max\, ln L(\vec w;y_1,y_2,...,y_n)
-\]</span> 记最大似然估计的估计值为<span class="math inline">\(\hat {\vec
-w}_{ML}\)</span>，常写为： <span class="math display">\[
-\hat{\vec w}_{ML}=argmax\,lnL(\vec w;\vec y)
-\]</span> 这里的<span class="math inline">\(argmax\)</span>表示使得<span
-class="math inline">\(lnL(\vec w,\vec y)\)</span>取得最大时的<span
-class="math inline">\(\vec
-w\)</span>的取值。这里额外提一句，对数似然函数往往就是机器学习中的损失函数。</p>
-<h1 id="最大似然估计的求解">最大似然估计的求解</h1>
-<p>最大似然估计的求解并没有什么不同，我们对对数似然函数求一阶导数得到梯度向量<span
-class="math inline">\(\vec u(\vec w)\)</span>： <span
-class="math display">\[
-\vec u(\vec w)=\frac{\partial lnL(\vec w;\vec y)}{\partial \vec w}
-\]</span>
-如果似然函数是凹函数，就可以令梯度向量为0，从而得到最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>。有时候梯度向量是一个非线性函数，此时可以使用我们熟悉的迭代法求解。即先给<span
-class="math inline">\(\vec
-w\)</span>一个初始值，然后一轮一轮迭代，直到达到收敛条件。如果使用牛顿法，则第<span
-class="math inline">\(k+1\)</span>轮牛顿迭代公式为： <span
-class="math display">\[
-\vec w_{k+1}=\vec w_k-H(\vec w_k)^{-1}\vec u(\vec w_k)
-\]</span></p>
-<p><span class="math inline">\(H(\vec w_k)\)</span>为<span
-class="math inline">\(\vec
-w_k\)</span>处的hessian矩阵，即对数似然函数的二阶导数。</p>
-<h1 id="最大似然估计的性质">最大似然估计的性质</h1>
-<p>最大似然估计之所以常用，在于其有良好的性质。在介绍这些性质之前，需要再补充两个概念：得分函数和信息矩阵。</p>
-<h2 id="得分函数">得分函数</h2>
-<p>对数似然函数的一阶导数即梯度向量<span class="math inline">\(\vec
-u(\vec
-w)\)</span>有另外的名称：得分函数或得分向量。它有下面几个特点：</p>
-<ul>
-<li>得分函数是一个随机向量。这是因为我们是使用样本来估计参数<span
-class="math inline">\(\vec
-w\)</span>的，我们得到的样本只是抽样后的一次具体实现值，在抽样前为随机向量，所以得分函数是随机向量；</li>
-<li>得分函数是参数<span class="math inline">\(\vec
-w\)</span>的函数，这一点无需多说；</li>
-<li>既然得分函数是随机向量，自然有期望和协方差矩阵；</li>
-<li>当参数<span class="math inline">\(\vec w\)</span>取真实值<span
-class="math inline">\(\vec w_0\)</span>时，得分函数的期望为0；</li>
-<li>得分函数的协方差矩阵为信息矩阵。</li>
-</ul>
-<h2 id="信息矩阵">信息矩阵</h2>
-<p>得分函数的协方差矩阵为信息矩阵，如参数<span
-class="math inline">\(\vec w\)</span>取真实值<span
-class="math inline">\(\vec w_0\)</span>时，信息矩阵为： <span
-class="math display">\[
-var[\vec u(\vec w_0)]=E[(\vec u(\vec w_0)-\vec 0)(\vec u(\vec w_0)-\vec
-0)^T]\\
-=E[\vec u(\vec w_0)(\vec u(\vec w_0))^T]\\
-=I(\vec w_0)
-\]</span>
-称这个矩阵为信息矩阵。信息矩阵有什么作用呢？后面我们就会看到，信息矩阵与最大似然估计值的渐进方差有关。信息矩阵由于做了期望运算，因此不再是随机矩阵。信息矩阵往往还等于对数似然函数二阶导数期望的相反数：
-<span class="math display">\[
-I(\vec w_0)=-E[H(\vec w_0)]
-\]</span>
-这两个公式都是理论计算公式，实际中我们还是需要用样本来估计信息矩阵。常用的计算信息矩阵的方法有两种：</p>
-<h3 id="梯度向量外积法">梯度向量外积法</h3>
-<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
-w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
-w_{ML}\)</span>处的梯度向量，然后对梯度向量做外积，得到信息矩阵的估计值。</p>
-<h3 id="观测信息矩阵法">观测信息矩阵法</h3>
-<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
-w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
-w_{ML}\)</span>处的hessian矩阵，对hessian矩阵直接取相反数得到信息矩阵的估计值。</p>
-<h2 id="最大似然估计的性质-1">最大似然估计的性质</h2>
-<p>有了上述两个概念为基础，下面介绍一下最大似然估计的几个性质：</p>
-<h3 id="一致性">一致性</h3>
-<p>一致性是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>依概率收敛到真实值<span
-class="math inline">\(\vec w_0\)</span>，即： <span
-class="math display">\[
-\hat{\vec w}_{ML}\mathop{\rightarrow}^{p}\vec w_0
-\]</span> 一致性告诉我们，随着样本量逐渐增大，最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>等于真实值<span
-class="math inline">\(\vec w_0\)</span>的概率越来越接近1。</p>
-<h3 id="渐进正态">渐进正态</h3>
-<p>渐进正态是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>依分布收敛于正态分布，即： <span class="math display">\[
-\sqrt n(\hat{\vec w}_{ML}-\vec w_0)\mathop{\rightarrow}^dN(0,nI(\vec
-w_0)^{-1})
-\]</span> 这里的<span class="math inline">\(nI(\vec
-w_0)^{-1}\)</span>是正态分布的方差协方差矩阵，称为最大似然估计的渐进方差。这个性质告诉我们，随着样本量增大，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的概率分布越来越接近正态分布。这个性质也告诉我们最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>的渐进方差为： <span
-class="math display">\[
-I(\vec w_0)^{-1}
-\]</span> 也就是说最大似然估计值<span class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的渐进方差为信息矩阵<span class="math inline">\(I(\vec
-w_0)\)</span>的逆。</p>
-<h3 id="有效性">有效性</h3>
-<p>这个性质是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的方差达到了克莱默-劳下限。简而言之，可以理解为最大似然估计的方差是最小的。</p>
-<h1 id="最大似然估计的假设检验">最大似然估计的假设检验</h1>
-<p>在涉及统计推断时，会需要对参数估计值进行假设检验，这里顺带也回顾一下常见的几种假设检验方法。令无效假设为：
-<span class="math display">\[
-H_0:\hat{\vec w}_{ML}=\vec w_s
-\]</span> 这里的<span class="math inline">\(\vec
-w_s\)</span>是已知的，常见如<span class="math inline">\(\vec
-0\)</span>。</p>
-<h2 id="wald检验">wald检验</h2>
-<p>根据上面介绍的最大似然估计的基本性质，我们已经知道在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>近似服从均数为真实值<span class="math inline">\(\vec
-w_0\)</span>，方差协方差矩阵为信息矩阵逆矩阵的正态分布： <span
-class="math display">\[
-\hat{\vec w}_{ML}\sim N(\vec w_0,I(\vec w_0)^{-1})
-\]</span> <span class="math inline">\(I(\vec
-w_0)^{-1}\)</span>通常难以获得，故采用<span
-class="math inline">\(I(\hat{\vec w}_{ML})^{-1}\)</span>来估计。</p>
-<p>wald检验的思路其实很简单，其实就是借助正态分布来做假设检验。因为<span
-class="math inline">\(\vec w_s\)</span>是已知的常数向量，若<span
-class="math inline">\(H_0\)</span>假设成立，则<span
-class="math inline">\(\hat{\vec w}_{ML}-\vec
-w_s\)</span>将同样近似服从正态分布。因此，可构造如下二次型统计量： <span
-class="math display">\[
-W =(\hat{\vec w}_{ML}-\vec w_s)^T[var(\hat{\vec w}_{ML})]^{-1}(\hat{\vec
-w}_{ML}-\vec w_s)\\
-=(\hat{\vec w}_{ML}-\vec w_s)^TI(\hat{\vec w}_{ML})(\hat{\vec
-w}_{ML}-\vec w_s)
-\]</span> 它将服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布，<span
-class="math inline">\(p\)</span>为参数向量的维度。</p>
-<h2 id="似然比检验">似然比检验</h2>
-<p>似然比检验的基本思路为：将<span class="math inline">\(\hat{\vec
-w}_{ML}\)</span>和<span class="math inline">\(\vec
-w_s\)</span>分别带入对数似然函数公式求得对数似然函数值，若<span
-class="math inline">\(H_0\)</span>成立，二者应该相差不大，若二者相差很大，则有理由拒绝<span
-class="math inline">\(H_0\)</span>假设。为此构造如下统计量： <span
-class="math display">\[
-LR=2(lnL(\hat{\vec w}_{ML})-lnL(\vec w_s))
-\]</span> 可以证明，该统计量同样服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布。</p>
-<h2 id="得分检验">得分检验</h2>
-<p>从得分检验名称可以看出，这个检验应该和得分向量有关，事实上确实如此。得分检验的基本思路如下：由于对数似然函数在估计值<span
-class="math inline">\(\hat {\vec
-w}_{ML}\)</span>处的得分函数为0，若<span
-class="math inline">\(H_0\)</span>成立，对数似然函数在<span
-class="math inline">\(\vec
-w_s\)</span>处的得分函数也应该接近0。得分函数的<span
-class="math inline">\(\vec w_s\)</span>的渐进方差可以用<span
-class="math inline">\(I(\vec
-w_s)\)</span>来估计，注意这里没有取逆，因此可以构造如下二次型统计量：
-<span class="math display">\[
-LM=\frac{\partial ln L(\vec w_s)}{\partial \vec w}^T[I(\vec
-w_s)]^{-1}\frac{\partial ln L(\vec w_s)}{\partial \vec w}
-\]</span> 可以证明，上述统计量同样服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布。</p>
-<h1 id="总结">总结</h1>
-<p>最后我们对本文内容做一下总结。似然函数的表达式在形式上等于联合密度函数，只不过是数据已知，参数未定，通过最大化对数似然来得到参数估计值。最大似然估计值的一阶导数为梯度向量，梯度向量为随机向量，协方差矩阵为信息矩阵。若密度函数设定是正确的，最大似然估计值在大样本下服从均数为0，协方差矩阵为信息矩阵逆矩阵的正态分布，信息矩阵常用样本数据对数似然函数在最大似然估计值处的hessian矩阵取负，或者梯度向量外积来估计。常用的基于最大似然的假设检验方法为wald检验、似然比检验和得分检验。</p>
-]]></content>
-      <categories>
-        <category>数理统计</category>
-      </categories>
-      <tags>
-        <tag>数理统计</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>生存分析</title>
     <url>/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>​</p>
@@ -2267,6 +2067,206 @@ w}}}
       </categories>
       <tags>
         <tag>回归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>似然理论综述</title>
+    <url>/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="最大似然估计的基本思想">最大似然估计的基本思想</h1>
+<p>记随机变量<span class="math inline">\(Y\)</span>的概率密度函数为<span
+class="math inline">\(f(y_i;\vec w)\)</span>，其中<span
+class="math inline">\(\vec w\)</span>为概率密度函数中的参数向量，<span
+class="math inline">\(\vec w\in R^p\)</span>。现在<span
+class="math inline">\(\vec
+w\)</span>未知需要进行估计，可抽取包括n个观测数据的随机样本<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>，用样本来估计参数<span
+class="math inline">\(\vec w\)</span>。记这<span
+class="math inline">\(n\)</span>个观测数据的联合密度为： <span
+class="math display">\[
+L(\vec w;y_1,y_2,...,y_n)=\prod_{i=1}^nf(y_i;\vec w)
+\]</span> 在这个表达式中，<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>已经通过抽样获得，是已知的，而<span
+class="math inline">\(\vec
+w\)</span>是未知的，因此可以将表达式看作给定<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>后关于未知参数<span
+class="math inline">\(\vec
+w\)</span>的函数，这个函数被称为似然函数。由于参数<span
+class="math inline">\(\vec
+w\)</span>是未知的，因此似然函数衡量的是在不同的<span
+class="math inline">\(\vec w\)</span>取值下出现当前随机样本<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>的可能性。究竟哪个<span
+class="math inline">\(\vec
+w\)</span>导致了当前样本的出现呢？我们可以认为使当前样本出现可能性最大的那个<span
+class="math inline">\(\vec w\)</span>就是最有可能的<span
+class="math inline">\(\vec
+w\)</span>。因此我们需要做的就是使可能性达到最大，即最大化上述的似然函数：
+<span class="math display">\[
+max \,L(\vec w;y_1,y_2,...,y_n)
+\]</span>
+这就是最大似然估计。由于似然函数是一个乘积的形式，不便进行运算，常对其取对数转换为求和的形式，因此最大似然最终往往转换为最大化对数似然，即：
+<span class="math display">\[
+max\, ln L(\vec w;y_1,y_2,...,y_n)
+\]</span> 记最大似然估计的估计值为<span class="math inline">\(\hat {\vec
+w}_{ML}\)</span>，常写为： <span class="math display">\[
+\hat{\vec w}_{ML}=argmax\,lnL(\vec w;\vec y)
+\]</span> 这里的<span class="math inline">\(argmax\)</span>表示使得<span
+class="math inline">\(lnL(\vec w,\vec y)\)</span>取得最大时的<span
+class="math inline">\(\vec
+w\)</span>的取值。这里额外提一句，对数似然函数往往就是机器学习中的损失函数。</p>
+<h1 id="最大似然估计的求解">最大似然估计的求解</h1>
+<p>最大似然估计的求解并没有什么不同，我们对对数似然函数求一阶导数得到梯度向量<span
+class="math inline">\(\vec u(\vec w)\)</span>： <span
+class="math display">\[
+\vec u(\vec w)=\frac{\partial lnL(\vec w;\vec y)}{\partial \vec w}
+\]</span>
+如果似然函数是凹函数，就可以令梯度向量为0，从而得到最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>。有时候梯度向量是一个非线性函数，此时可以使用我们熟悉的迭代法求解。即先给<span
+class="math inline">\(\vec
+w\)</span>一个初始值，然后一轮一轮迭代，直到达到收敛条件。如果使用牛顿法，则第<span
+class="math inline">\(k+1\)</span>轮牛顿迭代公式为： <span
+class="math display">\[
+\vec w_{k+1}=\vec w_k-H(\vec w_k)^{-1}\vec u(\vec w_k)
+\]</span></p>
+<p><span class="math inline">\(H(\vec w_k)\)</span>为<span
+class="math inline">\(\vec
+w_k\)</span>处的hessian矩阵，即对数似然函数的二阶导数。</p>
+<h1 id="最大似然估计的性质">最大似然估计的性质</h1>
+<p>最大似然估计之所以常用，在于其有良好的性质。在介绍这些性质之前，需要再补充两个概念：得分函数和信息矩阵。</p>
+<h2 id="得分函数">得分函数</h2>
+<p>对数似然函数的一阶导数即梯度向量<span class="math inline">\(\vec
+u(\vec
+w)\)</span>有另外的名称：得分函数或得分向量。它有下面几个特点：</p>
+<ul>
+<li>得分函数是一个随机向量。这是因为我们是使用样本来估计参数<span
+class="math inline">\(\vec
+w\)</span>的，我们得到的样本只是抽样后的一次具体实现值，在抽样前为随机向量，所以得分函数是随机向量；</li>
+<li>得分函数是参数<span class="math inline">\(\vec
+w\)</span>的函数，这一点无需多说；</li>
+<li>既然得分函数是随机向量，自然有期望和协方差矩阵；</li>
+<li>当参数<span class="math inline">\(\vec w\)</span>取真实值<span
+class="math inline">\(\vec w_0\)</span>时，得分函数的期望为0；</li>
+<li>得分函数的协方差矩阵为信息矩阵。</li>
+</ul>
+<h2 id="信息矩阵">信息矩阵</h2>
+<p>得分函数的协方差矩阵为信息矩阵，如参数<span
+class="math inline">\(\vec w\)</span>取真实值<span
+class="math inline">\(\vec w_0\)</span>时，信息矩阵为： <span
+class="math display">\[
+var[\vec u(\vec w_0)]=E[(\vec u(\vec w_0)-\vec 0)(\vec u(\vec w_0)-\vec
+0)^T]\\
+=E[\vec u(\vec w_0)(\vec u(\vec w_0))^T]\\
+=I(\vec w_0)
+\]</span>
+称这个矩阵为信息矩阵。信息矩阵有什么作用呢？后面我们就会看到，信息矩阵与最大似然估计值的渐进方差有关。信息矩阵由于做了期望运算，因此不再是随机矩阵。信息矩阵往往还等于对数似然函数二阶导数期望的相反数：
+<span class="math display">\[
+I(\vec w_0)=-E[H(\vec w_0)]
+\]</span>
+这两个公式都是理论计算公式，实际中我们还是需要用样本来估计信息矩阵。常用的计算信息矩阵的方法有两种：</p>
+<h3 id="梯度向量外积法">梯度向量外积法</h3>
+<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
+w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
+w_{ML}\)</span>处的梯度向量，然后对梯度向量做外积，得到信息矩阵的估计值。</p>
+<h3 id="观测信息矩阵法">观测信息矩阵法</h3>
+<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
+w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
+w_{ML}\)</span>处的hessian矩阵，对hessian矩阵直接取相反数得到信息矩阵的估计值。</p>
+<h2 id="最大似然估计的性质-1">最大似然估计的性质</h2>
+<p>有了上述两个概念为基础，下面介绍一下最大似然估计的几个性质：</p>
+<h3 id="一致性">一致性</h3>
+<p>一致性是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>依概率收敛到真实值<span
+class="math inline">\(\vec w_0\)</span>，即： <span
+class="math display">\[
+\hat{\vec w}_{ML}\mathop{\rightarrow}^{p}\vec w_0
+\]</span> 一致性告诉我们，随着样本量逐渐增大，最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>等于真实值<span
+class="math inline">\(\vec w_0\)</span>的概率越来越接近1。</p>
+<h3 id="渐进正态">渐进正态</h3>
+<p>渐进正态是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>依分布收敛于正态分布，即： <span class="math display">\[
+\sqrt n(\hat{\vec w}_{ML}-\vec w_0)\mathop{\rightarrow}^dN(0,nI(\vec
+w_0)^{-1})
+\]</span> 这里的<span class="math inline">\(nI(\vec
+w_0)^{-1}\)</span>是正态分布的方差协方差矩阵，称为最大似然估计的渐进方差。这个性质告诉我们，随着样本量增大，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的概率分布越来越接近正态分布。这个性质也告诉我们最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>的渐进方差为： <span
+class="math display">\[
+I(\vec w_0)^{-1}
+\]</span> 也就是说最大似然估计值<span class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的渐进方差为信息矩阵<span class="math inline">\(I(\vec
+w_0)\)</span>的逆。</p>
+<h3 id="有效性">有效性</h3>
+<p>这个性质是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的方差达到了克莱默-劳下限。简而言之，可以理解为最大似然估计的方差是最小的。</p>
+<h1 id="最大似然估计的假设检验">最大似然估计的假设检验</h1>
+<p>在涉及统计推断时，会需要对参数估计值进行假设检验，这里顺带也回顾一下常见的几种假设检验方法。令无效假设为：
+<span class="math display">\[
+H_0:\hat{\vec w}_{ML}=\vec w_s
+\]</span> 这里的<span class="math inline">\(\vec
+w_s\)</span>是已知的，常见如<span class="math inline">\(\vec
+0\)</span>。</p>
+<h2 id="wald检验">wald检验</h2>
+<p>根据上面介绍的最大似然估计的基本性质，我们已经知道在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>近似服从均数为真实值<span class="math inline">\(\vec
+w_0\)</span>，方差协方差矩阵为信息矩阵逆矩阵的正态分布： <span
+class="math display">\[
+\hat{\vec w}_{ML}\sim N(\vec w_0,I(\vec w_0)^{-1})
+\]</span> <span class="math inline">\(I(\vec
+w_0)^{-1}\)</span>通常难以获得，故采用<span
+class="math inline">\(I(\hat{\vec w}_{ML})^{-1}\)</span>来估计。</p>
+<p>wald检验的思路其实很简单，其实就是借助正态分布来做假设检验。因为<span
+class="math inline">\(\vec w_s\)</span>是已知的常数向量，若<span
+class="math inline">\(H_0\)</span>假设成立，则<span
+class="math inline">\(\hat{\vec w}_{ML}-\vec
+w_s\)</span>将同样近似服从正态分布。因此，可构造如下二次型统计量： <span
+class="math display">\[
+W =(\hat{\vec w}_{ML}-\vec w_s)^T[var(\hat{\vec w}_{ML})]^{-1}(\hat{\vec
+w}_{ML}-\vec w_s)\\
+=(\hat{\vec w}_{ML}-\vec w_s)^TI(\hat{\vec w}_{ML})(\hat{\vec
+w}_{ML}-\vec w_s)
+\]</span> 它将服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布，<span
+class="math inline">\(p\)</span>为参数向量的维度。</p>
+<h2 id="似然比检验">似然比检验</h2>
+<p>似然比检验的基本思路为：将<span class="math inline">\(\hat{\vec
+w}_{ML}\)</span>和<span class="math inline">\(\vec
+w_s\)</span>分别带入对数似然函数公式求得对数似然函数值，若<span
+class="math inline">\(H_0\)</span>成立，二者应该相差不大，若二者相差很大，则有理由拒绝<span
+class="math inline">\(H_0\)</span>假设。为此构造如下统计量： <span
+class="math display">\[
+LR=2(lnL(\hat{\vec w}_{ML})-lnL(\vec w_s))
+\]</span> 可以证明，该统计量同样服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布。</p>
+<h2 id="得分检验">得分检验</h2>
+<p>从得分检验名称可以看出，这个检验应该和得分向量有关，事实上确实如此。得分检验的基本思路如下：由于对数似然函数在估计值<span
+class="math inline">\(\hat {\vec
+w}_{ML}\)</span>处的得分函数为0，若<span
+class="math inline">\(H_0\)</span>成立，对数似然函数在<span
+class="math inline">\(\vec
+w_s\)</span>处的得分函数也应该接近0。得分函数的<span
+class="math inline">\(\vec w_s\)</span>的渐进方差可以用<span
+class="math inline">\(I(\vec
+w_s)\)</span>来估计，注意这里没有取逆，因此可以构造如下二次型统计量：
+<span class="math display">\[
+LM=\frac{\partial ln L(\vec w_s)}{\partial \vec w}^T[I(\vec
+w_s)]^{-1}\frac{\partial ln L(\vec w_s)}{\partial \vec w}
+\]</span> 可以证明，上述统计量同样服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布。</p>
+<h1 id="总结">总结</h1>
+<p>最后我们对本文内容做一下总结。似然函数的表达式在形式上等于联合密度函数，只不过是数据已知，参数未定，通过最大化对数似然来得到参数估计值。最大似然估计值的一阶导数为梯度向量，梯度向量为随机向量，协方差矩阵为信息矩阵。若密度函数设定是正确的，最大似然估计值在大样本下服从均数为0，协方差矩阵为信息矩阵逆矩阵的正态分布，信息矩阵常用样本数据对数似然函数在最大似然估计值处的hessian矩阵取负，或者梯度向量外积来估计。常用的基于最大似然的假设检验方法为wald检验、似然比检验和得分检验。</p>
+]]></content>
+      <categories>
+        <category>数理统计</category>
+      </categories>
+      <tags>
+        <tag>数理统计</tag>
       </tags>
   </entry>
   <entry>
@@ -2715,7 +2715,18 @@ class="math inline">\(Pearson\quad \chi^2\)</span>
 class="math inline">\(m − 1 − r\)</span>的卡方分布，<span
 class="math inline">\(r\)</span>为分布中未知参数的个数。</strong>下面将要介绍的两组或多组分类变量的检验就是这种情况。</p>
 <h1 id="单样本的假设检验">单样本的假设检验</h1>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">单样本--&gt;连续变量</span><br><span class="line">连续变量--正态分布--&gt;σ已知?</span><br><span class="line">σ已知?--已知--&gt;Z1[Z检验]</span><br><span class="line">σ已知?--未知,且小样本--&gt;t检验</span><br><span class="line">σ已知?--未知,但大样本--&gt;Z1</span><br><span class="line">连续变量--非正态分布--&gt;符号检验/wilcoxon秩和检验</span><br><span class="line">单样本--&gt;二分类变量--二项分布--&gt;大样本?</span><br><span class="line">大样本?--是--&gt;Z检验</span><br><span class="line">大样本?--否--&gt;精确检验</span><br><span class="line">单样本--&gt;多分类变量--多项分布--&gt;卡方拟合优度检验/似然比检验</span><br><span class="line">单样本--&gt;有序变量--多项分布--&gt;卡方拟合优度检验/似然比检验</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph LR;
+单样本-->连续变量
+连续变量--正态分布-->σ已知?
+σ已知?--已知-->Z1[Z检验]
+σ已知?--未知,且小样本-->t检验
+σ已知?--未知,但大样本-->Z1
+连续变量--非正态分布-->符号检验/wilcoxon秩和检验
+单样本-->二分类变量--二项分布-->大样本?
+大样本?--是-->Z检验
+大样本?--否-->精确检验
+单样本-->多分类变量--多项分布-->卡方拟合优度检验/似然比检验
+单样本-->有序变量--多项分布-->卡方拟合优度检验/似然比检验</pre>
 <h2 id="连续变量">连续变量</h2>
 <p>对于单样本的连续变量，先检验数据分布，判断是否服从正态分布。如果服从正态分布，则均值是反应总体集中趋势的重要指标，可对均值进行假设检验。如果不服从正态分布，则样本中位数是反应总体集中趋势的重要指标，可对中位数进行假设检验。</p>
 <h3 id="正态分布">正态分布</h3>
@@ -2868,7 +2879,22 @@ class="math inline">\(Pearson\quad
 <h2 id="有序变量">有序变量</h2>
 <p>有序变量同样可以看作服从多项分布，使用参数已知时的卡方拟合优度检验。</p>
 <h1 id="两多独立样本的假设检验">两/多独立样本的假设检验</h1>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">两独立样本--&gt;a1[连续变量]</span><br><span class="line">a1--均服从正态分布--&gt;方差均已知?</span><br><span class="line">方差均已知?--是--&gt;Z检验</span><br><span class="line">方差均已知?--否,但知道相等--&gt;t检验</span><br><span class="line">方差均已知?--否,且知道不相等--&gt;S[Satterthwaite t检验]</span><br><span class="line">a1--至少有一个不服从正态分布--&gt;W1[Wilcoxon秩和检验]</span><br><span class="line">两独立样本--&gt;a2[分类变量]</span><br><span class="line">a2[分类变量]--近似法--&gt;卡方检验/似然比检验/优势比检验/MH检验/CMH检验</span><br><span class="line">a2[分类变量]--精确法--&gt;Fisher精确检验</span><br><span class="line">两独立样本--&gt;a3[有序变量]--&gt;W1[Wilcoxon秩和检验]</span><br><span class="line">多独立样本--&gt;b1[连续变量]</span><br><span class="line">b1--均服从正态分布--&gt;j</span><br><span class="line">b1--至少有一个不服从正态分布--&gt;k</span><br><span class="line">多独立样本--&gt;b2[分类变量]</span><br><span class="line">多独立样本--&gt;b3[有序变量]</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph LR;
+两独立样本-->a1[连续变量]
+a1--均服从正态分布-->方差均已知?
+方差均已知?--是-->Z检验
+方差均已知?--否,但知道相等-->t检验
+方差均已知?--否,且知道不相等-->S[Satterthwaite t检验]
+a1--至少有一个不服从正态分布-->W1[Wilcoxon秩和检验]
+两独立样本-->a2[分类变量]
+a2[分类变量]--近似法-->卡方检验/似然比检验/优势比检验/MH检验/CMH检验
+a2[分类变量]--精确法-->Fisher精确检验
+两独立样本-->a3[有序变量]-->W1[Wilcoxon秩和检验]
+多独立样本-->b1[连续变量]
+b1--均服从正态分布-->j
+b1--至少有一个不服从正态分布-->k
+多独立样本-->b2[分类变量]
+多独立样本-->b3[有序变量]</pre>
 <h2 id="连续变量-1">连续变量</h2>
 <p>对于连续变量，这里只讨论两独立样本问题，多独立样本主要用方差分析和KW检验，后面会专门写一篇文章进行介绍。</p>
 <h3 id="正态分布-1">正态分布</h3>
@@ -3356,7 +3382,14 @@ class="math display">\[
 <p>两独立样本用Wilcoxon秩和检验，和上面非正态连续变量检验方法相同。多独立样本用Kruskal-Wallis
 H检验，见方差分析一文介绍。</p>
 <h1 id="配对样本的假设检验">配对样本的假设检验</h1>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">配对样本--&gt;连续变量--计算差值--&gt;正态分布</span><br><span class="line">正态分布--是--&gt;t检验</span><br><span class="line">正态分布--否--&gt;d[1.符号检验&lt;/br&gt;2.Wilcoxon符号秩和检验]</span><br><span class="line">配对样本--&gt;分类变量</span><br><span class="line">分类变量--边缘齐性检验--&gt;McNemar检验</span><br><span class="line">分类变量--一致性检验--&gt;Kappa检验</span><br><span class="line">配对样本--&gt;有序变量--一致性检验--&gt;加权Kappa检验</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph LR;
+配对样本-->连续变量--计算差值-->正态分布
+正态分布--是-->t检验
+正态分布--否-->d[1.符号检验</br>2.Wilcoxon符号秩和检验]
+配对样本-->分类变量
+分类变量--边缘齐性检验-->McNemar检验
+分类变量--一致性检验-->Kappa检验
+配对样本-->有序变量--一致性检验-->加权Kappa检验</pre>
 <h2 id="连续变量-2">连续变量</h2>
 <p>主要计算配对之间的差值<span
 class="math inline">\(d\)</span>，根据差值的分布决定使用那种检验方法。</p>
