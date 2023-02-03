@@ -367,6 +367,169 @@ alt="sns_多维两两自定义图" />
       </tags>
   </entry>
   <entry>
+    <title>分类算法</title>
+    <url>/2022/12/25/2.%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="逻辑回归">逻辑回归</h1>
+<h2 id="符号">符号</h2>
+<p><span class="math inline">\(X\)</span>：数据矩阵，<span
+class="math inline">\(X\in R^{n*p}\)</span></p>
+<p><span class="math inline">\(\vec
+y\)</span>：标签向量（列向量），<span class="math inline">\(\vec y\in
+R^n\)</span></p>
+<p><span class="math inline">\(\hat y\)</span>：标签的预测值</p>
+<p><span class="math inline">\(y\)</span>：标签的真实值</p>
+<p><span class="math inline">\(\vec
+w\)</span>：参数向量（列向量），<span class="math inline">\(\vec w\in
+R^p\)</span></p>
+<p><span class="math inline">\(\vec
+x\)</span>：一条观测数据的特征向量（列向量），<span
+class="math inline">\(\vec x\in R^p\)</span></p>
+<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
+<p><span class="math inline">\(L\)</span>：总损失</p>
+<p><span class="math inline">\(\nabla_{\vec
+w}L\)</span>：损失函数关于<span class="math inline">\(\vec
+w\)</span>的梯度</p>
+<p><span class="math inline">\(\nabla_{\vec
+w}^2L\)</span>：损失函数关于<span class="math inline">\(\vec
+w\)</span>的hessian矩阵</p>
+<p><span
+class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
+<p><span class="math inline">\(diag(a)\)</span>：用<span
+class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
+class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
+<h2 id="模型">模型</h2>
+<p><span class="math display">\[
+\hat y=\frac{1}{1+e^{-\vec x^T\vec w}}=sigmoid(\vec x^T\vec w)
+\]</span></p>
+<h2 id="损失">损失</h2>
+<p><span class="math display">\[
+l=-[yln\hat y+(1-y)ln(1-\hat y)]\\
+=-[yln\frac{1}{1+e^{-\vec x^T\vec w}}+(1-y)ln(1-\frac{1}{1+e^{-\vec
+x^T\vec w}})]\\
+=-[yln\frac{e^{\vec x^T\vec w}}{e^{\vec x^T\vec
+w}+1}+(1-y)ln\frac{1}{e^{\vec x^T\vec w}+1}]\\
+=-[ylne^{\vec x^T\vec w}-yln(e^{\vec x^T\vec w}+1)+yln(e^{\vec x^T\vec
+w}+1)-ln(e^{\vec x^T\vec w}+1)]\\
+=-y\vec x^T\vec w+ln(e^{\vec x^T\vec w}+1)
+\]</span></p>
+<p><span class="math display">\[
+L=-\vec y^TX\vec w+\vec 1^Tln(e^{X\vec w}+\vec 1)
+\]</span></p>
+<h2 id="优化">优化</h2>
+<h3 id="梯度">梯度</h3>
+<p>求微分 <span class="math display">\[
+dL=-\vec y^TXd\vec w+\vec 1^Td(ln(e^{X\vec w}+\vec 1))\\
+=-\vec y^TXd\vec w+\vec 1^T[\frac{1}{e^{X\vec w}+\vec 1}\odot d(e^{X\vec
+w}+\vec 1)]\\
+=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^Td(e^{X\vec w})\\
+=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
+Xd\vec w]
+\]</span> <span class="math display">\[
+=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
+Xd\vec w])\\
+=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}\odot e^{X\vec
+w}]^TXd\vec w)\\
+=tr([\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y]^TXd\vec w)\\
+=tr([X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1})]^Td\vec w)
+\]</span></p>
+<p>梯度： <span class="math display">\[
+\nabla_{\vec w}L=X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y)\\
+=X^T(sigmoid(X\vec w)-\vec y)
+\]</span></p>
+<h3 id="hessian矩阵">hessian矩阵</h3>
+<p>微分： <span class="math display">\[
+d\nabla_{\vec w}L=X^Td(sigmoid(X\vec w))\\
+=X^T[sigmoid\prime(X\vec w)\odot Xd\vec w]\\
+=X^Tdiag(sigmoid\prime(X\vec w))Xd\vec w\\=[X^Tdiag(sigmoid\prime(X\vec
+w))X]^Td\vec w
+\]</span> 所以Hessian为： <span class="math display">\[
+\nabla_{\vec w}^2L=X^Tdiag(sigmoid\prime(X\vec w))X\\
+=X^Tdiag(sigmoid(X\vec w)\odot(\vec 1-sigmoid(X\vec w)))X
+\]</span></p>
+<p>容易看出，当<span
+class="math inline">\(X\)</span>满秩时hessian矩阵正定，故可用迭代下降算法求解参数<span
+class="math inline">\(\vec w\)</span>。</p>
+<h1 id="softmax回归">softmax回归</h1>
+<p>主要用来做多分类，假设有<span
+class="math inline">\(k\)</span>类。</p>
+<h2 id="符号-1">符号</h2>
+<p><span class="math inline">\(\vec
+y\)</span>：标签向量（列向量）的真实值（经过one-hot编码），<span
+class="math inline">\(\vec y\in R^k\)</span></p>
+<p><span class="math inline">\(\hat{\vec
+y}\)</span>：标签的预测值（列向量），<span
+class="math inline">\(\hat{\vec y}\in R^k\)</span></p>
+<p><span class="math inline">\(W\)</span>：参数矩阵，<span
+class="math inline">\(W\in R^{k*p}\)</span>，每一行对应一个类别</p>
+<p><span class="math inline">\(\vec
+x\)</span>：一条观测数据的特征向量（列向量），<span
+class="math inline">\(\vec x\in R^p\)</span></p>
+<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
+<p><span
+class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
+<p><span class="math inline">\(\otimes\)</span>：Kronecker积</p>
+<p><span class="math inline">\(diag(a)\)</span>：用<span
+class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
+class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
+<h2 id="模型-1">模型</h2>
+<p><span class="math display">\[
+\hat{\vec y}=softmax(W\vec x)=\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}
+\]</span></p>
+<h2 id="损失-1">损失</h2>
+<p><span class="math display">\[
+l=-\vec y^Tln\hat {\vec y}\\
+=-\vec y^Tln\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}\\
+=-\vec y^T(lne^{W\vec x}-\vec 1ln(\vec 1^Te^{W\vec x}))\\
+=-\vec y^TW\vec x+ln(\vec 1^Te^{W\vec x})
+\]</span></p>
+<h2 id="优化-1">优化</h2>
+<h3 id="梯度-1">梯度</h3>
+<p>微分： <span class="math display">\[
+dl=-\vec y^T (dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\odot d(\vec
+1^Te^{W\vec x})\\
+=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\vec 1^T de^{W\vec
+x}\\
+=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}(\vec 1^T(e^{W\vec
+x}\odot d(W)\vec x))\\
+=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec
+x}]^{T}(dW)\vec x\\
+=(\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec x}]^T-\vec y^T)(dW)\vec x\\
+=tr(\vec x(\frac{[e^{W\vec x]^T}}{\vec 1^Te^{W\vec x}}-\vec y^T)dW)\\
+=tr([(\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}-\vec y)\vec x^T]^TdW)
+\]</span> 梯度： <span class="math display">\[
+\nabla_{W}l=(\frac{e^{W\vec x}}{\vec 1^T e^{W\vec x}}-\vec y)\vec
+x^T=(softmax(W\vec x)-\vec y)\vec x^T
+\]</span></p>
+<h3 id="hessian矩阵-1">hessian矩阵</h3>
+<p>令： <span class="math display">\[
+\vec z=W\vec x
+\]</span></p>
+<p>求梯度微分： <span class="math display">\[
+d\nabla_Wl=(\frac{e^{\vec z}\odot d\vec z}{\vec 1^Te^{\vec
+z}}-\frac{e^{\vec z}(\vec 1^T(e^{\vec z}\odot d\vec z))}{(\vec 1^T
+e^{\vec z})^2})\vec x^T\\
+=(\frac{diag(e^{\vec z})}{\vec 1^Te^{\vec z}}-\frac{e^{\vec z}[e^{\vec
+z}]^T}{(\vec 1^Te^{\vec z})^2})(d\vec z) \vec x^T\\
+=(diag(softmax(\vec z))-softmax(\vec z)[softmax(\vec z)]^T)(d\vec z)\vec
+x^T\\
+=(diag(softmax(W\vec x))-softmax(W\vec x)[softmax(W\vec x)]^T)(dW)\vec
+x\vec x^T
+\]</span> hessian矩阵为： <span class="math display">\[
+\nabla_W^2l=(\vec x\vec x^T)\otimes (diag(softmax(W\vec
+x))-softmax(W\vec x)[softmax(W\vec x)]^T)
+\]</span> 同样用迭代下降算法求解参数<span
+class="math inline">\(W\)</span>。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>分类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>回归分析</title>
     <url>/2023/01/20/11.%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>​</p>
@@ -798,9 +961,11 @@ class="math inline">\(i=1,2,...,I\)</span>，每组包括的观测数目为<span
 class="math inline">\(n_i\)</span>，总样本量为<span
 class="math inline">\(n=\sum_{i=1}^In_i\)</span>。</p>
 <p>线性混合模型的基本形式为： <span class="math display">\[
-\vec y_{i}=X_i\vec \beta+Z_i\vec \alpha_i +\vec \epsilon_i\\
-\vec y_i\in R^{n_i},X_i\in R^{n_i×p},\vec \beta\in R^p,Z_i\in
+\begin{aligned}
+\vec y_{i}&amp;=X_i\vec \beta+Z_i\vec \alpha_i +\vec \epsilon_i\\
+\vec y_i\in R^{n_i},X_i\in R^{n_i×p},&amp;\vec \beta\in R^p,Z_i\in
 R^{n_i×q},\vec \alpha_i \in R^{q},\vec \epsilon_i \in R^{n_i}
+\end{aligned}
 \]</span> 模型中：</p>
 <ul>
 <li><span class="math inline">\(\vec y_i\)</span>表示第<span
@@ -889,9 +1054,11 @@ class="math inline">\(qI\)</span>的列向量，<span
 class="math inline">\(\vec \epsilon_i\)</span>摞起来得到长度为<span
 class="math inline">\(n\)</span>的列向量。因此线性混合模型的完整表达为：
 <span class="math display">\[
-\vec y=X\vec \beta+Z\vec \alpha+\vec \epsilon\\
-\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},Z\in R^{n×qI},\vec
+\begin{aligned}
+\vec y=&amp;X\vec \beta+Z\vec \alpha+\vec \epsilon\\
+\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},&amp;Z\in R^{n×qI},\vec
 \alpha\in R^{qI},\vec \epsilon\in R^n
+\end{aligned}
 \]</span> 其中 <span class="math display">\[
 \begin{bmatrix}
 \vec \alpha\\
@@ -924,6 +1091,7 @@ class="math inline">\(G=diag(\tilde G,\tilde G,...,\tilde
 G),R=diag(R_1,...R_i,...,R_I)\)</span>。</p>
 <h1 id="矩阵构造">矩阵构造</h1>
 <p>下面简单介绍一下重要矩阵的构造方法： <span class="math display">\[
+\begin{aligned}
 \vec y=\begin{bmatrix}
 \vec y_1\\
 \cdot\cdot\cdot\\
@@ -931,7 +1099,7 @@ G),R=diag(R_1,...R_i,...,R_I)\)</span>。</p>
 \cdot\cdot\cdot\\
 \vec y_I
 \end{bmatrix};
-X=\begin{bmatrix}
+X=&amp;\begin{bmatrix}
 X_1\\
 \cdot\cdot\cdot\\
 X_i\\
@@ -960,7 +1128,7 @@ Z_1&amp;0&amp;\cdot\cdot\cdot&amp;0\\
 \vec \epsilon_I
 \end{bmatrix};
 \\
-G=\begin{bmatrix}
+G=&amp;\begin{bmatrix}
 G&amp;0&amp;\cdot\cdot\cdot&amp;0\\
 0&amp;G&amp;\cdot\cdot\cdot&amp;0\\
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
@@ -971,21 +1139,26 @@ R_1&amp;0&amp;\cdot\cdot\cdot&amp;0\\
 0&amp;R_2&amp;\cdot\cdot\cdot&amp;0\\
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
 0&amp;0&amp;0&amp;R_I\\
-\end{bmatrix};
+\end{bmatrix}
+\end{aligned}
 \]</span></p>
 <h1 id="因变量的分布">因变量的分布</h1>
 <h2 id="条件分布">条件分布</h2>
 <p>对于线性混合模型： <span class="math display">\[
-\vec y=X\vec \beta+Z\vec \alpha+\vec \epsilon\\
-\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},Z\in R^{n×qI},\vec
+\begin{aligned}
+\vec y=&amp;X\vec \beta+Z\vec \alpha+\vec \epsilon\\
+\vec y\in R^n,X\in R^{n×p},\vec \beta\in R^{p},&amp;Z\in R^{n×qI},\vec
 \alpha\in R^{qI},\vec \epsilon\in R^n
+\end{aligned}
 \]</span> <span class="math inline">\(\vec \alpha\)</span>和<span
 class="math inline">\(\vec \epsilon\)</span>均为随机的，当<span
 class="math inline">\(\vec \alpha\)</span>固定时，可以导出<span
 class="math inline">\(\vec y\)</span>的条件分布为多元正态分布： <span
 class="math display">\[
-\vec y|\vec \alpha\sim N(X\vec \beta+Z\vec \alpha,R)\\
-\vec \alpha\sim N(\vec 0,G)
+\begin{aligned}
+\vec y|\vec \alpha&amp;\sim N(X\vec \beta+Z\vec \alpha,R)\\
+\vec \alpha&amp;\sim N(\vec 0,G)
+\end{aligned}
 \]</span></p>
 <h2 id="边缘分布">边缘分布</h2>
 <p><span class="math inline">\(\vec
@@ -1016,11 +1189,13 @@ f(\vec y|\vec
 \]</span> 这样就可以写出<span class="math inline">\(\vec
 \alpha\)</span>与<span class="math inline">\(\vec y\)</span>的联合密度：
 <span class="math display">\[
-f(\vec y,\vec \alpha)=f(\vec y|\vec \alpha)f(\vec \alpha)\\
+\begin{aligned}
+f(\vec y,\vec \alpha)=&amp;f(\vec y|\vec \alpha)f(\vec \alpha)\\
 =\frac{1}{\sqrt{(2\pi)^{qJ}|G|}}exp^{[-\frac{1}{2}\vec
 \alpha^TG^{-1}\vec
-\alpha]}\frac{1}{\sqrt{(2\pi)^{qJ}|R|}}exp^{[-\frac{1}{2}(\vec y-X\vec
-\beta-Z\vec \alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)]}
+\alpha]}&amp;\frac{1}{\sqrt{(2\pi)^{qJ}|R|}}exp^{[-\frac{1}{2}(\vec
+y-X\vec \beta-Z\vec \alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)]}
+\end{aligned}
 \]</span> 将其看作是参数为<span class="math inline">\(\vec
 \alpha\)</span>和<span class="math inline">\(\vec
 \beta\)</span>的似然函数，并取对数为： <span class="math display">\[
@@ -1032,23 +1207,29 @@ f(\vec y,\vec \alpha)=f(\vec y|\vec \alpha)f(\vec \alpha)\\
 L=\vec \alpha^TG^{-1}\vec \alpha+(\vec y-X\vec \beta-Z\vec
 \alpha)^TR^{-1}(\vec y-X\vec \beta-Z\vec \alpha)
 \]</span> 将式子展开： <span class="math display">\[
-L=\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^TR^{-1}\vec y-\vec
-y^TR^{-1}X\vec \beta-\vec y^TR^{-1}Z\vec \alpha\\-\vec
-\beta^TX^TR^{-1}\vec y+\vec \beta^T X^TR^{-1}X\vec \beta+\vec
+\begin{aligned}
+L=&amp;\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^TR^{-1}\vec y-\vec
+y^TR^{-1}&amp;X\vec \beta-\vec y^TR^{-1}Z\vec \alpha\\-\vec
+\beta^TX^TR^{-1}\vec y+\vec \beta^T X^TR^{-1}&amp;X\vec \beta+\vec
 \beta^TX^TR^{-1}Z\vec \alpha\\-\vec \alpha^TZ^TR^{-1}\vec y+\vec
-\alpha^TZ^TR^{-1}X\vec \beta+\vec \alpha^TZ^TR^{-1}Z\vec \alpha
+\alpha^TZ^TR^{-1}&amp;X\vec \beta+\vec \alpha^TZ^TR^{-1}Z\vec \alpha
+\end{aligned}
 \]</span> 合并同类项得： <span class="math display">\[
-L=\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^TR^{-1}\vec y\\-2\vec
-\beta^TX^TR^{-1}\vec y+\vec \beta^T X^TR^{-1}X\vec \beta+\vec
-2\beta^TX^TR^{-1}Z\vec \alpha\\-2\vec \alpha^TZ^TR^{-1}\vec y+\vec
-\alpha^TZ^TR^{-1}Z\vec \alpha
+\begin{aligned}
+L=&amp;\vec \alpha^TG^{-1}\vec \alpha\\+\vec y^T&amp;R^{-1}\vec
+y\\-2\vec \beta^TX^TR^{-1}\vec y+\vec \beta^T&amp; X^TR^{-1}X\vec
+\beta+\vec 2\beta^TX^TR^{-1}Z\vec \alpha\\-2\vec \alpha^TZ^TR^{-1}\vec
+y+&amp;\vec \alpha^TZ^TR^{-1}Z\vec \alpha
+\end{aligned}
 \]</span> 该式子分别对<span class="math inline">\(\vec
 \alpha\)</span>和<span class="math inline">\(\vec
 \beta\)</span>求偏导可得： <span class="math display">\[
+\begin{aligned}
 \frac{\partial L}{\partial \vec \alpha}=2(G^{-1}\vec
 \alpha+Z^TR^{-1}X\vec \beta-Z^TR^{-1}\vec y+Z^TR^{-1}Z\vec \alpha)\\
 \frac{\partial L}{\partial \vec \beta}=2(X^TR^{-1}X\vec
 \beta+X^TR^{-1}Z\vec \alpha-X^TR^{-1}\vec y)
+\end{aligned}
 \]</span> 令偏导数为0，可以得到下面的方程系统： <span
 class="math display">\[
 \begin{bmatrix}
@@ -1077,9 +1258,11 @@ GZ^TV^{-1}(\vec y-X(X^TV^{-1}X)^{-1}X^TV^{-1}\vec y)
 \]</span></p>
 <h2 id="混合模型方程求解">混合模型方程求解</h2>
 <p>我们令两个偏导数为0，可得： <span class="math display">\[
+\begin{aligned}
 X^TR^{-1}X\tilde {\vec \beta}+X^TR^{-1}Z\vec \alpha=X^TR^{-1}\vec y\\
 (G^{-1}+Z^TR^{-1}Z)\tilde{\vec \alpha}+Z^TR^{-1}X\vec
 \beta=Z^TR^{-1}\vec y
+\end{aligned}
 \]</span></p>
 ]]></content>
       <categories>
@@ -1087,897 +1270,6 @@ X^TR^{-1}X\tilde {\vec \beta}+X^TR^{-1}Z\vec \alpha=X^TR^{-1}\vec y\\
       </categories>
       <tags>
         <tag>回归</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>分类算法</title>
-    <url>/2022/12/25/2.%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="逻辑回归">逻辑回归</h1>
-<h2 id="符号">符号</h2>
-<p><span class="math inline">\(X\)</span>：数据矩阵，<span
-class="math inline">\(X\in R^{n*p}\)</span></p>
-<p><span class="math inline">\(\vec
-y\)</span>：标签向量（列向量），<span class="math inline">\(\vec y\in
-R^n\)</span></p>
-<p><span class="math inline">\(\hat y\)</span>：标签的预测值</p>
-<p><span class="math inline">\(y\)</span>：标签的真实值</p>
-<p><span class="math inline">\(\vec
-w\)</span>：参数向量（列向量），<span class="math inline">\(\vec w\in
-R^p\)</span></p>
-<p><span class="math inline">\(\vec
-x\)</span>：一条观测数据的特征向量（列向量），<span
-class="math inline">\(\vec x\in R^p\)</span></p>
-<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
-<p><span class="math inline">\(L\)</span>：总损失</p>
-<p><span class="math inline">\(\nabla_{\vec
-w}L\)</span>：损失函数关于<span class="math inline">\(\vec
-w\)</span>的梯度</p>
-<p><span class="math inline">\(\nabla_{\vec
-w}^2L\)</span>：损失函数关于<span class="math inline">\(\vec
-w\)</span>的hessian矩阵</p>
-<p><span
-class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
-<p><span class="math inline">\(diag(a)\)</span>：用<span
-class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
-class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
-<h2 id="模型">模型</h2>
-<p><span class="math display">\[
-\hat y=\frac{1}{1+e^{-\vec x^T\vec w}}=sigmoid(\vec x^T\vec w)
-\]</span></p>
-<h2 id="损失">损失</h2>
-<p><span class="math display">\[
-l=-[yln\hat y+(1-y)ln(1-\hat y)]\\
-=-[yln\frac{1}{1+e^{-\vec x^T\vec w}}+(1-y)ln(1-\frac{1}{1+e^{-\vec
-x^T\vec w}})]\\
-=-[yln\frac{e^{\vec x^T\vec w}}{e^{\vec x^T\vec
-w}+1}+(1-y)ln\frac{1}{e^{\vec x^T\vec w}+1}]\\
-=-[ylne^{\vec x^T\vec w}-yln(e^{\vec x^T\vec w}+1)+yln(e^{\vec x^T\vec
-w}+1)-ln(e^{\vec x^T\vec w}+1)]\\
-=-y\vec x^T\vec w+ln(e^{\vec x^T\vec w}+1)
-\]</span></p>
-<p><span class="math display">\[
-L=-\vec y^TX\vec w+\vec 1^Tln(e^{X\vec w}+\vec 1)
-\]</span></p>
-<h2 id="优化">优化</h2>
-<h3 id="梯度">梯度</h3>
-<p>求微分 <span class="math display">\[
-dL=-\vec y^TXd\vec w+\vec 1^Td(ln(e^{X\vec w}+\vec 1))\\
-=-\vec y^TXd\vec w+\vec 1^T[\frac{1}{e^{X\vec w}+\vec 1}\odot d(e^{X\vec
-w}+\vec 1)]\\
-=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^Td(e^{X\vec w})\\
-=-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
-Xd\vec w]
-\]</span> <span class="math display">\[
-=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}]^T[e^{X\vec w}\odot
-Xd\vec w])\\
-=tr(-\vec y^TXd\vec w+[\frac{1}{e^{X\vec w}+\vec 1}\odot e^{X\vec
-w}]^TXd\vec w)\\
-=tr([\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y]^TXd\vec w)\\
-=tr([X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1})]^Td\vec w)
-\]</span></p>
-<p>梯度： <span class="math display">\[
-\nabla_{\vec w}L=X^T(\frac{e^{X\vec w}}{e^{X\vec w}+\vec 1}-\vec y)\\
-=X^T(sigmoid(X\vec w)-\vec y)
-\]</span></p>
-<h3 id="hessian矩阵">hessian矩阵</h3>
-<p>微分： <span class="math display">\[
-d\nabla_{\vec w}L=X^Td(sigmoid(X\vec w))\\
-=X^T[sigmoid\prime(X\vec w)\odot Xd\vec w]\\
-=X^Tdiag(sigmoid\prime(X\vec w))Xd\vec w\\=[X^Tdiag(sigmoid\prime(X\vec
-w))X]^Td\vec w
-\]</span> 所以Hessian为： <span class="math display">\[
-\nabla_{\vec w}^2L=X^Tdiag(sigmoid\prime(X\vec w))X\\
-=X^Tdiag(sigmoid(X\vec w)\odot(\vec 1-sigmoid(X\vec w)))X
-\]</span></p>
-<p>容易看出，当<span
-class="math inline">\(X\)</span>满秩时hessian矩阵正定，故可用迭代下降算法求解参数<span
-class="math inline">\(\vec w\)</span>。</p>
-<h1 id="softmax回归">softmax回归</h1>
-<p>主要用来做多分类，假设有<span
-class="math inline">\(k\)</span>类。</p>
-<h2 id="符号-1">符号</h2>
-<p><span class="math inline">\(\vec
-y\)</span>：标签向量（列向量）的真实值（经过one-hot编码），<span
-class="math inline">\(\vec y\in R^k\)</span></p>
-<p><span class="math inline">\(\hat{\vec
-y}\)</span>：标签的预测值（列向量），<span
-class="math inline">\(\hat{\vec y}\in R^k\)</span></p>
-<p><span class="math inline">\(W\)</span>：参数矩阵，<span
-class="math inline">\(W\in R^{k*p}\)</span>，每一行对应一个类别</p>
-<p><span class="math inline">\(\vec
-x\)</span>：一条观测数据的特征向量（列向量），<span
-class="math inline">\(\vec x\in R^p\)</span></p>
-<p><span class="math inline">\(l\)</span>：一条数据的损失</p>
-<p><span
-class="math inline">\(\odot\)</span>：向量或矩阵对应元素相乘</p>
-<p><span class="math inline">\(\otimes\)</span>：Kronecker积</p>
-<p><span class="math inline">\(diag(a)\)</span>：用<span
-class="math inline">\(a\)</span>来生成一个对角矩阵，即用<span
-class="math inline">\(a\)</span>填充对角矩阵的主对角线。</p>
-<h2 id="模型-1">模型</h2>
-<p><span class="math display">\[
-\hat{\vec y}=softmax(W\vec x)=\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}
-\]</span></p>
-<h2 id="损失-1">损失</h2>
-<p><span class="math display">\[
-l=-\vec y^Tln\hat {\vec y}\\
-=-\vec y^Tln\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}\\
-=-\vec y^T(lne^{W\vec x}-\vec 1ln(\vec 1^Te^{W\vec x}))\\
-=-\vec y^TW\vec x+ln(\vec 1^Te^{W\vec x})
-\]</span></p>
-<h2 id="优化-1">优化</h2>
-<h3 id="梯度-1">梯度</h3>
-<p>微分： <span class="math display">\[
-dl=-\vec y^T (dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\odot d(\vec
-1^Te^{W\vec x})\\
-=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}\vec 1^T de^{W\vec
-x}\\
-=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}(\vec 1^T(e^{W\vec
-x}\odot d(W)\vec x))\\
-=-\vec y^T(dW)\vec x+\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec
-x}]^{T}(dW)\vec x\\
-=(\frac{1}{\vec 1^Te^{W\vec x}}[e^{W\vec x}]^T-\vec y^T)(dW)\vec x\\
-=tr(\vec x(\frac{[e^{W\vec x]^T}}{\vec 1^Te^{W\vec x}}-\vec y^T)dW)\\
-=tr([(\frac{e^{W\vec x}}{\vec 1^Te^{W\vec x}}-\vec y)\vec x^T]^TdW)
-\]</span> 梯度： <span class="math display">\[
-\nabla_{W}l=(\frac{e^{W\vec x}}{\vec 1^T e^{W\vec x}}-\vec y)\vec
-x^T=(softmax(W\vec x)-\vec y)\vec x^T
-\]</span></p>
-<h3 id="hessian矩阵-1">hessian矩阵</h3>
-<p>令： <span class="math display">\[
-\vec z=W\vec x
-\]</span></p>
-<p>求梯度微分： <span class="math display">\[
-d\nabla_Wl=(\frac{e^{\vec z}\odot d\vec z}{\vec 1^Te^{\vec
-z}}-\frac{e^{\vec z}(\vec 1^T(e^{\vec z}\odot d\vec z))}{(\vec 1^T
-e^{\vec z})^2})\vec x^T\\
-=(\frac{diag(e^{\vec z})}{\vec 1^Te^{\vec z}}-\frac{e^{\vec z}[e^{\vec
-z}]^T}{(\vec 1^Te^{\vec z})^2})(d\vec z) \vec x^T\\
-=(diag(softmax(\vec z))-softmax(\vec z)[softmax(\vec z)]^T)(d\vec z)\vec
-x^T\\
-=(diag(softmax(W\vec x))-softmax(W\vec x)[softmax(W\vec x)]^T)(dW)\vec
-x\vec x^T
-\]</span> hessian矩阵为： <span class="math display">\[
-\nabla_W^2l=(\vec x\vec x^T)\otimes (diag(softmax(W\vec
-x))-softmax(W\vec x)[softmax(W\vec x)]^T)
-\]</span> 同样用迭代下降算法求解参数<span
-class="math inline">\(W\)</span>。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>分类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>无约束优化算法</title>
-    <url>/2022/12/26/3%E6%97%A0%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="迭代下降算法">迭代下降算法</h1>
-<ul>
-<li>setp0：给损失函数<span class="math inline">\(L(\vec
-w)\)</span>的参数一个初始值<span class="math inline">\(\vec
-w_k,k=0\)</span>;</li>
-<li>step1：判断损失函数<span class="math inline">\(L(\vec
-w_k)\)</span>是否满足收敛条件，如果不满足则进入step2；</li>
-<li>step2：在<span class="math inline">\(\vec
-w_k\)</span>处寻找能使损失函数<span class="math inline">\(L(\vec
-w_k)\)</span>减小的方向<span class="math inline">\(d_k\)</span>；</li>
-<li>step3：选择步长<span class="math inline">\(\lambda_k\gt
-0\)</span>，要求<span class="math inline">\(L(\vec w_k+\lambda_kd_k)\lt
-L(\vec w_k)\)</span>；</li>
-<li>step4：令<span class="math inline">\(\vec w_{k+1}=\vec
-w_k+\lambda_kd_k,k=k+1\)</span>，返回step1。</li>
-</ul>
-<p>收敛条件：<span class="math inline">\(||\nabla L(\vec w_k)||_2\lt
-\epsilon,\epsilon\rightarrow 0\)</span>。</p>
-<h1 id="梯度下降法">梯度下降法</h1>
-<p>本质是用了泰勒一阶展开 <span class="math display">\[
-L(\vec w_{k+1})\approx L(\vec w_k)+\nabla L(\vec w_k)^T(\vec
-w_{k+1}-\vec w_k)\\
-\rightarrow\\
-\vec w_{k+1}-\vec w_k=-\lambda_k\nabla L(\vec w_k)\\
-\vec w_{k+1}=\vec w_k-\lambda_k \nabla L(\vec w_k)
-\]</span></p>
-<h1 id="牛顿法">牛顿法</h1>
-<p>本质是用了泰勒二阶展开 <span class="math display">\[
-L(\vec w_{k+1})\approx L(\vec w_k)+\nabla L(\vec w_k)^T(\vec
-w_{k+1}-\vec w_k)+\frac{1}{2}(\vec w_{k+1}-\vec w_{k})^TH(\vec w_k)(\vec
-w_{k+1}-\vec w_k)\\
-\nabla L(\vec w_{k+1})=\nabla L(\vec w_k)+H(\vec w_{k})(\vec
-w_{k+1}-\vec w_k)=0\\
-\rightarrow\\
-\vec w_{k+1}=\vec w_k-H(\vec w_{k})^{-1}\nabla L(\vec w_k)
-\]</span> <span class="math inline">\(H(\vec w_k)\)</span>为<span
-class="math inline">\(\vec
-w_k\)</span>处的hessian矩阵，要求为正定矩阵。此时： <span
-class="math display">\[
-L(\vec w_{k+1})\approx L(\vec w_k)-\nabla L(\vec w_k)^TH(\vec
-w_k)^{-1}\nabla L(\vec w_k)+\frac{1}{2}(-H(\vec w_k)^{-1}\nabla L(\vec
-w_k))^TH(\vec w_k)(-H(\vec w_k)^{-1}\nabla L(\vec w_k))\\
-\approx L(\vec w_k)-\nabla L(\vec w_k)^TH(\vec w_k)^{-1}\nabla L(\vec
-w_k)+\frac{1}{2}\nabla L(\vec w_k)^TH(\vec w_k)^{-1}\nabla L(\vec w_k)\\
-\approx L(\vec w_k)-\frac{1}{2}\nabla L(\vec w_k)^TH(\vec
-w_k)^{-1}\nabla L(\vec w_k)
-\]</span> 可见只要<span class="math inline">\(H(\vec
-w_k)\)</span>正定，必然有： <span class="math display">\[
-L(\vec w_{k+1})\lt L(\vec w_k)
-\]</span></p>
-<h1 id="拟牛顿法">拟牛顿法</h1>
-<p>基本思想是在满足拟牛顿方程的条件下，用一个正定矩阵来近似<span
-class="math inline">\(H(\vec w_k)\)</span>，以减小计算量。</p>
-<p>用拉格朗日中值定理： <span class="math display">\[
-\nabla L(\vec w_k)-\nabla L(\vec w_{k-1})=\nabla^2L(\vec \xi) (\vec
-w_k-\vec w_{k-1})
-\]</span> 令<span class="math inline">\(B_k=\nabla^2 L(\vec \xi),\vec
-y_{k-1}=\nabla L(\vec w_k)-\nabla L(\vec w_{k-1}),\vec \delta_{k-1}=\vec
-w_k-\vec w_{k-1}\)</span>，解下面的拟牛顿方程： <span
-class="math display">\[
-\vec y_{k-1}=B_k\vec \delta_{k-1}
-\]</span> 或令<span
-class="math inline">\(G_k=B_k^{-1}\)</span>，解下面的拟牛顿方程： <span
-class="math display">\[
-G_k\vec y_{k-1}=\vec \delta_{k-1}
-\]</span> 用解出的<span class="math inline">\(B_k\)</span>代替<span
-class="math inline">\(H(\vec w_k)\)</span> <span class="math display">\[
-\vec w_{k+1}=\vec w_k-B_k^{-1}\nabla L(\vec w_k)
-\]</span> 或<span class="math inline">\(G_k\)</span>代替<span
-class="math inline">\(H(\vec w_k)^{-1}\)</span>： <span
-class="math display">\[
-\vec w_{k+1}=\vec w_k-G_k\nabla L(\vec w_k)
-\]</span> 初始化<span class="math inline">\(\vec
-w_0\)</span>后，用牛顿迭代法计算<span class="math inline">\(\vec
-w_1\)</span>，解拟牛顿方程算出<span
-class="math inline">\(B_1\)</span>或<span
-class="math inline">\(G_1\)</span>，后面用拟牛顿法迭代。</p>
-<p>要求<span class="math inline">\(B_k\)</span>或<span
-class="math inline">\(G_k\)</span>为正定矩阵，正定矩阵有未知数<span
-class="math inline">\(\frac{p(p+1)}{2}\)</span>个，方程有p个，故解集不唯一。</p>
-<h1 id="dfp法">DFP法</h1>
-<p>用迭代法求解<span class="math inline">\(G_k\)</span>。 <span
-class="math display">\[
-G_{k}=G_{k-1}+a\vec u\vec u^T+b\vec v\vec v^T
-\]</span></p>
-<p>带入拟牛顿方程： <span class="math display">\[
-G_{k-1}\vec y_{k-1}+a\vec u\vec u^T\vec y_{k-1}+b\vec v\vec v^T\vec
-y_{k-1}=\vec\delta_{k-1}
-\]</span> 令： <span class="math display">\[
-G_{k-1}\vec y_{k-1}+a\vec u\vec u^T\vec y_{k-1}=0\\
-b\vec v\vec v^T\vec y_{k-1}-\vec \delta_{k-1}=0\\
-\vec u=G_{k-1}\vec y_{k-1}\\
-\vec v=\vec \delta_{k-1}
-\]</span> 得： <span class="math display">\[
-a=-\frac{1}{\vec y_{k-1}^TG_{k-1}\vec y_{k-1}}\\
-b=\frac{1}{\vec\delta_{k-1}^T\vec y_{k-1}}
-\]</span> 因此： <span class="math display">\[
-G_{k}=G_{k-1}-\frac{G_{k-1}\vec y_{k-1}\vec y_{k-1}^TG_{k-1}^T}{\vec
-y_{k-1}^TG_{k-1}\vec y_{k-1}}+\frac{\vec \delta_{k-1}\vec
-\delta_{k-1}^T}{\vec \delta_{k-1}^T\vec y_{k-1}}
-\]</span></p>
-<h1 id="bfgs法">BFGS法</h1>
-<p>用迭代法求解<span class="math inline">\(B_k\)</span>。 <span
-class="math display">\[
-B_k=B_{k-1}+a\vec u\vec u^T+b\vec v\vec v^T
-\]</span></p>
-<p>带入拟牛顿方程： <span class="math display">\[
-\vec y_{k-1}=B_{k-1}\vec \delta_{k-1}+a\vec u\vec u^T\vec
-\delta_{k-1}+b\vec v\vec v^T\vec \delta_{k-1}
-\]</span> 令： <span class="math display">\[
-\vec y_{k-1}=b\vec v\vec v^T\vec \delta_{k-1}\\
-B_{k-1}\vec \delta_{k-1}=-a\vec u\vec u^T\vec \delta_{k-1}\\
-\vec v=\vec y_{k-1}\\
-\vec u=B_{k-1}\vec \delta_{k-1}
-\]</span> 可得： <span class="math display">\[
-b=\frac{1}{\vec v^T\vec \delta_{k-1}}=\frac{1}{\vec y_{k-1}^T\vec
-\delta_{k-1}}\\
-a=-\frac{1}{\vec u^T\vec \delta_{k-1}}=\frac{1}{\vec
-\delta_{k-1}^TB_{k-1}\vec \delta_{k-1}}
-\]</span> 因此： <span class="math display">\[
-B_{k}=B_{k-1}-\frac{B_{k-1}\vec
-\delta_{k-1}\vec\delta_{k-1}^TB_{k-1}}{\vec \delta_{k-1}^TB_{k-1}\vec
-\delta_{k-1}}+\frac{\vec y_{k-1}\vec y_{k-1}^T}{\vec y_{k-1}^T\vec
-\delta_{k-1}}
-\]</span></p>
-<h1 id="broyden法">Broyden法</h1>
-<p>结合了DFP和BFGS方法： <span class="math display">\[
-G_k=\alpha G^{DFP}+(1-\alpha)G^{BFGS},0\le\alpha\le 1
-\]</span> <span
-class="math inline">\(G^{DFP}\)</span>为DFP算法计算的<span
-class="math inline">\(G_k\)</span>，<span
-class="math inline">\(G^{BFGS}\)</span>为BFGS算法计算的<span
-class="math inline">\(B_k\)</span>取逆。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>优化算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>决策树</title>
-    <url>/2022/12/27/4.%E5%86%B3%E7%AD%96%E6%A0%91/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="id3算法">ID3算法</h1>
-<p>主要用来做分类问题</p>
-<h2 id="特征选择算法">特征选择算法</h2>
-<p>使用信息增益最大来做特征选择： <span class="math display">\[
-Gain=H(Y)-H(Y|X)\\
-H(Y)=-\sum_{k=1}^Kp_k\mathop{log_2}p_k\\
-H(Y|X)=\sum_{l=1}^Lp_lH(Y|X=x_l)
-\]</span> <span class="math inline">\(K\)</span>：表示标签<span
-class="math inline">\(Y\)</span>有<span
-class="math inline">\(K\)</span>个类别；<span
-class="math inline">\(p_k\)</span>：表示标签<span
-class="math inline">\(Y\)</span>的第<span
-class="math inline">\(k\)</span>个类别的取值概率，<span
-class="math inline">\(k=1,2,...,K\)</span>；<span
-class="math inline">\(L\)</span>：表示特征<span
-class="math inline">\(X\)</span>有<span
-class="math inline">\(L\)</span>个类别；<span
-class="math inline">\(x_l\)</span>：表示特征<span
-class="math inline">\(X\)</span>的第<span
-class="math inline">\(l\)</span>种取值，<span
-class="math inline">\(l=1,2,...,L\)</span>；<span
-class="math inline">\(p_l\)</span>：表示特征<span
-class="math inline">\(X\)</span>的第<span
-class="math inline">\(l\)</span>个类别的取值概率。</p>
-<h2 id="决策树生成">决策树生成</h2>
-<p>从根节点开始，遍历特征计算每一个特征的信息增益，选择信息增益最大的特征作为根节点。由该根节点特征的不同取值建立子节点，对每个子节点递归调用上述方法创建决策树。终止条件：</p>
-<ul>
-<li>无需分类：每个子节点包含的样本，其标签都属于同一个类别；</li>
-<li>无法分类：每个子节点所包含的样本，其每一个特征都只有一种取值，或者特征已经用完。</li>
-</ul>
-<h2 id="决策树剪枝">决策树剪枝</h2>
-<p>ID3无剪枝算法</p>
-<h2 id="预测">预测</h2>
-<p>样本会落到ID3决策树的一个叶子节点上，计算叶子节点中每种类别的频率，将该样本预测为频率最高的那个类别。</p>
-<h2 id="缺点">缺点</h2>
-<ul>
-<li>无剪枝算法</li>
-<li>只能处理分类特征，且特征无法复用</li>
-<li>无法处理缺失值</li>
-<li>偏好类别较多的特征</li>
-<li>容易达到局部最优而非全局最优，容易过拟合</li>
-</ul>
-<h1 id="c4.5算法">C4.5算法</h1>
-<p>主要用来做分类问题</p>
-<h2 id="特征选择算法-1">特征选择算法</h2>
-<p>使用信息增益率最大来做特征选择： <span class="math display">\[
-Gain\_Ratio=\frac{H(Y)-H(Y|X)}{H(X)}\\
-H(Y)=-\sum_{k=1}^Kp_k\mathop{log_2}p_k\\
-H(X)=-\sum_{l=1}^Lp_l\mathop{log_2}p_l\\
-H(Y|X)=\sum_{l=1}^Lp_lH(Y|X=x_l)
-\]</span></p>
-<h3 id="处理连续变量">处理连续变量</h3>
-<p>用贪心算法选择连续变量的最优切分点对连续变量进行二分。</p>
-<h3 id="处理缺失值">处理缺失值</h3>
-<h4 id="训练集有缺失值">训练集有缺失值</h4>
-<ol type="1">
-<li><p>如何计算信息增益率？用无缺失样本计算信息增益率，然后乘以无缺失样本的比例。</p></li>
-<li><p>缺失值对应的样本划分到那个子节点？划分到所有子节点，并赋予权重。权重等于缺失样本划分前的权重（初始所有样本权重为1）乘以各个子节点包含的无缺失样本量占父节点包含的无缺失样本量的比例。这个权重会影响后面的信息增益率的计算。</p></li>
-</ol>
-<h4 id="测试预测集有缺失值">测试/预测集有缺失值</h4>
-<p>将缺失样本划分到所有子节点，然后统计缺失样本属于各个标签类别的概率，将缺失样本判为概率最大的类别。</p>
-<h2 id="决策树生成-1">决策树生成</h2>
-<p>从根节点开始，遍历特征计算每一个特征的信息增益率，选择信息增益率最大的特征作为根节点。由该根节点特征的不同取值建立子节点，对每个子节点递归调用上述方法创建决策树。终止条件：</p>
-<ul>
-<li>无需分类：每个子节点包含的样本，其标签都属于同一个类别；</li>
-<li>无法分类：每个子节点所包含的样本，其每一个分类特征都只有一个类别，或者分类特征已经用完，而每一个连续特征的信息增益率都小于阈值。</li>
-</ul>
-<h2 id="决策树剪枝-1">决策树剪枝</h2>
-<h3 id="预剪枝">预剪枝</h3>
-<ul>
-<li>树达到一定深度</li>
-<li>信息增益率小于指定阈值</li>
-<li>叶子节点包含的样本量小于阈值</li>
-<li>叶子节点本身包括的样本量大于阈值，但是划分后任意一个子节点（变为叶子节点）的样本量小于阈值。</li>
-</ul>
-<h3 id="后剪枝">后剪枝</h3>
-<p>先生成决策树之后再剪枝</p>
-<p><span class="math display">\[
-L=\sum_{t=1}^{|T|}n_tH_t(Y)+\alpha|T|
-\]</span></p>
-<p><span class="math inline">\(T\)</span>：表示一棵决策树；<span
-class="math inline">\(|T|\)</span>：表示决策树<span
-class="math inline">\(T\)</span>有<span
-class="math inline">\(|T|\)</span>个叶子节点；<span
-class="math inline">\(n_t\)</span>：表示决策树第<span
-class="math inline">\(t\)</span>个叶子节点上的样本量，<span
-class="math inline">\(t=1,2,...,|T|\)</span>；<span
-class="math inline">\(H_t(Y)\)</span>：表示决策树第<span
-class="math inline">\(t\)</span>个叶子节点上的标签<span
-class="math inline">\(Y\)</span>的信息熵；<span
-class="math inline">\(\alpha\)</span>为正则化参数；<span
-class="math inline">\(L\)</span>表示损失。如果非叶子节点替换为叶子节点能使<span
-class="math inline">\(L\)</span>减小，则进行替换，即剪枝。</p>
-<h2 id="预测-1">预测</h2>
-<p>样本会落到C4.5决策树的一个叶子节点上，计算叶子节点中每种类别的频率，将该样本预测为频率最高的那个类别。</p>
-<h2 id="缺点-1">缺点</h2>
-<ul>
-<li>只能处理分类问题，不能处理回归问题</li>
-<li>容易陷入局部最优，而非全局最优，容易过拟合</li>
-<li>需要大量对数运算，计算成本较高</li>
-</ul>
-<h1 id="cart算法">CART算法</h1>
-<p>可以用于分类，也可以用于回归。</p>
-<h2 id="特征选择算法-2">特征选择算法</h2>
-<h3 id="分类问题">分类问题</h3>
-<p>分类问题使用基尼指数最小来做特征选择： <span class="math display">\[
-Gini\_index(Y|X)=\sum_{l=1}^Lp_lGini(Y|X=x_l)\\
-Gini(Y)=\sum_{k=1}^Kp_k(1-p_k)\\
-\]</span></p>
-<h3 id="回归问题">回归问题</h3>
-<p>回归问题使用平方误差最小来做特征选择： <span class="math display">\[
-SSE=\sum_{i=1}^n(y_i-\bar y)^2
-\]</span> <span
-class="math inline">\(n\)</span>为子节点的样本量。这个算法会让一个节点产生的两个子节点，各自计算平方误差和，然后加总，取最小值时对应的特征和切分点。</p>
-<h3 id="处理连续变量-1">处理连续变量</h3>
-<p>用贪心算法选择连续变量的最优切分点对连续变量进行二分。</p>
-<h3 id="处理分类变量">处理分类变量</h3>
-<p>同样采用二分的方法，将分类特征分为某个类别和不属于某个类别。分类特征有多个类别时，在树生成过程中这个特征也可以复用。</p>
-<h3 id="处理缺失值-1">处理缺失值</h3>
-<ul>
-<li>如何计算gini值或平方误差？采用类似C4.5的算法，用无缺失样本计算，最后乘以无缺失样本的比例</li>
-<li>缺失样本该划分到左节点还是右节点呢？基于代理特征，来决定缺失样本应该分到左节点还是右节点。代理特征即下一个对分裂最有用的特征，且其在当前样本未缺失。</li>
-</ul>
-<h2 id="决策树生成-2">决策树生成</h2>
-<p>从根节点开始，遍历特征计算每一个特征的最小gini指数（分类问题）或者平方误差（回归问题），选择gini指数或平方误差最小的特征作为根节点。由该根节点二分建立子节点，对每个子节点递归调用上述方法创建决策树，直到满足终止条件。</p>
-<h2 id="决策树剪枝-2">决策树剪枝</h2>
-<h3 id="预剪枝-1">预剪枝</h3>
-<ul>
-<li>树达到一定深度</li>
-<li>基尼指数/平方误差和不满足指定阈值</li>
-<li>叶子节点包含的样本量小于阈值</li>
-<li>叶子节点本身包括的样本量大于阈值，但是划分后任意一个子节点（变为叶子节点）的样本量小于阈值。</li>
-</ul>
-<h3 id="后剪枝-1">后剪枝</h3>
-<p>定义损失函数为： <span class="math display">\[
-L=C(T)+\alpha|T|
-\]</span> <span
-class="math inline">\(C(T)\)</span>为训练集的预测误差，对于分类问题为基尼指数，对于回归问题为平方误差。<span
-class="math inline">\(\alpha\)</span>为正则化参数，<span
-class="math inline">\(T\)</span>为一颗决策树，<span
-class="math inline">\(|T|\)</span>为决策树<span
-class="math inline">\(T\)</span>包含的叶子节点个数。</p>
-<p>剪枝时，会从训练好的完整树开始，不断调整<span
-class="math inline">\(\alpha\)</span>，来选择最优的树，一直剪枝到只有一个根节点的树，形成一个子树序列，然后用一个验证集使用交叉验证的方法从中选出最优的树。</p>
-<h2 id="预测-2">预测</h2>
-<p>样本会落到CART决策树的一个叶子节点上。对于分类问题，同样计算叶子节点中每种类别的频率，将该样本预测为频率最高的那个类别。对于回归问题，取叶子节点上包含的训练样本的平均值作为预测值。</p>
-<h2 id="缺点-2">缺点</h2>
-<ul>
-<li>容易陷入局部最优，而非全局最优，容易过拟合。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>回归</tag>
-        <tag>分类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>集成学习</title>
-    <url>/2022/12/28/5.%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="boosting">Boosting</h1>
-<h2 id="adaboost">AdaBoost</h2>
-<p>下一轮模型训练时会提高上一轮错误分类样本的权重。</p>
-<h3 id="模型">模型</h3>
-<p><span class="math inline">\(K\)</span>个基学习器构成的加法模型：
-<span class="math display">\[
-\hat y^K=sign(z^K)\\
-z^K=\sum_{k=1}^K\alpha_kf_k(\vec x)\\
-f_k(\vec x)\rightarrow \{-1,+1\},\alpha_k&gt;0
-\]</span></p>
-<p><span class="math inline">\(sign(a)\)</span>为符号函数，<span
-class="math inline">\(a&gt;0\)</span>则<span
-class="math inline">\(sign(a)\)</span>返回1，<span
-class="math inline">\(a=0\)</span>则返回0，否则返回-1，<span
-class="math inline">\(\alpha_k\)</span>为模型权重，要求每个基学习器<span
-class="math inline">\(f_k(\vec x)\)</span>的输出为-1或1。</p>
-<h3 id="损失">损失</h3>
-<p>用指数函数<span class="math inline">\(y=e^{-\lambda
-x}\)</span>来度量损失。第<span
-class="math inline">\(t\)</span>轮的损失： <span class="math display">\[
-L=\sum_{i=1}^ne^{-z_i^ty_i}\\
-=\sum_{i=1}^ne^{-(z_i^{t-1}+\alpha_tf_t(\vec x_i))y_i}\\
-=\sum_{i=1}^ne^{-z_i^{t-1}y_i}e^{-\alpha_tf_t(\vec x_i)y_i}
-\]</span> 要寻找第<span class="math inline">\(t\)</span>轮时最优的<span
-class="math inline">\(\alpha_t\)</span>和<span
-class="math inline">\(f_t(\vec x)\)</span>，令： <span
-class="math display">\[
-w_i^{t}=e^{-z_i^{t-1}y_i}
-\]</span> 则： <span class="math display">\[
-L=\sum_{i=1}^nw_i^te^{-\alpha_tf_t(\vec x_i)y_i}
-\]</span></p>
-<h3 id="优化">优化</h3>
-<p>因为<span class="math inline">\(y\rightarrow \{-1,+1\},f_t(\vec
-x)\rightarrow\{-1,+1\}\)</span>，因此： <span class="math display">\[
-L=\sum_{i=1}^nw_i^t(e^{-\alpha_t}I(y_i=f_t(\vec
-x_i))+e^{\alpha_t}I(f_t(\vec x_i)\ne y_i))\\
-=\sum_{i=1}^nw_i^t(e^{-\alpha_t}(1-I(y_i\ne f_t(\vec
-x_i)))+e^{\alpha_t}I(f_t(\vec x_i)\ne y_i))\\
-=\sum_{i=1}^nw_i^t(e^{-\alpha_t}-e^{-\alpha_t}I(f_t(\vec x_i)\ne
-y_i)+e^{\alpha_t}I(f_t(\vec x_i)\ne y_i))\\
-=\sum_{i=1}^nw_i^t(e^{-\alpha_t}+(e^{\alpha_t}-e^{-\alpha_t})I(f_t(\vec
-x_i)\ne y_i))\\
-=e^{-\alpha_t}\sum_{i=1}^nw_i^t+(e^{\alpha_t}-e^{-\alpha_t})\sum_{i=1}^nw_i^tI(f_t(\vec
-x_i)\ne y_i)\\
-\]</span> 将上面式子除以规范化因子<span
-class="math inline">\(\sum_{i=1}^nw_i^t\)</span>，此时<span
-class="math inline">\(\frac{\sum_{i=1}^nw_i^tI(f_t(\vec x_i)\ne
-y_i)}{\sum_{i=1}^nw_i^t}\)</span>刚好为分类器<span
-class="math inline">\(f_t(\vec x)\)</span>的分类错误率，令其为<span
-class="math inline">\(\epsilon_t\)</span>，因此： <span
-class="math display">\[
-L=e^{-\alpha_t}+(e^{\alpha_t}-e^{-\alpha_t})\epsilon_t
-\]</span> 先求<span class="math inline">\(f_t(\vec
-x)\)</span>。由于<span
-class="math inline">\(\alpha_t\gt0\)</span>，故而<span
-class="math inline">\(e^{\alpha_t}-e^{-\alpha_t}\gt0\)</span>，一次函数的斜率为正，当<span
-class="math inline">\(\epsilon_t\)</span>最小时，损失达到最小，因此最优的<span
-class="math inline">\(f_t(\vec x)\)</span>要求最小化： <span
-class="math display">\[
-\mathop{min}\sum_{i=1}^nw_i^tI(f_t(\vec x_i)\ne y_i)
-\]</span> 也就是说，最优的<span class="math inline">\(f_t(\vec
-x)\)</span>是在权重为<span
-class="math inline">\(w^t\)</span>时使得分类错误率最小时的那个分类器。</p>
-<p>再求<span class="math inline">\(\alpha_t\)</span>。对<span
-class="math inline">\(\alpha_t\)</span>求偏导： <span
-class="math display">\[
-\frac{\partial L}{\partial
-\alpha_t}=e^{-\alpha_t}(-1)+e^{\alpha_t}\epsilon_t-e^{-\alpha_t}(-1)\epsilon_t\\
-=e^{\alpha_t}\epsilon_t+e^{-\alpha_t}\epsilon_t-e^{-\alpha_t}\\
-\]</span> 令导数为0： <span class="math display">\[
-e^{\alpha_t}\epsilon_t=e^{-\alpha_t}(1-\epsilon_t)\\
-\alpha_t+ln\epsilon_t=-\alpha_t+ln(1-\epsilon_t)\\
-2\alpha_t=ln(\frac{1-\epsilon_t}{\epsilon_t})\\
-\alpha_t=\frac{1}{2}ln(\frac{1-\epsilon_t}{\epsilon_t})
-\]</span> 回头再观察一下第<span
-class="math inline">\(t\)</span>轮时的权重： <span
-class="math display">\[
-w_i^{t}=e^{-z_i^{t-1}y_i}\\
-=e^{-(z_i^{t-2}+\alpha_{t-1}f_{t-1}(\vec x_i))y_i}\\
-=w_i^{t-1}e^{-\alpha_{t-1}f_{t-1}(\vec x_i)y_i}
-\]</span> 第<span class="math inline">\(t-1\)</span>轮<span
-class="math inline">\(f_{t-1}(\vec x)\)</span>模型分对的样本，<span
-class="math inline">\(t\)</span>轮时的权重变为<span
-class="math inline">\(t-1\)</span>轮时权重的<span
-class="math inline">\(e^{-\alpha_{t-1}}\lt1\)</span>倍，即减小了权重。第<span
-class="math inline">\(t-1\)</span>轮模型<span
-class="math inline">\(f_{t-1}(\vec x)\)</span>分错的样本，<span
-class="math inline">\(t\)</span>轮时权重变为<span
-class="math inline">\(t-1\)</span>轮时的<span
-class="math inline">\(e^{\alpha_{t-1}}\gt
-1\)</span>倍，即增大了权重。</p>
-<h2 id="gbm">GBM</h2>
-<p>下一轮模型拟合上一轮损失函数的负梯度。</p>
-<h3 id="模型-1">模型</h3>
-<p><span class="math display">\[
-\hat y^K = \sum_{i=1}^Kf_k(\vec x)
-\]</span></p>
-<p>也可以给每一个<span class="math inline">\(f_k(\vec
-x)\)</span>加一个权重。</p>
-<h3 id="损失-1">损失</h3>
-<p>根据学习任务（分类或回归），选择合适的损失。第<span
-class="math inline">\(t\)</span>轮的损失为： <span
-class="math display">\[
-L=\sum_{i=1}^nl(y_i,\hat y_i^t)
-\]</span></p>
-<h3 id="优化-1">优化</h3>
-<p>用到了泰勒一阶展开： <span class="math display">\[
-L=\sum_{i=1}^nl(y_i,\hat y_i^{t-1}+f_t(\vec x_i))\\
-\approx\sum_{i=1}^n[l(y_i,\hat y_i^{t-1})+l\prime(y_i,\hat
-y_i^{t-1})f_t(\vec x_i)]
-\]</span> 为使损失最小，可令： <span class="math display">\[
-f_t(\vec x_i)=-l\prime(y_i,\hat y_i^{t-1})
-\]</span> 也就是说GBM中，下一轮模型<span class="math inline">\(f_t(\vec
-x_i)\)</span>只需要拟合损失函数在上一轮预测值处的负梯度即可。</p>
-<h3 id="举例">举例</h3>
-<p>下面举几个特例：</p>
-<ol type="1">
-<li>回归问题</li>
-</ol>
-<p>回归问题一般用平方损失： <span class="math display">\[
-l(y,\hat y^{t-1})=\frac{1}{2}(y-\hat y^{t-1})^2
-\]</span> 负梯度为： <span class="math display">\[
--\frac{\partial l(y,\hat y^{t-1})}{\partial \hat y^{t-1}}=y-\hat y^{t-1}
-\]</span> 此时下一轮模型只需要拟合上一轮的残差即可。</p>
-<ol start="2" type="1">
-<li>分类问题</li>
-</ol>
-<p>分类问题可以用交叉熵损失。例如二分类问题，首先加法模型先经过sigmoid函数转换，然后转换值放到交叉熵损失中：
-<span class="math display">\[
-p=\frac{1}{1+e^{-\hat y^{t-1}}}
-\]</span></p>
-<p><span class="math display">\[
-l(y,p)=-y\mathop{ln}p-(1-y)\mathop{ln}(1-p)
-\]</span></p>
-<p>求导： <span class="math display">\[
-\frac{\partial l(y,p)}{\partial p}=\frac{p-y}{p(1-p)}
-\]</span></p>
-<p><span class="math display">\[
-\frac{\partial p}{\partial \hat y^{t-1}}=p(1-p)
-\]</span></p>
-<p>负梯度为： <span class="math display">\[
-\frac{\partial l(y,\hat y^{t-1})}{\partial \hat
-y^{t-1}}=y-p=y-\frac{1}{1+e^{-\hat y^{t-1}}}
-\]</span> 某种程度上也可以看作是拟合上一轮的残差。</p>
-<h2 id="gbdt">GBDT</h2>
-<p>其实就是GBM，只不过基学习器使用的是Cart树。</p>
-<h2 id="xgboost">XGBoost</h2>
-<p>比GBM更加深入，用到了泰勒二阶展开，也引入了正则化项。</p>
-<h3 id="模型-2">模型</h3>
-<p><span class="math display">\[
-\hat y^K=\sum_{k=1}^Kf_k(\vec x)
-\]</span></p>
-<p>也可以给每一个<span class="math inline">\(f_k(\vec
-x)\)</span>加一个权重。</p>
-<h3 id="损失-2">损失</h3>
-<p>第<span class="math inline">\(t\)</span>轮的损失 <span
-class="math display">\[
-L=\sum_{i=1}^nl(y_i,\hat y_i^t)+\sum_{k=1}^t\Omega(f_k)\\
-\]</span></p>
-<h3 id="优化-2">优化</h3>
-<p><span class="math display">\[
-L=\sum_{i=1}^nl(y_i,\hat y_i^{t-1}+f_t(\vec
-x_i))+\sum_{k=1}^t\Omega(f_k)\\
-\approx\sum_{i=1}^n[l(y_i,\hat y_i^{t-1})+g_if_t(\vec
-x_i)+\frac{1}{2}h_if_t^2(\vec x_i)]+\sum_{k=1}^t\Omega(f_k)\\
-g_i=\frac{\partial l(y_i,\hat y_i^{t-1})}{\partial \hat
-y_i^{t-1}},h_i=\frac{\partial^2 l(y_i,\hat y_i^{t-1})}{\partial \hat
-y_i^{t-1}\partial \hat y_i^{t-1}}\\
-\rightarrow\\
-L=\sum_{i=1}^n[g_if_t(\vec x_i)+\frac{1}{2}h_if_t^2(\vec
-x_i)]+\Omega(f_t)
-\]</span> ### 举例</p>
-<p>以基学习器为cart树的回归任务为例。令树有<span
-class="math inline">\(T\)</span>个叶子，每个叶子节点上取值为<span
-class="math inline">\(w_j,j=1,2,...,j,...,T\)</span>，令： <span
-class="math display">\[
-\Omega (f_t)=\gamma
-T+\frac{1}{2}\lambda\sum_{j=1}^Tw_j^2+\frac{1}{2}\alpha
-\sum_{j=1}^T|w_j|
-\]</span> 取： <span class="math display">\[
-\Omega(f_t)=\gamma T+\frac{1}{2}\lambda \sum_{j=1}^Tw_j^2
-\]</span> 损失： <span class="math display">\[
-L=\sum_{j=1}^T[w_j\sum_{i\in I_j}g_i+\frac{1}{2}w_j^2\sum_{i\in
-I_j}h_i]+\gamma T+\frac{1}{2}\lambda \sum_{j=1}^Tw_j^2\\
-=\sum_{j=1}^T[w_j\sum_{i\in I_j}g_i+\frac{1}{2}w_j^2(\sum_{i\in
-I_j}h_i+\lambda)]+\gamma T\\
-=\sum_{j=1}^T[w_jG_j+\frac{1}{2}w_j^2(H_j+\lambda)]+\gamma T\\
-\rightarrow\\
-w_j=-\frac{G_j}{H_j+\lambda}\\
-G_j=\sum_{i\in I_j}g_i,H_j=\sum_{i\in I_j}h_i
-\]</span> 回代： <span class="math display">\[
-L=\sum_{j=1}^T[-\frac{G_j^2}{H_j+\lambda}+\frac{1}{2}\frac{G_j^2}{(H_j+\lambda)^2}(H_j+\lambda)]+\gamma
-T\\
-=-\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j+\lambda}+\gamma T
-\]</span> 特征选择： <span class="math display">\[
-gain=-\frac{1}{2}\frac{G^2}{H+\lambda}+\gamma-(-\frac{1}{2}\frac{G^2_l}{H_l+\lambda}+\gamma-\frac{1}{2}\frac{G_r^2}{H_r+\lambda}+\gamma)\\
-=\frac{1}{2}(\frac{G_l^2}{H_l+\lambda}+\frac{G_r^2}{H_r+\lambda}-\frac{G^2}{H+\lambda})-\gamma\\
-=\frac{1}{2}(\frac{G_l^2}{H_l+\lambda}+\frac{G_r^2}{H_r+\lambda}-\frac{(G_l+G_r)^2}{H_l+H_r+\lambda})-\gamma
-\]</span></p>
-<h1 id="bagging">Bagging</h1>
-<p>全称是booststrap
-aggregating。基本思想是通过bootstrap抽样方法从原始数据集中抽取多个训练集，每个训练集训练一个模型，最后对多个模型的结果进行组合。对于回归任务采用平均法，对于分类任务采用投票法。bootstrap抽样时，原始数据集中约有36.8%的数据不会被抽到，可用做测试数据来估计bagging模型的泛化误差。</p>
-<h2 id="随机森林">随机森林</h2>
-<p>是bagging的一个实例，只不过随机森林的基学习器为决策树，bagging模型可以任选基学习器。另外，随机森林引入了输入属性扰动，它允许决策树每个节点做特征选择前可以随机抽取一个特征子集，仅仅从这个子集中选择一个最优的特征。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>回归</tag>
-        <tag>分类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>似然理论综述</title>
-    <url>/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="最大似然估计的基本思想">最大似然估计的基本思想</h1>
-<p>记随机变量<span class="math inline">\(Y\)</span>的概率密度函数为<span
-class="math inline">\(f(y_i;\vec w)\)</span>，其中<span
-class="math inline">\(\vec w\)</span>为概率密度函数中的参数向量，<span
-class="math inline">\(\vec w\in R^p\)</span>。现在<span
-class="math inline">\(\vec
-w\)</span>未知需要进行估计，可抽取包括n个观测数据的随机样本<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>，用样本来估计参数<span
-class="math inline">\(\vec w\)</span>。记这<span
-class="math inline">\(n\)</span>个观测数据的联合密度为： <span
-class="math display">\[
-L(\vec w;y_1,y_2,...,y_n)=\prod_{i=1}^nf(y_i;\vec w)
-\]</span> 在这个表达式中，<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>已经通过抽样获得，是已知的，而<span
-class="math inline">\(\vec
-w\)</span>是未知的，因此可以将表达式看作给定<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>后关于未知参数<span
-class="math inline">\(\vec
-w\)</span>的函数，这个函数被称为似然函数。由于参数<span
-class="math inline">\(\vec
-w\)</span>是未知的，因此似然函数衡量的是在不同的<span
-class="math inline">\(\vec w\)</span>取值下出现当前随机样本<span
-class="math inline">\(\{y_1,y_2,...y_n\}\)</span>的可能性。究竟哪个<span
-class="math inline">\(\vec
-w\)</span>导致了当前样本的出现呢？我们可以认为使当前样本出现可能性最大的那个<span
-class="math inline">\(\vec w\)</span>就是最有可能的<span
-class="math inline">\(\vec
-w\)</span>。因此我们需要做的就是使可能性达到最大，即最大化上述的似然函数：
-<span class="math display">\[
-max \,L(\vec w;y_1,y_2,...,y_n)
-\]</span>
-这就是最大似然估计。由于似然函数是一个乘积的形式，不便进行运算，常对其取对数转换为求和的形式，因此最大似然最终往往转换为最大化对数似然，即：
-<span class="math display">\[
-max\, ln L(\vec w;y_1,y_2,...,y_n)
-\]</span> 记最大似然估计的估计值为<span class="math inline">\(\hat {\vec
-w}_{ML}\)</span>，常写为： <span class="math display">\[
-\hat{\vec w}_{ML}=argmax\,lnL(\vec w;\vec y)
-\]</span> 这里的<span class="math inline">\(argmax\)</span>表示使得<span
-class="math inline">\(lnL(\vec w,\vec y)\)</span>取得最大时的<span
-class="math inline">\(\vec
-w\)</span>的取值。这里额外提一句，对数似然函数往往就是机器学习中的损失函数。</p>
-<h1 id="最大似然估计的求解">最大似然估计的求解</h1>
-<p>最大似然估计的求解并没有什么不同，我们对对数似然函数求一阶导数得到梯度向量<span
-class="math inline">\(\vec u(\vec w)\)</span>： <span
-class="math display">\[
-\vec u(\vec w)=\frac{\partial lnL(\vec w;\vec y)}{\partial \vec w}
-\]</span>
-如果似然函数是凹函数，就可以令梯度向量为0，从而得到最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>。有时候梯度向量是一个非线性函数，此时可以使用我们熟悉的迭代法求解。即先给<span
-class="math inline">\(\vec
-w\)</span>一个初始值，然后一轮一轮迭代，直到达到收敛条件。如果使用牛顿法，则第<span
-class="math inline">\(k+1\)</span>轮牛顿迭代公式为： <span
-class="math display">\[
-\vec w_{k+1}=\vec w_k-H(\vec w_k)^{-1}\vec u(\vec w_k)
-\]</span></p>
-<p><span class="math inline">\(H(\vec w_k)\)</span>为<span
-class="math inline">\(\vec
-w_k\)</span>处的hessian矩阵，即对数似然函数的二阶导数。</p>
-<h1 id="最大似然估计的性质">最大似然估计的性质</h1>
-<p>最大似然估计之所以常用，在于其有良好的性质。在介绍这些性质之前，需要再补充两个概念：得分函数和信息矩阵。</p>
-<h2 id="得分函数">得分函数</h2>
-<p>对数似然函数的一阶导数即梯度向量<span class="math inline">\(\vec
-u(\vec
-w)\)</span>有另外的名称：得分函数或得分向量。它有下面几个特点：</p>
-<ul>
-<li>得分函数是一个随机向量。这是因为我们是使用样本来估计参数<span
-class="math inline">\(\vec
-w\)</span>的，我们得到的样本只是抽样后的一次具体实现值，在抽样前为随机向量，所以得分函数是随机向量；</li>
-<li>得分函数是参数<span class="math inline">\(\vec
-w\)</span>的函数，这一点无需多说；</li>
-<li>既然得分函数是随机向量，自然有期望和协方差矩阵；</li>
-<li>当参数<span class="math inline">\(\vec w\)</span>取真实值<span
-class="math inline">\(\vec w_0\)</span>时，得分函数的期望为0；</li>
-<li>得分函数的协方差矩阵为信息矩阵。</li>
-</ul>
-<h2 id="信息矩阵">信息矩阵</h2>
-<p>得分函数的协方差矩阵为信息矩阵，如参数<span
-class="math inline">\(\vec w\)</span>取真实值<span
-class="math inline">\(\vec w_0\)</span>时，信息矩阵为： <span
-class="math display">\[
-var[\vec u(\vec w_0)]=E[(\vec u(\vec w_0)-\vec 0)(\vec u(\vec w_0)-\vec
-0)^T]\\
-=E[\vec u(\vec w_0)(\vec u(\vec w_0))^T]\\
-=I(\vec w_0)
-\]</span>
-称这个矩阵为信息矩阵。信息矩阵有什么作用呢？后面我们就会看到，信息矩阵与最大似然估计值的渐进方差有关。信息矩阵由于做了期望运算，因此不再是随机矩阵。信息矩阵往往还等于对数似然函数二阶导数期望的相反数：
-<span class="math display">\[
-I(\vec w_0)=-E[H(\vec w_0)]
-\]</span>
-这两个公式都是理论计算公式，实际中我们还是需要用样本来估计信息矩阵。常用的计算信息矩阵的方法有两种：</p>
-<h3 id="梯度向量外积法">梯度向量外积法</h3>
-<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
-w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
-w_{ML}\)</span>处的梯度向量，然后对梯度向量做外积，得到信息矩阵的估计值。</p>
-<h3 id="观测信息矩阵法">观测信息矩阵法</h3>
-<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
-w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
-w_{ML}\)</span>处的hessian矩阵，对hessian矩阵直接取相反数得到信息矩阵的估计值。</p>
-<h2 id="最大似然估计的性质-1">最大似然估计的性质</h2>
-<p>有了上述两个概念为基础，下面介绍一下最大似然估计的几个性质：</p>
-<h3 id="一致性">一致性</h3>
-<p>一致性是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>依概率收敛到真实值<span
-class="math inline">\(\vec w_0\)</span>，即： <span
-class="math display">\[
-\hat{\vec w}_{ML}\mathop{\rightarrow}^{p}\vec w_0
-\]</span> 一致性告诉我们，随着样本量逐渐增大，最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>等于真实值<span
-class="math inline">\(\vec w_0\)</span>的概率越来越接近1。</p>
-<h3 id="渐进正态">渐进正态</h3>
-<p>渐进正态是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>依分布收敛于正态分布，即： <span class="math display">\[
-\sqrt n(\hat{\vec w}_{ML}-\vec w_0)\mathop{\rightarrow}^dN(0,nI(\vec
-w_0)^{-1})
-\]</span> 这里的<span class="math inline">\(nI(\vec
-w_0)^{-1}\)</span>是正态分布的方差协方差矩阵，称为最大似然估计的渐进方差。这个性质告诉我们，随着样本量增大，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的概率分布越来越接近正态分布。这个性质也告诉我们最大似然估计值<span
-class="math inline">\(\hat{\vec w}_{ML}\)</span>的渐进方差为： <span
-class="math display">\[
-I(\vec w_0)^{-1}
-\]</span> 也就是说最大似然估计值<span class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的渐进方差为信息矩阵<span class="math inline">\(I(\vec
-w_0)\)</span>的逆。</p>
-<h3 id="有效性">有效性</h3>
-<p>这个性质是指在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>的方差达到了克莱默-劳下限。简而言之，可以理解为最大似然估计的方差是最小的。</p>
-<h1 id="最大似然估计的假设检验">最大似然估计的假设检验</h1>
-<p>在涉及统计推断时，会需要对参数估计值进行假设检验，这里顺带也回顾一下常见的几种假设检验方法。令无效假设为：
-<span class="math display">\[
-H_0:\hat{\vec w}_{ML}=\vec w_s
-\]</span> 这里的<span class="math inline">\(\vec
-w_s\)</span>是已知的，常见如<span class="math inline">\(\vec
-0\)</span>。</p>
-<h2 id="wald检验">wald检验</h2>
-<p>根据上面介绍的最大似然估计的基本性质，我们已经知道在大样本下，最大似然估计值<span
-class="math inline">\(\hat{\vec
-w}_{ML}\)</span>近似服从均数为真实值<span class="math inline">\(\vec
-w_0\)</span>，方差协方差矩阵为信息矩阵逆矩阵的正态分布： <span
-class="math display">\[
-\hat{\vec w}_{ML}\sim N(\vec w_0,I(\vec w_0)^{-1})
-\]</span> <span class="math inline">\(I(\vec
-w_0)^{-1}\)</span>通常难以获得，故采用<span
-class="math inline">\(I(\hat{\vec w}_{ML})^{-1}\)</span>来估计。</p>
-<p>wald检验的思路其实很简单，其实就是借助正态分布来做假设检验。因为<span
-class="math inline">\(\vec w_s\)</span>是已知的常数向量，若<span
-class="math inline">\(H_0\)</span>假设成立，则<span
-class="math inline">\(\hat{\vec w}_{ML}-\vec
-w_s\)</span>将同样近似服从正态分布。因此，可构造如下二次型统计量： <span
-class="math display">\[
-W =(\hat{\vec w}_{ML}-\vec w_s)^T[var(\hat{\vec w}_{ML})]^{-1}(\hat{\vec
-w}_{ML}-\vec w_s)\\
-=(\hat{\vec w}_{ML}-\vec w_s)^TI(\hat{\vec w}_{ML})(\hat{\vec
-w}_{ML}-\vec w_s)
-\]</span> 它将服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布，<span
-class="math inline">\(p\)</span>为参数向量的维度。</p>
-<h2 id="似然比检验">似然比检验</h2>
-<p>似然比检验的基本思路为：将<span class="math inline">\(\hat{\vec
-w}_{ML}\)</span>和<span class="math inline">\(\vec
-w_s\)</span>分别带入对数似然函数公式求得对数似然函数值，若<span
-class="math inline">\(H_0\)</span>成立，二者应该相差不大，若二者相差很大，则有理由拒绝<span
-class="math inline">\(H_0\)</span>假设。为此构造如下统计量： <span
-class="math display">\[
-LR=2(lnL(\hat{\vec w}_{ML})-lnL(\vec w_s))
-\]</span> 可以证明，该统计量同样服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布。</p>
-<h2 id="得分检验">得分检验</h2>
-<p>从得分检验名称可以看出，这个检验应该和得分向量有关，事实上确实如此。得分检验的基本思路如下：由于对数似然函数在估计值<span
-class="math inline">\(\hat {\vec
-w}_{ML}\)</span>处的得分函数为0，若<span
-class="math inline">\(H_0\)</span>成立，对数似然函数在<span
-class="math inline">\(\vec
-w_s\)</span>处的得分函数也应该接近0。得分函数的<span
-class="math inline">\(\vec w_s\)</span>的渐进方差可以用<span
-class="math inline">\(I(\vec
-w_s)\)</span>来估计，注意这里没有取逆，因此可以构造如下二次型统计量：
-<span class="math display">\[
-LM=\frac{\partial ln L(\vec w_s)}{\partial \vec w}^T[I(\vec
-w_s)]^{-1}\frac{\partial ln L(\vec w_s)}{\partial \vec w}
-\]</span> 可以证明，上述统计量同样服从自由度为<span
-class="math inline">\(p\)</span>的卡方分布。</p>
-<h1 id="总结">总结</h1>
-<p>最后我们对本文内容做一下总结。似然函数的表达式在形式上等于联合密度函数，只不过是数据已知，参数未定，通过最大化对数似然来得到参数估计值。最大似然估计值的一阶导数为梯度向量，梯度向量为随机向量，协方差矩阵为信息矩阵。若密度函数设定是正确的，最大似然估计值在大样本下服从均数为0，协方差矩阵为信息矩阵逆矩阵的正态分布，信息矩阵常用样本数据对数似然函数在最大似然估计值处的hessian矩阵取负，或者梯度向量外积来估计。常用的基于最大似然的假设检验方法为wald检验、似然比检验和得分检验。</p>
-]]></content>
-      <categories>
-        <category>数理统计</category>
-      </categories>
-      <tags>
-        <tag>数理统计</tag>
       </tags>
   </entry>
   <entry>
@@ -2270,6 +1562,734 @@ w}}}
       </tags>
   </entry>
   <entry>
+    <title>决策树</title>
+    <url>/2022/12/27/4.%E5%86%B3%E7%AD%96%E6%A0%91/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="id3算法">ID3算法</h1>
+<p>主要用来做分类问题</p>
+<h2 id="特征选择算法">特征选择算法</h2>
+<p>使用信息增益最大来做特征选择： <span class="math display">\[
+Gain=H(Y)-H(Y|X)\\
+H(Y)=-\sum_{k=1}^Kp_k\mathop{log_2}p_k\\
+H(Y|X)=\sum_{l=1}^Lp_lH(Y|X=x_l)
+\]</span> <span class="math inline">\(K\)</span>：表示标签<span
+class="math inline">\(Y\)</span>有<span
+class="math inline">\(K\)</span>个类别；<span
+class="math inline">\(p_k\)</span>：表示标签<span
+class="math inline">\(Y\)</span>的第<span
+class="math inline">\(k\)</span>个类别的取值概率，<span
+class="math inline">\(k=1,2,...,K\)</span>；<span
+class="math inline">\(L\)</span>：表示特征<span
+class="math inline">\(X\)</span>有<span
+class="math inline">\(L\)</span>个类别；<span
+class="math inline">\(x_l\)</span>：表示特征<span
+class="math inline">\(X\)</span>的第<span
+class="math inline">\(l\)</span>种取值，<span
+class="math inline">\(l=1,2,...,L\)</span>；<span
+class="math inline">\(p_l\)</span>：表示特征<span
+class="math inline">\(X\)</span>的第<span
+class="math inline">\(l\)</span>个类别的取值概率。</p>
+<h2 id="决策树生成">决策树生成</h2>
+<p>从根节点开始，遍历特征计算每一个特征的信息增益，选择信息增益最大的特征作为根节点。由该根节点特征的不同取值建立子节点，对每个子节点递归调用上述方法创建决策树。终止条件：</p>
+<ul>
+<li>无需分类：每个子节点包含的样本，其标签都属于同一个类别；</li>
+<li>无法分类：每个子节点所包含的样本，其每一个特征都只有一种取值，或者特征已经用完。</li>
+</ul>
+<h2 id="决策树剪枝">决策树剪枝</h2>
+<p>ID3无剪枝算法</p>
+<h2 id="预测">预测</h2>
+<p>样本会落到ID3决策树的一个叶子节点上，计算叶子节点中每种类别的频率，将该样本预测为频率最高的那个类别。</p>
+<h2 id="缺点">缺点</h2>
+<ul>
+<li>无剪枝算法</li>
+<li>只能处理分类特征，且特征无法复用</li>
+<li>无法处理缺失值</li>
+<li>偏好类别较多的特征</li>
+<li>容易达到局部最优而非全局最优，容易过拟合</li>
+</ul>
+<h1 id="c4.5算法">C4.5算法</h1>
+<p>主要用来做分类问题</p>
+<h2 id="特征选择算法-1">特征选择算法</h2>
+<p>使用信息增益率最大来做特征选择： <span class="math display">\[
+Gain\_Ratio=\frac{H(Y)-H(Y|X)}{H(X)}\\
+H(Y)=-\sum_{k=1}^Kp_k\mathop{log_2}p_k\\
+H(X)=-\sum_{l=1}^Lp_l\mathop{log_2}p_l\\
+H(Y|X)=\sum_{l=1}^Lp_lH(Y|X=x_l)
+\]</span></p>
+<h3 id="处理连续变量">处理连续变量</h3>
+<p>用贪心算法选择连续变量的最优切分点对连续变量进行二分。</p>
+<h3 id="处理缺失值">处理缺失值</h3>
+<h4 id="训练集有缺失值">训练集有缺失值</h4>
+<ol type="1">
+<li><p>如何计算信息增益率？用无缺失样本计算信息增益率，然后乘以无缺失样本的比例。</p></li>
+<li><p>缺失值对应的样本划分到那个子节点？划分到所有子节点，并赋予权重。权重等于缺失样本划分前的权重（初始所有样本权重为1）乘以各个子节点包含的无缺失样本量占父节点包含的无缺失样本量的比例。这个权重会影响后面的信息增益率的计算。</p></li>
+</ol>
+<h4 id="测试预测集有缺失值">测试/预测集有缺失值</h4>
+<p>将缺失样本划分到所有子节点，然后统计缺失样本属于各个标签类别的概率，将缺失样本判为概率最大的类别。</p>
+<h2 id="决策树生成-1">决策树生成</h2>
+<p>从根节点开始，遍历特征计算每一个特征的信息增益率，选择信息增益率最大的特征作为根节点。由该根节点特征的不同取值建立子节点，对每个子节点递归调用上述方法创建决策树。终止条件：</p>
+<ul>
+<li>无需分类：每个子节点包含的样本，其标签都属于同一个类别；</li>
+<li>无法分类：每个子节点所包含的样本，其每一个分类特征都只有一个类别，或者分类特征已经用完，而每一个连续特征的信息增益率都小于阈值。</li>
+</ul>
+<h2 id="决策树剪枝-1">决策树剪枝</h2>
+<h3 id="预剪枝">预剪枝</h3>
+<ul>
+<li>树达到一定深度</li>
+<li>信息增益率小于指定阈值</li>
+<li>叶子节点包含的样本量小于阈值</li>
+<li>叶子节点本身包括的样本量大于阈值，但是划分后任意一个子节点（变为叶子节点）的样本量小于阈值。</li>
+</ul>
+<h3 id="后剪枝">后剪枝</h3>
+<p>先生成决策树之后再剪枝</p>
+<p><span class="math display">\[
+L=\sum_{t=1}^{|T|}n_tH_t(Y)+\alpha|T|
+\]</span></p>
+<p><span class="math inline">\(T\)</span>：表示一棵决策树；<span
+class="math inline">\(|T|\)</span>：表示决策树<span
+class="math inline">\(T\)</span>有<span
+class="math inline">\(|T|\)</span>个叶子节点；<span
+class="math inline">\(n_t\)</span>：表示决策树第<span
+class="math inline">\(t\)</span>个叶子节点上的样本量，<span
+class="math inline">\(t=1,2,...,|T|\)</span>；<span
+class="math inline">\(H_t(Y)\)</span>：表示决策树第<span
+class="math inline">\(t\)</span>个叶子节点上的标签<span
+class="math inline">\(Y\)</span>的信息熵；<span
+class="math inline">\(\alpha\)</span>为正则化参数；<span
+class="math inline">\(L\)</span>表示损失。如果非叶子节点替换为叶子节点能使<span
+class="math inline">\(L\)</span>减小，则进行替换，即剪枝。</p>
+<h2 id="预测-1">预测</h2>
+<p>样本会落到C4.5决策树的一个叶子节点上，计算叶子节点中每种类别的频率，将该样本预测为频率最高的那个类别。</p>
+<h2 id="缺点-1">缺点</h2>
+<ul>
+<li>只能处理分类问题，不能处理回归问题</li>
+<li>容易陷入局部最优，而非全局最优，容易过拟合</li>
+<li>需要大量对数运算，计算成本较高</li>
+</ul>
+<h1 id="cart算法">CART算法</h1>
+<p>可以用于分类，也可以用于回归。</p>
+<h2 id="特征选择算法-2">特征选择算法</h2>
+<h3 id="分类问题">分类问题</h3>
+<p>分类问题使用基尼指数最小来做特征选择： <span class="math display">\[
+Gini\_index(Y|X)=\sum_{l=1}^Lp_lGini(Y|X=x_l)\\
+Gini(Y)=\sum_{k=1}^Kp_k(1-p_k)\\
+\]</span></p>
+<h3 id="回归问题">回归问题</h3>
+<p>回归问题使用平方误差最小来做特征选择： <span class="math display">\[
+SSE=\sum_{i=1}^n(y_i-\bar y)^2
+\]</span> <span
+class="math inline">\(n\)</span>为子节点的样本量。这个算法会让一个节点产生的两个子节点，各自计算平方误差和，然后加总，取最小值时对应的特征和切分点。</p>
+<h3 id="处理连续变量-1">处理连续变量</h3>
+<p>用贪心算法选择连续变量的最优切分点对连续变量进行二分。</p>
+<h3 id="处理分类变量">处理分类变量</h3>
+<p>同样采用二分的方法，将分类特征分为某个类别和不属于某个类别。分类特征有多个类别时，在树生成过程中这个特征也可以复用。</p>
+<h3 id="处理缺失值-1">处理缺失值</h3>
+<ul>
+<li>如何计算gini值或平方误差？采用类似C4.5的算法，用无缺失样本计算，最后乘以无缺失样本的比例</li>
+<li>缺失样本该划分到左节点还是右节点呢？基于代理特征，来决定缺失样本应该分到左节点还是右节点。代理特征即下一个对分裂最有用的特征，且其在当前样本未缺失。</li>
+</ul>
+<h2 id="决策树生成-2">决策树生成</h2>
+<p>从根节点开始，遍历特征计算每一个特征的最小gini指数（分类问题）或者平方误差（回归问题），选择gini指数或平方误差最小的特征作为根节点。由该根节点二分建立子节点，对每个子节点递归调用上述方法创建决策树，直到满足终止条件。</p>
+<h2 id="决策树剪枝-2">决策树剪枝</h2>
+<h3 id="预剪枝-1">预剪枝</h3>
+<ul>
+<li>树达到一定深度</li>
+<li>基尼指数/平方误差和不满足指定阈值</li>
+<li>叶子节点包含的样本量小于阈值</li>
+<li>叶子节点本身包括的样本量大于阈值，但是划分后任意一个子节点（变为叶子节点）的样本量小于阈值。</li>
+</ul>
+<h3 id="后剪枝-1">后剪枝</h3>
+<p>定义损失函数为： <span class="math display">\[
+L=C(T)+\alpha|T|
+\]</span> <span
+class="math inline">\(C(T)\)</span>为训练集的预测误差，对于分类问题为基尼指数，对于回归问题为平方误差。<span
+class="math inline">\(\alpha\)</span>为正则化参数，<span
+class="math inline">\(T\)</span>为一颗决策树，<span
+class="math inline">\(|T|\)</span>为决策树<span
+class="math inline">\(T\)</span>包含的叶子节点个数。</p>
+<p>剪枝时，会从训练好的完整树开始，不断调整<span
+class="math inline">\(\alpha\)</span>，来选择最优的树，一直剪枝到只有一个根节点的树，形成一个子树序列，然后用一个验证集使用交叉验证的方法从中选出最优的树。</p>
+<h2 id="预测-2">预测</h2>
+<p>样本会落到CART决策树的一个叶子节点上。对于分类问题，同样计算叶子节点中每种类别的频率，将该样本预测为频率最高的那个类别。对于回归问题，取叶子节点上包含的训练样本的平均值作为预测值。</p>
+<h2 id="缺点-2">缺点</h2>
+<ul>
+<li>容易陷入局部最优，而非全局最优，容易过拟合。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>回归</tag>
+        <tag>分类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>似然理论综述</title>
+    <url>/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="最大似然估计的基本思想">最大似然估计的基本思想</h1>
+<p>记随机变量<span class="math inline">\(Y\)</span>的概率密度函数为<span
+class="math inline">\(f(y_i;\vec w)\)</span>，其中<span
+class="math inline">\(\vec w\)</span>为概率密度函数中的参数向量，<span
+class="math inline">\(\vec w\in R^p\)</span>。现在<span
+class="math inline">\(\vec
+w\)</span>未知需要进行估计，可抽取包括n个观测数据的随机样本<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>，用样本来估计参数<span
+class="math inline">\(\vec w\)</span>。记这<span
+class="math inline">\(n\)</span>个观测数据的联合密度为： <span
+class="math display">\[
+L(\vec w;y_1,y_2,...,y_n)=\prod_{i=1}^nf(y_i;\vec w)
+\]</span> 在这个表达式中，<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>已经通过抽样获得，是已知的，而<span
+class="math inline">\(\vec
+w\)</span>是未知的，因此可以将表达式看作给定<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>后关于未知参数<span
+class="math inline">\(\vec
+w\)</span>的函数，这个函数被称为似然函数。由于参数<span
+class="math inline">\(\vec
+w\)</span>是未知的，因此似然函数衡量的是在不同的<span
+class="math inline">\(\vec w\)</span>取值下出现当前随机样本<span
+class="math inline">\(\{y_1,y_2,...y_n\}\)</span>的可能性。究竟哪个<span
+class="math inline">\(\vec
+w\)</span>导致了当前样本的出现呢？我们可以认为使当前样本出现可能性最大的那个<span
+class="math inline">\(\vec w\)</span>就是最有可能的<span
+class="math inline">\(\vec
+w\)</span>。因此我们需要做的就是使可能性达到最大，即最大化上述的似然函数：
+<span class="math display">\[
+max \,L(\vec w;y_1,y_2,...,y_n)
+\]</span>
+这就是最大似然估计。由于似然函数是一个乘积的形式，不便进行运算，常对其取对数转换为求和的形式，因此最大似然最终往往转换为最大化对数似然，即：
+<span class="math display">\[
+max\, ln L(\vec w;y_1,y_2,...,y_n)
+\]</span> 记最大似然估计的估计值为<span class="math inline">\(\hat {\vec
+w}_{ML}\)</span>，常写为： <span class="math display">\[
+\hat{\vec w}_{ML}=argmax\,lnL(\vec w;\vec y)
+\]</span> 这里的<span class="math inline">\(argmax\)</span>表示使得<span
+class="math inline">\(lnL(\vec w,\vec y)\)</span>取得最大时的<span
+class="math inline">\(\vec
+w\)</span>的取值。这里额外提一句，对数似然函数往往就是机器学习中的损失函数。</p>
+<h1 id="最大似然估计的求解">最大似然估计的求解</h1>
+<p>最大似然估计的求解并没有什么不同，我们对对数似然函数求一阶导数得到梯度向量<span
+class="math inline">\(\vec u(\vec w)\)</span>： <span
+class="math display">\[
+\vec u(\vec w)=\frac{\partial lnL(\vec w;\vec y)}{\partial \vec w}
+\]</span>
+如果似然函数是凹函数，就可以令梯度向量为0，从而得到最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>。有时候梯度向量是一个非线性函数，此时可以使用我们熟悉的迭代法求解。即先给<span
+class="math inline">\(\vec
+w\)</span>一个初始值，然后一轮一轮迭代，直到达到收敛条件。如果使用牛顿法，则第<span
+class="math inline">\(k+1\)</span>轮牛顿迭代公式为： <span
+class="math display">\[
+\vec w_{k+1}=\vec w_k-H(\vec w_k)^{-1}\vec u(\vec w_k)
+\]</span></p>
+<p><span class="math inline">\(H(\vec w_k)\)</span>为<span
+class="math inline">\(\vec
+w_k\)</span>处的hessian矩阵，即对数似然函数的二阶导数。</p>
+<h1 id="最大似然估计的性质">最大似然估计的性质</h1>
+<p>最大似然估计之所以常用，在于其有良好的性质。在介绍这些性质之前，需要再补充两个概念：得分函数和信息矩阵。</p>
+<h2 id="得分函数">得分函数</h2>
+<p>对数似然函数的一阶导数即梯度向量<span class="math inline">\(\vec
+u(\vec
+w)\)</span>有另外的名称：得分函数或得分向量。它有下面几个特点：</p>
+<ul>
+<li>得分函数是一个随机向量。这是因为我们是使用样本来估计参数<span
+class="math inline">\(\vec
+w\)</span>的，我们得到的样本只是抽样后的一次具体实现值，在抽样前为随机向量，所以得分函数是随机向量；</li>
+<li>得分函数是参数<span class="math inline">\(\vec
+w\)</span>的函数，这一点无需多说；</li>
+<li>既然得分函数是随机向量，自然有期望和协方差矩阵；</li>
+<li>当参数<span class="math inline">\(\vec w\)</span>取真实值<span
+class="math inline">\(\vec w_0\)</span>时，得分函数的期望为0；</li>
+<li>得分函数的协方差矩阵为信息矩阵。</li>
+</ul>
+<h2 id="信息矩阵">信息矩阵</h2>
+<p>得分函数的协方差矩阵为信息矩阵，如参数<span
+class="math inline">\(\vec w\)</span>取真实值<span
+class="math inline">\(\vec w_0\)</span>时，信息矩阵为： <span
+class="math display">\[
+var[\vec u(\vec w_0)]=E[(\vec u(\vec w_0)-\vec 0)(\vec u(\vec w_0)-\vec
+0)^T]\\
+=E[\vec u(\vec w_0)(\vec u(\vec w_0))^T]\\
+=I(\vec w_0)
+\]</span>
+称这个矩阵为信息矩阵。信息矩阵有什么作用呢？后面我们就会看到，信息矩阵与最大似然估计值的渐进方差有关。信息矩阵由于做了期望运算，因此不再是随机矩阵。信息矩阵往往还等于对数似然函数二阶导数期望的相反数：
+<span class="math display">\[
+I(\vec w_0)=-E[H(\vec w_0)]
+\]</span>
+这两个公式都是理论计算公式，实际中我们还是需要用样本来估计信息矩阵。常用的计算信息矩阵的方法有两种：</p>
+<h3 id="梯度向量外积法">梯度向量外积法</h3>
+<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
+w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
+w_{ML}\)</span>处的梯度向量，然后对梯度向量做外积，得到信息矩阵的估计值。</p>
+<h3 id="观测信息矩阵法">观测信息矩阵法</h3>
+<p>先用牛顿迭代法得到最大似然估计值<span class="math inline">\(\vec
+w_{ML}\)</span>，进一步得到<span class="math inline">\(\vec
+w_{ML}\)</span>处的hessian矩阵，对hessian矩阵直接取相反数得到信息矩阵的估计值。</p>
+<h2 id="最大似然估计的性质-1">最大似然估计的性质</h2>
+<p>有了上述两个概念为基础，下面介绍一下最大似然估计的几个性质：</p>
+<h3 id="一致性">一致性</h3>
+<p>一致性是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>依概率收敛到真实值<span
+class="math inline">\(\vec w_0\)</span>，即： <span
+class="math display">\[
+\hat{\vec w}_{ML}\mathop{\rightarrow}^{p}\vec w_0
+\]</span> 一致性告诉我们，随着样本量逐渐增大，最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>等于真实值<span
+class="math inline">\(\vec w_0\)</span>的概率越来越接近1。</p>
+<h3 id="渐进正态">渐进正态</h3>
+<p>渐进正态是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>依分布收敛于正态分布，即： <span class="math display">\[
+\sqrt n(\hat{\vec w}_{ML}-\vec w_0)\mathop{\rightarrow}^dN(0,nI(\vec
+w_0)^{-1})
+\]</span> 这里的<span class="math inline">\(nI(\vec
+w_0)^{-1}\)</span>是正态分布的方差协方差矩阵，称为最大似然估计的渐进方差。这个性质告诉我们，随着样本量增大，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的概率分布越来越接近正态分布。这个性质也告诉我们最大似然估计值<span
+class="math inline">\(\hat{\vec w}_{ML}\)</span>的渐进方差为： <span
+class="math display">\[
+I(\vec w_0)^{-1}
+\]</span> 也就是说最大似然估计值<span class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的渐进方差为信息矩阵<span class="math inline">\(I(\vec
+w_0)\)</span>的逆。</p>
+<h3 id="有效性">有效性</h3>
+<p>这个性质是指在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>的方差达到了克莱默-劳下限。简而言之，可以理解为最大似然估计的方差是最小的。</p>
+<h1 id="最大似然估计的假设检验">最大似然估计的假设检验</h1>
+<p>在涉及统计推断时，会需要对参数估计值进行假设检验，这里顺带也回顾一下常见的几种假设检验方法。令无效假设为：
+<span class="math display">\[
+H_0:\hat{\vec w}_{ML}=\vec w_s
+\]</span> 这里的<span class="math inline">\(\vec
+w_s\)</span>是已知的，常见如<span class="math inline">\(\vec
+0\)</span>。</p>
+<h2 id="wald检验">wald检验</h2>
+<p>根据上面介绍的最大似然估计的基本性质，我们已经知道在大样本下，最大似然估计值<span
+class="math inline">\(\hat{\vec
+w}_{ML}\)</span>近似服从均数为真实值<span class="math inline">\(\vec
+w_0\)</span>，方差协方差矩阵为信息矩阵逆矩阵的正态分布： <span
+class="math display">\[
+\hat{\vec w}_{ML}\sim N(\vec w_0,I(\vec w_0)^{-1})
+\]</span> <span class="math inline">\(I(\vec
+w_0)^{-1}\)</span>通常难以获得，故采用<span
+class="math inline">\(I(\hat{\vec w}_{ML})^{-1}\)</span>来估计。</p>
+<p>wald检验的思路其实很简单，其实就是借助正态分布来做假设检验。因为<span
+class="math inline">\(\vec w_s\)</span>是已知的常数向量，若<span
+class="math inline">\(H_0\)</span>假设成立，则<span
+class="math inline">\(\hat{\vec w}_{ML}-\vec
+w_s\)</span>将同样近似服从正态分布。因此，可构造如下二次型统计量： <span
+class="math display">\[
+W =(\hat{\vec w}_{ML}-\vec w_s)^T[var(\hat{\vec w}_{ML})]^{-1}(\hat{\vec
+w}_{ML}-\vec w_s)\\
+=(\hat{\vec w}_{ML}-\vec w_s)^TI(\hat{\vec w}_{ML})(\hat{\vec
+w}_{ML}-\vec w_s)
+\]</span> 它将服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布，<span
+class="math inline">\(p\)</span>为参数向量的维度。</p>
+<h2 id="似然比检验">似然比检验</h2>
+<p>似然比检验的基本思路为：将<span class="math inline">\(\hat{\vec
+w}_{ML}\)</span>和<span class="math inline">\(\vec
+w_s\)</span>分别带入对数似然函数公式求得对数似然函数值，若<span
+class="math inline">\(H_0\)</span>成立，二者应该相差不大，若二者相差很大，则有理由拒绝<span
+class="math inline">\(H_0\)</span>假设。为此构造如下统计量： <span
+class="math display">\[
+LR=2(lnL(\hat{\vec w}_{ML})-lnL(\vec w_s))
+\]</span> 可以证明，该统计量同样服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布。</p>
+<h2 id="得分检验">得分检验</h2>
+<p>从得分检验名称可以看出，这个检验应该和得分向量有关，事实上确实如此。得分检验的基本思路如下：由于对数似然函数在估计值<span
+class="math inline">\(\hat {\vec
+w}_{ML}\)</span>处的得分函数为0，若<span
+class="math inline">\(H_0\)</span>成立，对数似然函数在<span
+class="math inline">\(\vec
+w_s\)</span>处的得分函数也应该接近0。得分函数的<span
+class="math inline">\(\vec w_s\)</span>的渐进方差可以用<span
+class="math inline">\(I(\vec
+w_s)\)</span>来估计，注意这里没有取逆，因此可以构造如下二次型统计量：
+<span class="math display">\[
+LM=\frac{\partial ln L(\vec w_s)}{\partial \vec w}^T[I(\vec
+w_s)]^{-1}\frac{\partial ln L(\vec w_s)}{\partial \vec w}
+\]</span> 可以证明，上述统计量同样服从自由度为<span
+class="math inline">\(p\)</span>的卡方分布。</p>
+<h1 id="总结">总结</h1>
+<p>最后我们对本文内容做一下总结。似然函数的表达式在形式上等于联合密度函数，只不过是数据已知，参数未定，通过最大化对数似然来得到参数估计值。最大似然估计值的一阶导数为梯度向量，梯度向量为随机向量，协方差矩阵为信息矩阵。若密度函数设定是正确的，最大似然估计值在大样本下服从均数为0，协方差矩阵为信息矩阵逆矩阵的正态分布，信息矩阵常用样本数据对数似然函数在最大似然估计值处的hessian矩阵取负，或者梯度向量外积来估计。常用的基于最大似然的假设检验方法为wald检验、似然比检验和得分检验。</p>
+]]></content>
+      <categories>
+        <category>数理统计</category>
+      </categories>
+      <tags>
+        <tag>数理统计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>集成学习</title>
+    <url>/2022/12/28/5.%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="boosting">Boosting</h1>
+<h2 id="adaboost">AdaBoost</h2>
+<p>下一轮模型训练时会提高上一轮错误分类样本的权重。</p>
+<h3 id="模型">模型</h3>
+<p><span class="math inline">\(K\)</span>个基学习器构成的加法模型：
+<span class="math display">\[
+\hat y^K=sign(z^K)\\
+z^K=\sum_{k=1}^K\alpha_kf_k(\vec x)\\
+f_k(\vec x)\rightarrow \{-1,+1\},\alpha_k&gt;0
+\]</span></p>
+<p><span class="math inline">\(sign(a)\)</span>为符号函数，<span
+class="math inline">\(a&gt;0\)</span>则<span
+class="math inline">\(sign(a)\)</span>返回1，<span
+class="math inline">\(a=0\)</span>则返回0，否则返回-1，<span
+class="math inline">\(\alpha_k\)</span>为模型权重，要求每个基学习器<span
+class="math inline">\(f_k(\vec x)\)</span>的输出为-1或1。</p>
+<h3 id="损失">损失</h3>
+<p>用指数函数<span class="math inline">\(y=e^{-\lambda
+x}\)</span>来度量损失。第<span
+class="math inline">\(t\)</span>轮的损失： <span class="math display">\[
+L=\sum_{i=1}^ne^{-z_i^ty_i}\\
+=\sum_{i=1}^ne^{-(z_i^{t-1}+\alpha_tf_t(\vec x_i))y_i}\\
+=\sum_{i=1}^ne^{-z_i^{t-1}y_i}e^{-\alpha_tf_t(\vec x_i)y_i}
+\]</span> 要寻找第<span class="math inline">\(t\)</span>轮时最优的<span
+class="math inline">\(\alpha_t\)</span>和<span
+class="math inline">\(f_t(\vec x)\)</span>，令： <span
+class="math display">\[
+w_i^{t}=e^{-z_i^{t-1}y_i}
+\]</span> 则： <span class="math display">\[
+L=\sum_{i=1}^nw_i^te^{-\alpha_tf_t(\vec x_i)y_i}
+\]</span></p>
+<h3 id="优化">优化</h3>
+<p>因为<span class="math inline">\(y\rightarrow \{-1,+1\},f_t(\vec
+x)\rightarrow\{-1,+1\}\)</span>，因此： <span class="math display">\[
+L=\sum_{i=1}^nw_i^t(e^{-\alpha_t}I(y_i=f_t(\vec
+x_i))+e^{\alpha_t}I(f_t(\vec x_i)\ne y_i))\\
+=\sum_{i=1}^nw_i^t(e^{-\alpha_t}(1-I(y_i\ne f_t(\vec
+x_i)))+e^{\alpha_t}I(f_t(\vec x_i)\ne y_i))\\
+=\sum_{i=1}^nw_i^t(e^{-\alpha_t}-e^{-\alpha_t}I(f_t(\vec x_i)\ne
+y_i)+e^{\alpha_t}I(f_t(\vec x_i)\ne y_i))\\
+=\sum_{i=1}^nw_i^t(e^{-\alpha_t}+(e^{\alpha_t}-e^{-\alpha_t})I(f_t(\vec
+x_i)\ne y_i))\\
+=e^{-\alpha_t}\sum_{i=1}^nw_i^t+(e^{\alpha_t}-e^{-\alpha_t})\sum_{i=1}^nw_i^tI(f_t(\vec
+x_i)\ne y_i)\\
+\]</span> 将上面式子除以规范化因子<span
+class="math inline">\(\sum_{i=1}^nw_i^t\)</span>，此时<span
+class="math inline">\(\frac{\sum_{i=1}^nw_i^tI(f_t(\vec x_i)\ne
+y_i)}{\sum_{i=1}^nw_i^t}\)</span>刚好为分类器<span
+class="math inline">\(f_t(\vec x)\)</span>的分类错误率，令其为<span
+class="math inline">\(\epsilon_t\)</span>，因此： <span
+class="math display">\[
+L=e^{-\alpha_t}+(e^{\alpha_t}-e^{-\alpha_t})\epsilon_t
+\]</span> 先求<span class="math inline">\(f_t(\vec
+x)\)</span>。由于<span
+class="math inline">\(\alpha_t\gt0\)</span>，故而<span
+class="math inline">\(e^{\alpha_t}-e^{-\alpha_t}\gt0\)</span>，一次函数的斜率为正，当<span
+class="math inline">\(\epsilon_t\)</span>最小时，损失达到最小，因此最优的<span
+class="math inline">\(f_t(\vec x)\)</span>要求最小化： <span
+class="math display">\[
+\mathop{min}\sum_{i=1}^nw_i^tI(f_t(\vec x_i)\ne y_i)
+\]</span> 也就是说，最优的<span class="math inline">\(f_t(\vec
+x)\)</span>是在权重为<span
+class="math inline">\(w^t\)</span>时使得分类错误率最小时的那个分类器。</p>
+<p>再求<span class="math inline">\(\alpha_t\)</span>。对<span
+class="math inline">\(\alpha_t\)</span>求偏导： <span
+class="math display">\[
+\frac{\partial L}{\partial
+\alpha_t}=e^{-\alpha_t}(-1)+e^{\alpha_t}\epsilon_t-e^{-\alpha_t}(-1)\epsilon_t\\
+=e^{\alpha_t}\epsilon_t+e^{-\alpha_t}\epsilon_t-e^{-\alpha_t}\\
+\]</span> 令导数为0： <span class="math display">\[
+e^{\alpha_t}\epsilon_t=e^{-\alpha_t}(1-\epsilon_t)\\
+\alpha_t+ln\epsilon_t=-\alpha_t+ln(1-\epsilon_t)\\
+2\alpha_t=ln(\frac{1-\epsilon_t}{\epsilon_t})\\
+\alpha_t=\frac{1}{2}ln(\frac{1-\epsilon_t}{\epsilon_t})
+\]</span> 回头再观察一下第<span
+class="math inline">\(t\)</span>轮时的权重： <span
+class="math display">\[
+w_i^{t}=e^{-z_i^{t-1}y_i}\\
+=e^{-(z_i^{t-2}+\alpha_{t-1}f_{t-1}(\vec x_i))y_i}\\
+=w_i^{t-1}e^{-\alpha_{t-1}f_{t-1}(\vec x_i)y_i}
+\]</span> 第<span class="math inline">\(t-1\)</span>轮<span
+class="math inline">\(f_{t-1}(\vec x)\)</span>模型分对的样本，<span
+class="math inline">\(t\)</span>轮时的权重变为<span
+class="math inline">\(t-1\)</span>轮时权重的<span
+class="math inline">\(e^{-\alpha_{t-1}}\lt1\)</span>倍，即减小了权重。第<span
+class="math inline">\(t-1\)</span>轮模型<span
+class="math inline">\(f_{t-1}(\vec x)\)</span>分错的样本，<span
+class="math inline">\(t\)</span>轮时权重变为<span
+class="math inline">\(t-1\)</span>轮时的<span
+class="math inline">\(e^{\alpha_{t-1}}\gt
+1\)</span>倍，即增大了权重。</p>
+<h2 id="gbm">GBM</h2>
+<p>下一轮模型拟合上一轮损失函数的负梯度。</p>
+<h3 id="模型-1">模型</h3>
+<p><span class="math display">\[
+\hat y^K = \sum_{i=1}^Kf_k(\vec x)
+\]</span></p>
+<p>也可以给每一个<span class="math inline">\(f_k(\vec
+x)\)</span>加一个权重。</p>
+<h3 id="损失-1">损失</h3>
+<p>根据学习任务（分类或回归），选择合适的损失。第<span
+class="math inline">\(t\)</span>轮的损失为： <span
+class="math display">\[
+L=\sum_{i=1}^nl(y_i,\hat y_i^t)
+\]</span></p>
+<h3 id="优化-1">优化</h3>
+<p>用到了泰勒一阶展开： <span class="math display">\[
+L=\sum_{i=1}^nl(y_i,\hat y_i^{t-1}+f_t(\vec x_i))\\
+\approx\sum_{i=1}^n[l(y_i,\hat y_i^{t-1})+l\prime(y_i,\hat
+y_i^{t-1})f_t(\vec x_i)]
+\]</span> 为使损失最小，可令： <span class="math display">\[
+f_t(\vec x_i)=-l\prime(y_i,\hat y_i^{t-1})
+\]</span> 也就是说GBM中，下一轮模型<span class="math inline">\(f_t(\vec
+x_i)\)</span>只需要拟合损失函数在上一轮预测值处的负梯度即可。</p>
+<h3 id="举例">举例</h3>
+<p>下面举几个特例：</p>
+<ol type="1">
+<li>回归问题</li>
+</ol>
+<p>回归问题一般用平方损失： <span class="math display">\[
+l(y,\hat y^{t-1})=\frac{1}{2}(y-\hat y^{t-1})^2
+\]</span> 负梯度为： <span class="math display">\[
+-\frac{\partial l(y,\hat y^{t-1})}{\partial \hat y^{t-1}}=y-\hat y^{t-1}
+\]</span> 此时下一轮模型只需要拟合上一轮的残差即可。</p>
+<ol start="2" type="1">
+<li>分类问题</li>
+</ol>
+<p>分类问题可以用交叉熵损失。例如二分类问题，首先加法模型先经过sigmoid函数转换，然后转换值放到交叉熵损失中：
+<span class="math display">\[
+p=\frac{1}{1+e^{-\hat y^{t-1}}}
+\]</span></p>
+<p><span class="math display">\[
+l(y,p)=-y\mathop{ln}p-(1-y)\mathop{ln}(1-p)
+\]</span></p>
+<p>求导： <span class="math display">\[
+\frac{\partial l(y,p)}{\partial p}=\frac{p-y}{p(1-p)}
+\]</span></p>
+<p><span class="math display">\[
+\frac{\partial p}{\partial \hat y^{t-1}}=p(1-p)
+\]</span></p>
+<p>负梯度为： <span class="math display">\[
+\frac{\partial l(y,\hat y^{t-1})}{\partial \hat
+y^{t-1}}=y-p=y-\frac{1}{1+e^{-\hat y^{t-1}}}
+\]</span> 某种程度上也可以看作是拟合上一轮的残差。</p>
+<h2 id="gbdt">GBDT</h2>
+<p>其实就是GBM，只不过基学习器使用的是Cart树。</p>
+<h2 id="xgboost">XGBoost</h2>
+<p>比GBM更加深入，用到了泰勒二阶展开，也引入了正则化项。</p>
+<h3 id="模型-2">模型</h3>
+<p><span class="math display">\[
+\hat y^K=\sum_{k=1}^Kf_k(\vec x)
+\]</span></p>
+<p>也可以给每一个<span class="math inline">\(f_k(\vec
+x)\)</span>加一个权重。</p>
+<h3 id="损失-2">损失</h3>
+<p>第<span class="math inline">\(t\)</span>轮的损失 <span
+class="math display">\[
+L=\sum_{i=1}^nl(y_i,\hat y_i^t)+\sum_{k=1}^t\Omega(f_k)\\
+\]</span></p>
+<h3 id="优化-2">优化</h3>
+<p><span class="math display">\[
+L=\sum_{i=1}^nl(y_i,\hat y_i^{t-1}+f_t(\vec
+x_i))+\sum_{k=1}^t\Omega(f_k)\\
+\approx\sum_{i=1}^n[l(y_i,\hat y_i^{t-1})+g_if_t(\vec
+x_i)+\frac{1}{2}h_if_t^2(\vec x_i)]+\sum_{k=1}^t\Omega(f_k)\\
+g_i=\frac{\partial l(y_i,\hat y_i^{t-1})}{\partial \hat
+y_i^{t-1}},h_i=\frac{\partial^2 l(y_i,\hat y_i^{t-1})}{\partial \hat
+y_i^{t-1}\partial \hat y_i^{t-1}}\\
+\rightarrow\\
+L=\sum_{i=1}^n[g_if_t(\vec x_i)+\frac{1}{2}h_if_t^2(\vec
+x_i)]+\Omega(f_t)
+\]</span> ### 举例</p>
+<p>以基学习器为cart树的回归任务为例。令树有<span
+class="math inline">\(T\)</span>个叶子，每个叶子节点上取值为<span
+class="math inline">\(w_j,j=1,2,...,j,...,T\)</span>，令： <span
+class="math display">\[
+\Omega (f_t)=\gamma
+T+\frac{1}{2}\lambda\sum_{j=1}^Tw_j^2+\frac{1}{2}\alpha
+\sum_{j=1}^T|w_j|
+\]</span> 取： <span class="math display">\[
+\Omega(f_t)=\gamma T+\frac{1}{2}\lambda \sum_{j=1}^Tw_j^2
+\]</span> 损失： <span class="math display">\[
+L=\sum_{j=1}^T[w_j\sum_{i\in I_j}g_i+\frac{1}{2}w_j^2\sum_{i\in
+I_j}h_i]+\gamma T+\frac{1}{2}\lambda \sum_{j=1}^Tw_j^2\\
+=\sum_{j=1}^T[w_j\sum_{i\in I_j}g_i+\frac{1}{2}w_j^2(\sum_{i\in
+I_j}h_i+\lambda)]+\gamma T\\
+=\sum_{j=1}^T[w_jG_j+\frac{1}{2}w_j^2(H_j+\lambda)]+\gamma T\\
+\rightarrow\\
+w_j=-\frac{G_j}{H_j+\lambda}\\
+G_j=\sum_{i\in I_j}g_i,H_j=\sum_{i\in I_j}h_i
+\]</span> 回代： <span class="math display">\[
+L=\sum_{j=1}^T[-\frac{G_j^2}{H_j+\lambda}+\frac{1}{2}\frac{G_j^2}{(H_j+\lambda)^2}(H_j+\lambda)]+\gamma
+T\\
+=-\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j+\lambda}+\gamma T
+\]</span> 特征选择： <span class="math display">\[
+gain=-\frac{1}{2}\frac{G^2}{H+\lambda}+\gamma-(-\frac{1}{2}\frac{G^2_l}{H_l+\lambda}+\gamma-\frac{1}{2}\frac{G_r^2}{H_r+\lambda}+\gamma)\\
+=\frac{1}{2}(\frac{G_l^2}{H_l+\lambda}+\frac{G_r^2}{H_r+\lambda}-\frac{G^2}{H+\lambda})-\gamma\\
+=\frac{1}{2}(\frac{G_l^2}{H_l+\lambda}+\frac{G_r^2}{H_r+\lambda}-\frac{(G_l+G_r)^2}{H_l+H_r+\lambda})-\gamma
+\]</span></p>
+<h1 id="bagging">Bagging</h1>
+<p>全称是booststrap
+aggregating。基本思想是通过bootstrap抽样方法从原始数据集中抽取多个训练集，每个训练集训练一个模型，最后对多个模型的结果进行组合。对于回归任务采用平均法，对于分类任务采用投票法。bootstrap抽样时，原始数据集中约有36.8%的数据不会被抽到，可用做测试数据来估计bagging模型的泛化误差。</p>
+<h2 id="随机森林">随机森林</h2>
+<p>是bagging的一个实例，只不过随机森林的基学习器为决策树，bagging模型可以任选基学习器。另外，随机森林引入了输入属性扰动，它允许决策树每个节点做特征选择前可以随机抽取一个特征子集，仅仅从这个子集中选择一个最优的特征。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>回归</tag>
+        <tag>分类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>无约束优化算法</title>
+    <url>/2022/12/26/3%E6%97%A0%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="迭代下降算法">迭代下降算法</h1>
+<ul>
+<li>setp0：给损失函数<span class="math inline">\(L(\vec
+w)\)</span>的参数一个初始值<span class="math inline">\(\vec
+w_k,k=0\)</span>;</li>
+<li>step1：判断损失函数<span class="math inline">\(L(\vec
+w_k)\)</span>是否满足收敛条件，如果不满足则进入step2；</li>
+<li>step2：在<span class="math inline">\(\vec
+w_k\)</span>处寻找能使损失函数<span class="math inline">\(L(\vec
+w_k)\)</span>减小的方向<span class="math inline">\(d_k\)</span>；</li>
+<li>step3：选择步长<span class="math inline">\(\lambda_k\gt
+0\)</span>，要求<span class="math inline">\(L(\vec w_k+\lambda_kd_k)\lt
+L(\vec w_k)\)</span>；</li>
+<li>step4：令<span class="math inline">\(\vec w_{k+1}=\vec
+w_k+\lambda_kd_k,k=k+1\)</span>，返回step1。</li>
+</ul>
+<p>收敛条件：<span class="math inline">\(||\nabla L(\vec w_k)||_2\lt
+\epsilon,\epsilon\rightarrow 0\)</span>。</p>
+<h1 id="梯度下降法">梯度下降法</h1>
+<p>本质是用了泰勒一阶展开 <span class="math display">\[
+L(\vec w_{k+1})\approx L(\vec w_k)+\nabla L(\vec w_k)^T(\vec
+w_{k+1}-\vec w_k)\\
+\rightarrow\\
+\vec w_{k+1}-\vec w_k=-\lambda_k\nabla L(\vec w_k)\\
+\vec w_{k+1}=\vec w_k-\lambda_k \nabla L(\vec w_k)
+\]</span></p>
+<h1 id="牛顿法">牛顿法</h1>
+<p>本质是用了泰勒二阶展开 <span class="math display">\[
+L(\vec w_{k+1})\approx L(\vec w_k)+\nabla L(\vec w_k)^T(\vec
+w_{k+1}-\vec w_k)+\frac{1}{2}(\vec w_{k+1}-\vec w_{k})^TH(\vec w_k)(\vec
+w_{k+1}-\vec w_k)\\
+\nabla L(\vec w_{k+1})=\nabla L(\vec w_k)+H(\vec w_{k})(\vec
+w_{k+1}-\vec w_k)=0\\
+\rightarrow\\
+\vec w_{k+1}=\vec w_k-H(\vec w_{k})^{-1}\nabla L(\vec w_k)
+\]</span> <span class="math inline">\(H(\vec w_k)\)</span>为<span
+class="math inline">\(\vec
+w_k\)</span>处的hessian矩阵，要求为正定矩阵。此时： <span
+class="math display">\[
+L(\vec w_{k+1})\approx L(\vec w_k)-\nabla L(\vec w_k)^TH(\vec
+w_k)^{-1}\nabla L(\vec w_k)+\frac{1}{2}(-H(\vec w_k)^{-1}\nabla L(\vec
+w_k))^TH(\vec w_k)(-H(\vec w_k)^{-1}\nabla L(\vec w_k))\\
+\approx L(\vec w_k)-\nabla L(\vec w_k)^TH(\vec w_k)^{-1}\nabla L(\vec
+w_k)+\frac{1}{2}\nabla L(\vec w_k)^TH(\vec w_k)^{-1}\nabla L(\vec w_k)\\
+\approx L(\vec w_k)-\frac{1}{2}\nabla L(\vec w_k)^TH(\vec
+w_k)^{-1}\nabla L(\vec w_k)
+\]</span> 可见只要<span class="math inline">\(H(\vec
+w_k)\)</span>正定，必然有： <span class="math display">\[
+L(\vec w_{k+1})\lt L(\vec w_k)
+\]</span></p>
+<h1 id="拟牛顿法">拟牛顿法</h1>
+<p>基本思想是在满足拟牛顿方程的条件下，用一个正定矩阵来近似<span
+class="math inline">\(H(\vec w_k)\)</span>，以减小计算量。</p>
+<p>用拉格朗日中值定理： <span class="math display">\[
+\nabla L(\vec w_k)-\nabla L(\vec w_{k-1})=\nabla^2L(\vec \xi) (\vec
+w_k-\vec w_{k-1})
+\]</span> 令<span class="math inline">\(B_k=\nabla^2 L(\vec \xi),\vec
+y_{k-1}=\nabla L(\vec w_k)-\nabla L(\vec w_{k-1}),\vec \delta_{k-1}=\vec
+w_k-\vec w_{k-1}\)</span>，解下面的拟牛顿方程： <span
+class="math display">\[
+\vec y_{k-1}=B_k\vec \delta_{k-1}
+\]</span> 或令<span
+class="math inline">\(G_k=B_k^{-1}\)</span>，解下面的拟牛顿方程： <span
+class="math display">\[
+G_k\vec y_{k-1}=\vec \delta_{k-1}
+\]</span> 用解出的<span class="math inline">\(B_k\)</span>代替<span
+class="math inline">\(H(\vec w_k)\)</span> <span class="math display">\[
+\vec w_{k+1}=\vec w_k-B_k^{-1}\nabla L(\vec w_k)
+\]</span> 或<span class="math inline">\(G_k\)</span>代替<span
+class="math inline">\(H(\vec w_k)^{-1}\)</span>： <span
+class="math display">\[
+\vec w_{k+1}=\vec w_k-G_k\nabla L(\vec w_k)
+\]</span> 初始化<span class="math inline">\(\vec
+w_0\)</span>后，用牛顿迭代法计算<span class="math inline">\(\vec
+w_1\)</span>，解拟牛顿方程算出<span
+class="math inline">\(B_1\)</span>或<span
+class="math inline">\(G_1\)</span>，后面用拟牛顿法迭代。</p>
+<p>要求<span class="math inline">\(B_k\)</span>或<span
+class="math inline">\(G_k\)</span>为正定矩阵，正定矩阵有未知数<span
+class="math inline">\(\frac{p(p+1)}{2}\)</span>个，方程有p个，故解集不唯一。</p>
+<h1 id="dfp法">DFP法</h1>
+<p>用迭代法求解<span class="math inline">\(G_k\)</span>。 <span
+class="math display">\[
+G_{k}=G_{k-1}+a\vec u\vec u^T+b\vec v\vec v^T
+\]</span></p>
+<p>带入拟牛顿方程： <span class="math display">\[
+G_{k-1}\vec y_{k-1}+a\vec u\vec u^T\vec y_{k-1}+b\vec v\vec v^T\vec
+y_{k-1}=\vec\delta_{k-1}
+\]</span> 令： <span class="math display">\[
+G_{k-1}\vec y_{k-1}+a\vec u\vec u^T\vec y_{k-1}=0\\
+b\vec v\vec v^T\vec y_{k-1}-\vec \delta_{k-1}=0\\
+\vec u=G_{k-1}\vec y_{k-1}\\
+\vec v=\vec \delta_{k-1}
+\]</span> 得： <span class="math display">\[
+a=-\frac{1}{\vec y_{k-1}^TG_{k-1}\vec y_{k-1}}\\
+b=\frac{1}{\vec\delta_{k-1}^T\vec y_{k-1}}
+\]</span> 因此： <span class="math display">\[
+G_{k}=G_{k-1}-\frac{G_{k-1}\vec y_{k-1}\vec y_{k-1}^TG_{k-1}^T}{\vec
+y_{k-1}^TG_{k-1}\vec y_{k-1}}+\frac{\vec \delta_{k-1}\vec
+\delta_{k-1}^T}{\vec \delta_{k-1}^T\vec y_{k-1}}
+\]</span></p>
+<h1 id="bfgs法">BFGS法</h1>
+<p>用迭代法求解<span class="math inline">\(B_k\)</span>。 <span
+class="math display">\[
+B_k=B_{k-1}+a\vec u\vec u^T+b\vec v\vec v^T
+\]</span></p>
+<p>带入拟牛顿方程： <span class="math display">\[
+\vec y_{k-1}=B_{k-1}\vec \delta_{k-1}+a\vec u\vec u^T\vec
+\delta_{k-1}+b\vec v\vec v^T\vec \delta_{k-1}
+\]</span> 令： <span class="math display">\[
+\vec y_{k-1}=b\vec v\vec v^T\vec \delta_{k-1}\\
+B_{k-1}\vec \delta_{k-1}=-a\vec u\vec u^T\vec \delta_{k-1}\\
+\vec v=\vec y_{k-1}\\
+\vec u=B_{k-1}\vec \delta_{k-1}
+\]</span> 可得： <span class="math display">\[
+b=\frac{1}{\vec v^T\vec \delta_{k-1}}=\frac{1}{\vec y_{k-1}^T\vec
+\delta_{k-1}}\\
+a=-\frac{1}{\vec u^T\vec \delta_{k-1}}=\frac{1}{\vec
+\delta_{k-1}^TB_{k-1}\vec \delta_{k-1}}
+\]</span> 因此： <span class="math display">\[
+B_{k}=B_{k-1}-\frac{B_{k-1}\vec
+\delta_{k-1}\vec\delta_{k-1}^TB_{k-1}}{\vec \delta_{k-1}^TB_{k-1}\vec
+\delta_{k-1}}+\frac{\vec y_{k-1}\vec y_{k-1}^T}{\vec y_{k-1}^T\vec
+\delta_{k-1}}
+\]</span></p>
+<h1 id="broyden法">Broyden法</h1>
+<p>结合了DFP和BFGS方法： <span class="math display">\[
+G_k=\alpha G^{DFP}+(1-\alpha)G^{BFGS},0\le\alpha\le 1
+\]</span> <span
+class="math inline">\(G^{DFP}\)</span>为DFP算法计算的<span
+class="math inline">\(G_k\)</span>，<span
+class="math inline">\(G^{BFGS}\)</span>为BFGS算法计算的<span
+class="math inline">\(B_k\)</span>取逆。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>优化算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数理统计中的一些基本概念</title>
     <url>/2023/01/07/8.%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<p>​</p>
@@ -2511,6 +2531,35 @@ class="math inline">\(X\)</span>是出现阳性结果的次数，不是样本均
       <tags>
         <tag>数理统计</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/12/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a
+href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a
+href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>常用假设检验方法</title>
@@ -3866,34 +3915,5 @@ s.t.\quad \alpha_i\ge0\\
       <tags>
         <tag>分类</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/12/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a
-href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a
-href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
