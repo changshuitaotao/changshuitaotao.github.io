@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="为了介绍回归函数\(m\)的非参数估计，我们需要先介绍随机变量\(X\)密度的非参数估计。这种估计旨在从样本\(X_1,...,X_n\)中估计随机变量\(X\)的密度\(f\)，而无需假定\(f\)具有任何特定形式，例如我们无需假定数据源于正态分布。 直方图估计 从独立样本\(X_1,...,X_n\)中估计密度函数\(f\)最简单的方法就是使用直方图。从分析的观点来看，一个自然的想法就是将">
+<meta property="og:type" content="website">
+<meta property="og:title" content="长水滔滔的博客">
+<meta property="og:url" content="http://example.com/%E9%9D%9E%E5%8F%82%E6%95%B0%E5%9B%9E%E5%BD%92.html">
+<meta property="og:site_name" content="长水滔滔的博客">
+<meta property="og:description" content="为了介绍回归函数\(m\)的非参数估计，我们需要先介绍随机变量\(X\)密度的非参数估计。这种估计旨在从样本\(X_1,...,X_n\)中估计随机变量\(X\)的密度\(f\)，而无需假定\(f\)具有任何特定形式，例如我们无需假定数据源于正态分布。 直方图估计 从独立样本\(X_1,...,X_n\)中估计密度函数\(f\)最简单的方法就是使用直方图。从分析的观点来看，一个自然的想法就是将">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-08T11:45:06.507Z">
+<meta property="article:modified_time" content="2023-02-19T15:02:52.611Z">
+<meta property="article:author" content="长水滔滔">
+<meta property="article:tag" content="python,机器学习,深度学习">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/%E9%9D%9E%E5%8F%82%E6%95%B0%E5%9B%9E%E5%BD%92">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://example.com/%E9%9D%9E%E5%8F%82%E6%95%B0%E5%9B%9E%E5%BD%92.html","path":"非参数回归.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | 长水滔滔的博客
+</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">长水滔滔的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#local-polynomial-regression"><span class="nav-number">1.</span> <span class="nav-text">local polynomial regression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%87%8Dw"><span class="nav-number">1.1.</span> <span class="nav-text">权重w</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%AB%98%E6%AC%A1d"><span class="nav-number">1.2.</span> <span class="nav-text">最高次d</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%9B%9E%E5%BD%92"><span class="nav-number">1.2.1.</span> <span class="nav-text">核回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">1.2.2.</span> <span class="nav-text">局部线性回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92"><span class="nav-number">1.2.3.</span> <span class="nav-text">局部多项式回归</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%B7%E6%9D%A1%E5%9B%9E%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">样条回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9D%A1%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">样条函数的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%88%86%E6%AE%B5%E7%9A%84%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%87%BD%E6%95%B0%E6%98%AF%E6%A0%B7%E6%9D%A1%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">如何判断一个分段的多项式函数是样条函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%AA%E6%96%AD%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">截断多项式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%A0%B7%E6%9D%A1%E5%87%BD%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">三次样条函数</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="长水滔滔"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">长水滔滔</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <p>为了介绍回归函数<span
+class="math inline">\(m\)</span>的非参数估计，我们需要先介绍随机变量<span
+class="math inline">\(X\)</span>密度的非参数估计。这种估计旨在从样本<span
+class="math inline">\(X_1,...,X_n\)</span>中估计随机变量<span
+class="math inline">\(X\)</span>的密度<span
+class="math inline">\(f\)</span>，而无需假定<span
+class="math inline">\(f\)</span>具有任何特定形式，例如我们无需假定数据源于正态分布。</p>
+<p>直方图估计</p>
+<p>从独立样本<span
+class="math inline">\(X_1,...,X_n\)</span>中估计密度函数<span
+class="math inline">\(f\)</span>最简单的方法就是使用直方图。从分析的观点来看，一个自然的想法就是将数据分配到一个区间<span
+class="math inline">\([x_0,x_0+h)\)</span>，然后用每个区间的的相对频率来作为<span
+class="math inline">\(f(x),x\in [x_0,x_0+h)\)</span>的估计，公式为：
+<span class="math display">\[
+f(x_0)=F\prime(x_0)\\\
+=\mathop{\lim}_{h\rightarrow 0^+}\frac{F(x_0+h)-F(x_0)}{h}\\
+=\mathop{\lim}_{h\rightarrow 0^+}\frac{P(x_0\lt X\lt x_0+h)}{h}
+\]</span> 更准确地说，给定一个原点<span
+class="math inline">\(t_0\)</span>和一个带宽<span
+class="math inline">\(h\gt 0\)</span>，直方图在区间<span
+class="math inline">\(\{B_k=[t_k,t_{k+1}),t_k=t_0+hk,k\in
+Z\}\)</span>上通过计算每个样本点的个数来构造一个分段常数函数。这个常数长度的区间称为箱(bins)。很显然，箱子的长度<span
+class="math inline">\(h\)</span>很重要，因为为了计算每个箱子中数据的相对频率，我们是按照箱子长度来进行标准化。点<span
+class="math inline">\(x\)</span>处直方图定义为： <span
+class="math display">\[
+\hat f_H(x;t_0,h)=\frac{1}{nh}\sum_{i=1}^nI(X_i\in B_k:x\in B_k)
+\]</span> 同样地，如果我们将落到箱子<span
+class="math inline">\(B_k\)</span>中数据点的数目表示为<span
+class="math inline">\(v_k\)</span>，直方图估计为: <span
+class="math display">\[
+\hat f_{H}(x;t_0,h)=\frac{v_k}{nh} \quad if \quad x\in B_k\quad k\in Z
+\]</span> 以上估计方法有一些不足之处，因为原点<span
+class="math inline">\(t_0\)</span>的选择很容易影响到最终绘制的直方图形状，换句话说，用同一批数据，但是设置不同的原点<span
+class="math inline">\(t_0\)</span>可能会得到不同的形状的直方图。避免依赖<span
+class="math inline">\(t_0\)</span>的一种估计方法就是移动直方图法（moving
+histogram）。</p>
+<p>移动直方图估计</p>
+<p>移动直方图的基本思想是将样本<span
+class="math inline">\(X_1,...,X_n\)</span>聚集在区间<span
+class="math inline">\((x-h,x+h)\)</span>，然后用区间<span
+class="math inline">\((x-h,x+h)\)</span>内的相对频率来作为<span
+class="math inline">\(x\)</span>处密度的近似，可以看到移动直方图中，不会事先先确定好区间，而是区间会随要估计的点<span
+class="math inline">\(x\)</span>进行移动，使<span
+class="math inline">\(x\)</span>始终在区间的中心位置，公式为： <span
+class="math display">\[
+f(x)=F\prime(x)\\\
+=\mathop{\lim}_{h\rightarrow 0^+}\frac{F(x+h)-F(x-h)}{2h}\\
+=\mathop{\lim}_{h\rightarrow 0^+}\frac{P(x-h\lt X\lt x+h)}{2h}
+\]</span>
+我们能分析一下移动直方图和直方图的不同之处，在移动直方图中，区间取决于求值点<span
+class="math inline">\(x\)</span>并以它为中心，这允许我们通过对称的导数直接估计<span
+class="math inline">\(f(x)\)</span>，因此避免了受到<span
+class="math inline">\(t_0\)</span>的影响。</p>
+<p>给定带宽<span class="math inline">\(h\gt
+0\)</span>，朴素的密度估计方法通过考虑随机样本<span
+class="math inline">\(X_1,...,X_n\)</span>在区间<span
+class="math inline">\((x-h,x+h)\)</span>中相对频率来构造分段常数函数：
+<span class="math display">\[
+\hat f_N(x;h)=\frac{1}{2nh}\sum_{i=1}^nI(x-h\lt X_i\lt x+h)
+\]</span> <span class="math inline">\(\hat
+f_N(x;h)\)</span>其实是一个随机变量，其中： <span
+class="math display">\[
+\sum_{i=1}^nI(x-h\lt X_i\lt x+h)\sim B(n,p_{x,h})
+\]</span> 这里的： <span class="math display">\[
+p_{x,h}=P(x-h\lt X\lt x+h)=F(x+h)-F(x-h)
+\]</span> 因此，应用二项分布偏差和方差的表达式，有： <span
+class="math display">\[
+E(\hat f_N(x;h))=\frac{F(x+h)-F(x-h)}{2h}\\
+Var(\hat
+f_N(x;h))=\frac{F(x+h)-F(x-h)}{4nh^2}-\frac{(F(x+h)-F(x-h))^2}{4nh^2}
+\]</span> 这两个结果提供了移动直方图中<span
+class="math inline">\(h\)</span>的几个非常有趣的性质：</p>
+<ul>
+<li>如果<span class="math inline">\(h\rightarrow 0\)</span>，则<span
+class="math inline">\(E(\hat f_N(x;h))\rightarrow
+f(x)\)</span>，因此<span class="math inline">\(\hat
+f_N(x;h)\)</span>是<span
+class="math inline">\(f(x)\)</span>的渐进无偏估计，然而如果<span
+class="math inline">\(h\rightarrow 0\)</span>，则方差<span
+class="math inline">\(Var(\hat f_N(x;h))\approx
+\frac{f(x)}{2nh}-\frac{f(x)^2}{n}\rightarrow \infty\)</span>;</li>
+<li>如果<span class="math inline">\(h\rightarrow
+\infty\)</span>，则$E(f_N(x;h))<span
+class="math inline">\(0，且方差\)</span>Var(f_N(x;h))$，因此方差收缩到0但是偏差增加；</li>
+<li>如果<span class="math inline">\(nh\rightarrow
+\infty\)</span>，则方差收缩到0。除此之外，如果<span
+class="math inline">\(h\rightarrow
+0\)</span>，则偏差也收缩到0。因此偏差和方差都会减小如果<span
+class="math inline">\(n\rightarrow \infty,h\rightarrow 0,nh\rightarrow
+\infty\)</span>。</li>
+</ul>
+<p>用移动直方图估计密度函数<span
+class="math inline">\(x\)</span>时，我们采用的是以点<span
+class="math inline">\(x\)</span>为中心，以<span
+class="math inline">\(h\)</span>为半径内数据点出现的频率除以2倍带宽进行的，在计算相对频率时实际上我们将这个范围内所有数据点赋予了相同的权重。其实我们有理由相信越靠近点<span
+class="math inline">\(x\)</span>的数据点，应该赋予更大的权重，而远离<span
+class="math inline">\(x\)</span>的数据点赋予更小的权重。此外，这个范围之外点的信息没有用到，以及用移动直方图估计的密度函数是阶梯函数，而不是连续函数，为了解决这些问题，就需要引出另一种估计方法——核密度估计。实际上移动直方图估计是核密度估计的一种特殊形式。</p>
+<p>核密度估计</p>
+<p>移动直方图的一个等价写法为： <span class="math display">\[
+\hat f_N(x;h)=\frac{1}{nh}\sum_{i=1}^n\frac{1}{2}I(-1\lt
+\frac{x-X_i}{h}\lt 1)\\
+=\frac{1}{nh}\sum_{i=1}^nK{(\frac{x-X_i}{h})}
+\]</span> 这里的<span class="math inline">\(K(z)=\frac{1}{2}I(-1\lt z
+\lt 1)\)</span>，<span class="math inline">\(K\)</span>是<span
+class="math inline">\((-1,1)\)</span>上的均匀分布的密度函数，这意味着：
+<span class="math display">\[
+P(x-h\lt X\lt x+h)=P(-1\lt \frac{x-X}{h}\lt 1)
+\]</span> 我们给<span
+class="math inline">\(X_1,...,X_n\)</span>相同的权重。如果将<span
+class="math inline">\(K\)</span>替换为其他函数，我们就得到了核密度估计。通常来说，要求<span
+class="math inline">\(K\)</span>是0处对称且单峰。即核密度估计为： <span
+class="math display">\[
+\hat f_N(x;h)=\frac{1}{nh}\sum_{i=1}^nK{(\frac{x-X_i}{h})}
+\]</span> 如果令<span
+class="math inline">\(K_h(z)=\frac{1}{h}K(\frac{z}{h})\)</span>，核密度估计还可以写为：
+<span class="math display">\[
+\hat f_N(x;h)=\frac{1}{n}\sum_{i=1}^nK_h(x-X_i)
+\]</span> 下面介绍几个常见的核函数，首先是正态核。在这种情况下： <span
+class="math display">\[
+K_h(x-X_i)=\phi(x;X_i,h^2)=\phi(x-X_i;0,h^2)
+\]</span> 此时核函数是<span
+class="math inline">\(N(X_i,h^2)\)</span>的密度函数，因此带宽<span
+class="math inline">\(h\)</span>可以被看作是均值为<span
+class="math inline">\(X_i\)</span>的正态密度的标准差，而核密度是这些密度的混合。</p>
+<p>总的来看，核密度估计是这样的：对于<span
+class="math inline">\(x_0\)</span>处的密度，在<span
+class="math inline">\(x_0\)</span>及附近找出一定数量的点（假设为<span
+class="math inline">\(x_i,i=1,...,n\)</span>，在stata中<span
+class="math inline">\(n\)</span>为50），然后计算<span
+class="math inline">\(z_0 = \frac{x_i-x_0}{h}\)</span>，然后将<span
+class="math inline">\(z_0\)</span>带入到一个核函数中，这样会得到<span
+class="math inline">\(n\)</span>个核函数值，这<span
+class="math inline">\(n\)</span>个核函数值作为<span
+class="math inline">\(x_0\)</span>处的密度估计。（例如使用高斯核，会将每一个<span
+class="math inline">\(z_0\)</span>带入到标准正态分布中计算）。核密度估计中，带宽<span
+class="math inline">\(h\)</span>的影响很大。</p>
+<h1 id="local-polynomial-regression">local polynomial regression</h1>
+<p>假设当前点为<span
+class="math inline">\((x,y)\)</span>，我们要估计<span
+class="math inline">\(f(x)\)</span>，我们在<span
+class="math inline">\((x,y)\)</span>的邻域找出一点<span
+class="math inline">\((x_1,y_1)\)</span>，根据泰勒公式有： <span
+class="math display">\[
+f(x_1)=f(x)+\sum_{k=1}^{\infty}\frac{f^k(x)}{k!}(x_1-x)^k
+\]</span> 我们取泰勒级数的前<span
+class="math inline">\(d+1\)</span>项得： <span class="math display">\[
+f(x_1)\approx f(x)+\sum_{k=1}^d\frac{f^k(x)}{k!}(x_1-x)^k
+\]</span> 可以令<span
+class="math inline">\(\beta_0=f(x),\beta_k=\frac{f^k(x)}{k!}\)</span>，则公式可以进一步转化为：
+<span class="math display">\[
+f(x_1)\approx\beta_0+\sum_{k=1}^d\beta_k(x_1-x)^k
+\]</span> 这样我们就找到了用<span
+class="math inline">\((x,y)\)</span>来估计其邻域其他点的公式。假设<span
+class="math inline">\((x,y)\)</span>的邻域有<span
+class="math inline">\(n\)</span>个点，那么我们可以写出<span
+class="math inline">\(n\)</span>个这样的方程： <span
+class="math display">\[
+f(x_1)\approx\beta_0+\sum_{k=1}^d\beta_k(x_1-x)^k\\
+\cdot\cdot\cdot\\
+f(x_n)\approx\beta_0+\sum_{k=1}^d\beta_k(x_n-x)^k\\
+\]</span> 这<span
+class="math inline">\(n\)</span>个方程共享了同一套回归系数<span
+class="math inline">\(\beta_k\)</span>，搭配这<span
+class="math inline">\(n\)</span>个点的真实值<span
+class="math inline">\(y_i,i=1,...,n\)</span>，我们可以使用最小二乘法来进行估计。不过考虑到这<span
+class="math inline">\(n\)</span>个点距离<span
+class="math inline">\((x,y)\)</span>的远近不同，距离近的点应该有更大的影响，距离远的点应该有更小的影响，因此在用最小二乘法时给每个点施加一个权重。因此，最终最小化残差平方和为：
+<span class="math display">\[
+L(\vec \beta)=\sum_{i=1}^nw_i(y_i-(\beta_0+\sum_{k=1}^d\vec
+\beta_k(x_i-x)^k)^2)\\
+=(\vec y-Z\vec \beta)^TW(\vec y-Z\vec \beta)
+\]</span> 这里的<span
+class="math inline">\(W=diag(w_1,...w_n)\)</span>，矩阵<span
+class="math inline">\(Z\)</span>为： <span class="math display">\[
+Z=\begin{bmatrix}
+1&amp;x_1-x&amp;(x_1-x)^2&amp;\cdot\cdot\cdot&amp;(x_1-x)^d\\
+1&amp;x_2-x&amp;(x_2-x)^2&amp;\cdot\cdot\cdot&amp;(x_2-x)^d\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+1&amp;x_2-x&amp;(x_n-x)^2&amp;\cdot\cdot\cdot&amp;(x_n-x)^d\\
+\end{bmatrix}
+\]</span> 这样可以求出<span class="math inline">\(\vec
+\beta\)</span>的估计为： <span class="math display">\[
+\hat{\vec\beta}=(Z^TWZ)^{-1}Z^TW\vec y
+\]</span> 解出<span class="math inline">\(\hat{\vec
+\beta}\)</span>的估计之后，就得到<span
+class="math inline">\(f(x)\)</span>了。然而求解<span
+class="math inline">\(\hat{\vec \beta}\)</span>需要先确定<span
+class="math inline">\(W\)</span>和<span
+class="math inline">\(d\)</span>，下面对这两个参数的选择进行讨论。</p>
+<h2 id="权重w">权重w</h2>
+<p>权重显然应该是一个关于距离的函数，通常使用核函数<span
+class="math inline">\(K(\cdot)\)</span>来度量，公式为： <span
+class="math display">\[
+w_i=\frac{1}{h}K(\frac{x_i-x}{h})
+\]</span> <span
+class="math inline">\(h\)</span>为窗宽，是一个超参数，尝使用交叉验证法来进行估计。常用的核函数有高斯核，公式为：
+<span class="math display">\[
+K(x)=\frac{1}{\sqrt{2\pi}}exp(-\frac{1}{2}x^2)
+\]</span> 二次核或Epanechnikov核： <span class="math display">\[
+K(x)=\frac{3}{4}(1-x^2)I(|x|\lt 1)
+\]</span> 三三核： <span class="math display">\[
+K(x)=\frac{75}{81}(1-|x|^3)^3I(|x|\lt 1)
+\]</span> 选那种核函数一般来说影响不大，影响大的是带宽<span
+class="math inline">\(h\)</span>。</p>
+<h2 id="最高次d">最高次d</h2>
+<h3 id="核回归">核回归</h3>
+<p>当最高次<span class="math inline">\(d=0\)</span>时 <span
+class="math display">\[
+\hat{\vec \beta}=(\vec 1^TW\vec 1)^{-1}(\vec 1^TW\vec y)\\
+=
+\]</span> 此时为核回归</p>
+<h3 id="局部线性回归">局部线性回归</h3>
+<p>当<span class="math inline">\(d=1\)</span>时为局部线性回归</p>
+<h3 id="局部多项式回归">局部多项式回归</h3>
+<p>当<span class="math inline">\(d\ge 2\)</span>时为局部多项式回归</p>
+<h1 id="样条回归">样条回归</h1>
+<h2 id="样条函数的定义">样条函数的定义</h2>
+<p>样条函数为满足一定光滑性的分段多项式函数。具体为：</p>
+<p>对于一个区间<span
+class="math inline">\((-\infty,+\infty)\)</span>，上面有<span
+class="math inline">\(n\)</span>个分割点<span
+class="math inline">\(x_1,x_2,...,x_n\)</span>将区间进行分割： <span
+class="math display">\[
+\Delta:-\infty\lt x_1\lt x_2\lt\cdot\cdot\cdot\lt x_n\lt +\infty
+\]</span> 这就会形成<span
+class="math inline">\(n+1\)</span>个区间。这<span
+class="math inline">\(n+1\)</span>个区间中每个区间都有一个函数，从而构成一个分段函数。记这个分段函数为<span
+class="math inline">\(s(x)\)</span>，若<span
+class="math inline">\(s(x)\)</span>满足：</p>
+<ul>
+<li><span
+class="math inline">\(s(x)\)</span>在每个区间上是一个次数不超过<span
+class="math inline">\(k\)</span>的多项式函数；</li>
+<li><span class="math inline">\(s(x)\)</span>在区间<span
+class="math inline">\((-\infty,+\infty)\)</span>上具有<span
+class="math inline">\(k-1\)</span>阶的连续导数；</li>
+</ul>
+<p>则称<span class="math inline">\(y=s(x)\)</span>为对应于分割<span
+class="math inline">\(\Delta\)</span>的<span
+class="math inline">\(k\)</span>次样条函数，<span
+class="math inline">\(x_1,x_2,...,x_n\)</span>为样条节点。例如<span
+class="math inline">\(s(x)\)</span>在每个区间上是3次函数，则要求在<span
+class="math inline">\((-\infty,+\infty)\)</span>上有连续的二阶导数，则<span
+class="math inline">\(s(x)\)</span>是3次样条函数。</p>
+<p>以<span class="math inline">\(x_1,x_2,...,x_n\)</span>为节点的<span
+class="math inline">\(k\)</span>次样条函数的全体记为： <span
+class="math display">\[
+s_k(x_1,x_2,...,x_n)
+\]</span></p>
+<h2
+id="如何判断一个分段的多项式函数是样条函数">如何判断一个分段的多项式函数是样条函数</h2>
+<p>假设一个分段多项式函数<span class="math inline">\(s(x)\)</span>如下：
+<span class="math display">\[
+s(x)=
+\left\{\begin{aligned}
+  p_0(x)&amp;,x\le x_1 \\
+  p_1(x)&amp;,x_1 \le x\le x_2 \\
+  \cdot\cdot\cdot\\
+  p_j(x)&amp;,x_j \le x\le x_{j+1} \\
+  \cdot\cdot\cdot\\
+  p_n(x)&amp;,x\ge x_n \\
+\end{aligned}\right.
+\]</span> 已知每个多项式<span
+class="math inline">\(p_j(x)\)</span>都是次数不超过<span
+class="math inline">\(k\)</span>的多项式函数。即：</p>
+<figure>
+<img
+src="C:/Users/Yujie/AppData/Roaming/Typora/typora-user-images/image-20230219163351030.png"
+alt="image-20230219163351030" />
+<figcaption aria-hidden="true">image-20230219163351030</figcaption>
+</figure>
+<p>现在样条函数的第一个条件已经得到满足，关键是确定<span
+class="math inline">\(s(x)\)</span>是否在整个数轴上具有<span
+class="math inline">\(k-1\)</span>阶连续导数。很容易发现，我们<strong>只要确定<span
+class="math inline">\(n\)</span>个节点处的从0阶到<span
+class="math inline">\(k-1\)</span>阶导数都是连续的就可以了。也就是说，对于任意一个节点<span
+class="math inline">\(x_j\)</span>，其左侧函数从0阶导数到<span
+class="math inline">\(k-1\)</span>阶导数在<span
+class="math inline">\(x_j\)</span>处的值，都分别与右侧函数从从0阶导数到<span
+class="math inline">\(k-1\)</span>阶导数在<span
+class="math inline">\(x_j\)</span>处的值相等</strong>。即： <span
+class="math display">\[
+p_{j-1}^i(x_j)=p_j^i(x_j),\quad i=0,1,...,m-1
+\]</span> 上标<span class="math inline">\(i\)</span>表示第<span
+class="math inline">\(i\)</span>阶导数。下面我们引入一个式子： <span
+class="math display">\[
+q_j(x)=p_j(x)-p_{j-1}(x)
+\]</span> 将上面的要求带入<span
+class="math inline">\(q_j(x)\)</span>，即要求： <span
+class="math display">\[
+q^i_j(x_j)=p^i_j(x_j)-p^i_{j-1}(x_j)=0
+\]</span> 很容易发现<span
+class="math inline">\(q_j(x)\)</span>的一个形式为： <span
+class="math display">\[
+q_j(x)=c_j(x-x_j)^k
+\]</span> 容易验证对<span
+class="math inline">\(q_j(x)\)</span>取0阶到<span
+class="math inline">\(k-1\)</span>阶导数，<span
+class="math inline">\(q_j(x)\)</span>在<span
+class="math inline">\(x_j\)</span>处都是0，这意味着： <span
+class="math display">\[
+q_j(x)=p_j(x)-p_{j-1}(x)=c_j(x-x_j)^k
+\]</span> 我们就得到了相邻两个区间的多项式函数<span
+class="math inline">\(p_j(x)\)</span>与<span
+class="math inline">\(p_{j-1}(x)\)</span>之间关系的表达式： <span
+class="math display">\[
+p_j(x)=p_{j-1}(x)+c_j(x-x_j)^k
+\]</span> 这里的<span
+class="math inline">\(c_j\)</span>称为光滑因子。</p>
+<p>因此，对于一个分段多项式函数<span
+class="math inline">\(s(x)\)</span>，它是<span
+class="math inline">\(k\)</span>次样条函数的充要条件是： <span
+class="math display">\[
+p_0(x)=\beta_0+\beta_1x+...+\beta_kx^k\\
+p_1(x)=p_0(x)+c_1(x-x_1)^k\\
+p_2(x)=p_0(x)+c_1(x-x_1)^k+c_2(x-x_2)^k\\
+\cdot\cdot\cdot\\
+p_n(x)=p_0(x)+\sum_{j=1}^nc_j(x-x_j)^k
+\]</span></p>
+<h2 id="截断多项式">截断多项式</h2>
+<p>样条函数不容易表示分段信息，我们引入一个概念：截断多项式： <span
+class="math display">\[
+(x-a)^k_+=\left\{\begin{aligned}
+  (x-a)^k,x\ge a \\
+  0,x\lt a \\
+\end{aligned}\right.
+\]</span> 有了这个截断多项式，我们就可以将样条函数表示为： <span
+class="math display">\[
+s(x)=p_0(x)+\sum_{j=1}^nc_j(x-x_j)^k_+,\quad -\infty\lt x\lt +\infty
+\]</span> 如果将上面式子看作是线性回归，则线性回归的数据向量为： <span
+class="math display">\[
+[1,x,x^2,...,x^k,(x-x_1)_+^k,(x-x_2)^k_+,...,(x-x_n)^k_+]
+\]</span></p>
+<h2 id="三次样条函数">三次样条函数</h2>
+<p>样条函数中，使用较多的是三次样条函数，</p>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">长水滔滔</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">40k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:27</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js","integrity":"sha256-tu9j5pBilBQrWSDePOOajCUdz6hWsid/lBNzK4KgEPM="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js","integrity":"sha256-QdTG1YTLLTwD3b95jLqFxpQX9uYuJMNAtVZgwKX4oYU="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
