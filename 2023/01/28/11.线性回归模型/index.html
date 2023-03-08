@@ -27,7 +27,7 @@
 <meta property="og:description" content="​">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-02-13T13:09:44.203Z">
+<meta property="article:modified_time" content="2023-03-08T12:10:35.006Z">
 <meta property="article:author" content="长水滔滔">
 <meta property="article:tag" content="回归">
 <meta name="twitter:card" content="summary">
@@ -198,6 +198,13 @@
       </a>
     </li>
     <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/03/08/13.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="bookmark">
+        <time class="popular-posts-time">2023-03-08</time>
+        <br>
+      广义线性模型
+      </a>
+    </li>
+    <li class="popular-posts-item">
       <a class="popular-posts-link" href="/2022/12/24/1.%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/" rel="bookmark">
         <time class="popular-posts-time">2022-12-24</time>
         <br>
@@ -205,10 +212,10 @@
       </a>
     </li>
     <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2023/03/08/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="bookmark">
-        <time class="popular-posts-time">2023-03-08</time>
+      <a class="popular-posts-link" href="/2023/01/08/9.%E5%B8%B8%E7%94%A8%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95/" rel="bookmark">
+        <time class="popular-posts-time">2023-01-08</time>
         <br>
-      广义线性模型
+      常用假设检验方法
       </a>
     </li>
   </ul>
@@ -267,7 +274,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-02-13 21:09:44" itemprop="dateModified" datetime="2023-02-13T21:09:44+08:00">2023-02-13</time>
+      <time title="修改时间：2023-03-08 20:10:35" itemprop="dateModified" datetime="2023-03-08T20:10:35+08:00">2023-03-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -286,7 +293,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.5k</span>
+      <span>5.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -347,18 +354,24 @@ class="math inline">\(y\)</span>的线性函数；</li>
 <li>有效性：方差最小，即</li>
 </ol>
 <p><span class="math display">\[
+\begin{aligned}
 {Var(\hat{\vec \beta})}={Var((X^TX)^{-1}X^T\vec y)}\\
 =Var((X^TX)^{-1}X^T(X\vec \beta+\epsilon))
+\end{aligned}
 \]</span></p>
 <p>因<span class="math inline">\(\vec\beta\)</span>为常数，因此 <span
 class="math display">\[
-=Var((X^TX)^{-1}X^T\epsilon)\\
-=(X^TX)^{-1}X^TVar(\epsilon)X(X^TX)^{-1}
+\begin{aligned}
+=&amp;Var((X^TX)^{-1}X^T\epsilon)\\
+=&amp;(X^TX)^{-1}X^TVar(\epsilon)X(X^TX)^{-1}
+\end{aligned}
 \]</span> 当假定球星扰动项时，即<span
 class="math inline">\(Var(\epsilon)=\sigma^2I\)</span>： <span
 class="math display">\[
-=(X^TX)^{-1}X^T\sigma^2 IX(X^TX)^{-1}\\
-=(X^TX)^{-1}\sigma^2
+\begin{aligned}
+=&amp;(X^TX)^{-1}X^T\sigma^2 IX(X^TX)^{-1}\\
+=&amp;(X^TX)^{-1}\sigma^2
+\end{aligned}
 \]</span> <span
 class="math inline">\(\sigma^2\)</span>常用扰动项方差，常用误差均方<span
 class="math inline">\(s^2\)</span>来估计。因为<span
@@ -378,13 +391,15 @@ class="math inline">\(\vec x\)</span>正交，即内积为0。</p>
 <h2 id="平方和分解">平方和分解</h2>
 <p>有常数项时，总离差平方和可以分解为模型的回归平方和和残差平方和：
 <span class="math display">\[
-\sum_{i=1}^n(y_i-\bar y)^2\\
-=\sum_{i=1}^n(y_i-\hat y_i+\hat y_i-\bar y)^2\\
-=\sum_{i=1}^n[(y_i-\hat y_i)^2+2(y_i-\hat y_i)(\hat y_i-\bar y)+(\hat
-y_i-\bar y)^2]\\
-=\sum_{i=1}^n[e_i^2+2e_i(\hat y_i-\bar y)+(\hat y_i-\bar y)^2]\\
-=\sum_{i=1}^ne_i^2+\sum_{i=1}^n(\hat y_i-\bar y)^2+2\sum_{i=1}^ne_i\hat
-y_i-2\bar y\sum_{i=1}^ne_i
+\begin{aligned}
+&amp;\sum_{i=1}^n(y_i-\bar y)^2\\
+&amp;=\sum_{i=1}^n(y_i-\hat y_i+\hat y_i-\bar y)^2\\
+&amp;=\sum_{i=1}^n[(y_i-\hat y_i)^2+2(y_i-\hat y_i)(\hat y_i-\bar
+y)+(\hat y_i-\bar y)^2]\\
+&amp;=\sum_{i=1}^n[e_i^2+2e_i(\hat y_i-\bar y)+(\hat y_i-\bar y)^2]\\
+&amp;=\sum_{i=1}^ne_i^2+\sum_{i=1}^n(\hat y_i-\bar
+y)^2+2\sum_{i=1}^ne_i\hat y_i-2\bar y\sum_{i=1}^ne_i
+\end{aligned}
 \]</span> 由于<span class="math inline">\(\vec e\)</span>与<span
 class="math inline">\(\vec x,\vec y,\vec 1\)</span>均正交，因此<span
 class="math inline">\(\sum_{i=1}^ne_i\hat
@@ -397,9 +412,14 @@ class="math inline">\(\sum_{i=1}^ne_i=0\)</span>成立。</p>
 <h2 id="遗漏变量与偏回归">遗漏变量与偏回归</h2>
 <p>将设计矩阵<span class="math inline">\(X\)</span>分为两部分，即 <span
 class="math display">\[
-X=
+X=\begin{bmatrix}
+X_1&amp;X_2
+\end{bmatrix}
 \]</span> 同时也将回归系数也分为两部分： <span class="math display">\[
-\vec \beta=
+\vec \beta=\begin{bmatrix}
+\vec \beta_1\\
+\vec \beta_2
+\end{bmatrix}
 \]</span> 这样线性回归模型的正规方程<span class="math inline">\(X^TX\vec
 \beta=X^T\vec y\)</span>可以写为： <span class="math display">\[
 \begin{bmatrix}
@@ -467,12 +487,14 @@ class="math inline">\(\vec
 \beta_{X_2|X_1}=0\)</span>，此时不会高估也不会低估。也就是说，如果因变量对遗漏变量的回归系数与遗漏变量对模型中自变量的回归系数同号，则会高估模型中自变量的回归系数。</strong></p>
 <p>将第一个方程解的<span class="math inline">\(\vec
 \beta_1\)</span>带入第二个方程可得： <span class="math display">\[
+\begin{aligned}
 X_2^TX_1[(X_1^TX_1)^{-1}X_1^T\vec y-(X_1^TX_1)^{-1}X_1^TX_2\vec
 \beta_2]+X_2^TX_2\vec \beta_2=X_2^T\vec y\\
 X_2^TX_1(X_1^TX_1)^{-1}X_1^T\vec y-X_2^TX_1(X_1^TX_1)^{-1}X_1^TX_2\vec
 \beta_2+X_2^TX_2\vec \beta_2=X_2^T\vec y\\
 X_2^T(I-X_1(X_1^TX_1)^{-1}X_1^T)X_2\vec
 \beta_2=X_2^T(I-X_1(X_1^TX_1)^{-1}X_1^T)\vec y
+\end{aligned}
 \]</span> 令<span
 class="math inline">\(H_1=X_1(X_1^TX_1)^{-1}X_1^T,M_1=I-H_1\)</span>，因此有：
 <span class="math display">\[
@@ -515,9 +537,11 @@ class="math inline">\(z\)</span>做回归）得到残差做回归时的回归系
 class="math display">\[
 H_0:\beta_1=\beta_2=...=\beta_p=0
 \]</span> 利用总离差平方和分解公式： <span class="math display">\[
-\sum_{i=1}^n(y_i-\bar y)^2=\sum_{i=1}^n(y_i-\hat
+\begin{aligned}
+\sum_{i=1}^n(y_i-\bar y)^2&amp;=\sum_{i=1}^n(y_i-\hat
 y_i)^2+\sum_{i=1}^n(\hat y_i-\bar y)^2\\
 =SSE+SSR
+\end{aligned}
 \]</span> 可以证明，下面的统计量服从<span
 class="math inline">\(F\)</span>分布： <span class="math display">\[
 F=\frac{SSR/p}{SSE/(n-p-1)}
@@ -694,9 +718,11 @@ points)
 <strong>是指对模型有较大影响的点，模型中包含该点与不包含该点会使求得的回归系数相差很大</strong>。如果某点既是离群点又是高杠杆点，则该点很有可能是强影响点。</p>
 <h3 id="杠杆点">杠杆点</h3>
 <p>线性回归的预测值为： <span class="math display">\[
+\begin{aligned}
 \hat {\vec y}=X\hat{\vec \beta}\\
 =X(X^TX)^{-1}X^T\vec y\\
 =H\vec y
+\end{aligned}
 \]</span> 矩阵<span
 class="math inline">\(H=X(X^TX)^{-1}X^T\)</span>是一个投影矩阵，也称为帽子矩阵（给<span
 class="math inline">\(\vec y\)</span>戴了一顶帽子），作用是将<span
@@ -706,9 +732,11 @@ class="math inline">\(n*n\)</span>的对称矩阵，矩阵的主对角线上的�
 class="math inline">\(p+1\)</span>，证明其实很简单，因为<span
 class="math inline">\(tr(AB)=tr(BA)\)</span>，因此： <span
 class="math display">\[
-tr(X(X^TX)^{-1}X^T)=tr(X^TX(X^TX)^{-1})\\
-=tr(I_{p+1})\\
-=p+1
+\begin{aligned}
+tr(X(X^TX)^{-1}X^T)&amp;=tr(X^TX(X^TX)^{-1})\\
+&amp;=tr(I_{p+1})\\
+&amp;=p+1
+\end{aligned}
 \]</span> 因此帽子统计量的平均值等于 <span class="math display">\[
 \frac{p+1}{n}
 \]</span>
@@ -718,14 +746,18 @@ tr(X(X^TX)^{-1}X^T)=tr(X^TX(X^TX)^{-1})\\
 class="math inline">\(e_i,i=1,2,...,n\)</span>来判断。定义残差向量<span
 class="math inline">\(\vec e=[e_1,e_2,...,e_i,...,e_n]^T\)</span>，则：
 <span class="math display">\[
+\begin{aligned}
 \vec e=\vec y-\hat{\vec y}\\
 =\vec y-H\vec y\\
 =(I-H)\vec y
+\end{aligned}
 \]</span> 残差向量的协方差矩阵为： <span class="math display">\[
-Cov(\vec e,\vec e)=Cov((I-H)\vec y,(I-H)\vec y)\\
-=(I-H)Cov(\vec y,\vec y)(I-H)^{T}\\
-=(I-H)\sigma^2I(I-H)^T\\
-=\sigma^2[II^T-IH^T-HI+HH^T]
+\begin{aligned}
+Cov(\vec e,\vec e)&amp;=Cov((I-H)\vec y,(I-H)\vec y)\\
+&amp;=(I-H)Cov(\vec y,\vec y)(I-H)^{T}\\
+&amp;=(I-H)\sigma^2I(I-H)^T\\
+&amp;=\sigma^2[II^T-IH^T-HI+HH^T]
+\end{aligned}
 \]</span> 因为<span
 class="math inline">\(H\)</span>是对称矩阵，也是幂等矩阵，因此有： <span
 class="math display">\[
@@ -889,7 +921,7 @@ class="math inline">\(x\)</span>做标准化，并引入标准化变量的平方
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/03/08/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="next" title="广义线性模型">
+                <a href="/2023/03/08/13.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="next" title="广义线性模型">
                   广义线性模型 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -923,7 +955,7 @@ class="math inline">\(x\)</span>做标准化，并引入标准化变量的平方
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">40k</span>
+    <span title="站点总字数">41k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
