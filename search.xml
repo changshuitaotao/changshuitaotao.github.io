@@ -4085,7 +4085,8 @@ s.t.\quad \alpha_i\ge0\\
   <entry>
     <title>广义线性模型</title>
     <url>/2023/03/08/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
 <h1 id="模型">模型</h1>
 <p>广义线性模型有三个主要组成部分：</p>
 <ol type="1">
@@ -4094,7 +4095,9 @@ class="math inline">\(X_1=x_1,...,X_p=x_p\)</span>后，随机变量<span
 class="math inline">\(y\)</span>的条件分布源于指数分布族；</li>
 </ol>
 <p><span class="math display">\[
+\begin{aligned}
 y|(X_1=x_2,X_2=x_2,...,X_p=x_p)\sim exp(\theta,\phi,a,b,c)
+\end{aligned}
 \]</span></p>
 <p><span
 class="math inline">\(exp(\theta,\phi,a,b,c)\)</span>表示指数分布族，后面我们会详细介绍指数分布族。</p>
@@ -4107,19 +4110,27 @@ class="math inline">\(\eta\)</span>，要求连接函数<span
 class="math inline">\(g\)</span>单调可微；</li>
 </ol>
 <p><span class="math display">\[
+\begin{aligned}
 g(E(y|X_1=x_1,...,X_p=x_p))=\eta
+\end{aligned}
 \]</span></p>
 <ol start="3" type="1">
 <li>自变量对<span class="math inline">\(\eta\)</span>进行回归；</li>
 </ol>
 <p><span class="math display">\[
+\begin{aligned}
 \eta = \beta_0+\beta_1x_1+...+\beta_px_p=\vec x^T\vec \beta\\
 \vec x\in R^{p+1},\vec \beta\in R^{p+1}
+\end{aligned}
 \]</span></p>
 <p>因此，广义线性模型的基本形式其实为： <span class="math display">\[
+\begin{aligned}
 g(y|(X_1=x_1,...,X_p=x_p)=\vec x^T\vec \beta
+\end{aligned}
 \]</span> 或者可以写为： <span class="math display">\[
+\begin{aligned}
 y|(X_1=x_1,...,X_p=x_p)=g^{-1}(\vec x^T\vec \beta)
+\end{aligned}
 \]</span> 这里的<span
 class="math inline">\(g^{-1}\)</span>为连接函数<span
 class="math inline">\(g\)</span>的反函数，实际上可以看作是神经网络中的激活函数，下面会详细讨论如何选择连接函数或激活函数。</p>
@@ -4127,7 +4138,9 @@ class="math inline">\(g\)</span>的反函数，实际上可以看作是神经网
 <p>上面提到广义线性模型中随机变量<span
 class="math inline">\(y\)</span>的条件分布来源于指数分布族，下面我们给出指数分布族的概率密度函数：
 <span class="math display">\[
+\begin{aligned}
 f(y;\theta,\phi)=exp(\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi))
+\end{aligned}
 \]</span> 这里的<span
 class="math inline">\(a(.),b(.),c(.)\)</span>都是特定函数，随不同的分布有不同的形式，<span
 class="math inline">\(\theta\)</span>是分布中的自然参数，往往是我们感兴趣的参数，<span
@@ -4141,8 +4154,10 @@ class="math inline">\(y\)</span>的期望<span
 class="math inline">\(\mu\)</span>和方差<span
 class="math inline">\(\sigma^2\)</span>为： <span
 class="math display">\[
+\begin{aligned}
 \mu = E(y)=b\prime(\theta)\\
 \sigma^2 = Var(y)=b\prime\prime(\theta)a(\phi)
+\end{aligned}
 \]</span></p>
 <h1 id="连接函数选择">连接函数选择</h1>
 <p>我们来考虑一下连接函数<span
@@ -4180,11 +4195,16 @@ class="math inline">\(\theta\)</span>。</p>
 <p>考虑数据集<span class="math inline">\(\{\{\vec
 x_i,y_i\}\}_{i=1}^n\)</span>，应用规范连接函数，我们有： <span
 class="math display">\[
-y_i|(X_{1}=x_{i1},...X_{p}=x_{ip})\sim exp(\theta_i,\phi,a,b,c)\\
-i=1,2,...,n
+\begin{aligned}
+y_i|(X_{1}=x_{i1},...X_{p}=x_{ip})&amp;\sim exp(\theta_i,\phi,a,b,c)\\
+i=&amp;1,2,...,n
+\end{aligned}
 \]</span> 其中： <span class="math display">\[
-\theta_i =\eta_i= \vec x_i^T\vec \beta, \quad \vec \beta\in R^{p+1}\\
-\mu_i=E(y_i|(X_{1}=x_{i1},...X_{p}=x_{ip}))=b\prime(\theta_i)=g^{-1}(\eta_i)
+\begin{aligned}
+\theta_i =\eta_i= \vec x_i^T\vec \beta,&amp; \quad \vec \beta\in
+R^{p+1}\\
+\mu_i=E(y_i|(X_{1}=x_{i1},...&amp;X_{p}=x_{ip}))=b\prime(\theta_i)=g^{-1}(\eta_i)
+\end{aligned}
 \]</span> 这样就可以写出似然函数为： <span class="math display">\[
 L(\vec
 \beta)=\prod_{i=1}^n[\frac{y_i\theta_i-b(\theta_i)}{a_i(\phi)}+c(y_i,\phi)]
@@ -4195,13 +4215,16 @@ lnL(\vec
 <h3 id="牛顿法">牛顿法</h3>
 <p>我们对<span class="math inline">\(\vec \beta\)</span>求偏导数得：
 <span class="math display">\[
+\begin{aligned}
 \frac{\partial lnL(\vec \beta)}{\partial \vec
 \beta}=\sum_{i=1}^n[\frac{\partial lnL(\vec \beta)}{\partial
 \theta_i}\frac{\partial \theta_i}{\partial \vec \beta}]\\
 =\sum_{i=1}^n[\frac{y_i-b\prime(\theta_i)}{a_i(\phi)}\vec x_i]
+\end{aligned}
 \]</span> 令一阶导数为<span
 class="math inline">\(Z\)</span>，下面继续求二阶导数： <span
 class="math display">\[
+\begin{aligned}
 \frac{\partial ^2lnL(\vec \beta)}{\partial \vec \beta\partial \vec
 \beta^T}=\sum_{i=1}^n\frac{\partial Z}{\partial \theta_i}(\frac{\partial
 \theta_i}{\partial\vec \beta})\\
@@ -4209,12 +4232,14 @@ class="math display">\[
 x_i^T]\\
 =-\sum_{i=1}^n\frac{b\prime\prime(\theta_i)}{a_i(\phi)}\vec x_i\vec
 x_i^T
+\end{aligned}
 \]</span></p>
 <p>我们将以上推导的结果写成矩阵形式。因为<span
 class="math inline">\(Var(y_i)=a_i(\phi)b\prime\prime(\theta_i),g\prime(\mu_i)b\prime\prime(\theta_i)=1\)</span>，可得<span
 class="math inline">\(\frac{1}{a_i(\phi)}=\frac{1}{Var(y_i)g\prime(\mu_i)}\)</span>。我们令<span
 class="math inline">\(A=diag(\frac{1}{a_i(\phi)})\)</span>，即： <span
 class="math display">\[
+\begin{aligned}
 A=diag(\frac{1}{a_i(\phi)})=\begin{bmatrix}
 \frac{1}{Var(y_1)g\prime(\mu_1)}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
@@ -4222,10 +4247,12 @@ A=diag(\frac{1}{a_i(\phi)})=\begin{bmatrix}
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
 0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{Var(y_n)g\prime(\mu_n)}\\
 \end{bmatrix}
+\end{aligned}
 \]</span> 同时令<span
 class="math inline">\(\frac{b\prime\prime(\theta_i)}{a_i(\phi)}=\frac{1}{Var(y_i)[g\prime(\mu_i)]^2}\)</span>以及<span
 class="math inline">\(W=diag(\frac{b\prime\prime(\theta_i)}{a_i(\phi)})\)</span>，即：
 <span class="math display">\[
+\begin{aligned}
 W=diag(\frac{b\prime\prime(\theta_i)}{a_i(\phi)})=\begin{bmatrix}
 \frac{1}{Var(y_1)[g\prime(\mu_1)]^2}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
@@ -4233,6 +4260,7 @@ W=diag(\frac{b\prime\prime(\theta_i)}{a_i(\phi)})=\begin{bmatrix}
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
 0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{Var(y_n)[g\prime(\mu_n)]^2}\\
 \end{bmatrix}
+\end{aligned}
 \]</span></p>
 <p>则对数似然函数的梯度为： <span class="math display">\[
 \frac{\partial ln L(\vec \beta)}{\partial \vec \beta}=X^TA(\vec y-\vec
@@ -4257,9 +4285,11 @@ class="math inline">\(A\)</span>存在关系<span
 class="math inline">\(A=Wg\prime(\vec
 \mu)\)</span>，因此上述公式可以进一步化简为： <span
 class="math display">\[
-\hat{\vec \beta}_{k+1}=(X^TW_kX)^{-1}X^TW_k(X\hat{\vec
+\begin{aligned}
+\hat{\vec \beta}_{k+1}=&amp;(X^TW_kX)^{-1}X^TW_k(X\hat{\vec
 \beta}_k+g\prime(\vec \mu_k)(\vec y-\vec \mu_k))\\
-\hat{\vec \beta}_{k+1}=(X^TW_kX)^{-1}X^TW_k\vec z_k
+\hat{\vec \beta}_{k+1}=&amp;(X^TW_kX)^{-1}X^TW_k\vec z_k
+\end{aligned}
 \]</span> 这里的<span class="math inline">\(\vec z_k=X\hat{\vec
 \beta}_k+g\prime(\vec \mu_k)(\vec y-\vec
 \mu_k)\)</span>，在很多文献中<span class="math inline">\(\vec
@@ -4322,10 +4352,12 @@ D=-2(L(\hat {\vec \beta})-L_s)\phi
 class="math inline">\(L_s\)</span>，因此<code>deviance</code>总是大于等于0，仅当当前模型拟合完美时为0。</p>
 <p>如果使用规范连接函数，<code>deviance</code>还可以被定义为： <span
 class="math display">\[
+\begin{aligned}
 D=-\frac{2}{a(\phi)}\sum_{i=1}^n[y_i\hat \theta_i-b(\hat
 \theta_i)-y_ig(y_i)+b(g(y_i))]\phi\\
 =\frac{2}{a(\phi)}\sum_{i=1}^n[y_i(g(y_i)-\hat
 \theta_i)-b(g(y_i))+b(\hat \theta_i)]\phi
+\end{aligned}
 \]</span> 在大多数情况下，<span
 class="math inline">\(a(\phi)\)</span>正比于<span
 class="math inline">\(\phi\)</span>，因此偏差不依赖于<span
@@ -4333,11 +4365,12 @@ class="math inline">\(\phi\)</span>。</p>
 <p><code>deviance</code>实际上是线性回归模型中残差平方和<code>SSE</code>的推广。为了证明这一点，我们考虑线性回归模型。已知线性回归模型中<span
 class="math inline">\(\phi=\sigma^2,\theta=\mu=\eta,a(\phi)=\phi,b(\theta)=\frac{\mu^2}{2}\)</span>，因此：
 <span class="math display">\[
-D=\frac{2}{\sigma^2}\sum_{i=1}^n[y_i(y_i-\hat\eta_i)-\frac{y_i^2}{2}+\frac{\hat
+\begin{aligned}
+D=&amp;\frac{2}{\sigma^2}\sum_{i=1}^n[y_i(y_i-\hat\eta_i)-\frac{y_i^2}{2}+\frac{\hat
 \eta_i^2}{2}]\sigma^2\\
-=\sum_{i=1}^n[2y_i^2-2y_i\hat \eta_i-y_i^2+\hat \eta_i^2]\\
-=\sum_{i=1}^n(y_i-\hat \eta_i)^2\\
-=SSE
+=&amp;\sum_{i=1}^n[2y_i^2-2y_i\hat \eta_i-y_i^2+\hat \eta_i^2]\\
+=&amp;\sum_{i=1}^n(y_i-\hat \eta_i)^2==SSE
+\end{aligned}
 \]</span></p>
 <h2 id="null-deviance">null deviance</h2>
 <p>除了<code>residual deviance</code>，还有<code>null deviance</code>，它的公式为：
@@ -4547,18 +4580,23 @@ class="math inline">\(x1,…,xp\)</span>与n个观测值之间关系的信息量
 <p>多重共线性也可以出现在广义线性模型中。尽管自变量对因变量是非线性影响，但自变量的转换值是线性的。因此，如果两个或多个预测因子之间高度相关，则模型的拟合将受到影响，因为每个预测因子的单独线性效应将难以与其他相关预测因子分离。</p>
 <p>检测多重共线性的一种有效方法是检验每个自变量的VIF。这种情况与线性回归完全相同。</p>
 <p>正态分布 <span class="math display">\[
+\begin{aligned}
 f(y)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{1}{2\sigma^2}(y-\mu)^2)\\
 =exp(ln(\frac{1}{\sqrt{2\pi}\sigma})-\frac{1}{2\sigma^2}(y^2-2y\mu+\mu^2))\\
 =exp(\frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2}-\frac{y^2}{2\sigma^2}+ln(\frac{1}{\sqrt{2\pi}\sigma}))
+\end{aligned}
 \]</span> 因此： <span class="math display">\[
+\begin{aligned}
 b(\theta)=\frac{1}{2}\mu^2\\
 \theta=\mu\\
 a(\phi)=\sigma^2\\
 g(\mu)=\eta=\theta=\mu=X\vec \beta\\
 Var(y)=\sigma^2\\
 g\prime(\mu)=1
+\end{aligned}
 \]</span> 进一步可得<span class="math inline">\(A\)</span>矩阵和<span
 class="math inline">\(W\)</span>矩阵为： <span class="math display">\[
+\begin{aligned}
 A=diag(\frac{1}{Var(y_i)g\prime(\mu_i)})=diag(\frac{1}{\sigma^2_i})=\begin{bmatrix}
 \frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
@@ -4573,22 +4611,31 @@ W=diag(\frac{1}{Var(y_i)(g\prime(\mu_i))^2})=diag(\frac{1}{\sigma^2_i})=\begin{b
 \cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
 0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}\\
 \end{bmatrix}
+\end{aligned}
 \]</span> 梯度以及解为： <span class="math display">\[
+\begin{aligned}
 X^TA(\vec y-\vec \mu)=X^T\frac{1}{\sigma^2}I(\vec y-X\vec \beta)=0\\
 \hat {\vec \beta}=(X^TX)^TX^T\vec y
+\end{aligned}
 \]</span> Hessian以及<span class="math inline">\(\hat {\vec
 \beta}\)</span>的渐进方差为： <span class="math display">\[
+\begin{aligned}
 -\frac{1}{\sigma^2}X^TX\\
 [\frac{1}{\sigma^2}X^TX]^{-1}
+\end{aligned}
 \]</span> 伯努利分布 <span class="math display">\[
+\begin{aligned}
 f(y)=p^y(1-p)^{1-y}\\
 =exp(ln(p^y(1-p)^{1-y}))\\
 =exp(ylnp+(1-y)ln(1-p))\\
 =exp(ylnp-yln(1-p)+ln(1-p))\\
 =exp(yln\frac{p}{1-p}+ln(1-p))
+\end{aligned}
 \]</span> 因此： <span class="math display">\[
+\begin{aligned}
 \theta= ln\frac{p}{1-p}\\
 b\prime(\theta)
+\end{aligned}
 \]</span></p>
 <p><span class="math display">\[
 \frac{e^{-\lambda}\lambda^y}{y!}=\frac{e^{-y}y^y}{y!}
