@@ -149,7 +149,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -177,296 +177,6 @@
     </div>
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="长水滔滔">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="长水滔滔的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 长水滔滔的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-04-05 17:54:53 / 修改时间：23:43:16" itemprop="dateCreated datePublished" datetime="2023-04-05T17:54:53+08:00">2023-04-05</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>980</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="广义线性模型框架">广义线性模型框架</h1>
-<p>模型 <span class="math display">\[
-y|X\sim exp(\theta,\phi,a,b,c)
-\]</span> <span
-class="math inline">\(exp(\theta,\phi,a,b,c)\)</span>表示指数分布族</p>
-<p>回归方程： <span class="math display">\[
-\mu=E(y|X)\\
-g(\mu)=\eta\\
-\eta=X\vec\beta
-\]</span></p>
-<h1 id="高斯模型">高斯模型</h1>
-<p>这里的高斯模型主要指的就是线性回归模型，它其实要求<span
-class="math inline">\(y\)</span>的分布来源于正态分布。已知正态分布的密度为：
-<span class="math display">\[
-f(y)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y-\mu)^2}{2\sigma^2})\\
-=exp(-ln({\sqrt{2\pi}\sigma})-\frac{y^2-2y\mu+\mu^2}{2\sigma^2})\\
-=exp(\frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2}-ln({\sqrt{2\pi}\sigma})-\frac{y^2}{2\sigma^2})
-\]</span> 因此可知： <span class="math display">\[
-\theta=\mu\\
-b(\theta)=\frac{1}{2}\mu^2=\frac{1}{2}\theta^2\\
-a(\phi)=\sigma^2
-\]</span> 分布的均值为<span
-class="math inline">\(b\prime(\theta)\)</span>的一阶导数： <span
-class="math display">\[
-\mu=b\prime(\theta)
-\]</span> <span
-class="math inline">\(b\prime\prime(\theta)\)</span>为方差函数<span
-class="math inline">\(v(\mu)\)</span>，该例中为常数1，这意味着正态分布中均值和方差相互独立。分布的方差为<span
-class="math inline">\(b\prime\prime(\theta)a(\phi)\)</span>： <span
-class="math display">\[
-a(\phi)b\prime\prime(\theta)=\sigma^2
-\]</span></p>
-<h2 id="模型设定">模型设定</h2>
-<p>若<span
-class="math inline">\(y|X\)</span>为正态分布，当使用规范连接函数时，要求<span
-class="math inline">\(\theta=\eta\)</span>，因此模型的形式为： <span
-class="math display">\[
-g(\mu)=\eta=\theta=\mu
-\]</span> 即要求<span
-class="math inline">\(g(\mu)=\mu\)</span>，这意味着<span
-class="math inline">\(g\)</span>函数可以选择恒等连接函数，因此回归方程实际上为：
-<span class="math display">\[
-\mu=\eta=X\vec \beta
-\]</span> 这就是线性回归。</p>
-<h2 id="参数估计">参数估计</h2>
-<p>可以使用<code>IRLS</code>法进行参数估计，其迭代公式为： <span
-class="math display">\[
-\vec \beta_{k+1}=(X^TW_{k}X)^{-1}(X^TW_k\vec z_k)
-\]</span> <span class="math inline">\(\vec z_k\)</span>为工作向量，<span
-class="math inline">\(\vec z_k=X\hat{\vec \beta}_k+g\prime(\vec
-\mu_k)(\vec y-\vec \mu_k)\)</span>，因为选择了恒等连接，所以<span
-class="math inline">\(g(\mu)=\mu\)</span>，进而<span
-class="math inline">\(g\prime(\mu_k)=1\)</span>，所以<span
-class="math inline">\(\vec z_k=X\vec \beta_k+\vec y-\vec \mu_k=\vec
-y\)</span>。<span
-class="math inline">\(W_k\)</span>为权重矩阵，是一个对角矩阵，对角线上元素为<span
-class="math inline">\(\frac{1}{Var(y|X)[g\prime(\mu_k)]^2}\)</span>，如果假定了方差齐，即<span
-class="math inline">\(Var(y|X)=\sigma^2\)</span>，因此<span
-class="math inline">\(W_k\)</span>为： <span class="math display">\[
-W_k=\begin{bmatrix}
-\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}\\
-\end{bmatrix}
-\]</span> 化简后得到迭代公式为: <span class="math display">\[
-\vec \beta_{k+1}=(X^TX)^{-1}X^T\vec y
-\]</span> 这和最小二乘法结果是一致的。如果方差不齐，则<span
-class="math inline">\(W_k\)</span>为： <span class="math display">\[
-W_k=\begin{bmatrix}
-\frac{1}{\sigma^2_1}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_i}&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_n}\\
-\end{bmatrix}=W
-\]</span> 此时迭代公式为： <span class="math display">\[
-\vec \beta_{k+1}=(X^TWX)^{-1}(X^TW\vec y)
-\]</span> 这是异方差最小二乘法。</p>
-<h2 id="拟合优度">拟合优度</h2>
-<h3 id="偏差deviance统计量">偏差deviance统计量</h3>
-<p>首先写出似然函数<span class="math inline">\(L\)</span>： <span
-class="math display">\[
-L=\prod_{i=1}^n\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y_i-\mu_i)^2}{2\sigma^2})
-\]</span> -2倍对数似然函数<span class="math inline">\(-2LL\)</span>为：
-<span class="math display">\[
--2LL=nln(2\pi\sigma^2)+\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2
-\]</span> 饱和模型的-2倍对数似然函数<span
-class="math inline">\(-2LL_s\)</span>就是令<span
-class="math inline">\(\mu_i=y_i\)</span>，即为： <span
-class="math display">\[
--2LL_s=nln(2\pi\sigma^2)
-\]</span> 因此deviance统计量<span class="math inline">\(D\)</span>为：
-<span class="math display">\[
-D=(-2LL-(-2LL_s))a(\phi)\\=\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2\sigma^2\\=\sum_{i=1}^n(y_i-\mu_i)^2==SSE
-\]</span> 因此对于线性回归，deviance统计量实际上就是残差平方和<span
-class="math inline">\(SSE\)</span>。</p>
-<p>更进一步，scaled deviance统计量<span
-class="math inline">\(D^*\)</span>等于： <span class="math display">\[
-D^*=\frac{D}{a(\phi)}=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{\sigma^2}\sim
-\chi^2(n-p-1)
-\]</span> 与此同时，null deviance统计量<span
-class="math inline">\(D_0\)</span>等于： <span class="math display">\[
-D_0=\sum_{i=1}^n(y_i-\bar y)^2==SST
-\]</span> 这正好是线性回归中的总平方和<span
-class="math inline">\(SST\)</span>，而决定系数<span
-class="math inline">\(R^2\)</span>为： <span class="math display">\[
-R^2=1-\frac{D_0}{D}=1-\frac{SSE}{SST}
-\]</span></p>
-<h3 id="pearson卡方统计量">Pearson卡方统计量</h3>
-<p>对观测值<span class="math inline">\(y_i\)</span>和期望值<span
-class="math inline">\(\mu_i\)</span>做Pearson卡方检验，有： <span
-class="math display">\[
-\chi^2=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{Var(\mu_i)}
-\]</span></p>
-<h1 id="二项式模型">二项式模型</h1>
-<h1 id="多项式模型">多项式模型</h1>
-<h1 id="计数模型">计数模型</h1>
-<h1 id="负二项式模型">负二项式模型</h1>
-<h1 id="排序模型">排序模型</h1>
-<h1 id="gamma模型">gamma模型</h1>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/09/ggplot2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="长水滔滔">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="长水滔滔的博客">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 长水滔滔的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/09/ggplot2/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-03-09 20:05:13" itemprop="dateCreated datePublished" datetime="2023-03-09T20:05:13+08:00">2023-03-09</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>0</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -512,7 +222,7 @@ class="math display">\[
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-02-13 12:07:54" itemprop="dateModified" datetime="2024-02-13T12:07:54+08:00">2024-02-13</time>
+      <time title="修改时间：2024-11-24 10:29:46" itemprop="dateModified" datetime="2024-11-24T10:29:46+08:00">2024-11-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -553,6 +263,113 @@ class="math display">\[
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/03/08/13.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="长水滔滔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="长水滔滔的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 长水滔滔的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">常用广义线性模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-08 00:00:00" itemprop="dateCreated datePublished" datetime="2023-03-08T00:00:00+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-24 10:27:58" itemprop="dateModified" datetime="2024-11-24T10:27:58+08:00">2024-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">数理统计</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>981</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>​</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1148,7 +965,7 @@ class="math display">\[
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-24 10:16:47" itemprop="dateModified" datetime="2024-11-24T10:16:47+08:00">2024-11-24</time>
+      <time title="修改时间：2024-11-24 10:26:37" itemprop="dateModified" datetime="2024-11-24T10:26:37+08:00">2024-11-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1185,269 +1002,15 @@ class="math display">\[
     
     
     <div class="post-body" itemprop="articleBody">
-          <span id="more"></span>
-<h1 id="随机变量的数字特征">随机变量的数字特征</h1>
-<h2 id="矩">矩</h2>
-<p>随机变量<span class="math inline">\(X\)</span>，任一可能取值为<span
-class="math inline">\(x\)</span>，密度为<span
-class="math inline">\(f(x)\)</span>，则随机变量的函数<span
-class="math inline">\(g(x)\)</span>，<span
-class="math inline">\(g(x)\)</span>的期望为矩： <span
-class="math display">\[
-E[g(X)]=\int g(x)f(x)dx
-\]</span></p>
-<p>当<span
-class="math inline">\(g(x)=x\)</span>时，为一阶原点矩，就是期望，当<span
-class="math inline">\(g(x)=x^2\)</span>时，就是二阶原点矩，当<span
-class="math inline">\(g(x)=x^3\)</span>时，就是三阶原点矩。</p>
-<p>当<span class="math inline">\(g(x)=(x-\bar
-x)^2\)</span>时，就是二阶中心矩，就是方差，当<span
-class="math inline">\(g(x)=(\frac{x-\bar
-x}{\sigma})^3\)</span>时，就是三阶标准化矩，就是偏度，当<span
-class="math inline">\(g(x)=(\frac{x-\bar
-x}{\sigma})^4\)</span>时，就是四阶标准化矩，就是峰度。</p>
-<h2 id="期望">期望</h2>
-<h3 id="离散型定义">离散型定义</h3>
-<p>随机变量<span class="math inline">\(X\)</span>有取值<span
-class="math inline">\(x_1,x_2,...,x_k,...x_K\)</span>，每种取值概率分别为：<span
-class="math inline">\(p_1,p_2,...,p_k,...,p_K\)</span>，则期望为： <span
-class="math display">\[
-E(X)=\sum_{k=1}^Kp_kx_k
-\]</span></p>
-<h3 id="连续型定义">连续型定义</h3>
-<p>期望为： <span class="math display">\[
-E(X)=\int xf(x)dx
-\]</span></p>
-<h3 id="性质">性质</h3>
-<p>令<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
-class="math display">\[
-E(CX)=CE(X)\\
-E(X+Y)=E(X)+E(Y)
-\]</span> 当<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立时，有： <span
-class="math display">\[
-E(XY)=E(X)E(Y)
-\]</span></p>
-<h3 id="其他">其他</h3>
-<p>期望为一阶原点矩<span
-class="math inline">\(E(X)\)</span>，二阶原点矩为<span
-class="math inline">\(E(X^2)\)</span>，三阶原点矩为<span
-class="math inline">\(E(X^3)\)</span>，等等</p>
-<h2 id="方差">方差</h2>
-<h3 id="定义">定义</h3>
-<p>随机变量的方差为： <span class="math display">\[
-Var(X)=E[(X-E(X)]^2\\
-=E[X^2]-[EX]^2
-\]</span></p>
-<h3 id="性质-1">性质</h3>
-<p>令<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
-class="math display">\[
-Var(C+X)=Var(X)\\
-Var(CX)=C^2Var(X)
-\]</span> 如何理解<span
-class="math inline">\(Var(CX)=C^2Var(X)\)</span>，<span
-class="math inline">\(X\)</span>乘以<span
-class="math inline">\(C\)</span>后，期望会变为<span
-class="math inline">\(CX\)</span>，这样离差也将变为原来的<span
-class="math inline">\(C\)</span>倍，离差再经过平方后，自然变为原来的<span
-class="math inline">\(C^2\)</span>倍。</p>
-<p>一般而言： <span class="math display">\[
-Var(X±Y)=Var(X)+Var(Y)±2Cov(X,Y)
-\]</span> 当<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立时： <span
-class="math display">\[
-Var(X±Y)=Var(X)+Var(Y)
-\]</span></p>
-<p>如何理解<span
-class="math inline">\(Var(X±Y)=Var(X)+Var(Y)±2Cov(X,Y)\)</span>？考虑有衣服上有左右两个口袋，每个口袋里有一堆数字卡片，左口袋内的卡片代表随机变量<span
-class="math inline">\(X\)</span>的可能取值，右口袋内的卡片代表随机变量<span
-class="math inline">\(Y\)</span>的可能取值，现在随机从两个口袋中各拿出一个卡片。如果<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>不相关，则无论从左口袋拿出的<span
-class="math inline">\(X\)</span>是大还是小，都不会影响到从右口袋中拿出的<span
-class="math inline">\(Y\)</span>的取值，此时二者和的方差为方差的和。而当<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>正相关时，当从左口袋拿出的<span
-class="math inline">\(X\)</span>是一个比较大的值（例如比期望值大），那么从右口袋拿出<span
-class="math inline">\(Y\)</span>的值往往也比较大，此时二者相加能得到比二者无关时相加更大的值，从而导致和的分散程度增大，也就是方差增大，而二者相减能得到比二者无关时相减更小的值，从而导致差的分散程度减小，也就是方差减小。反之二者负相关时也是类似的。</p>
-<h3 id="其他-1">其他</h3>
-<p>方差为二阶中心距<span
-class="math inline">\(E([X-E(X)])^2\)</span>，三阶中心矩为<span
-class="math inline">\(E([X-E(X)]^3)\)</span>，四阶中心距为<span
-class="math inline">\(E([X-E(X)]^4)\)</span>，等等。</p>
-<h2 id="协方差">协方差</h2>
-<h3 id="定义-1">定义</h3>
-<p>随机变量<span class="math inline">\(X\)</span>与随机变量<span
-class="math inline">\(Y\)</span>的协方差为： <span
-class="math display">\[
-Cov(X,Y)=E[(X-E(X))(Y-E(Y))]\\
-=E(XY)-E(X)E(Y)
-\]</span></p>
-<h3 id="性质-2">性质</h3>
-<p><span class="math display">\[
-Cov(aX,bY)=abCov(X,Y)
-\]</span></p>
-<p><span class="math inline">\(a,b\)</span>为常数 <span
-class="math display">\[
-Cov(X,Y+Z)=Cov(X,Y)+Cov(X,Z)
-\]</span></p>
-<h2 id="相关系数">相关系数</h2>
-<p>随机变量<span class="math inline">\(X\)</span>和随机变量<span
-class="math inline">\(Y\)</span>的相关系数为 <span
-class="math display">\[
-\rho=Corr(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
-\]</span></p>
-<h2 id="偏度和峰度">偏度和峰度</h2>
-<p>偏度为三阶标准化矩 <span class="math display">\[
-skewness=E([\frac{X-E(X)}{\sqrt {Var(X)}}]^3)
-\]</span> 正态分布的偏度为0。</p>
-<p>峰度为四阶标准化矩 <span class="math display">\[
-kurtosis=E([\frac{X-E(X)}{\sqrt{Var(X)}}]^4)
-\]</span> 正态分布的峰度为3。上面的量-3，为超额峰度。</p>
-<h1 id="随机向量的数字特征">随机向量的数字特征</h1>
-<p>随机向量<span class="math inline">\(\vec
-X\)</span>是指每一个分量均为随机变量的向量。它的数字特征有期望和协方差矩阵。</p>
-<p>协方差矩阵为： <span class="math display">\[
-Var(\vec X)=Cov(\vec X)=E[(\vec X-E(\vec X))(\vec X-E(\vec X))^T]\\
-=E(\vec X\vec X^T)-E(\vec X)[E(\vec X)]^T
-\]</span> 性质： <span class="math display">\[
-E(A\vec X)=AE(\vec X)\\
-Var(A\vec X)=AVar(\vec X)A^T
-\]</span> 这里的<span
-class="math inline">\(A\)</span>为常数矩阵。另外随机向量的协方差矩阵一定为半正定矩阵，因为：
-<span class="math display">\[
-Var(\vec v^T\vec X)=\vec v^T\vec X\vec v\ge 0
-\]</span></p>
-<h1 id="正态分布的性质">正态分布的性质</h1>
-<p>若<span class="math inline">\(X\sim
-N(\mu,\sigma^2)\)</span>，则其线性组合也为正态分布，根据期望和方差性质可得<span
-class="math inline">\(aX+b\sim N(a\mu+b,a^2\sigma^2)\)</span>；</p>
-<p>若<span class="math inline">\(X\sim N(\mu_1,\sigma_1^2),Y\sim
-N(\mu_2,\sigma_2^2)\)</span>，且<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立，则<span
-class="math inline">\(X+Y\)</span>以及<span
-class="math inline">\(X-Y\)</span>都服从正态分布。</p>
-<h1 id="常用抽样分布">常用抽样分布</h1>
-<h2 id="chi2分布"><span class="math inline">\(\chi^2\)</span>分布</h2>
-<p>若总体服从标准正态分布<span
-class="math inline">\(N(0,1)\)</span>，从中随机抽取一个样本容量为<span
-class="math inline">\(n\)</span>的样本<span
-class="math inline">\(X_1,X_2,...,X_n\)</span>，则随机变量<span
-class="math inline">\(Y\)</span>： <span class="math display">\[
-Y=X_1^2+X_2^2+...+X_n^2
-\]</span> 服从自由度为<span
-class="math inline">\(n\)</span>的卡方分布，记为： <span
-class="math display">\[
-Y\sim \chi^2(n)
-\]</span> 这里面要求<span
-class="math inline">\(X_1,X_2,...,X_n\)</span>是相互独立的。</p>
-<p><span class="math inline">\(\chi^2\)</span>分布有两个重要的性质：</p>
-<ol type="1">
-<li>可加性：两个相互独立的卡方分布相加后的统计量同样服从卡方分布，该分布的自由度为原来两个分布的自由度之和。</li>
-<li>期望为n，方差为2n。</li>
-</ol>
-<h2 id="t分布">T分布</h2>
-<p>若随机变量<span
-class="math inline">\(X\)</span>服从标准正态分布，即<span
-class="math inline">\(X\sim N(0,1)\)</span>，随机变量<span
-class="math inline">\(Y\)</span>服从自由度为<span
-class="math inline">\(n\)</span>的卡方分布，即<span
-class="math inline">\(Y\sim \chi^2(n)\)</span>，且<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立，则随机变量 <span
-class="math display">\[
-T=\frac{X}{\sqrt{\frac{Y}{n}}}\sim t(n)
-\]</span> 服从自由度为<span
-class="math inline">\(n\)</span>的t分布。</p>
-<h2 id="f分布">F分布</h2>
-<p>若随机变量<span class="math inline">\(X\)</span>服从自由度为<span
-class="math inline">\(n\)</span>的卡方分布，即<span
-class="math inline">\(X\sim \chi^2(n)\)</span>，随机变量<span
-class="math inline">\(Y\)</span>服从自由度为<span
-class="math inline">\(m\)</span>的卡方分布<span
-class="math inline">\(Y\sim\chi^2(m)\)</span>，且<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立，则随机变量 <span
-class="math display">\[
-F=\frac{X/n}{Y/m}
-\]</span> 服从自由度为<span class="math inline">\((n,m)\)</span>的<span
-class="math inline">\(F\)</span>分布，记为： <span
-class="math display">\[
-F\sim F(n,m)
-\]</span></p>
-<h2 id="样本均值的分布">样本均值的分布</h2>
-<h3 id="正态总体">正态总体</h3>
-<p>若总体服从正态分布<span
-class="math inline">\(N(\mu,\sigma^2)\)</span>，则样本均值<span
-class="math inline">\(\bar
-X=\frac{1}{n}\sum_{i=1}^nX_i\)</span>服从<span
-class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>的正态分布。
-<span class="math display">\[
-\frac{\bar X-\mu}{\sigma/\sqrt{n}}\sim N(0,1)
-\]</span> <span class="math inline">\(\bar
-X\)</span>中每一个随机变量都是正态分布，其和也是正态分布。只需要计算一下<span
-class="math inline">\(\bar X\)</span>的期望和方差即可： <span
-class="math display">\[
-E(\bar
-X)=E(\frac{1}{n}\sum_{i=1}^nX_i)\\=\frac{1}{n}\sum_{i=1}^nE(X_i)\\=\frac{n\mu}{n}\\=\mu\\
-Var(\bar
-X)=Var(\frac{1}{n}\sum_{i=1}^nX_i)\\=\frac{1}{n^2}Var(\sum_{i=1}^nX_i)\\=\frac{n\sigma^2}{n^2}\\=\frac{\sigma^2}{n}
-\]</span></p>
-<p>这个是精确分布，而非渐进分布。</p>
-<h3 id="非正态总体">非正态总体</h3>
-<p>根据中心极限定理，不管总体是什么分布，大样本下，样本均值的渐进分布都是正态分布。
-<span class="math display">\[
-\bar X\mathop{\rightarrow}^dN(\mu,\frac{\sigma^2}{n})
-\]</span> <span class="math inline">\(\mu\)</span>和<span
-class="math inline">\(\sigma^2\)</span>是总体分布的期望和方差。</p>
-<h2 id="样本方差的分布">样本方差的分布</h2>
-<h3 id="正态总体-1">正态总体</h3>
-<p>基于卡方分布，可以导出样本方差的分布。若总体服从正态分布<span
-class="math inline">\(N(\mu,\sigma^2)\)</span>，则下面统计量服从卡方分布
-<span class="math display">\[
-Y=\sum_{i=1}^n[\frac{X_i-\mu}{\sigma}]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\mu]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\bar X+\bar X-\mu]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[(X_i-\bar X)^2+2(X_i-\bar X)(\bar
-X-\mu)+(\bar X-\mu)^2]\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{2(\bar
-X-\mu)}{\sigma^2}\sum_{i=1}^n(X_i-\bar
-X)+\frac{1}{\sigma^2}\sum_{i=1}^n(\bar X-\mu)^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{n}{\sigma^2}(\bar
-X-\mu)^2\\
-=\frac{(n-1)S^2}{\sigma^2}+\frac{n}{\sigma^2}(\bar X-\mu)^2\\
-\sim \chi^2(n)
-\]</span> 很显然，第二项是一个<span
-class="math inline">\(\chi^2(1)\)</span>分布，可以证明第二项和第一项相互独立，根据卡方分布的可加性性质，因此：
-<span class="math display">\[
-\frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)
-\]</span> 此结论只适用于总体是正态分布。</p>
-<h2 id="样本频率的分布">样本频率的分布</h2>
-<p>设随机变量<span class="math inline">\(X\)</span>服从伯努利分布<span
-class="math inline">\(B(1,p)\)</span>，可以计算其期望和方差为： <span
-class="math display">\[
-E(X)=1×p+0×(1-p)=p\\
-Var(X)=E(X^2)-(E(X))^2\\
-=1^2×p+0^2×(1-p)-p^2\\
-=p-p^2\\
-=p(1-p)
-\]</span> 若总体服从<span
-class="math inline">\(B(1,p)\)</span>，则根据中心极限定理，在大样本下：
-<span class="math display">\[
-\hat p\mathop{\rightarrow}^d  N(p,\frac{p(1-p)}{n})
-\]</span> <span class="math inline">\(\hat p\)</span>为样本频率。</p>
-<p>若随机变量<span class="math inline">\(X\)</span>服从二项分布<span
-class="math inline">\(B(n,p)\)</span>，若样本量较大，满足<span
-class="math inline">\(np\gt 5,np(1-p)\gt 5\)</span>，<span
-class="math inline">\(X\)</span>还将近似服从正态分布： <span
-class="math display">\[
-X\mathop{\rightarrow}^d N(np,np(1-p))
-\]</span> 注意这里的的<span
-class="math inline">\(X\)</span>是出现阳性结果的次数，不是样本均值（样本频率是样本均值），因此不能用中心极限定理。</p>
-
+          <p>​</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/01/07/8.%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1550,6 +1113,107 @@ class="math inline">\(X\)</span>是出现阳性结果的次数，不是样本均
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="长水滔滔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="长水滔滔的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 长水滔滔的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">生存分析</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-29 00:00:00 / 修改时间：21:47:22" itemprop="dateCreated datePublished" datetime="2022-12-29T00:00:00+08:00">2022-12-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">数理统计</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>​</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/12/29/6.%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

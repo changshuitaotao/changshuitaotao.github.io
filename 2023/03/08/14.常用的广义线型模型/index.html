@@ -19,28 +19,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="广义线性模型框架 模型 \[ y|X\sim exp(\theta,\phi,a,b,c) \] \(exp(\theta,\phi,a,b,c)\)表示指数分布族 回归方程： \[ \mu&#x3D;E(y|X)\\ g(\mu)&#x3D;\eta\\ \eta&#x3D;X\vec\beta \] 高斯模型 这里的高斯模型主要指的就是线性回归模型，它其实要求\(y\)的分布来源于正态分布。已知正态分布">
+    <meta name="description" content="​">
 <meta property="og:type" content="article">
-<meta property="og:title" content="长水滔滔的博客">
-<meta property="og:url" content="http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="常用广义线性模型">
+<meta property="og:url" content="http://example.com/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="长水滔滔的博客">
-<meta property="og:description" content="广义线性模型框架 模型 \[ y|X\sim exp(\theta,\phi,a,b,c) \] \(exp(\theta,\phi,a,b,c)\)表示指数分布族 回归方程： \[ \mu&#x3D;E(y|X)\\ g(\mu)&#x3D;\eta\\ \eta&#x3D;X\vec\beta \] 高斯模型 这里的高斯模型主要指的就是线性回归模型，它其实要求\(y\)的分布来源于正态分布。已知正态分布">
+<meta property="og:description" content="​">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-05T09:54:53.199Z">
-<meta property="article:modified_time" content="2023-04-05T15:43:16.120Z">
+<meta property="article:published_time" content="2023-03-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-24T02:27:58.952Z">
 <meta property="article:author" content="长水滔滔">
-<meta property="article:tag" content="python,机器学习,深度学习">
+<meta property="article:tag" content="回归">
+<meta property="article:tag" content="分类">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
+<link rel="canonical" href="http://example.com/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/","path":"2023/04/05/14.常用的广义线型模型/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/","path":"2023/03/08/14.常用的广义线型模型/","title":"常用广义线性模型"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | 长水滔滔的博客</title>
+<title>常用广义线性模型 | 长水滔滔的博客</title>
   
 
 
@@ -154,7 +155,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -237,7 +238,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -250,12 +251,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 长水滔滔的博客">
+      <meta itemprop="name" content="常用广义线性模型 | 长水滔滔的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          常用广义线性模型
         </h1>
 
         <div class="post-meta-container">
@@ -265,9 +266,24 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-04-05 17:54:53 / 修改时间：23:43:16" itemprop="dateCreated datePublished" datetime="2023-04-05T17:54:53+08:00">2023-04-05</time>
+      <time title="创建时间：2023-03-08 00:00:00" itemprop="dateCreated datePublished" datetime="2023-03-08T00:00:00+08:00">2023-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-24 10:27:58" itemprop="dateModified" datetime="2024-11-24T10:27:58+08:00">2024-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">数理统计</span></a>
+        </span>
     </span>
 
   
@@ -277,7 +293,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>980</span>
+      <span>981</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -295,7 +311,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="广义线性模型框架">广义线性模型框架</h1>
+        <p>​</p>
+<span id="more"></span>
+<h1 id="广义线性模型框架">广义线性模型框架</h1>
 <p>模型 <span class="math display">\[
 y|X\sim exp(\theta,\phi,a,b,c)
 \]</span> <span
@@ -458,16 +476,23 @@ class="math display">\[
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%9E%E5%BD%92/" rel="tag"><i class="fa fa-tag"></i> 回归</a>
+              <a href="/tags/%E5%88%86%E7%B1%BB/" rel="tag"><i class="fa fa-tag"></i> 分类</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/03/09/ggplot2/" rel="prev" title="">
-                  <i class="fa fa-chevron-left"></i> 
+                <a href="/2023/01/28/11.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" rel="prev" title="线性回归模型">
+                  <i class="fa fa-chevron-left"></i> 线性回归模型
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/03/08/13.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="next" title="广义线性模型总论">
+                  广义线性模型总论 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
