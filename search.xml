@@ -1,189 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>可视化库seaborn快速入门</title>
-    <url>/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<p>Seaborn可以分为<code>Figure-level</code>的接口（操作对象是<code>matplotlib</code>中figure）和<code>axes-level</code>的接口（对应操作对象是matplotlib中的axes）。</p>
-<h1 id="连续变量统计图">连续变量统计图</h1>
-<h2 id="单变量图">单变量图</h2>
-<p>所用的数据集为威斯康星州乳腺癌数据集。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib</span><br><span class="line">cancer = load_breast_cancer()</span><br><span class="line">df = cancer[<span class="string">&#x27;data&#x27;</span>]</span><br><span class="line">df = pd.DataFrame(df,columns=cancer[<span class="string">&#x27;feature_names&#x27;</span>])</span><br><span class="line">df[<span class="string">&#x27;y&#x27;</span>] = cancer[<span class="string">&#x27;target&#x27;</span>]</span><br></pre></td></tr></table></figure>
-<h3 id="直方图">直方图</h3>
-<p><code>sns.histplot</code>接口绘制直方图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.histplot(df <span class="comment"># 数据集</span></span><br><span class="line">             ,x=<span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             ,kde=<span class="literal">True</span> <span class="comment"># 绘制核密度估计</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="sns_直方图.png" alt="sns_直方图" />
-<figcaption aria-hidden="true">sns_直方图</figcaption>
-</figure>
-<h3 id="核密度图">核密度图</h3>
-<p><code>sns.kdeplot</code>接口绘制核密度图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.kdeplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_核密度图.png"
-alt="sns_核密度图" />
-<figcaption aria-hidden="true">sns_核密度图</figcaption>
-</figure>
-<h3 id="累积分布图">累积分布图</h3>
-<p><code>sns.ecdfplot</code>接口绘制累积分布图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.ecdfplot(data = df  <span class="comment"># 数据集</span></span><br><span class="line">             ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat= <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns累积分布图.png"
-alt="sns累积分布图" />
-<figcaption aria-hidden="true">sns累积分布图</figcaption>
-</figure>
-<h3 id="其他绘图函数">其他绘图函数</h3>
-<p><code>sns.displot</code>接口可以绘制<code>直方图，核密度图，经验分布图</code>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1. 直方图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 2.核密度图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,row = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 3.累计分布图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,col = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;ecdf&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
-<p><strong><code>row,col,hue</code>三个参数都指定一个分类变量，表示对这个分类变量的不同水平分别绘图。<code>hue</code>绘出的图会显示在同一个<code>axes</code>中，<code>row</code>和<code>col</code>参数绘制的不会在同一个<code>axes</code>中，<code>row</code>会使<code>axes</code>按行排列，<code>col</code>参数会使<code>axes</code>按列排列。</strong></p>
-<h2 id="双变量">双变量</h2>
-<h3 id="散点图">散点图</h3>
-<p><code>sns.scatterplot</code>接口绘制散点图</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 散点图</span></span><br><span class="line">sns.scatterplot(data = df <span class="comment"># 散点图</span></span><br><span class="line">                ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">                ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">                ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">                )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
-alt="sns_散点图" />
-<figcaption aria-hidden="true">sns_散点图</figcaption>
-</figure>
-<h3 id="lineplot">lineplot</h3>
-<p>sns.lineplot将每一个x对应的y取均值和置信区间绘图：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lineplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_lineplot.png"
-alt="sns_lineplot" />
-<figcaption aria-hidden="true">sns_lineplot</figcaption>
-</figure>
-<h3 id="relplot">relplot</h3>
-<p><code>sns.relplot</code>既能画散点图也可以画<code>lineplot</code>，不过它是一个<code>Figure-level</code>的接口，而上面两个是<code>axes-level</code>的接口</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 画散点图</span></span><br><span class="line">sns.relplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;scatter&#x27;</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_relplot.png"
-alt="sns_relplot" />
-<figcaption aria-hidden="true">sns_relplot</figcaption>
-</figure>
-<h3 id="回归分析图">回归分析图</h3>
-<p><code>sns.regplot</code>绘制散点图、回归直线和置信区间</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.regplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归图.png"
-alt="sns_回归图" />
-<figcaption aria-hidden="true">sns_回归图</figcaption>
-</figure>
-<p><code>sns.lmplot</code>可以对分类变量的不同水平分别做回归</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 分层回归</span></span><br><span class="line">sns.lmplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_分层回归.png"
-alt="sns_分层回归" />
-<figcaption aria-hidden="true">sns_分层回归</figcaption>
-</figure>
-<p><code>sns.lmplot</code>中还可添加row和col参数（二者均为FacetGrid中的常规参数，用于添加多子图的行和列）实现更多的分类回归关系。</p>
-<p><code>sns.residplot</code>提供了拟合后的残差分布图.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.residplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_残差图.png"
-alt="sns_残差图" />
-<figcaption aria-hidden="true">sns_残差图</figcaption>
-</figure>
-<h3 id="热力图">热力图</h3>
-<p><code>sns.heatmap</code>接口绘制热力图。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">corr = df[[<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>]].corr()</span><br><span class="line">sns.heatmap(corr)</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_热力图.png"
-alt="sns_热力图" />
-<figcaption aria-hidden="true">sns_热力图</figcaption>
-</figure>
-<h3 id="联合分布图">联合分布图</h3>
-<p><code>sns.jointplot</code>接口可以绘制<code>联合分布图</code>。<code>联合分布图</code>可以是散点图、带回归直线的散点图、密度图、直方图、残差图和六边形分箱图等。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.双连续变量图</span></span><br><span class="line"><span class="comment"># =============================================================================</span></span><br><span class="line"><span class="comment"># 2.1.1 散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
-alt="sns_散点图" />
-<figcaption aria-hidden="true">sns_散点图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.2 带回归直线的散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 带回归直线的散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图带回归直线.png"
-alt="sns_散点图带回归直线" />
-<figcaption aria-hidden="true">sns_散点图带回归直线</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.3 回归残差图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;resid&#x27;</span>  <span class="comment"># 回归残差图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归残差图.png"
-alt="sns_回归残差图" />
-<figcaption aria-hidden="true">sns_回归残差图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.4 密度图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 核密度图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维核密度图.png"
-alt="sns_二维核密度图" />
-<figcaption aria-hidden="true">sns_二维核密度图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.5 直方图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 二维直方图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维直方图.png"
-alt="sns_二维直方图" />
-<figcaption aria-hidden="true">sns_二维直方图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.6 六边形分箱图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hex&#x27;</span>  <span class="comment"># 六边形分箱图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_六边形分箱图.png"
-alt="sns_六边形分箱图" />
-<figcaption aria-hidden="true">sns_六边形分箱图</figcaption>
-</figure>
-<h3 id="两两联合分布矩阵图">两两联合分布矩阵图</h3>
-<p><code>sns.pairplot</code>接口可以绘制<code>两两联合分布图</code>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.1 散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 绘制散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两散点图.png"
-alt="sns_多维两两散点图" />
-<figcaption aria-hidden="true">sns_多维两两散点图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.2 带回归线的散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 绘制带回归线的散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两带回归直线散点图.png"
-alt="sns_多维两两带回归直线散点图" />
-<figcaption aria-hidden="true">sns_多维两两带回归直线散点图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 密度图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 绘制密度图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两密度图.png"
-alt="sns_多维两两密度图" />
-<figcaption aria-hidden="true">sns_多维两两密度图</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 直方图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 绘制直方图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两二维直方图.png"
-alt="sns_多维两两二维直方图" />
-<figcaption aria-hidden="true">sns_多维两两二维直方图</figcaption>
-</figure>
-<p>实际上<code>sns.pairplot</code>依赖<code>sns.PairGrid</code>类来实现，我们也可以先调用<code>sns.PairGrid</code>类，然后可以自定义矩阵的对角线、上三角和下三角的图形种类。类似地<code>sns.jointplot</code>依赖<code>sns.JointGrid</code>类。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.4 自定义</span></span><br><span class="line">pp = sns.PairGrid(data = df <span class="comment"># 数据集</span></span><br><span class="line">                  ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">                  )</span><br><span class="line">pp.map_diag(plt.hist)</span><br><span class="line">pp.map_lower(plt.scatter)</span><br><span class="line">pp.map_upper(sns.kdeplot)</span><br></pre></td></tr></table></figure>
-<figure>
-<img
-src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两自定义图.png"
-alt="sns_多维两两自定义图" />
-<figcaption aria-hidden="true">sns_多维两两自定义图</figcaption>
-</figure>
-<h1 id="分类变量统计图">分类变量统计图</h1>
-<h2 id="条形图">条形图</h2>
-]]></content>
-      <categories>
-        <category>数据可视化</category>
-      </categories>
-      <tags>
-        <tag>数据可视化</tag>
-        <tag>seaborn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>回归算法</title>
     <url>/2022/12/24/1.%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>​</p>
@@ -361,573 +178,6 @@ class="math inline">\(w_p\)</span>后仍然不收敛则进行下一轮迭代，�
 ]]></content>
       <categories>
         <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>回归</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性回归模型</title>
-    <url>/2023/01/28/11.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="模型">模型</h1>
-<p>线性回归模型的基本形式如下： <span class="math display">\[
-\begin{aligned}
-\hat y|\vec
-x=\beta_0+\beta_1x_1+&amp;\beta_2x_2+...+\beta_px_p+\epsilon\\
-=\vec x^T\vec \beta&amp;+\epsilon\\
-\vec \beta \in R^{p+1}&amp;,\vec x\in R^{p+1}
-\end{aligned}
-\]</span></p>
-<h1 id="假定">假定</h1>
-<p>线性回归模型是广义线性模型的一个特例，当连接函数<span
-class="math inline">\(g(\cdot)\)</span>选择<span
-class="math inline">\(identity\quad
-link\)</span>，且分布族选择正态分布时，广义线性模型退化为线性回归模型。类似广义线性模型，线性回归模型的假定有：</p>
-<ol type="1">
-<li>线性假定：在给定<span class="math inline">\(\vec
-x\)</span>后，随机变量的条件均值为自变量的线性函数，或者说每个自变量对<span
-class="math inline">\(y\)</span>的边际效应为常数<span
-class="math inline">\(\beta\)</span>；</li>
-<li>严格外生性：<span
-class="math inline">\(E(\epsilon_i|X)=0\)</span>，就是说给定数据矩阵<span
-class="math inline">\(X\)</span>之后，扰动项<span
-class="math inline">\(\epsilon_i\)</span>的条件期望为0，也即<span
-class="math inline">\(\epsilon_i\)</span>均值独立于所有解释变量的观测数据，而不仅仅是同一观测数据<span
-class="math inline">\(\vec x_i\)</span>的解释变量。这意味着<span
-class="math inline">\(\epsilon\)</span>与所有个体的解释变量都不相关。此假定能保证OLS是一个无偏估计。</li>
-<li>不存在严格多重共线性；</li>
-<li>球形扰动项：即扰动项具有零均值、等方差、不相关。此假定能保证OLS是方差最小的无偏估计。</li>
-</ol>
-<h1 id="参数估计">参数估计</h1>
-<p><span class="math display">\[
-\hat {\vec\beta}=(X^TX)^{-1}X^T\vec y
-\]</span> # 性质</p>
-<h2 id="估计量的性质">估计量的性质</h2>
-<ol type="1">
-<li>线性性：估计量是<span
-class="math inline">\(y\)</span>的线性函数；</li>
-<li>无偏性：估计量是真实值的无偏估计；</li>
-<li>有效性：方差最小，即</li>
-</ol>
-<p><span class="math display">\[
-\begin{aligned}
-{Var(\hat{\vec \beta})}={Var((X^TX)^{-1}X^T\vec y)}\\
-=Var((X^TX)^{-1}X^T(X\vec \beta+\epsilon))
-\end{aligned}
-\]</span></p>
-<p>因<span class="math inline">\(\vec\beta\)</span>为常数，因此 <span
-class="math display">\[
-\begin{aligned}
-=&amp;Var((X^TX)^{-1}X^T\epsilon)\\
-=&amp;(X^TX)^{-1}X^TVar(\epsilon)X(X^TX)^{-1}
-\end{aligned}
-\]</span> 当假定球星扰动项时，即<span
-class="math inline">\(Var(\epsilon)=\sigma^2I\)</span>： <span
-class="math display">\[
-\begin{aligned}
-=&amp;(X^TX)^{-1}X^T\sigma^2 IX(X^TX)^{-1}\\
-=&amp;(X^TX)^{-1}\sigma^2
-\end{aligned}
-\]</span> <span
-class="math inline">\(\sigma^2\)</span>常用扰动项方差，常用误差均方<span
-class="math inline">\(s^2\)</span>来估计。因为<span
-class="math inline">\(e_i\)</span>的均值为0，因此<span
-class="math inline">\(\sigma^2\)</span>的无偏估计为： <span
-class="math display">\[
-\hat \sigma^2=\vec e^T\vec e/(n-p-1)
-\]</span></p>
-<ol start="4" type="1">
-<li>当残差服从正态分布时，估计量也将服从正态分布。</li>
-</ol>
-<h2 id="ols的正交性">OLS的正交性</h2>
-<p>残差向量<span class="math inline">\(\vec e\)</span>与拟合值向量<span
-class="math inline">\(\hat {\vec y}\)</span>，常数1向量<span
-class="math inline">\(\vec 1\)</span>以及自变量向量<span
-class="math inline">\(\vec x\)</span>正交，即内积为0。</p>
-<h2 id="平方和分解">平方和分解</h2>
-<p>有常数项时，总离差平方和可以分解为模型的回归平方和和残差平方和：
-<span class="math display">\[
-\begin{aligned}
-&amp;\sum_{i=1}^n(y_i-\bar y)^2\\
-&amp;=\sum_{i=1}^n(y_i-\hat y_i+\hat y_i-\bar y)^2\\
-&amp;=\sum_{i=1}^n[(y_i-\hat y_i)^2+2(y_i-\hat y_i)(\hat y_i-\bar
-y)+(\hat y_i-\bar y)^2]\\
-&amp;=\sum_{i=1}^n[e_i^2+2e_i(\hat y_i-\bar y)+(\hat y_i-\bar y)^2]\\
-&amp;=\sum_{i=1}^ne_i^2+\sum_{i=1}^n(\hat y_i-\bar
-y)^2+2\sum_{i=1}^ne_i\hat y_i-2\bar y\sum_{i=1}^ne_i
-\end{aligned}
-\]</span> 由于<span class="math inline">\(\vec e\)</span>与<span
-class="math inline">\(\vec x,\vec y,\vec 1\)</span>均正交，因此<span
-class="math inline">\(\sum_{i=1}^ne_i\hat
-y_i=0,\sum_{i=1}^ne_i=0\)</span>，因此有： <span class="math display">\[
-\sum_{i=1}^n(y_i-\bar y)^2=\sum_{i=1}^ne_i^2+\sum_{i=1}^n(\hat y_i-\bar
-y)^2
-\]</span>
-<strong>这个分解公式只有回归方程中有常数项才成立，</strong>因为此时才能保证<span
-class="math inline">\(\sum_{i=1}^ne_i=0\)</span>成立。</p>
-<h2 id="遗漏变量与偏回归">遗漏变量与偏回归</h2>
-<p>将设计矩阵<span class="math inline">\(X\)</span>分为两部分，即 <span
-class="math display">\[
-X=\begin{bmatrix}
-X_1&amp;X_2
-\end{bmatrix}
-\]</span> 同时也将回归系数也分为两部分： <span class="math display">\[
-\vec \beta=\begin{bmatrix}
-\vec \beta_1\\
-\vec \beta_2
-\end{bmatrix}
-\]</span> 这样线性回归模型的正规方程<span class="math inline">\(X^TX\vec
-\beta=X^T\vec y\)</span>可以写为： <span class="math display">\[
-\begin{bmatrix}
-X_1^T\\
-X_2^T
-\end{bmatrix}\begin{bmatrix}
-X_1&amp;X_2
-\end{bmatrix}\begin{bmatrix}
-\vec \beta_1\\
-\vec \beta_s
-\end{bmatrix}=\begin{bmatrix}
-X_1^T\\
-X_2^T
-\end{bmatrix}\vec y\\
-\begin{bmatrix}
-X_1^TX_1&amp;X_1^TX_2\\
-X_2^TX_1&amp;X_2^TX_2
-\end{bmatrix}\begin{bmatrix}
-\vec \beta_1\\
-\vec \beta_2
-\end{bmatrix}=\begin{bmatrix}
-X_1^T\vec y\\
-X_2^T\vec y
-\end{bmatrix}\\
-\begin{bmatrix}
-X_1^TX_1\vec \beta_1+X_1^TX_2\vec \beta_2\\
-X_2^TX_1\vec \beta_1+X_2^TX_2\vec \beta_2
-\end{bmatrix}=\begin{bmatrix}
-X_1^T\vec y\\
-X_2^T\vec y
-\end{bmatrix}
-\]</span> 解第一个方程可得： <span class="math display">\[
-\vec \beta_1=(X_1^TX_1)^{-1}X_1^T\vec y-(X_1^TX_1)^{-1}X_1^TX_2\vec
-\beta_2
-\]</span></p>
-<p>分析这个式子可以发现两点：</p>
-<ul>
-<li>第一项<span class="math inline">\((X_1^TX_1)^{-1}X_1^T\vec
-y\)</span>实际是以<span
-class="math inline">\(X_1\)</span>为设计矩阵，<span
-class="math inline">\(\vec
-y\)</span>为响应变量的模型的回归系数，我们令这个系数估计值为<span
-class="math inline">\(\vec \beta_{\vec y|X_1}\)</span>；</li>
-<li>第二项前半部分<span
-class="math inline">\((X_1^TX_1)^{-1}X_1^TX_2\)</span>实际上是以<span
-class="math inline">\(X_1\)</span>为设计矩阵，<span
-class="math inline">\(X_2\)</span>为响应变量的模型的回归系数，我们令这个系数的估计值为<span
-class="math inline">\(\vec \beta_{X_2|X_1}\)</span>；</li>
-</ul>
-<p>因此上面的式子可以转换为： <span class="math display">\[
-\vec \beta_{\vec y|X_1}=\vec\beta_1+\vec \beta_{X_2|X_1}\vec \beta_2
-\]</span> 这就得到了当遗漏设计阵<span
-class="math inline">\(X_2\)</span>时，参数估计值的表达式。分析这个表达式容易知道，<strong>当<span
-class="math inline">\(\vec y\)</span>对<span
-class="math inline">\(X_2\)</span>的回归系数<span
-class="math inline">\(\vec \beta_2\)</span>，与<span
-class="math inline">\(X_2\)</span>对<span
-class="math inline">\(X_1\)</span>回归系数<span
-class="math inline">\(\vec \beta_{X_2|X_1}\)</span>同号时，遗漏<span
-class="math inline">\(X_2\)</span>对应的变量时将导致高估<span
-class="math inline">\(X_1\)</span>对应的参数，反之则会低估，另外当<span
-class="math inline">\(X_2\)</span>对应的变量与<span
-class="math inline">\(X_1\)</span>对应的变量无关时，<span
-class="math inline">\(\vec
-\beta_{X_2|X_1}=0\)</span>，此时不会高估也不会低估。也就是说，如果因变量对遗漏变量的回归系数与遗漏变量对模型中自变量的回归系数同号，则会高估模型中自变量的回归系数。</strong></p>
-<p>将第一个方程解的<span class="math inline">\(\vec
-\beta_1\)</span>带入第二个方程可得： <span class="math display">\[
-\begin{aligned}
-X_2^TX_1[(X_1^TX_1)^{-1}X_1^T\vec y-(X_1^TX_1)^{-1}X_1^TX_2\vec
-\beta_2]+X_2^TX_2\vec \beta_2=X_2^T\vec y\\
-X_2^TX_1(X_1^TX_1)^{-1}X_1^T\vec y-X_2^TX_1(X_1^TX_1)^{-1}X_1^TX_2\vec
-\beta_2+X_2^TX_2\vec \beta_2=X_2^T\vec y\\
-X_2^T(I-X_1(X_1^TX_1)^{-1}X_1^T)X_2\vec
-\beta_2=X_2^T(I-X_1(X_1^TX_1)^{-1}X_1^T)\vec y
-\end{aligned}
-\]</span> 令<span
-class="math inline">\(H_1=X_1(X_1^TX_1)^{-1}X_1^T,M_1=I-H_1\)</span>，因此有：
-<span class="math display">\[
-\vec \beta_2=[X_2^TM_1X_2]^{-1}X_2^TM_1\vec y
-\]</span> 容易发现<span
-class="math inline">\(M_1\)</span>是一个幂等矩阵，即<span
-class="math inline">\(M_1=M_1^TM_1\)</span>，因此有： <span
-class="math display">\[
-\vec \beta_2=[X_2^TM_1^TM_1X_2]^{-1}X_2^TM_1^TM_1\vec y\\
-\]</span> <span class="math inline">\(M_1\vec y\)</span>实际上是以<span
-class="math inline">\(\vec y\)</span>为因变量，以<span
-class="math inline">\(X_1\)</span>为设计矩阵建立模型的残差向量<span
-class="math inline">\(\vec e_{\vec y|X_1}\)</span>，<span
-class="math inline">\(M_1X_2\)</span>实际上是以<span
-class="math inline">\(X_2\)</span>为因变量以<span
-class="math inline">\(X_1\)</span>为设计阵建立模型的残差向量<span
-class="math inline">\(\vec e_{X_2|X_1}\)</span>，因此进一步有： <span
-class="math display">\[
-\vec \beta_2=[\vec e_{X_2|X_1}^T\vec e_{X_2|X_1}]^{-1}\vec
-e_{X_2|X_1}^T\vec e_{\vec y|X_1}
-\]</span> <strong>这表明<span class="math inline">\(\vec
-\beta_2\)</span>实际上是残差<span class="math inline">\(\vec e_{\vec
-y|X_1}\)</span>对<span class="math inline">\(\vec
-e_{X_2|X_1}\)</span>的回归系数。</strong></p>
-<p>上面式子表明：<strong>如有三个变量<span
-class="math inline">\(x,y,z\)</span>，<span
-class="math inline">\(y\)</span>对<span
-class="math inline">\(x\)</span>回归的偏回归系数实际上等于从<span
-class="math inline">\(y\)</span>中滤去<span
-class="math inline">\(z\)</span>的影响（<span
-class="math inline">\(y\)</span>对<span
-class="math inline">\(z\)</span>做回归）得到残差，对从<span
-class="math inline">\(x\)</span>中滤去<span
-class="math inline">\(z\)</span>的影响（<span
-class="math inline">\(x\)</span>对<span
-class="math inline">\(z\)</span>做回归）得到残差做回归时的回归系数。</strong></p>
-<h1 id="假设检验">假设检验</h1>
-<h2 id="f检验">F检验</h2>
-<p>常见的<span class="math inline">\(H_0\)</span>假设为： <span
-class="math display">\[
-H_0:\beta_1=\beta_2=...=\beta_p=0
-\]</span> 利用总离差平方和分解公式： <span class="math display">\[
-\begin{aligned}
-\sum_{i=1}^n(y_i-\bar y)^2&amp;=\sum_{i=1}^n(y_i-\hat
-y_i)^2+\sum_{i=1}^n(\hat y_i-\bar y)^2\\
-=SSE+SSR
-\end{aligned}
-\]</span> 可以证明，下面的统计量服从<span
-class="math inline">\(F\)</span>分布： <span class="math display">\[
-F=\frac{SSR/p}{SSE/(n-p-1)}
-\]</span></p>
-<h2 id="t检验">t检验</h2>
-<p>主要检验单个系数，例如<span class="math inline">\(\beta_j,\quad
-j=1,2,...p\)</span>，如： <span class="math display">\[
-H_0:\beta_j=0
-\]</span> 从<span class="math inline">\(\hat{\vec
-\beta}\)</span>的协方差<span
-class="math inline">\(\sigma^2(X^TX)^{-1}\)</span>中提取<span
-class="math inline">\(\hat\beta_{j}\)</span>的方差，利用统计量： <span
-class="math display">\[
-t_j=\frac{\hat\beta_j}{\hat\sigma\sqrt{c_{jj}}}
-\]</span> <span class="math inline">\(c_{jj}\)</span>为<span
-class="math inline">\((X^TX)^{-1}\)</span>中第<span
-class="math inline">\(j\)</span>行<span
-class="math inline">\(j\)</span>列元素。</p>
-<h2 id="偏决定系数与偏f检验">偏决定系数与偏F检验</h2>
-<p>偏决定系数测量的是在回归方程中包含若干个自变量时，再引入某一个新的自变量时残差平方和的减少量。例如，记<span
-class="math inline">\(SSE(x_2)\)</span>是模型中只有自变量<span
-class="math inline">\(x_2\)</span>时的残差平方和，<span
-class="math inline">\(SSE(x_1,x_2)\)</span>是模型中有自变量<span
-class="math inline">\(x_1,x_2\)</span>时的残差平方和，因此在模型中已有<span
-class="math inline">\(x_2\)</span>时，<span
-class="math inline">\(x_1\)</span>和<span
-class="math inline">\(y\)</span>的偏决定系数为： <span
-class="math display">\[
-\frac{SSE(x_2)-SSE(x_1,x_2)}{SSE(x_2)}
-\]</span> 反之亦然。</p>
-<p>不失一般性，令<span class="math inline">\(y\)</span>对自变量<span
-class="math inline">\(x_1,x_2,...,x_p\)</span>的残差平方和为<span
-class="math inline">\(SSE\)</span>，回归平方和为<span
-class="math inline">\(SSR\)</span>，在模型中剔除自变量<span
-class="math inline">\(x_j\)</span>时候，用<span
-class="math inline">\(y\)</span>对剩下的<span
-class="math inline">\(p-1\)</span>个自变量做回归，记所得模型的残差平方和为<span
-class="math inline">\(SSE(j)\)</span>，回归平方和为<span
-class="math inline">\(SSR(j)\)</span>，则自变量<span
-class="math inline">\(x_j\)</span>对回归的贡献为<span
-class="math inline">\(\Delta=SSR-SSR(j)\)</span>，称为<span
-class="math inline">\(x_j\)</span>的偏回归平方和。可构造如下偏F统计量：
-<span class="math display">\[
-F_j=\frac{\Delta/1}{SSE/(n-p-1)}
-\]</span> 此统计量实际上与<span
-class="math inline">\(t\)</span>检验是等价的。</p>
-<h2 id="偏相关系数">偏相关系数</h2>
-<p>当其他变量固定之后，给定的任意两个变量之间的相关系数，叫偏相关系数。偏相关系数等于偏决定系数的平方根，也等于其他变量对两个变量做回归，得到两组残差值，计算两组残差之间的相关系数。</p>
-<h1 id="拟合优度">拟合优度</h1>
-<h2 id="决定系数r2">决定系数<span
-class="math inline">\(R^2\)</span></h2>
-<p>用决定系数<span class="math inline">\(R^2\)</span>来度量拟合优度，即
-<span class="math display">\[
-R^2=\frac{\sum_{i=1}^n(\hat y_i-\bar y)^2}{\sum_{i=1}^n(y_i-\bar
-y)^2}=1-\frac{\sum_{i=1}^ne_i^2}{\sum_{i=1}^n(y_i-\bar y)^2}
-\]</span> 在有常数项时，<span
-class="math inline">\(R^2\)</span>等于拟合值<span
-class="math inline">\(\hat y_i\)</span>和<span
-class="math inline">\(y_i\)</span>之间相关系数的平方。决定系数的缺点在于：即便增加无效的预测变量也能使得决定系数增加，因此又有了调整决定系数。</p>
-<h2 id="调整决定系数r_a2">调整决定系数<span
-class="math inline">\(R_a^2\)</span></h2>
-<p>调整<span
-class="math inline">\(R^2_a\)</span>，主要考虑了解释变量个数： <span
-class="math display">\[
-R^2_a=1-\frac{\sum_{i=1}^ne_i^2/(n-p-1)}{\sum_{i=1}^n(y_i-\bar
-y)^2/(n-1)}
-\]</span> 分子自由度为<span
-class="math inline">\(n-p\)</span>是因为有<span
-class="math inline">\(p+1\)</span>个正规方程。</p>
-<h2 id="复相关系数">复相关系数</h2>
-<p>为决定系数<span
-class="math inline">\(R^2\)</span>的开方，实际上等于拟合值<span
-class="math inline">\(\hat y_i\)</span>和<span
-class="math inline">\(y_i\)</span>之间相关系数。</p>
-<h2 id="无常数项的回归">无常数项的回归</h2>
-<p>无常数项回归即消去<span class="math inline">\(\beta_0\)</span>：
-<span class="math display">\[
-\hat y=\beta_1x_1+\beta_2x_2+...+\beta_px_p+\epsilon
-\]</span> 无常数项回归必然经过原点。此时残差向量<span
-class="math inline">\(\vec e\)</span>与拟合值向量<span
-class="math inline">\(\hat {\vec y}\)</span>，自变量向量<span
-class="math inline">\(\vec
-x\)</span>正交，即内积为0，<strong>但是不一定与常数1向量<span
-class="math inline">\(\vec 1\)</span>正交。</strong></p>
-<h1 id="模型选择">模型选择</h1>
-<h2 id="全子集回归">全子集回归</h2>
-<p>设共有<span
-class="math inline">\(p\)</span>个自变量（这里的自变量不包括常数项），每个自变量都有进入或者不进入模型的可能，那么<span
-class="math inline">\(y\)</span>关于这些自变量的所有可能的回归模型有<span
-class="math inline">\(2^p\)</span>个。当所有自变量都不进入模型，此时模型中只有一个常数项，如果不考虑这个模型，则可能的回归模型有<span
-class="math inline">\(2^p-1\)</span>个。</p>
-<p>从这<span
-class="math inline">\(2^p\)</span>个模型中选择一个最优的模型，就称为全子集回归。如何选择呢，这就需要一个标准，常见的标准有：</p>
-<h3 id="调整r2_a">调整<span class="math inline">\(R^2_a\)</span></h3>
-<p><span class="math display">\[
-R^2_a=1-\frac{\sum_{i=1}^ne_i^2/(n-p-1)}{\sum_{i=1}^n(y_i-\bar
-y)^2/(n-1)}
-\]</span></p>
-<p><span class="math inline">\(R^2_a\)</span>越大模型越好。</p>
-<h3 id="hat-sigma2"><span class="math inline">\(\hat
-\sigma^2\)</span></h3>
-<p><span class="math display">\[
-\hat \sigma^2=\frac{\vec e^T\vec e}{n-p-1}
-\]</span></p>
-<p><span class="math inline">\(\hat \sigma^2\)</span>是<span
-class="math inline">\(\sigma^2\)</span>的无偏估计，实际上<span
-class="math inline">\(\hat \sigma^2\)</span>和调整<span
-class="math inline">\(R_a^2\)</span>是等价的。<span
-class="math inline">\(\hat \sigma^2\)</span>越小，模型越好。</p>
-<h3 id="赤池信息准则aic">赤池信息准则AIC</h3>
-<p>AIC等于-2倍对数似然函数值加上参数个数的2倍： <span
-class="math display">\[
-AIC=-2lnL+2p
-\]</span> AIC越小，模型越好。</p>
-<h3 id="c_p统计量"><span class="math inline">\(C_p\)</span>统计量</h3>
-<p><span class="math display">\[
-C_p=\frac{SSE}{\hat \sigma^2}+2p-n
-\]</span></p>
-<p><span class="math inline">\(SSE\)</span>是当前模型的误差平方和，<span
-class="math inline">\(\hat\sigma^2\)</span>是所有自变量均纳入时模型的均方误差。<span
-class="math inline">\(C_p\)</span>统计量越小模型越好。</p>
-<h2 id="逐步回归">逐步回归</h2>
-<h3 id="前进法">前进法</h3>
-<p>前进法的思想是变量由少到多，每次增加一个，直到没有可引入的变量为止。具体做法是先将<span
-class="math inline">\(p\)</span>个自变量，分别对因变量<span
-class="math inline">\(y\)</span>建立<span
-class="math inline">\(p\)</span>个一元线性回归方程，选择<span
-class="math inline">\(p\)</span>值显著且最小（也即偏<span
-class="math inline">\(F\)</span>值最大）的那个自变量先进入模型，设为<span
-class="math inline">\(x_i\)</span>。然后在已经引入<span
-class="math inline">\(x_i\)</span>的基础上，依次引入其他<span
-class="math inline">\(p-1\)</span>个自变量，建立<span
-class="math inline">\(p-1\)</span>个包含两个自变量的回归模型，从中选择<span
-class="math inline">\(p\)</span>值最小且显著（偏<span
-class="math inline">\(F\)</span>值最大）的那个变量进入方程，依次类推，直到模型外变量均不显著为止。</p>
-<p>前进法有明显的不足：某个自变量刚引入时可能是显著的，但是当引入其他自变量后，它变得不显著了，但是前进法不会将其进行剔除。即一旦引入方程的自变量，将是“终身制“。即前进法只能”进“。</p>
-<h3 id="后退法">后退法</h3>
-<p>后退法与前进法相反，首先用全部<span
-class="math inline">\(p\)</span>个自变量建立一个回归方程，然后在这<span
-class="math inline">\(p\)</span>个变量中选择一个最不重要的变量，将它从方程中剔除。选择的标准是<span
-class="math inline">\(p\)</span>值最大（对应的偏<span
-class="math inline">\(F\)</span>值最小）的自变量。借着从剩下的<span
-class="math inline">\(p-1\)</span>个自变量重新建立回归方程，重复这一过程，直到没有可剔除的自变量为止。</p>
-<p>后退法也有不足：一是一开始把所有自变量引入方程，导致计算量很大。再就是一旦某个自变量被剔除，就再也没有机会进入回归方程。即后退法只能”出“。</p>
-<h3 id="逐步法">逐步法</h3>
-<p>逐步法的基本思想是有进有出。具体做法是将变量一个一个引入，当每引入一个自变量后，会对已入选的变量逐个检验，如果不再显著，会将其剔除。同样，剔除一个变量之后，会再次对已入选的变量逐个检验，如有有变量不再显著，会将其剔除。检验显著性仍然使用偏F检验或对应的<span
-class="math inline">\(p\)</span>值。这个过程反复进行，直到既无显著自变量进入方程，也无不显著自变量从回归方程中剔除。</p>
-<p>逐步法需要注意的是：引入自变量的显著性水平<span
-class="math inline">\(\alpha_{in}\)</span>需要小于剔除自变量的显著性水平<span
-class="math inline">\(\alpha_{out}\)</span>，否则可能出现”死循环“。</p>
-<h1 id="回归诊断">回归诊断</h1>
-<h2 id="模型适用条件判断">模型适用条件判断</h2>
-<h3 id="异方差检验方差齐性">异方差（检验方差齐性）</h3>
-<h4 id="图示法">图示法</h4>
-<p>画标准化残差或学生化残差与拟合值<span class="math inline">\(\hat
-y_i\)</span>的散点图，或者与某一个解释变量<span
-class="math inline">\(x_{ik}\)</span>的散点图。如果等方差，残差应该不会随<span
-class="math inline">\(\hat y_i\)</span>或<span
-class="math inline">\(x_{ik}\)</span>发生变化。</p>
-<h4 id="假设检验法">假设检验法</h4>
-<h3 id="自相关检验独立性">自相关（检验独立性）</h3>
-<h4 id="图示法-1">图示法</h4>
-<p>画残差与其滞后之间的散点图，或者对残差绘制自相关图或计算偏自相关系数。</p>
-<h4 id="假设检验法-1">假设检验法</h4>
-<h3 id="正态性">正态性</h3>
-<h4 id="图示法-2">图示法</h4>
-<p>考察普通残差<span
-class="math inline">\(e_i\)</span>是否服从正态分布，可以画直方图、qq图等。</p>
-<h4 id="假设检验法-2">假设检验法</h4>
-<p>使用W检验等。</p>
-<h2 id="异常点与强影响点判断">异常点与强影响点判断</h2>
-<p>异常点主要包括杠杆点和离群点。X空间异常的点称为杠杆点，Y空间异常的点称为离群点。<strong>强影响点</strong>(influential
-points)
-<strong>是指对模型有较大影响的点，模型中包含该点与不包含该点会使求得的回归系数相差很大</strong>。如果某点既是离群点又是高杠杆点，则该点很有可能是强影响点。</p>
-<h3 id="杠杆点">杠杆点</h3>
-<p>线性回归的预测值为： <span class="math display">\[
-\begin{aligned}
-\hat {\vec y}=X\hat{\vec \beta}\\
-=X(X^TX)^{-1}X^T\vec y\\
-=H\vec y
-\end{aligned}
-\]</span> 矩阵<span
-class="math inline">\(H=X(X^TX)^{-1}X^T\)</span>是一个投影矩阵，也称为帽子矩阵（给<span
-class="math inline">\(\vec y\)</span>戴了一顶帽子），作用是将<span
-class="math inline">\(\vec y\)</span>投影到<span
-class="math inline">\(X\)</span>的列空间。帽子矩阵是一个<span
-class="math inline">\(n*n\)</span>的对称矩阵，矩阵的主对角线上的元素（共有n个）称为帽子统计量。帽子矩阵的迹，也即帽子统计量的和为<span
-class="math inline">\(p+1\)</span>，证明其实很简单，因为<span
-class="math inline">\(tr(AB)=tr(BA)\)</span>，因此： <span
-class="math display">\[
-\begin{aligned}
-tr(X(X^TX)^{-1}X^T)&amp;=tr(X^TX(X^TX)^{-1})\\
-&amp;=tr(I_{p+1})\\
-&amp;=p+1
-\end{aligned}
-\]</span> 因此帽子统计量的平均值等于 <span class="math display">\[
-\frac{p+1}{n}
-\]</span>
-如果某条观测的帽子统计量是帽子均值的2或3倍，即可视为高杠杆点。</p>
-<h3 id="离群点">离群点</h3>
-<p>离群点主要通过残差<span
-class="math inline">\(e_i,i=1,2,...,n\)</span>来判断。定义残差向量<span
-class="math inline">\(\vec e=[e_1,e_2,...,e_i,...,e_n]^T\)</span>，则：
-<span class="math display">\[
-\begin{aligned}
-\vec e=\vec y-\hat{\vec y}\\
-=\vec y-H\vec y\\
-=(I-H)\vec y
-\end{aligned}
-\]</span> 残差向量的协方差矩阵为： <span class="math display">\[
-\begin{aligned}
-Cov(\vec e,\vec e)&amp;=Cov((I-H)\vec y,(I-H)\vec y)\\
-&amp;=(I-H)Cov(\vec y,\vec y)(I-H)^{T}\\
-&amp;=(I-H)\sigma^2I(I-H)^T\\
-&amp;=\sigma^2[II^T-IH^T-HI+HH^T]
-\end{aligned}
-\]</span> 因为<span
-class="math inline">\(H\)</span>是对称矩阵，也是幂等矩阵，因此有： <span
-class="math display">\[
-Cov(\vec e,\vec e)=\sigma^2(I-H)
-\]</span> 因此可知每个残差<span
-class="math inline">\(e_i\)</span>的方差为<span
-class="math inline">\((1-h_{ii})\sigma^2\)</span>，<span
-class="math inline">\(h_{ii}\)</span>为第<span
-class="math inline">\(i\)</span>条观测数据的帽子统计量。</p>
-<p>根据上述结论，可以定义下面5类残差：</p>
-<h4 id="未标准化残差">未标准化残差</h4>
-<p>也称为原始残差，<span class="math inline">\(e_i=y_i-\hat
-y_i\)</span>。由于原始残差的方差与帽子统计量有关，各不相同，为了便于进行比较，提出了标准化残差和学生化残差。</p>
-<h4 id="标准化残差">标准化残差</h4>
-<p>将未标准化残差进行标准化，即先减去均值（有截距项时，残差的均值为0），再除以标准差，即<span
-class="math inline">\(\frac{e_i}{\hat
-\sigma}\)</span>，标准化残差使得残差具备可比性，一般认为标准化残差绝对值大于3为离群点。标准化残差因为没有解决残差之间方差不等的问题，为此又有了学生化残差。</p>
-<h4 id="学生化残差">学生化残差</h4>
-<p>公式为<span class="math inline">\(\frac{e_i}{\hat
-\sigma(1-h_{ii})}\)</span>，<span
-class="math inline">\(h_{ii}\)</span>为第<span
-class="math inline">\(i\)</span>条数据的帽子统计量。学生化残差相比较标准化残差进一步解决了方差不等问题，因此更适合做残差比较。不过当<span
-class="math inline">\(y\)</span>本身存在异常时，会将回归线拉向自身，会减弱残差的判断作用，为此又有了剔除残差。</p>
-<h4 id="剔除残差">剔除残差</h4>
-<p>剔除该条记录后，拟合新的模型。新模型输入该条记录的自变量得到预测值，得到的未标准化残差。</p>
-<h4 id="学生化剔除残差">学生化剔除残差</h4>
-<p>剔除残差进行学生化转换。显然学生化剔除残差更能判断离群点。</p>
-<p>如果学生化残差绝对值<span class="math inline">\(\ge
-2\)</span>，可以认为是一个可疑点；如果学生化残差绝对值<span
-class="math inline">\(\ge 3\)</span>，基本可以认定是一个离群点。</p>
-<h3 id="强影响点">强影响点</h3>
-<h4 id="cook距离">Cook距离</h4>
-<p>将学生化残差与帽子统计量求积： <span class="math display">\[
-\frac{e_i^2}{(1-h_{ii})^2\hat\sigma^2}\frac{h_{ii}}{\frac{p+1}{n}}=n\frac{e_i^2}{(1-h_{ii})^2\hat\sigma^2}\frac{h_{ii}}{p+1}
-\]</span> <span
-class="math inline">\(n\)</span>为所有观测所共有，忽略后即为Cook距离：
-<span class="math display">\[
-D_i=\frac{e_i^2}{(1-h_{ii})^2\hat\sigma^2}\frac{h_{ii}}{p+1}
-\]</span>
-直观上看Cook距离综合了y空间的离群点和x空间的杠杆点。Cook距离判断强影响点的标准比较复杂，一般认为Cook距离大于1，可以认为是强影响点。</p>
-<h4 id="dfbeta">DfBeta</h4>
-<p>剔除第<span
-class="math inline">\(i\)</span>条记录后，拟合新的模型。比较剔除前和剔除后，<strong>某一个</strong>回归系数估计值的变化（即求差值），变化较大表示强影响点。</p>
-<h4 id="标准化dfbeta">标准化DfBeta</h4>
-<p>即对每条观测某一个回归系数的DfBeta进行标准化。</p>
-<h4 id="dffit">DfFit</h4>
-<p>剔除第<span
-class="math inline">\(i\)</span>条记录后，拟合新的模型。比较剔除前和提出后，第<span
-class="math inline">\(i\)</span>条记录拟合值的变化（即求差值），变化较大表示强影响点。</p>
-<h4 id="标准化dffit">标准化DfFit</h4>
-<p>即对每条观测的DfFit进行标准化。</p>
-<h2 id="共线性判断">共线性判断</h2>
-<p>在近似多重共线性情况下，OLS仍然是最佳线性无偏估计，即仍然是最小方差的估计，但是这并不意味着方差的绝对值很小，实际上，由于多重共线性，OLS估计量的方差会很大，使得系数估计很不稳定，数据矩阵X轻微变动就可能导致参数估计值发生巨大变化，甚至方向与预期相反，此时<span
-class="math inline">\(t\)</span>检验也往往不会通过。</p>
-<h3 id="何时需要处理共线性">何时需要处理共线性</h3>
-<ul>
-<li>如果模型只是用来进行预测，则不必关注多重共线性；</li>
-<li>如果关注具体的回归系数，但不关心的自变量出现了严重多重共线性，也不必关注；</li>
-<li>如果关注具体的回归系数，且关心的自变量存在严重多重共线性，则需要进行处理。</li>
-</ul>
-<h3 id="如何判断共线性">如何判断共线性</h3>
-<h4 id="方差膨胀因子">方差膨胀因子</h4>
-<p>将第<span class="math inline">\(k\)</span>个自变量<span
-class="math inline">\(x_k\)</span>对其余自变量做一个线性回归，可以计算出该回归方程的决定系数<span
-class="math inline">\(R_k^2\)</span>，可以证明<span
-class="math inline">\(x_k\)</span>的系数<span class="math inline">\(\hat
-\beta_k\)</span>的方差为： <span class="math display">\[
-Var(\hat \beta_k)=\frac{\sigma^2}{(1-R_k^2)S_k}
-\]</span> <span class="math inline">\(S_k\)</span>为<span
-class="math inline">\(x_k\)</span>的离差平方和，<span
-class="math inline">\(\sigma^2\)</span>为扰动项的方差。<span
-class="math inline">\(x_k\)</span>的方差膨胀因子VIF定义为： <span
-class="math display">\[
-VIF_k=\frac{1}{1-R_k^2}
-\]</span> 因此 <span class="math display">\[
-Var(\hat \beta_k)=VIF_k\frac{\sigma^2}{S_k}
-\]</span> 从这个式子可以看出来方差膨胀因子的含义，因为<span
-class="math inline">\(\sigma^2/S_k\)</span>已经固定，<span
-class="math inline">\(VIF_k\)</span>实际上就是使<span
-class="math inline">\(\hat \beta_k\)</span>的方差变为<span
-class="math inline">\(\frac{\sigma^2}{S_k}\)</span>的倍数。另外VIF的分母部分，也就是<span
-class="math inline">\(1-R_k^2\)</span>称为容忍度。</p>
-<p>计算每个自变量的方差膨胀因子，一般认为方差膨胀因子大于10，认为该自变量与其他自变量之间存在严重的多重共线性。</p>
-<h4 id="特征值">特征值</h4>
-<p>数据矩阵<span class="math inline">\(X\)</span>标准化之后，对<span
-class="math inline">\(X^TX\)</span>做特征值分解，求得特征值和特征向量。如果有<span
-class="math inline">\(r,r\le
-p\)</span>个特征值近似为0，以其对应的特征向量为系数的<span
-class="math inline">\(X\)</span>的线性组合将近似为0，这意味着<span
-class="math inline">\(X\)</span>中有<span
-class="math inline">\(r\)</span>个变量与其他变量有严重共线关系。</p>
-<h4 id="条件数">条件数</h4>
-<p><span class="math inline">\(X^TX\)</span>（<span
-class="math inline">\(X\)</span>提前标准化）为<span
-class="math inline">\(p*p\)</span>的方阵，有<span
-class="math inline">\(p\)</span>个特征值，其中最大特征值除以最小特征值再开方定义为矩阵<span
-class="math inline">\(X^TX\)</span>的条件数，条件数较大（例如大于30）时认为有严重的多重共线性。</p>
-<h3 id="如何处理多重共线性">如何处理多重共线性</h3>
-<ul>
-<li>增大样本容量</li>
-<li>剔除严重共线性的变量</li>
-<li><strong>将严重共线性的变量进行标准化</strong></li>
-<li>修改模型的设定</li>
-<li>使用其他模型：主成分回归、岭回归等。</li>
-</ul>
-<p>注意：多项式回归中容易出现多重共线性，例如<span
-class="math inline">\(x\)</span>和<span
-class="math inline">\(x^2\)</span>的相关性就比较强，此时解决办法是将<span
-class="math inline">\(x\)</span>做标准化，并引入标准化变量的平方。</p>
-]]></content>
-      <categories>
-        <category>数理统计</category>
       </categories>
       <tags>
         <tag>回归</tag>
@@ -1648,139 +898,186 @@ b\prime(\theta)
       </tags>
   </entry>
   <entry>
-    <title>常用广义线性模型</title>
-    <url>/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/</url>
+    <title>可视化库seaborn快速入门</title>
+    <url>/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/</url>
     <content><![CDATA[<p>​</p>
 <span id="more"></span>
-<h1 id="广义线性模型框架">广义线性模型框架</h1>
-<p>模型 <span class="math display">\[
-y|X\sim exp(\theta,\phi,a,b,c)
-\]</span> <span
-class="math inline">\(exp(\theta,\phi,a,b,c)\)</span>表示指数分布族</p>
-<p>回归方程： <span class="math display">\[
-\mu=E(y|X)\\
-g(\mu)=\eta\\
-\eta=X\vec\beta
-\]</span></p>
-<h1 id="高斯模型">高斯模型</h1>
-<p>这里的高斯模型主要指的就是线性回归模型，它其实要求<span
-class="math inline">\(y\)</span>的分布来源于正态分布。已知正态分布的密度为：
-<span class="math display">\[
-f(y)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y-\mu)^2}{2\sigma^2})\\
-=exp(-ln({\sqrt{2\pi}\sigma})-\frac{y^2-2y\mu+\mu^2}{2\sigma^2})\\
-=exp(\frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2}-ln({\sqrt{2\pi}\sigma})-\frac{y^2}{2\sigma^2})
-\]</span> 因此可知： <span class="math display">\[
-\theta=\mu\\
-b(\theta)=\frac{1}{2}\mu^2=\frac{1}{2}\theta^2\\
-a(\phi)=\sigma^2
-\]</span> 分布的均值为<span
-class="math inline">\(b\prime(\theta)\)</span>的一阶导数： <span
-class="math display">\[
-\mu=b\prime(\theta)
-\]</span> <span
-class="math inline">\(b\prime\prime(\theta)\)</span>为方差函数<span
-class="math inline">\(v(\mu)\)</span>，该例中为常数1，这意味着正态分布中均值和方差相互独立。分布的方差为<span
-class="math inline">\(b\prime\prime(\theta)a(\phi)\)</span>： <span
-class="math display">\[
-a(\phi)b\prime\prime(\theta)=\sigma^2
-\]</span></p>
-<h2 id="模型设定">模型设定</h2>
-<p>若<span
-class="math inline">\(y|X\)</span>为正态分布，当使用规范连接函数时，要求<span
-class="math inline">\(\theta=\eta\)</span>，因此模型的形式为： <span
-class="math display">\[
-g(\mu)=\eta=\theta=\mu
-\]</span> 即要求<span
-class="math inline">\(g(\mu)=\mu\)</span>，这意味着<span
-class="math inline">\(g\)</span>函数可以选择恒等连接函数，因此回归方程实际上为：
-<span class="math display">\[
-\mu=\eta=X\vec \beta
-\]</span> 这就是线性回归。</p>
-<h2 id="参数估计">参数估计</h2>
-<p>可以使用<code>IRLS</code>法进行参数估计，其迭代公式为： <span
-class="math display">\[
-\vec \beta_{k+1}=(X^TW_{k}X)^{-1}(X^TW_k\vec z_k)
-\]</span> <span class="math inline">\(\vec z_k\)</span>为工作向量，<span
-class="math inline">\(\vec z_k=X\hat{\vec \beta}_k+g\prime(\vec
-\mu_k)(\vec y-\vec \mu_k)\)</span>，因为选择了恒等连接，所以<span
-class="math inline">\(g(\mu)=\mu\)</span>，进而<span
-class="math inline">\(g\prime(\mu_k)=1\)</span>，所以<span
-class="math inline">\(\vec z_k=X\vec \beta_k+\vec y-\vec \mu_k=\vec
-y\)</span>。<span
-class="math inline">\(W_k\)</span>为权重矩阵，是一个对角矩阵，对角线上元素为<span
-class="math inline">\(\frac{1}{Var(y|X)[g\prime(\mu_k)]^2}\)</span>，如果假定了方差齐，即<span
-class="math inline">\(Var(y|X)=\sigma^2\)</span>，因此<span
-class="math inline">\(W_k\)</span>为： <span class="math display">\[
-W_k=\begin{bmatrix}
-\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}\\
-\end{bmatrix}
-\]</span> 化简后得到迭代公式为: <span class="math display">\[
-\vec \beta_{k+1}=(X^TX)^{-1}X^T\vec y
-\]</span> 这和最小二乘法结果是一致的。如果方差不齐，则<span
-class="math inline">\(W_k\)</span>为： <span class="math display">\[
-W_k=\begin{bmatrix}
-\frac{1}{\sigma^2_1}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_i}&amp;\cdot\cdot\cdot&amp;0\\
-\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
-0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_n}\\
-\end{bmatrix}=W
-\]</span> 此时迭代公式为： <span class="math display">\[
-\vec \beta_{k+1}=(X^TWX)^{-1}(X^TW\vec y)
-\]</span> 这是异方差最小二乘法。</p>
-<h2 id="拟合优度">拟合优度</h2>
-<h3 id="偏差deviance统计量">偏差deviance统计量</h3>
-<p>首先写出似然函数<span class="math inline">\(L\)</span>： <span
-class="math display">\[
-L=\prod_{i=1}^n\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y_i-\mu_i)^2}{2\sigma^2})
-\]</span> -2倍对数似然函数<span class="math inline">\(-2LL\)</span>为：
-<span class="math display">\[
--2LL=nln(2\pi\sigma^2)+\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2
-\]</span> 饱和模型的-2倍对数似然函数<span
-class="math inline">\(-2LL_s\)</span>就是令<span
-class="math inline">\(\mu_i=y_i\)</span>，即为： <span
-class="math display">\[
--2LL_s=nln(2\pi\sigma^2)
-\]</span> 因此deviance统计量<span class="math inline">\(D\)</span>为：
-<span class="math display">\[
-D=(-2LL-(-2LL_s))a(\phi)\\=\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2\sigma^2\\=\sum_{i=1}^n(y_i-\mu_i)^2==SSE
-\]</span> 因此对于线性回归，deviance统计量实际上就是残差平方和<span
-class="math inline">\(SSE\)</span>。</p>
-<p>更进一步，scaled deviance统计量<span
-class="math inline">\(D^*\)</span>等于： <span class="math display">\[
-D^*=\frac{D}{a(\phi)}=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{\sigma^2}\sim
-\chi^2(n-p-1)
-\]</span> 与此同时，null deviance统计量<span
-class="math inline">\(D_0\)</span>等于： <span class="math display">\[
-D_0=\sum_{i=1}^n(y_i-\bar y)^2==SST
-\]</span> 这正好是线性回归中的总平方和<span
-class="math inline">\(SST\)</span>，而决定系数<span
-class="math inline">\(R^2\)</span>为： <span class="math display">\[
-R^2=1-\frac{D_0}{D}=1-\frac{SSE}{SST}
-\]</span></p>
-<h3 id="pearson卡方统计量">Pearson卡方统计量</h3>
-<p>对观测值<span class="math inline">\(y_i\)</span>和期望值<span
-class="math inline">\(\mu_i\)</span>做Pearson卡方检验，有： <span
-class="math display">\[
-\chi^2=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{Var(\mu_i)}
-\]</span></p>
-<h1 id="二项式模型">二项式模型</h1>
-<h1 id="多项式模型">多项式模型</h1>
-<h1 id="计数模型">计数模型</h1>
-<h1 id="负二项式模型">负二项式模型</h1>
-<h1 id="排序模型">排序模型</h1>
-<h1 id="gamma模型">gamma模型</h1>
+<p>Seaborn可以分为<code>Figure-level</code>的接口（操作对象是<code>matplotlib</code>中figure）和<code>axes-level</code>的接口（对应操作对象是matplotlib中的axes）。</p>
+<h1 id="连续变量统计图">连续变量统计图</h1>
+<h2 id="单变量图">单变量图</h2>
+<p>所用的数据集为威斯康星州乳腺癌数据集。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib</span><br><span class="line">cancer = load_breast_cancer()</span><br><span class="line">df = cancer[<span class="string">&#x27;data&#x27;</span>]</span><br><span class="line">df = pd.DataFrame(df,columns=cancer[<span class="string">&#x27;feature_names&#x27;</span>])</span><br><span class="line">df[<span class="string">&#x27;y&#x27;</span>] = cancer[<span class="string">&#x27;target&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="直方图">直方图</h3>
+<p><code>sns.histplot</code>接口绘制直方图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.histplot(df <span class="comment"># 数据集</span></span><br><span class="line">             ,x=<span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             ,kde=<span class="literal">True</span> <span class="comment"># 绘制核密度估计</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="sns_直方图.png" alt="sns_直方图" />
+<figcaption aria-hidden="true">sns_直方图</figcaption>
+</figure>
+<h3 id="核密度图">核密度图</h3>
+<p><code>sns.kdeplot</code>接口绘制核密度图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.kdeplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_核密度图.png"
+alt="sns_核密度图" />
+<figcaption aria-hidden="true">sns_核密度图</figcaption>
+</figure>
+<h3 id="累积分布图">累积分布图</h3>
+<p><code>sns.ecdfplot</code>接口绘制累积分布图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.ecdfplot(data = df  <span class="comment"># 数据集</span></span><br><span class="line">             ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">             ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">             ,stat= <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns累积分布图.png"
+alt="sns累积分布图" />
+<figcaption aria-hidden="true">sns累积分布图</figcaption>
+</figure>
+<h3 id="其他绘图函数">其他绘图函数</h3>
+<p><code>sns.displot</code>接口可以绘制<code>直方图，核密度图，经验分布图</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1. 直方图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 2.核密度图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,row = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 3.累计分布图</span></span><br><span class="line">sns.displot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量</span></span><br><span class="line">            ,col = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,stat = <span class="string">&#x27;count&#x27;</span> <span class="comment"># 统计量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;ecdf&#x27;</span> <span class="comment"># 图形类别</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<p><strong><code>row,col,hue</code>三个参数都指定一个分类变量，表示对这个分类变量的不同水平分别绘图。<code>hue</code>绘出的图会显示在同一个<code>axes</code>中，<code>row</code>和<code>col</code>参数绘制的不会在同一个<code>axes</code>中，<code>row</code>会使<code>axes</code>按行排列，<code>col</code>参数会使<code>axes</code>按列排列。</strong></p>
+<h2 id="双变量">双变量</h2>
+<h3 id="散点图">散点图</h3>
+<p><code>sns.scatterplot</code>接口绘制散点图</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 散点图</span></span><br><span class="line">sns.scatterplot(data = df <span class="comment"># 散点图</span></span><br><span class="line">                ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">                ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">                ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">                )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
+alt="sns_散点图" />
+<figcaption aria-hidden="true">sns_散点图</figcaption>
+</figure>
+<h3 id="lineplot">lineplot</h3>
+<p>sns.lineplot将每一个x对应的y取均值和置信区间绘图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lineplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_lineplot.png"
+alt="sns_lineplot" />
+<figcaption aria-hidden="true">sns_lineplot</figcaption>
+</figure>
+<h3 id="relplot">relplot</h3>
+<p><code>sns.relplot</code>既能画散点图也可以画<code>lineplot</code>，不过它是一个<code>Figure-level</code>的接口，而上面两个是<code>axes-level</code>的接口</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 画散点图</span></span><br><span class="line">sns.relplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span> <span class="comment"># 分类变量</span></span><br><span class="line">            ,kind = <span class="string">&#x27;scatter&#x27;</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_relplot.png"
+alt="sns_relplot" />
+<figcaption aria-hidden="true">sns_relplot</figcaption>
+</figure>
+<h3 id="回归分析图">回归分析图</h3>
+<p><code>sns.regplot</code>绘制散点图、回归直线和置信区间</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.regplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归图.png"
+alt="sns_回归图" />
+<figcaption aria-hidden="true">sns_回归图</figcaption>
+</figure>
+<p><code>sns.lmplot</code>可以对分类变量的不同水平分别做回归</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 分层回归</span></span><br><span class="line">sns.lmplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">            ,hue = <span class="string">&#x27;y&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_分层回归.png"
+alt="sns_分层回归" />
+<figcaption aria-hidden="true">sns_分层回归</figcaption>
+</figure>
+<p><code>sns.lmplot</code>中还可添加row和col参数（二者均为FacetGrid中的常规参数，用于添加多子图的行和列）实现更多的分类回归关系。</p>
+<p><code>sns.residplot</code>提供了拟合后的残差分布图.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.residplot(data = df</span><br><span class="line">            ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">            ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2 </span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_残差图.png"
+alt="sns_残差图" />
+<figcaption aria-hidden="true">sns_残差图</figcaption>
+</figure>
+<h3 id="热力图">热力图</h3>
+<p><code>sns.heatmap</code>接口绘制热力图。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">corr = df[[<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>]].corr()</span><br><span class="line">sns.heatmap(corr)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_热力图.png"
+alt="sns_热力图" />
+<figcaption aria-hidden="true">sns_热力图</figcaption>
+</figure>
+<h3 id="联合分布图">联合分布图</h3>
+<p><code>sns.jointplot</code>接口可以绘制<code>联合分布图</code>。<code>联合分布图</code>可以是散点图、带回归直线的散点图、密度图、直方图、残差图和六边形分箱图等。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.双连续变量图</span></span><br><span class="line"><span class="comment"># =============================================================================</span></span><br><span class="line"><span class="comment"># 2.1.1 散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图.png"
+alt="sns_散点图" />
+<figcaption aria-hidden="true">sns_散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.2 带回归直线的散点图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 带回归直线的散点图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_散点图带回归直线.png"
+alt="sns_散点图带回归直线" />
+<figcaption aria-hidden="true">sns_散点图带回归直线</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.3 回归残差图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;resid&#x27;</span>  <span class="comment"># 回归残差图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_回归残差图.png"
+alt="sns_回归残差图" />
+<figcaption aria-hidden="true">sns_回归残差图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.4 密度图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 核密度图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维核密度图.png"
+alt="sns_二维核密度图" />
+<figcaption aria-hidden="true">sns_二维核密度图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.5 直方图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 二维直方图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_二维直方图.png"
+alt="sns_二维直方图" />
+<figcaption aria-hidden="true">sns_二维直方图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.1.6 六边形分箱图</span></span><br><span class="line">sns.jointplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">              ,x = <span class="string">&#x27;mean radius&#x27;</span> <span class="comment"># 分析变量1</span></span><br><span class="line">              ,y = <span class="string">&#x27;mean texture&#x27;</span> <span class="comment"># 分析变量2</span></span><br><span class="line">              ,kind = <span class="string">&#x27;hex&#x27;</span>  <span class="comment"># 六边形分箱图</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_六边形分箱图.png"
+alt="sns_六边形分箱图" />
+<figcaption aria-hidden="true">sns_六边形分箱图</figcaption>
+</figure>
+<h3 id="两两联合分布矩阵图">两两联合分布矩阵图</h3>
+<p><code>sns.pairplot</code>接口可以绘制<code>两两联合分布图</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.1 散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;scatter&#x27;</span> <span class="comment"># 绘制散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两散点图.png"
+alt="sns_多维两两散点图" />
+<figcaption aria-hidden="true">sns_多维两两散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.2 带回归线的散点图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;reg&#x27;</span> <span class="comment"># 绘制带回归线的散点图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两带回归直线散点图.png"
+alt="sns_多维两两带回归直线散点图" />
+<figcaption aria-hidden="true">sns_多维两两带回归直线散点图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 密度图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 绘制密度图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;auto&#x27;</span> <span class="comment"># 对角线上图形自动选择</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两密度图.png"
+alt="sns_多维两两密度图" />
+<figcaption aria-hidden="true">sns_多维两两密度图</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.3 直方图</span></span><br><span class="line">sns.pairplot(data = df <span class="comment"># 数据集</span></span><br><span class="line">             ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">             ,kind = <span class="string">&#x27;hist&#x27;</span> <span class="comment"># 绘制直方图</span></span><br><span class="line">             ,diag_kind = <span class="string">&#x27;kde&#x27;</span> <span class="comment"># 对角线画密度图</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两二维直方图.png"
+alt="sns_多维两两二维直方图" />
+<figcaption aria-hidden="true">sns_多维两两二维直方图</figcaption>
+</figure>
+<p>实际上<code>sns.pairplot</code>依赖<code>sns.PairGrid</code>类来实现，我们也可以先调用<code>sns.PairGrid</code>类，然后可以自定义矩阵的对角线、上三角和下三角的图形种类。类似地<code>sns.jointplot</code>依赖<code>sns.JointGrid</code>类。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.2.4 自定义</span></span><br><span class="line">pp = sns.PairGrid(data = df <span class="comment"># 数据集</span></span><br><span class="line">                  ,<span class="built_in">vars</span> = [<span class="string">&#x27;mean radius&#x27;</span>, <span class="string">&#x27;mean texture&#x27;</span>, <span class="string">&#x27;mean smoothness&#x27;</span>, <span class="string">&#x27;mean compactness&#x27;</span>] <span class="comment"># 分析变量</span></span><br><span class="line">                  )</span><br><span class="line">pp.map_diag(plt.hist)</span><br><span class="line">pp.map_lower(plt.scatter)</span><br><span class="line">pp.map_upper(sns.kdeplot)</span><br></pre></td></tr></table></figure>
+<figure>
+<img
+src="C:\Users\Yujie\Desktop\机器学习笔记\可视化\sns_多维两两自定义图.png"
+alt="sns_多维两两自定义图" />
+<figcaption aria-hidden="true">sns_多维两两自定义图</figcaption>
+</figure>
+<h1 id="分类变量统计图">分类变量统计图</h1>
+<h2 id="条形图">条形图</h2>
 ]]></content>
       <categories>
-        <category>数理统计</category>
+        <category>数据可视化</category>
       </categories>
       <tags>
-        <tag>回归</tag>
-        <tag>分类</tag>
+        <tag>数据可视化</tag>
+        <tag>seaborn</tag>
       </tags>
   </entry>
   <entry>
@@ -2099,6 +1396,709 @@ X^TR^{-1}X\tilde {\vec \beta}+X^TR^{-1}Z\vec \alpha=X^TR^{-1}\vec y\\
 \beta=Z^TR^{-1}\vec y
 \end{aligned}
 \]</span></p>
+]]></content>
+      <categories>
+        <category>数理统计</category>
+      </categories>
+      <tags>
+        <tag>回归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用广义线性模型</title>
+    <url>/2023/03/08/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="广义线性模型框架">广义线性模型框架</h1>
+<p>模型 <span class="math display">\[
+y|X\sim exp(\theta,\phi,a,b,c)
+\]</span> <span
+class="math inline">\(exp(\theta,\phi,a,b,c)\)</span>表示指数分布族</p>
+<p>回归方程： <span class="math display">\[
+\mu=E(y|X)\\
+g(\mu)=\eta\\
+\eta=X\vec\beta
+\]</span></p>
+<h1 id="高斯模型">高斯模型</h1>
+<p>这里的高斯模型主要指的就是线性回归模型，它其实要求<span
+class="math inline">\(y\)</span>的分布来源于正态分布。已知正态分布的密度为：
+<span class="math display">\[
+f(y)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y-\mu)^2}{2\sigma^2})\\
+=exp(-ln({\sqrt{2\pi}\sigma})-\frac{y^2-2y\mu+\mu^2}{2\sigma^2})\\
+=exp(\frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2}-ln({\sqrt{2\pi}\sigma})-\frac{y^2}{2\sigma^2})
+\]</span> 因此可知： <span class="math display">\[
+\theta=\mu\\
+b(\theta)=\frac{1}{2}\mu^2=\frac{1}{2}\theta^2\\
+a(\phi)=\sigma^2
+\]</span> 分布的均值为<span
+class="math inline">\(b\prime(\theta)\)</span>的一阶导数： <span
+class="math display">\[
+\mu=b\prime(\theta)
+\]</span> <span
+class="math inline">\(b\prime\prime(\theta)\)</span>为方差函数<span
+class="math inline">\(v(\mu)\)</span>，该例中为常数1，这意味着正态分布中均值和方差相互独立。分布的方差为<span
+class="math inline">\(b\prime\prime(\theta)a(\phi)\)</span>： <span
+class="math display">\[
+a(\phi)b\prime\prime(\theta)=\sigma^2
+\]</span></p>
+<h2 id="模型设定">模型设定</h2>
+<p>若<span
+class="math inline">\(y|X\)</span>为正态分布，当使用规范连接函数时，要求<span
+class="math inline">\(\theta=\eta\)</span>，因此模型的形式为： <span
+class="math display">\[
+g(\mu)=\eta=\theta=\mu
+\]</span> 即要求<span
+class="math inline">\(g(\mu)=\mu\)</span>，这意味着<span
+class="math inline">\(g\)</span>函数可以选择恒等连接函数，因此回归方程实际上为：
+<span class="math display">\[
+\mu=\eta=X\vec \beta
+\]</span> 这就是线性回归。</p>
+<h2 id="参数估计">参数估计</h2>
+<p>可以使用<code>IRLS</code>法进行参数估计，其迭代公式为： <span
+class="math display">\[
+\vec \beta_{k+1}=(X^TW_{k}X)^{-1}(X^TW_k\vec z_k)
+\]</span> <span class="math inline">\(\vec z_k\)</span>为工作向量，<span
+class="math inline">\(\vec z_k=X\hat{\vec \beta}_k+g\prime(\vec
+\mu_k)(\vec y-\vec \mu_k)\)</span>，因为选择了恒等连接，所以<span
+class="math inline">\(g(\mu)=\mu\)</span>，进而<span
+class="math inline">\(g\prime(\mu_k)=1\)</span>，所以<span
+class="math inline">\(\vec z_k=X\vec \beta_k+\vec y-\vec \mu_k=\vec
+y\)</span>。<span
+class="math inline">\(W_k\)</span>为权重矩阵，是一个对角矩阵，对角线上元素为<span
+class="math inline">\(\frac{1}{Var(y|X)[g\prime(\mu_k)]^2}\)</span>，如果假定了方差齐，即<span
+class="math inline">\(Var(y|X)=\sigma^2\)</span>，因此<span
+class="math inline">\(W_k\)</span>为： <span class="math display">\[
+W_k=\begin{bmatrix}
+\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}\\
+\end{bmatrix}
+\]</span> 化简后得到迭代公式为: <span class="math display">\[
+\vec \beta_{k+1}=(X^TX)^{-1}X^T\vec y
+\]</span> 这和最小二乘法结果是一致的。如果方差不齐，则<span
+class="math inline">\(W_k\)</span>为： <span class="math display">\[
+W_k=\begin{bmatrix}
+\frac{1}{\sigma^2_1}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_i}&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_n}\\
+\end{bmatrix}=W
+\]</span> 此时迭代公式为： <span class="math display">\[
+\vec \beta_{k+1}=(X^TWX)^{-1}(X^TW\vec y)
+\]</span> 这是异方差最小二乘法。</p>
+<h2 id="拟合优度">拟合优度</h2>
+<h3 id="偏差deviance统计量">偏差deviance统计量</h3>
+<p>首先写出似然函数<span class="math inline">\(L\)</span>： <span
+class="math display">\[
+L=\prod_{i=1}^n\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y_i-\mu_i)^2}{2\sigma^2})
+\]</span> -2倍对数似然函数<span class="math inline">\(-2LL\)</span>为：
+<span class="math display">\[
+-2LL=nln(2\pi\sigma^2)+\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2
+\]</span> 饱和模型的-2倍对数似然函数<span
+class="math inline">\(-2LL_s\)</span>就是令<span
+class="math inline">\(\mu_i=y_i\)</span>，即为： <span
+class="math display">\[
+-2LL_s=nln(2\pi\sigma^2)
+\]</span> 因此deviance统计量<span class="math inline">\(D\)</span>为：
+<span class="math display">\[
+D=(-2LL-(-2LL_s))a(\phi)\\=\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2\sigma^2\\=\sum_{i=1}^n(y_i-\mu_i)^2==SSE
+\]</span> 因此对于线性回归，deviance统计量实际上就是残差平方和<span
+class="math inline">\(SSE\)</span>。</p>
+<p>更进一步，scaled deviance统计量<span
+class="math inline">\(D^*\)</span>等于： <span class="math display">\[
+D^*=\frac{D}{a(\phi)}=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{\sigma^2}\sim
+\chi^2(n-p-1)
+\]</span> 与此同时，null deviance统计量<span
+class="math inline">\(D_0\)</span>等于： <span class="math display">\[
+D_0=\sum_{i=1}^n(y_i-\bar y)^2==SST
+\]</span> 这正好是线性回归中的总平方和<span
+class="math inline">\(SST\)</span>，而决定系数<span
+class="math inline">\(R^2\)</span>为： <span class="math display">\[
+R^2=1-\frac{D_0}{D}=1-\frac{SSE}{SST}
+\]</span></p>
+<h3 id="pearson卡方统计量">Pearson卡方统计量</h3>
+<p>对观测值<span class="math inline">\(y_i\)</span>和期望值<span
+class="math inline">\(\mu_i\)</span>做Pearson卡方检验，有： <span
+class="math display">\[
+\chi^2=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{Var(\mu_i)}
+\]</span></p>
+<h1 id="二项式模型">二项式模型</h1>
+<h1 id="多项式模型">多项式模型</h1>
+<h1 id="计数模型">计数模型</h1>
+<h1 id="负二项式模型">负二项式模型</h1>
+<h1 id="排序模型">排序模型</h1>
+<h1 id="gamma模型">gamma模型</h1>
+]]></content>
+      <categories>
+        <category>数理统计</category>
+      </categories>
+      <tags>
+        <tag>回归</tag>
+        <tag>分类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性回归模型</title>
+    <url>/2023/01/28/11.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="模型">模型</h1>
+<p>线性回归模型的基本形式如下： <span class="math display">\[
+\begin{aligned}
+\hat y|\vec
+x=\beta_0+\beta_1x_1+&amp;\beta_2x_2+...+\beta_px_p+\epsilon\\
+=\vec x^T\vec \beta&amp;+\epsilon\\
+\vec \beta \in R^{p+1}&amp;,\vec x\in R^{p+1}
+\end{aligned}
+\]</span></p>
+<h1 id="假定">假定</h1>
+<p>线性回归模型是广义线性模型的一个特例，当连接函数<span
+class="math inline">\(g(\cdot)\)</span>选择<span
+class="math inline">\(identity\quad
+link\)</span>，且分布族选择正态分布时，广义线性模型退化为线性回归模型。类似广义线性模型，线性回归模型的假定有：</p>
+<ol type="1">
+<li>线性假定：在给定<span class="math inline">\(\vec
+x\)</span>后，随机变量的条件均值为自变量的线性函数，或者说每个自变量对<span
+class="math inline">\(y\)</span>的边际效应为常数<span
+class="math inline">\(\beta\)</span>；</li>
+<li>严格外生性：<span
+class="math inline">\(E(\epsilon_i|X)=0\)</span>，就是说给定数据矩阵<span
+class="math inline">\(X\)</span>之后，扰动项<span
+class="math inline">\(\epsilon_i\)</span>的条件期望为0，也即<span
+class="math inline">\(\epsilon_i\)</span>均值独立于所有解释变量的观测数据，而不仅仅是同一观测数据<span
+class="math inline">\(\vec x_i\)</span>的解释变量。这意味着<span
+class="math inline">\(\epsilon\)</span>与所有个体的解释变量都不相关。此假定能保证OLS是一个无偏估计。</li>
+<li>不存在严格多重共线性；</li>
+<li>球形扰动项：即扰动项具有零均值、等方差、不相关。此假定能保证OLS是方差最小的无偏估计。</li>
+</ol>
+<h1 id="参数估计">参数估计</h1>
+<p><span class="math display">\[
+\hat {\vec\beta}=(X^TX)^{-1}X^T\vec y
+\]</span> # 性质</p>
+<h2 id="估计量的性质">估计量的性质</h2>
+<ol type="1">
+<li>线性性：估计量是<span
+class="math inline">\(y\)</span>的线性函数；</li>
+<li>无偏性：估计量是真实值的无偏估计；</li>
+<li>有效性：方差最小，即</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+{Var(\hat{\vec \beta})}={Var((X^TX)^{-1}X^T\vec y)}\\
+=Var((X^TX)^{-1}X^T(X\vec \beta+\epsilon))
+\end{aligned}
+\]</span></p>
+<p>因<span class="math inline">\(\vec\beta\)</span>为常数，因此 <span
+class="math display">\[
+\begin{aligned}
+=&amp;Var((X^TX)^{-1}X^T\epsilon)\\
+=&amp;(X^TX)^{-1}X^TVar(\epsilon)X(X^TX)^{-1}
+\end{aligned}
+\]</span> 当假定球星扰动项时，即<span
+class="math inline">\(Var(\epsilon)=\sigma^2I\)</span>： <span
+class="math display">\[
+\begin{aligned}
+=&amp;(X^TX)^{-1}X^T\sigma^2 IX(X^TX)^{-1}\\
+=&amp;(X^TX)^{-1}\sigma^2
+\end{aligned}
+\]</span> <span
+class="math inline">\(\sigma^2\)</span>常用扰动项方差，常用误差均方<span
+class="math inline">\(s^2\)</span>来估计。因为<span
+class="math inline">\(e_i\)</span>的均值为0，因此<span
+class="math inline">\(\sigma^2\)</span>的无偏估计为： <span
+class="math display">\[
+\hat \sigma^2=\vec e^T\vec e/(n-p-1)
+\]</span></p>
+<ol start="4" type="1">
+<li>当残差服从正态分布时，估计量也将服从正态分布。</li>
+</ol>
+<h2 id="ols的正交性">OLS的正交性</h2>
+<p>残差向量<span class="math inline">\(\vec e\)</span>与拟合值向量<span
+class="math inline">\(\hat {\vec y}\)</span>，常数1向量<span
+class="math inline">\(\vec 1\)</span>以及自变量向量<span
+class="math inline">\(\vec x\)</span>正交，即内积为0。</p>
+<h2 id="平方和分解">平方和分解</h2>
+<p>有常数项时，总离差平方和可以分解为模型的回归平方和和残差平方和：
+<span class="math display">\[
+\begin{aligned}
+&amp;\sum_{i=1}^n(y_i-\bar y)^2\\
+&amp;=\sum_{i=1}^n(y_i-\hat y_i+\hat y_i-\bar y)^2\\
+&amp;=\sum_{i=1}^n[(y_i-\hat y_i)^2+2(y_i-\hat y_i)(\hat y_i-\bar
+y)+(\hat y_i-\bar y)^2]\\
+&amp;=\sum_{i=1}^n[e_i^2+2e_i(\hat y_i-\bar y)+(\hat y_i-\bar y)^2]\\
+&amp;=\sum_{i=1}^ne_i^2+\sum_{i=1}^n(\hat y_i-\bar
+y)^2+2\sum_{i=1}^ne_i\hat y_i-2\bar y\sum_{i=1}^ne_i
+\end{aligned}
+\]</span> 由于<span class="math inline">\(\vec e\)</span>与<span
+class="math inline">\(\vec x,\vec y,\vec 1\)</span>均正交，因此<span
+class="math inline">\(\sum_{i=1}^ne_i\hat
+y_i=0,\sum_{i=1}^ne_i=0\)</span>，因此有： <span class="math display">\[
+\sum_{i=1}^n(y_i-\bar y)^2=\sum_{i=1}^ne_i^2+\sum_{i=1}^n(\hat y_i-\bar
+y)^2
+\]</span>
+<strong>这个分解公式只有回归方程中有常数项才成立，</strong>因为此时才能保证<span
+class="math inline">\(\sum_{i=1}^ne_i=0\)</span>成立。</p>
+<h2 id="遗漏变量与偏回归">遗漏变量与偏回归</h2>
+<p>将设计矩阵<span class="math inline">\(X\)</span>分为两部分，即 <span
+class="math display">\[
+X=\begin{bmatrix}
+X_1&amp;X_2
+\end{bmatrix}
+\]</span> 同时也将回归系数也分为两部分： <span class="math display">\[
+\vec \beta=\begin{bmatrix}
+\vec \beta_1\\
+\vec \beta_2
+\end{bmatrix}
+\]</span> 这样线性回归模型的正规方程<span class="math inline">\(X^TX\vec
+\beta=X^T\vec y\)</span>可以写为： <span class="math display">\[
+\begin{bmatrix}
+X_1^T\\
+X_2^T
+\end{bmatrix}\begin{bmatrix}
+X_1&amp;X_2
+\end{bmatrix}\begin{bmatrix}
+\vec \beta_1\\
+\vec \beta_s
+\end{bmatrix}=\begin{bmatrix}
+X_1^T\\
+X_2^T
+\end{bmatrix}\vec y\\
+\begin{bmatrix}
+X_1^TX_1&amp;X_1^TX_2\\
+X_2^TX_1&amp;X_2^TX_2
+\end{bmatrix}\begin{bmatrix}
+\vec \beta_1\\
+\vec \beta_2
+\end{bmatrix}=\begin{bmatrix}
+X_1^T\vec y\\
+X_2^T\vec y
+\end{bmatrix}\\
+\begin{bmatrix}
+X_1^TX_1\vec \beta_1+X_1^TX_2\vec \beta_2\\
+X_2^TX_1\vec \beta_1+X_2^TX_2\vec \beta_2
+\end{bmatrix}=\begin{bmatrix}
+X_1^T\vec y\\
+X_2^T\vec y
+\end{bmatrix}
+\]</span> 解第一个方程可得： <span class="math display">\[
+\vec \beta_1=(X_1^TX_1)^{-1}X_1^T\vec y-(X_1^TX_1)^{-1}X_1^TX_2\vec
+\beta_2
+\]</span></p>
+<p>分析这个式子可以发现两点：</p>
+<ul>
+<li>第一项<span class="math inline">\((X_1^TX_1)^{-1}X_1^T\vec
+y\)</span>实际是以<span
+class="math inline">\(X_1\)</span>为设计矩阵，<span
+class="math inline">\(\vec
+y\)</span>为响应变量的模型的回归系数，我们令这个系数估计值为<span
+class="math inline">\(\vec \beta_{\vec y|X_1}\)</span>；</li>
+<li>第二项前半部分<span
+class="math inline">\((X_1^TX_1)^{-1}X_1^TX_2\)</span>实际上是以<span
+class="math inline">\(X_1\)</span>为设计矩阵，<span
+class="math inline">\(X_2\)</span>为响应变量的模型的回归系数，我们令这个系数的估计值为<span
+class="math inline">\(\vec \beta_{X_2|X_1}\)</span>；</li>
+</ul>
+<p>因此上面的式子可以转换为： <span class="math display">\[
+\vec \beta_{\vec y|X_1}=\vec\beta_1+\vec \beta_{X_2|X_1}\vec \beta_2
+\]</span> 这就得到了当遗漏设计阵<span
+class="math inline">\(X_2\)</span>时，参数估计值的表达式。分析这个表达式容易知道，<strong>当<span
+class="math inline">\(\vec y\)</span>对<span
+class="math inline">\(X_2\)</span>的回归系数<span
+class="math inline">\(\vec \beta_2\)</span>，与<span
+class="math inline">\(X_2\)</span>对<span
+class="math inline">\(X_1\)</span>回归系数<span
+class="math inline">\(\vec \beta_{X_2|X_1}\)</span>同号时，遗漏<span
+class="math inline">\(X_2\)</span>对应的变量时将导致高估<span
+class="math inline">\(X_1\)</span>对应的参数，反之则会低估，另外当<span
+class="math inline">\(X_2\)</span>对应的变量与<span
+class="math inline">\(X_1\)</span>对应的变量无关时，<span
+class="math inline">\(\vec
+\beta_{X_2|X_1}=0\)</span>，此时不会高估也不会低估。也就是说，如果因变量对遗漏变量的回归系数与遗漏变量对模型中自变量的回归系数同号，则会高估模型中自变量的回归系数。</strong></p>
+<p>将第一个方程解的<span class="math inline">\(\vec
+\beta_1\)</span>带入第二个方程可得： <span class="math display">\[
+\begin{aligned}
+X_2^TX_1[(X_1^TX_1)^{-1}X_1^T\vec y-(X_1^TX_1)^{-1}X_1^TX_2\vec
+\beta_2]+X_2^TX_2\vec \beta_2=X_2^T\vec y\\
+X_2^TX_1(X_1^TX_1)^{-1}X_1^T\vec y-X_2^TX_1(X_1^TX_1)^{-1}X_1^TX_2\vec
+\beta_2+X_2^TX_2\vec \beta_2=X_2^T\vec y\\
+X_2^T(I-X_1(X_1^TX_1)^{-1}X_1^T)X_2\vec
+\beta_2=X_2^T(I-X_1(X_1^TX_1)^{-1}X_1^T)\vec y
+\end{aligned}
+\]</span> 令<span
+class="math inline">\(H_1=X_1(X_1^TX_1)^{-1}X_1^T,M_1=I-H_1\)</span>，因此有：
+<span class="math display">\[
+\vec \beta_2=[X_2^TM_1X_2]^{-1}X_2^TM_1\vec y
+\]</span> 容易发现<span
+class="math inline">\(M_1\)</span>是一个幂等矩阵，即<span
+class="math inline">\(M_1=M_1^TM_1\)</span>，因此有： <span
+class="math display">\[
+\vec \beta_2=[X_2^TM_1^TM_1X_2]^{-1}X_2^TM_1^TM_1\vec y\\
+\]</span> <span class="math inline">\(M_1\vec y\)</span>实际上是以<span
+class="math inline">\(\vec y\)</span>为因变量，以<span
+class="math inline">\(X_1\)</span>为设计矩阵建立模型的残差向量<span
+class="math inline">\(\vec e_{\vec y|X_1}\)</span>，<span
+class="math inline">\(M_1X_2\)</span>实际上是以<span
+class="math inline">\(X_2\)</span>为因变量以<span
+class="math inline">\(X_1\)</span>为设计阵建立模型的残差向量<span
+class="math inline">\(\vec e_{X_2|X_1}\)</span>，因此进一步有： <span
+class="math display">\[
+\vec \beta_2=[\vec e_{X_2|X_1}^T\vec e_{X_2|X_1}]^{-1}\vec
+e_{X_2|X_1}^T\vec e_{\vec y|X_1}
+\]</span> <strong>这表明<span class="math inline">\(\vec
+\beta_2\)</span>实际上是残差<span class="math inline">\(\vec e_{\vec
+y|X_1}\)</span>对<span class="math inline">\(\vec
+e_{X_2|X_1}\)</span>的回归系数。</strong></p>
+<p>上面式子表明：<strong>如有三个变量<span
+class="math inline">\(x,y,z\)</span>，<span
+class="math inline">\(y\)</span>对<span
+class="math inline">\(x\)</span>回归的偏回归系数实际上等于从<span
+class="math inline">\(y\)</span>中滤去<span
+class="math inline">\(z\)</span>的影响（<span
+class="math inline">\(y\)</span>对<span
+class="math inline">\(z\)</span>做回归）得到残差，对从<span
+class="math inline">\(x\)</span>中滤去<span
+class="math inline">\(z\)</span>的影响（<span
+class="math inline">\(x\)</span>对<span
+class="math inline">\(z\)</span>做回归）得到残差做回归时的回归系数。</strong></p>
+<h1 id="假设检验">假设检验</h1>
+<h2 id="f检验">F检验</h2>
+<p>常见的<span class="math inline">\(H_0\)</span>假设为： <span
+class="math display">\[
+H_0:\beta_1=\beta_2=...=\beta_p=0
+\]</span> 利用总离差平方和分解公式： <span class="math display">\[
+\begin{aligned}
+\sum_{i=1}^n(y_i-\bar y)^2&amp;=\sum_{i=1}^n(y_i-\hat
+y_i)^2+\sum_{i=1}^n(\hat y_i-\bar y)^2\\
+=SSE+SSR
+\end{aligned}
+\]</span> 可以证明，下面的统计量服从<span
+class="math inline">\(F\)</span>分布： <span class="math display">\[
+F=\frac{SSR/p}{SSE/(n-p-1)}
+\]</span></p>
+<h2 id="t检验">t检验</h2>
+<p>主要检验单个系数，例如<span class="math inline">\(\beta_j,\quad
+j=1,2,...p\)</span>，如： <span class="math display">\[
+H_0:\beta_j=0
+\]</span> 从<span class="math inline">\(\hat{\vec
+\beta}\)</span>的协方差<span
+class="math inline">\(\sigma^2(X^TX)^{-1}\)</span>中提取<span
+class="math inline">\(\hat\beta_{j}\)</span>的方差，利用统计量： <span
+class="math display">\[
+t_j=\frac{\hat\beta_j}{\hat\sigma\sqrt{c_{jj}}}
+\]</span> <span class="math inline">\(c_{jj}\)</span>为<span
+class="math inline">\((X^TX)^{-1}\)</span>中第<span
+class="math inline">\(j\)</span>行<span
+class="math inline">\(j\)</span>列元素。</p>
+<h2 id="偏决定系数与偏f检验">偏决定系数与偏F检验</h2>
+<p>偏决定系数测量的是在回归方程中包含若干个自变量时，再引入某一个新的自变量时残差平方和的减少量。例如，记<span
+class="math inline">\(SSE(x_2)\)</span>是模型中只有自变量<span
+class="math inline">\(x_2\)</span>时的残差平方和，<span
+class="math inline">\(SSE(x_1,x_2)\)</span>是模型中有自变量<span
+class="math inline">\(x_1,x_2\)</span>时的残差平方和，因此在模型中已有<span
+class="math inline">\(x_2\)</span>时，<span
+class="math inline">\(x_1\)</span>和<span
+class="math inline">\(y\)</span>的偏决定系数为： <span
+class="math display">\[
+\frac{SSE(x_2)-SSE(x_1,x_2)}{SSE(x_2)}
+\]</span> 反之亦然。</p>
+<p>不失一般性，令<span class="math inline">\(y\)</span>对自变量<span
+class="math inline">\(x_1,x_2,...,x_p\)</span>的残差平方和为<span
+class="math inline">\(SSE\)</span>，回归平方和为<span
+class="math inline">\(SSR\)</span>，在模型中剔除自变量<span
+class="math inline">\(x_j\)</span>时候，用<span
+class="math inline">\(y\)</span>对剩下的<span
+class="math inline">\(p-1\)</span>个自变量做回归，记所得模型的残差平方和为<span
+class="math inline">\(SSE(j)\)</span>，回归平方和为<span
+class="math inline">\(SSR(j)\)</span>，则自变量<span
+class="math inline">\(x_j\)</span>对回归的贡献为<span
+class="math inline">\(\Delta=SSR-SSR(j)\)</span>，称为<span
+class="math inline">\(x_j\)</span>的偏回归平方和。可构造如下偏F统计量：
+<span class="math display">\[
+F_j=\frac{\Delta/1}{SSE/(n-p-1)}
+\]</span> 此统计量实际上与<span
+class="math inline">\(t\)</span>检验是等价的。</p>
+<h2 id="偏相关系数">偏相关系数</h2>
+<p>当其他变量固定之后，给定的任意两个变量之间的相关系数，叫偏相关系数。偏相关系数等于偏决定系数的平方根，也等于其他变量对两个变量做回归，得到两组残差值，计算两组残差之间的相关系数。</p>
+<h1 id="拟合优度">拟合优度</h1>
+<h2 id="决定系数r2">决定系数<span
+class="math inline">\(R^2\)</span></h2>
+<p>用决定系数<span class="math inline">\(R^2\)</span>来度量拟合优度，即
+<span class="math display">\[
+R^2=\frac{\sum_{i=1}^n(\hat y_i-\bar y)^2}{\sum_{i=1}^n(y_i-\bar
+y)^2}=1-\frac{\sum_{i=1}^ne_i^2}{\sum_{i=1}^n(y_i-\bar y)^2}
+\]</span> 在有常数项时，<span
+class="math inline">\(R^2\)</span>等于拟合值<span
+class="math inline">\(\hat y_i\)</span>和<span
+class="math inline">\(y_i\)</span>之间相关系数的平方。决定系数的缺点在于：即便增加无效的预测变量也能使得决定系数增加，因此又有了调整决定系数。</p>
+<h2 id="调整决定系数r_a2">调整决定系数<span
+class="math inline">\(R_a^2\)</span></h2>
+<p>调整<span
+class="math inline">\(R^2_a\)</span>，主要考虑了解释变量个数： <span
+class="math display">\[
+R^2_a=1-\frac{\sum_{i=1}^ne_i^2/(n-p-1)}{\sum_{i=1}^n(y_i-\bar
+y)^2/(n-1)}
+\]</span> 分子自由度为<span
+class="math inline">\(n-p\)</span>是因为有<span
+class="math inline">\(p+1\)</span>个正规方程。</p>
+<h2 id="复相关系数">复相关系数</h2>
+<p>为决定系数<span
+class="math inline">\(R^2\)</span>的开方，实际上等于拟合值<span
+class="math inline">\(\hat y_i\)</span>和<span
+class="math inline">\(y_i\)</span>之间相关系数。</p>
+<h2 id="无常数项的回归">无常数项的回归</h2>
+<p>无常数项回归即消去<span class="math inline">\(\beta_0\)</span>：
+<span class="math display">\[
+\hat y=\beta_1x_1+\beta_2x_2+...+\beta_px_p+\epsilon
+\]</span> 无常数项回归必然经过原点。此时残差向量<span
+class="math inline">\(\vec e\)</span>与拟合值向量<span
+class="math inline">\(\hat {\vec y}\)</span>，自变量向量<span
+class="math inline">\(\vec
+x\)</span>正交，即内积为0，<strong>但是不一定与常数1向量<span
+class="math inline">\(\vec 1\)</span>正交。</strong></p>
+<h1 id="模型选择">模型选择</h1>
+<h2 id="全子集回归">全子集回归</h2>
+<p>设共有<span
+class="math inline">\(p\)</span>个自变量（这里的自变量不包括常数项），每个自变量都有进入或者不进入模型的可能，那么<span
+class="math inline">\(y\)</span>关于这些自变量的所有可能的回归模型有<span
+class="math inline">\(2^p\)</span>个。当所有自变量都不进入模型，此时模型中只有一个常数项，如果不考虑这个模型，则可能的回归模型有<span
+class="math inline">\(2^p-1\)</span>个。</p>
+<p>从这<span
+class="math inline">\(2^p\)</span>个模型中选择一个最优的模型，就称为全子集回归。如何选择呢，这就需要一个标准，常见的标准有：</p>
+<h3 id="调整r2_a">调整<span class="math inline">\(R^2_a\)</span></h3>
+<p><span class="math display">\[
+R^2_a=1-\frac{\sum_{i=1}^ne_i^2/(n-p-1)}{\sum_{i=1}^n(y_i-\bar
+y)^2/(n-1)}
+\]</span></p>
+<p><span class="math inline">\(R^2_a\)</span>越大模型越好。</p>
+<h3 id="hat-sigma2"><span class="math inline">\(\hat
+\sigma^2\)</span></h3>
+<p><span class="math display">\[
+\hat \sigma^2=\frac{\vec e^T\vec e}{n-p-1}
+\]</span></p>
+<p><span class="math inline">\(\hat \sigma^2\)</span>是<span
+class="math inline">\(\sigma^2\)</span>的无偏估计，实际上<span
+class="math inline">\(\hat \sigma^2\)</span>和调整<span
+class="math inline">\(R_a^2\)</span>是等价的。<span
+class="math inline">\(\hat \sigma^2\)</span>越小，模型越好。</p>
+<h3 id="赤池信息准则aic">赤池信息准则AIC</h3>
+<p>AIC等于-2倍对数似然函数值加上参数个数的2倍： <span
+class="math display">\[
+AIC=-2lnL+2p
+\]</span> AIC越小，模型越好。</p>
+<h3 id="c_p统计量"><span class="math inline">\(C_p\)</span>统计量</h3>
+<p><span class="math display">\[
+C_p=\frac{SSE}{\hat \sigma^2}+2p-n
+\]</span></p>
+<p><span class="math inline">\(SSE\)</span>是当前模型的误差平方和，<span
+class="math inline">\(\hat\sigma^2\)</span>是所有自变量均纳入时模型的均方误差。<span
+class="math inline">\(C_p\)</span>统计量越小模型越好。</p>
+<h2 id="逐步回归">逐步回归</h2>
+<h3 id="前进法">前进法</h3>
+<p>前进法的思想是变量由少到多，每次增加一个，直到没有可引入的变量为止。具体做法是先将<span
+class="math inline">\(p\)</span>个自变量，分别对因变量<span
+class="math inline">\(y\)</span>建立<span
+class="math inline">\(p\)</span>个一元线性回归方程，选择<span
+class="math inline">\(p\)</span>值显著且最小（也即偏<span
+class="math inline">\(F\)</span>值最大）的那个自变量先进入模型，设为<span
+class="math inline">\(x_i\)</span>。然后在已经引入<span
+class="math inline">\(x_i\)</span>的基础上，依次引入其他<span
+class="math inline">\(p-1\)</span>个自变量，建立<span
+class="math inline">\(p-1\)</span>个包含两个自变量的回归模型，从中选择<span
+class="math inline">\(p\)</span>值最小且显著（偏<span
+class="math inline">\(F\)</span>值最大）的那个变量进入方程，依次类推，直到模型外变量均不显著为止。</p>
+<p>前进法有明显的不足：某个自变量刚引入时可能是显著的，但是当引入其他自变量后，它变得不显著了，但是前进法不会将其进行剔除。即一旦引入方程的自变量，将是“终身制“。即前进法只能”进“。</p>
+<h3 id="后退法">后退法</h3>
+<p>后退法与前进法相反，首先用全部<span
+class="math inline">\(p\)</span>个自变量建立一个回归方程，然后在这<span
+class="math inline">\(p\)</span>个变量中选择一个最不重要的变量，将它从方程中剔除。选择的标准是<span
+class="math inline">\(p\)</span>值最大（对应的偏<span
+class="math inline">\(F\)</span>值最小）的自变量。借着从剩下的<span
+class="math inline">\(p-1\)</span>个自变量重新建立回归方程，重复这一过程，直到没有可剔除的自变量为止。</p>
+<p>后退法也有不足：一是一开始把所有自变量引入方程，导致计算量很大。再就是一旦某个自变量被剔除，就再也没有机会进入回归方程。即后退法只能”出“。</p>
+<h3 id="逐步法">逐步法</h3>
+<p>逐步法的基本思想是有进有出。具体做法是将变量一个一个引入，当每引入一个自变量后，会对已入选的变量逐个检验，如果不再显著，会将其剔除。同样，剔除一个变量之后，会再次对已入选的变量逐个检验，如有有变量不再显著，会将其剔除。检验显著性仍然使用偏F检验或对应的<span
+class="math inline">\(p\)</span>值。这个过程反复进行，直到既无显著自变量进入方程，也无不显著自变量从回归方程中剔除。</p>
+<p>逐步法需要注意的是：引入自变量的显著性水平<span
+class="math inline">\(\alpha_{in}\)</span>需要小于剔除自变量的显著性水平<span
+class="math inline">\(\alpha_{out}\)</span>，否则可能出现”死循环“。</p>
+<h1 id="回归诊断">回归诊断</h1>
+<h2 id="模型适用条件判断">模型适用条件判断</h2>
+<h3 id="异方差检验方差齐性">异方差（检验方差齐性）</h3>
+<h4 id="图示法">图示法</h4>
+<p>画标准化残差或学生化残差与拟合值<span class="math inline">\(\hat
+y_i\)</span>的散点图，或者与某一个解释变量<span
+class="math inline">\(x_{ik}\)</span>的散点图。如果等方差，残差应该不会随<span
+class="math inline">\(\hat y_i\)</span>或<span
+class="math inline">\(x_{ik}\)</span>发生变化。</p>
+<h4 id="假设检验法">假设检验法</h4>
+<h3 id="自相关检验独立性">自相关（检验独立性）</h3>
+<h4 id="图示法-1">图示法</h4>
+<p>画残差与其滞后之间的散点图，或者对残差绘制自相关图或计算偏自相关系数。</p>
+<h4 id="假设检验法-1">假设检验法</h4>
+<h3 id="正态性">正态性</h3>
+<h4 id="图示法-2">图示法</h4>
+<p>考察普通残差<span
+class="math inline">\(e_i\)</span>是否服从正态分布，可以画直方图、qq图等。</p>
+<h4 id="假设检验法-2">假设检验法</h4>
+<p>使用W检验等。</p>
+<h2 id="异常点与强影响点判断">异常点与强影响点判断</h2>
+<p>异常点主要包括杠杆点和离群点。X空间异常的点称为杠杆点，Y空间异常的点称为离群点。<strong>强影响点</strong>(influential
+points)
+<strong>是指对模型有较大影响的点，模型中包含该点与不包含该点会使求得的回归系数相差很大</strong>。如果某点既是离群点又是高杠杆点，则该点很有可能是强影响点。</p>
+<h3 id="杠杆点">杠杆点</h3>
+<p>线性回归的预测值为： <span class="math display">\[
+\begin{aligned}
+\hat {\vec y}=X\hat{\vec \beta}\\
+=X(X^TX)^{-1}X^T\vec y\\
+=H\vec y
+\end{aligned}
+\]</span> 矩阵<span
+class="math inline">\(H=X(X^TX)^{-1}X^T\)</span>是一个投影矩阵，也称为帽子矩阵（给<span
+class="math inline">\(\vec y\)</span>戴了一顶帽子），作用是将<span
+class="math inline">\(\vec y\)</span>投影到<span
+class="math inline">\(X\)</span>的列空间。帽子矩阵是一个<span
+class="math inline">\(n*n\)</span>的对称矩阵，矩阵的主对角线上的元素（共有n个）称为帽子统计量。帽子矩阵的迹，也即帽子统计量的和为<span
+class="math inline">\(p+1\)</span>，证明其实很简单，因为<span
+class="math inline">\(tr(AB)=tr(BA)\)</span>，因此： <span
+class="math display">\[
+\begin{aligned}
+tr(X(X^TX)^{-1}X^T)&amp;=tr(X^TX(X^TX)^{-1})\\
+&amp;=tr(I_{p+1})\\
+&amp;=p+1
+\end{aligned}
+\]</span> 因此帽子统计量的平均值等于 <span class="math display">\[
+\frac{p+1}{n}
+\]</span>
+如果某条观测的帽子统计量是帽子均值的2或3倍，即可视为高杠杆点。</p>
+<h3 id="离群点">离群点</h3>
+<p>离群点主要通过残差<span
+class="math inline">\(e_i,i=1,2,...,n\)</span>来判断。定义残差向量<span
+class="math inline">\(\vec e=[e_1,e_2,...,e_i,...,e_n]^T\)</span>，则：
+<span class="math display">\[
+\begin{aligned}
+\vec e=\vec y-\hat{\vec y}\\
+=\vec y-H\vec y\\
+=(I-H)\vec y
+\end{aligned}
+\]</span> 残差向量的协方差矩阵为： <span class="math display">\[
+\begin{aligned}
+Cov(\vec e,\vec e)&amp;=Cov((I-H)\vec y,(I-H)\vec y)\\
+&amp;=(I-H)Cov(\vec y,\vec y)(I-H)^{T}\\
+&amp;=(I-H)\sigma^2I(I-H)^T\\
+&amp;=\sigma^2[II^T-IH^T-HI+HH^T]
+\end{aligned}
+\]</span> 因为<span
+class="math inline">\(H\)</span>是对称矩阵，也是幂等矩阵，因此有： <span
+class="math display">\[
+Cov(\vec e,\vec e)=\sigma^2(I-H)
+\]</span> 因此可知每个残差<span
+class="math inline">\(e_i\)</span>的方差为<span
+class="math inline">\((1-h_{ii})\sigma^2\)</span>，<span
+class="math inline">\(h_{ii}\)</span>为第<span
+class="math inline">\(i\)</span>条观测数据的帽子统计量。</p>
+<p>根据上述结论，可以定义下面5类残差：</p>
+<h4 id="未标准化残差">未标准化残差</h4>
+<p>也称为原始残差，<span class="math inline">\(e_i=y_i-\hat
+y_i\)</span>。由于原始残差的方差与帽子统计量有关，各不相同，为了便于进行比较，提出了标准化残差和学生化残差。</p>
+<h4 id="标准化残差">标准化残差</h4>
+<p>将未标准化残差进行标准化，即先减去均值（有截距项时，残差的均值为0），再除以标准差，即<span
+class="math inline">\(\frac{e_i}{\hat
+\sigma}\)</span>，标准化残差使得残差具备可比性，一般认为标准化残差绝对值大于3为离群点。标准化残差因为没有解决残差之间方差不等的问题，为此又有了学生化残差。</p>
+<h4 id="学生化残差">学生化残差</h4>
+<p>公式为<span class="math inline">\(\frac{e_i}{\hat
+\sigma(1-h_{ii})}\)</span>，<span
+class="math inline">\(h_{ii}\)</span>为第<span
+class="math inline">\(i\)</span>条数据的帽子统计量。学生化残差相比较标准化残差进一步解决了方差不等问题，因此更适合做残差比较。不过当<span
+class="math inline">\(y\)</span>本身存在异常时，会将回归线拉向自身，会减弱残差的判断作用，为此又有了剔除残差。</p>
+<h4 id="剔除残差">剔除残差</h4>
+<p>剔除该条记录后，拟合新的模型。新模型输入该条记录的自变量得到预测值，得到的未标准化残差。</p>
+<h4 id="学生化剔除残差">学生化剔除残差</h4>
+<p>剔除残差进行学生化转换。显然学生化剔除残差更能判断离群点。</p>
+<p>如果学生化残差绝对值<span class="math inline">\(\ge
+2\)</span>，可以认为是一个可疑点；如果学生化残差绝对值<span
+class="math inline">\(\ge 3\)</span>，基本可以认定是一个离群点。</p>
+<h3 id="强影响点">强影响点</h3>
+<h4 id="cook距离">Cook距离</h4>
+<p>将学生化残差与帽子统计量求积： <span class="math display">\[
+\frac{e_i^2}{(1-h_{ii})^2\hat\sigma^2}\frac{h_{ii}}{\frac{p+1}{n}}=n\frac{e_i^2}{(1-h_{ii})^2\hat\sigma^2}\frac{h_{ii}}{p+1}
+\]</span> <span
+class="math inline">\(n\)</span>为所有观测所共有，忽略后即为Cook距离：
+<span class="math display">\[
+D_i=\frac{e_i^2}{(1-h_{ii})^2\hat\sigma^2}\frac{h_{ii}}{p+1}
+\]</span>
+直观上看Cook距离综合了y空间的离群点和x空间的杠杆点。Cook距离判断强影响点的标准比较复杂，一般认为Cook距离大于1，可以认为是强影响点。</p>
+<h4 id="dfbeta">DfBeta</h4>
+<p>剔除第<span
+class="math inline">\(i\)</span>条记录后，拟合新的模型。比较剔除前和剔除后，<strong>某一个</strong>回归系数估计值的变化（即求差值），变化较大表示强影响点。</p>
+<h4 id="标准化dfbeta">标准化DfBeta</h4>
+<p>即对每条观测某一个回归系数的DfBeta进行标准化。</p>
+<h4 id="dffit">DfFit</h4>
+<p>剔除第<span
+class="math inline">\(i\)</span>条记录后，拟合新的模型。比较剔除前和提出后，第<span
+class="math inline">\(i\)</span>条记录拟合值的变化（即求差值），变化较大表示强影响点。</p>
+<h4 id="标准化dffit">标准化DfFit</h4>
+<p>即对每条观测的DfFit进行标准化。</p>
+<h2 id="共线性判断">共线性判断</h2>
+<p>在近似多重共线性情况下，OLS仍然是最佳线性无偏估计，即仍然是最小方差的估计，但是这并不意味着方差的绝对值很小，实际上，由于多重共线性，OLS估计量的方差会很大，使得系数估计很不稳定，数据矩阵X轻微变动就可能导致参数估计值发生巨大变化，甚至方向与预期相反，此时<span
+class="math inline">\(t\)</span>检验也往往不会通过。</p>
+<h3 id="何时需要处理共线性">何时需要处理共线性</h3>
+<ul>
+<li>如果模型只是用来进行预测，则不必关注多重共线性；</li>
+<li>如果关注具体的回归系数，但不关心的自变量出现了严重多重共线性，也不必关注；</li>
+<li>如果关注具体的回归系数，且关心的自变量存在严重多重共线性，则需要进行处理。</li>
+</ul>
+<h3 id="如何判断共线性">如何判断共线性</h3>
+<h4 id="方差膨胀因子">方差膨胀因子</h4>
+<p>将第<span class="math inline">\(k\)</span>个自变量<span
+class="math inline">\(x_k\)</span>对其余自变量做一个线性回归，可以计算出该回归方程的决定系数<span
+class="math inline">\(R_k^2\)</span>，可以证明<span
+class="math inline">\(x_k\)</span>的系数<span class="math inline">\(\hat
+\beta_k\)</span>的方差为： <span class="math display">\[
+Var(\hat \beta_k)=\frac{\sigma^2}{(1-R_k^2)S_k}
+\]</span> <span class="math inline">\(S_k\)</span>为<span
+class="math inline">\(x_k\)</span>的离差平方和，<span
+class="math inline">\(\sigma^2\)</span>为扰动项的方差。<span
+class="math inline">\(x_k\)</span>的方差膨胀因子VIF定义为： <span
+class="math display">\[
+VIF_k=\frac{1}{1-R_k^2}
+\]</span> 因此 <span class="math display">\[
+Var(\hat \beta_k)=VIF_k\frac{\sigma^2}{S_k}
+\]</span> 从这个式子可以看出来方差膨胀因子的含义，因为<span
+class="math inline">\(\sigma^2/S_k\)</span>已经固定，<span
+class="math inline">\(VIF_k\)</span>实际上就是使<span
+class="math inline">\(\hat \beta_k\)</span>的方差变为<span
+class="math inline">\(\frac{\sigma^2}{S_k}\)</span>的倍数。另外VIF的分母部分，也就是<span
+class="math inline">\(1-R_k^2\)</span>称为容忍度。</p>
+<p>计算每个自变量的方差膨胀因子，一般认为方差膨胀因子大于10，认为该自变量与其他自变量之间存在严重的多重共线性。</p>
+<h4 id="特征值">特征值</h4>
+<p>数据矩阵<span class="math inline">\(X\)</span>标准化之后，对<span
+class="math inline">\(X^TX\)</span>做特征值分解，求得特征值和特征向量。如果有<span
+class="math inline">\(r,r\le
+p\)</span>个特征值近似为0，以其对应的特征向量为系数的<span
+class="math inline">\(X\)</span>的线性组合将近似为0，这意味着<span
+class="math inline">\(X\)</span>中有<span
+class="math inline">\(r\)</span>个变量与其他变量有严重共线关系。</p>
+<h4 id="条件数">条件数</h4>
+<p><span class="math inline">\(X^TX\)</span>（<span
+class="math inline">\(X\)</span>提前标准化）为<span
+class="math inline">\(p*p\)</span>的方阵，有<span
+class="math inline">\(p\)</span>个特征值，其中最大特征值除以最小特征值再开方定义为矩阵<span
+class="math inline">\(X^TX\)</span>的条件数，条件数较大（例如大于30）时认为有严重的多重共线性。</p>
+<h3 id="如何处理多重共线性">如何处理多重共线性</h3>
+<ul>
+<li>增大样本容量</li>
+<li>剔除严重共线性的变量</li>
+<li><strong>将严重共线性的变量进行标准化</strong></li>
+<li>修改模型的设定</li>
+<li>使用其他模型：主成分回归、岭回归等。</li>
+</ul>
+<p>注意：多项式回归中容易出现多重共线性，例如<span
+class="math inline">\(x\)</span>和<span
+class="math inline">\(x^2\)</span>的相关性就比较强，此时解决办法是将<span
+class="math inline">\(x\)</span>做标准化，并引入标准化变量的平方。</p>
 ]]></content>
       <categories>
         <category>数理统计</category>
@@ -3088,6 +3088,334 @@ w}}}
       </tags>
   </entry>
   <entry>
+    <title>数理统计中的一些基本概念</title>
+    <url>/2023/01/07/8.%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p>​</p>
+<span id="more"></span>
+<h1 id="随机变量的数字特征">随机变量的数字特征</h1>
+<h2 id="矩">矩</h2>
+<p>随机变量<span class="math inline">\(X\)</span>，任一可能取值为<span
+class="math inline">\(x\)</span>，密度为<span
+class="math inline">\(f(x)\)</span>，则随机变量的函数<span
+class="math inline">\(g(x)\)</span>，<span
+class="math inline">\(g(x)\)</span>的期望为矩： <span
+class="math display">\[
+E[g(X)]=\int g(x)f(x)dx
+\]</span></p>
+<p>当<span
+class="math inline">\(g(x)=x\)</span>时，为一阶原点矩，就是期望，当<span
+class="math inline">\(g(x)=x^2\)</span>时，就是二阶原点矩，当<span
+class="math inline">\(g(x)=x^3\)</span>时，就是三阶原点矩。</p>
+<p>当<span class="math inline">\(g(x)=(x-\bar
+x)^2\)</span>时，就是二阶中心矩，就是方差，当<span
+class="math inline">\(g(x)=(\frac{x-\bar
+x}{\sigma})^3\)</span>时，就是三阶标准化矩，就是偏度，当<span
+class="math inline">\(g(x)=(\frac{x-\bar
+x}{\sigma})^4\)</span>时，就是四阶标准化矩，就是峰度。</p>
+<h2 id="期望">期望</h2>
+<h3 id="离散型定义">离散型定义</h3>
+<p>随机变量<span class="math inline">\(X\)</span>有取值<span
+class="math inline">\(x_1,x_2,...,x_k,...x_K\)</span>，每种取值概率分别为：<span
+class="math inline">\(p_1,p_2,...,p_k,...,p_K\)</span>，则期望为： <span
+class="math display">\[
+E(X)=\sum_{k=1}^Kp_kx_k
+\]</span></p>
+<h3 id="连续型定义">连续型定义</h3>
+<p>期望为： <span class="math display">\[
+E(X)=\int xf(x)dx
+\]</span></p>
+<h3 id="性质">性质</h3>
+<p>令<span class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
+class="math display">\[
+E(CX)=CE(X)
+\]</span> <span class="math display">\[
+E(X+Y)=E(X)+E(Y)
+\]</span></p>
+<p>当<span class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>相互独立时，有： <span
+class="math display">\[
+E(XY)=E(X)E(Y)
+\]</span></p>
+<h3 id="其他">其他</h3>
+<p>期望为一阶原点矩<span
+class="math inline">\(E(X)\)</span>，二阶原点矩为<span
+class="math inline">\(E(X^2)\)</span>，三阶原点矩为<span
+class="math inline">\(E(X^3)\)</span>，等等</p>
+<h2 id="方差">方差</h2>
+<h3 id="定义">定义</h3>
+<p>随机变量的方差为： <span class="math display">\[
+Var(X)=E[(X-E(X)]^2
+\]</span></p>
+<p><span class="math display">\[
+=E[X^2]-[EX]^2
+\]</span></p>
+<h3 id="性质-1">性质</h3>
+<p>令<span class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
+class="math display">\[
+Var(C+X)=Var(X)
+\]</span> <span class="math display">\[
+Var(CX)=C^2Var(X)
+\]</span></p>
+<p>如何理解<span class="math inline">\(Var(CX)=C^2Var(X)\)</span>，<span
+class="math inline">\(X\)</span>乘以<span
+class="math inline">\(C\)</span>后，期望会变为<span
+class="math inline">\(CX\)</span>，这样离差也将变为原来的<span
+class="math inline">\(C\)</span>倍，离差再经过平方后，自然变为原来的<span
+class="math inline">\(C^2\)</span>倍。</p>
+<p>一般而言： <span class="math display">\[
+Var(X±Y)=Var(X)+Var(Y)±2Cov(X,Y)
+\]</span> 当<span class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>相互独立时： <span
+class="math display">\[
+Var(X±Y)=Var(X)+Var(Y)
+\]</span></p>
+<p>如何理解<span
+class="math inline">\(Var(X±Y)=Var(X)+Var(Y)±2Cov(X,Y)\)</span>？考虑有衣服上有左右两个口袋，每个口袋里有一堆数字卡片，左口袋内的卡片代表随机变量<span
+class="math inline">\(X\)</span>的可能取值，右口袋内的卡片代表随机变量<span
+class="math inline">\(Y\)</span>的可能取值，现在随机从两个口袋中各拿出一个卡片。如果<span
+class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>不相关，则无论从左口袋拿出的<span
+class="math inline">\(X\)</span>是大还是小，都不会影响到从右口袋中拿出的<span
+class="math inline">\(Y\)</span>的取值，此时二者和的方差为方差的和。而当<span
+class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>正相关时，当从左口袋拿出的<span
+class="math inline">\(X\)</span>是一个比较大的值（例如比期望值大），那么从右口袋拿出<span
+class="math inline">\(Y\)</span>的值往往也比较大，此时二者相加能得到比二者无关时相加更大的值，从而导致和的分散程度增大，也就是方差增大，而二者相减能得到比二者无关时相减更小的值，从而导致差的分散程度减小，也就是方差减小。反之二者负相关时也是类似的。</p>
+<h3 id="其他-1">其他</h3>
+<p>方差为二阶中心距<span
+class="math inline">\(E([X-E(X)])^2\)</span>，三阶中心矩为<span
+class="math inline">\(E([X-E(X)]^3)\)</span>，四阶中心距为<span
+class="math inline">\(E([X-E(X)]^4)\)</span>，等等。</p>
+<h2 id="协方差">协方差</h2>
+<h3 id="定义-1">定义</h3>
+<p>随机变量<span class="math inline">\(X\)</span>与随机变量<span
+class="math inline">\(Y\)</span>的协方差为： <span
+class="math display">\[
+Cov(X,Y)=E[(X-E(X))(Y-E(Y))]\\
+\]</span></p>
+<p><span class="math display">\[
+=E(XY)-E(X)E(Y)
+\]</span></p>
+<h3 id="性质-2">性质</h3>
+<p><span class="math display">\[
+Cov(aX,bY)=abCov(X,Y)
+\]</span></p>
+<p><span class="math inline">\(a,b\)</span>为常数 <span
+class="math display">\[
+Cov(X,Y+Z)=Cov(X,Y)+Cov(X,Z)
+\]</span></p>
+<h2 id="相关系数">相关系数</h2>
+<p>随机变量<span class="math inline">\(X\)</span>和随机变量<span
+class="math inline">\(Y\)</span>的相关系数为 <span
+class="math display">\[
+\rho=Corr(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
+\]</span></p>
+<h2 id="偏度和峰度">偏度和峰度</h2>
+<p>偏度为三阶标准化矩 <span class="math display">\[
+skewness=E([\frac{X-E(X)}{\sqrt {Var(X)}}]^3)
+\]</span> 正态分布的偏度为0。</p>
+<p>峰度为四阶标准化矩 <span class="math display">\[
+kurtosis=E([\frac{X-E(X)}{\sqrt{Var(X)}}]^4)
+\]</span> 正态分布的峰度为3。上面的量-3，为超额峰度。</p>
+<h1 id="随机向量的数字特征">随机向量的数字特征</h1>
+<p>随机向量<span class="math inline">\(\vec
+X\)</span>是指每一个分量均为随机变量的向量。它的数字特征有期望和协方差矩阵。</p>
+<p>协方差矩阵为： <span class="math display">\[
+Var(\vec X)=Cov(\vec X)
+\]</span> <span class="math display">\[
+=E[(\vec X-E(\vec X))(\vec X-E(\vec X))^T]
+\]</span></p>
+<p><span class="math display">\[
+=E(\vec X\vec X^T)-E(\vec X)[E(\vec X)]^T
+\]</span></p>
+<p>性质： <span class="math display">\[
+E(A\vec X)=AE(\vec X)
+\]</span> <span class="math display">\[
+Var(A\vec X)=AVar(\vec X)A^T
+\]</span></p>
+<p>这里的<span
+class="math inline">\(A\)</span>为常数矩阵。另外随机向量的协方差矩阵一定为半正定矩阵，因为：
+<span class="math display">\[
+Var(\vec v^T\vec X)=\vec v^T\vec X\vec v\ge 0
+\]</span></p>
+<h1 id="正态分布的性质">正态分布的性质</h1>
+<p>若<span class="math inline">\(X\sim
+N(\mu,\sigma^2)\)</span>，则其线性组合也为正态分布，根据期望和方差性质可得<span
+class="math inline">\(aX+b\sim N(a\mu+b,a^2\sigma^2)\)</span>；</p>
+<p>若<span class="math inline">\(X\sim N(\mu_1,\sigma_1^2),Y\sim
+N(\mu_2,\sigma_2^2)\)</span>，且<span
+class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>相互独立，则<span
+class="math inline">\(X+Y\)</span>以及<span
+class="math inline">\(X-Y\)</span>都服从正态分布。</p>
+<h1 id="常用抽样分布">常用抽样分布</h1>
+<h2 id="chi2分布"><span class="math inline">\(\chi^2\)</span>分布</h2>
+<p>若总体服从标准正态分布<span
+class="math inline">\(N(0,1)\)</span>，从中随机抽取一个样本容量为<span
+class="math inline">\(n\)</span>的样本<span
+class="math inline">\(X_1,X_2,...,X_n\)</span>，则随机变量<span
+class="math inline">\(Y\)</span>： <span class="math display">\[
+Y=X_1^2+X_2^2+...+X_n^2
+\]</span> 服从自由度为<span
+class="math inline">\(n\)</span>的卡方分布，记为： <span
+class="math display">\[
+Y\sim \chi^2(n)
+\]</span> 这里面要求<span
+class="math inline">\(X_1,X_2,...,X_n\)</span>是相互独立的。</p>
+<p><span class="math inline">\(\chi^2\)</span>分布有两个重要的性质：</p>
+<ol type="1">
+<li>可加性：两个相互独立的卡方分布相加后的统计量同样服从卡方分布，该分布的自由度为原来两个分布的自由度之和。</li>
+<li>期望为n，方差为2n。</li>
+</ol>
+<h2 id="t分布">T分布</h2>
+<p>若随机变量<span
+class="math inline">\(X\)</span>服从标准正态分布，即<span
+class="math inline">\(X\sim N(0,1)\)</span>，随机变量<span
+class="math inline">\(Y\)</span>服从自由度为<span
+class="math inline">\(n\)</span>的卡方分布，即<span
+class="math inline">\(Y\sim \chi^2(n)\)</span>，且<span
+class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>相互独立，则随机变量 <span
+class="math display">\[
+T=\frac{X}{\sqrt{\frac{Y}{n}}}\sim t(n)
+\]</span> 服从自由度为<span
+class="math inline">\(n\)</span>的t分布。</p>
+<h2 id="f分布">F分布</h2>
+<p>若随机变量<span class="math inline">\(X\)</span>服从自由度为<span
+class="math inline">\(n\)</span>的卡方分布，即<span
+class="math inline">\(X\sim \chi^2(n)\)</span>，随机变量<span
+class="math inline">\(Y\)</span>服从自由度为<span
+class="math inline">\(m\)</span>的卡方分布<span
+class="math inline">\(Y\sim\chi^2(m)\)</span>，且<span
+class="math inline">\(X\)</span>和<span
+class="math inline">\(Y\)</span>相互独立，则随机变量 <span
+class="math display">\[
+F=\frac{X/n}{Y/m}
+\]</span> 服从自由度为<span class="math inline">\((n,m)\)</span>的<span
+class="math inline">\(F\)</span>分布，记为： <span
+class="math display">\[
+F\sim F(n,m)
+\]</span></p>
+<h2 id="样本均值的分布">样本均值的分布</h2>
+<h3 id="正态总体">正态总体</h3>
+<p>若总体服从正态分布<span
+class="math inline">\(N(\mu,\sigma^2)\)</span>，则样本均值<span
+class="math inline">\(\bar
+X=\frac{1}{n}\sum_{i=1}^nX_i\)</span>服从<span
+class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>的正态分布。
+<span class="math display">\[
+\frac{\bar X-\mu}{\sigma/\sqrt{n}}\sim N(0,1)
+\]</span> <span class="math inline">\(\bar
+X\)</span>中每一个随机变量都是正态分布，其和也是正态分布。只需要计算一下<span
+class="math inline">\(\bar X\)</span>的期望和方差即可： <span
+class="math display">\[
+E(\bar X)=E(\frac{1}{n}\sum_{i=1}^nX_i)
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{n}\sum_{i=1}^nE(X_i)
+\]</span></p>
+<p><span class="math display">\[
+=\frac{n\mu}{n}
+\]</span></p>
+<p><span class="math display">\[
+=\mu
+\]</span></p>
+<p><span class="math display">\[
+Var(\bar X)=Var(\frac{1}{n}\sum_{i=1}^nX_i)\\
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{n^2}Var(\sum_{i=1}^nX_i)\\
+\]</span></p>
+<p><span class="math display">\[
+=\frac{n\sigma^2}{n^2}\\
+\]</span></p>
+<p><span class="math display">\[
+=\frac{\sigma^2}{n}
+\]</span></p>
+<p>这个是精确分布，而非渐进分布。</p>
+<h3 id="非正态总体">非正态总体</h3>
+<p>根据中心极限定理，不管总体是什么分布，大样本下，样本均值的渐进分布都是正态分布。
+<span class="math display">\[
+\bar X\mathop{\rightarrow}^dN(\mu,\frac{\sigma^2}{n})
+\]</span> <span class="math inline">\(\mu\)</span>和<span
+class="math inline">\(\sigma^2\)</span>是总体分布的期望和方差。</p>
+<h2 id="样本方差的分布">样本方差的分布</h2>
+<h3 id="正态总体-1">正态总体</h3>
+<p>基于卡方分布，可以导出样本方差的分布。若总体服从正态分布<span
+class="math inline">\(N(\mu,\sigma^2)\)</span>，则下面统计量服从卡方分布
+<span class="math display">\[
+Y=\sum_{i=1}^n[\frac{X_i-\mu}{\sigma}]^2
+\]</span> <span class="math display">\[
+=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\mu]^2
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\bar X+\bar X-\mu]^2
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{\sigma^2}\sum_{i=1}^n[(X_i-\bar X)^2+2(X_i-\bar X)(\bar
+X-\mu)+(\bar X-\mu)^2]
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{2(\bar
+X-\mu)}{\sigma^2}\sum_{i=1}^n(X_i-\bar
+X)+\frac{1}{\sigma^2}\sum_{i=1}^n(\bar X-\mu)^2
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{n}{\sigma^2}(\bar
+X-\mu)^2
+\]</span></p>
+<p><span class="math display">\[
+=\frac{(n-1)S^2}{\sigma^2}+\frac{n}{\sigma^2}(\bar X-\mu)^2
+\]</span></p>
+<p><span class="math display">\[
+\sim \chi^2(n)
+\]</span></p>
+<p>很显然，第二项是一个<span
+class="math inline">\(\chi^2(1)\)</span>分布，可以证明第二项和第一项相互独立，根据卡方分布的可加性性质，因此：
+<span class="math display">\[
+\frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)
+\]</span> 此结论只适用于总体是正态分布。</p>
+<h2 id="样本频率的分布">样本频率的分布</h2>
+<p>设随机变量<span class="math inline">\(X\)</span>服从伯努利分布<span
+class="math inline">\(B(1,p)\)</span>，可以计算其期望和方差为： <span
+class="math display">\[
+E(X)=1×p+0×(1-p)=p
+\]</span> <span class="math display">\[
+Var(X)=E(X^2)-(E(X))^2
+\]</span></p>
+<p><span class="math display">\[
+=1^2×p+0^2×(1-p)-p^2
+\]</span></p>
+<p><span class="math display">\[
+=p-p^2
+\]</span></p>
+<p><span class="math display">\[
+=p(1-p)
+\]</span></p>
+<p>若总体服从<span
+class="math inline">\(B(1,p)\)</span>，则根据中心极限定理，在大样本下：
+<span class="math display">\[
+\hat p\mathop{\rightarrow}^d  N(p,\frac{p(1-p)}{n})
+\]</span> <span class="math inline">\(\hat p\)</span>为样本频率。</p>
+<p>若随机变量<span class="math inline">\(X\)</span>服从二项分布<span
+class="math inline">\(B(n,p)\)</span>，若样本量较大，满足<span
+class="math inline">\(np\gt 5,np(1-p)\gt 5\)</span>，<span
+class="math inline">\(X\)</span>还将近似服从正态分布： <span
+class="math display">\[
+X\mathop{\rightarrow}^d N(np,np(1-p))
+\]</span> 注意这里的的<span
+class="math inline">\(X\)</span>是出现阳性结果的次数，不是样本均值（样本频率是样本均值），因此不能用中心极限定理。</p>
+]]></content>
+      <categories>
+        <category>数理统计</category>
+      </categories>
+      <tags>
+        <tag>数理统计</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>似然理论综述</title>
     <url>/2022/12/30/7.%E4%BC%BC%E7%84%B6%E7%90%86%E8%AE%BA%E7%BB%BC%E8%BF%B0/</url>
     <content><![CDATA[<p>​</p>
@@ -3288,400 +3616,33 @@ class="math inline">\(p\)</span>的卡方分布。</p>
       </tags>
   </entry>
   <entry>
-    <title>数理统计中的一些基本概念</title>
-    <url>/2023/01/07/8.%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<p>​</p>
+    <title>Hello World</title>
+    <url>/2022/12/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a
+href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a
+href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <span id="more"></span>
-<h1 id="随机变量的数字特征">随机变量的数字特征</h1>
-<h2 id="矩">矩</h2>
-<p>随机变量<span class="math inline">\(X\)</span>，任一可能取值为<span
-class="math inline">\(x\)</span>，密度为<span
-class="math inline">\(f(x)\)</span>，则随机变量的函数<span
-class="math inline">\(g(x)\)</span>，<span
-class="math inline">\(g(x)\)</span>的期望为矩： <span
-class="math display">\[
-E[g(X)]=\int g(x)f(x)dx
-\]</span></p>
-<p>当<span
-class="math inline">\(g(x)=x\)</span>时，为一阶原点矩，就是期望，当<span
-class="math inline">\(g(x)=x^2\)</span>时，就是二阶原点矩，当<span
-class="math inline">\(g(x)=x^3\)</span>时，就是三阶原点矩。</p>
-<p>当<span class="math inline">\(g(x)=(x-\bar
-x)^2\)</span>时，就是二阶中心矩，就是方差，当<span
-class="math inline">\(g(x)=(\frac{x-\bar
-x}{\sigma})^3\)</span>时，就是三阶标准化矩，就是偏度，当<span
-class="math inline">\(g(x)=(\frac{x-\bar
-x}{\sigma})^4\)</span>时，就是四阶标准化矩，就是峰度。</p>
-<h2 id="期望">期望</h2>
-<h3 id="离散型定义">离散型定义</h3>
-<p>随机变量<span class="math inline">\(X\)</span>有取值<span
-class="math inline">\(x_1,x_2,...,x_k,...x_K\)</span>，每种取值概率分别为：<span
-class="math inline">\(p_1,p_2,...,p_k,...,p_K\)</span>，则期望为： <span
-class="math display">\[
-E(X)=\sum_{k=1}^Kp_kx_k
-\]</span></p>
-<h3 id="连续型定义">连续型定义</h3>
-<p>期望为： <span class="math display">\[
-E(X)=\int xf(x)dx
-\]</span></p>
-<h3 id="性质">性质</h3>
-<p>令<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
-class="math display">\[
-E(CX)=CE(X)\\
-E(X+Y)=E(X)+E(Y)
-\]</span> 当<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立时，有： <span
-class="math display">\[
-E(XY)=E(X)E(Y)
-\]</span></p>
-<h3 id="其他">其他</h3>
-<p>期望为一阶原点矩<span
-class="math inline">\(E(X)\)</span>，二阶原点矩为<span
-class="math inline">\(E(X^2)\)</span>，三阶原点矩为<span
-class="math inline">\(E(X^3)\)</span>，等等</p>
-<h2 id="方差">方差</h2>
-<h3 id="定义">定义</h3>
-<p>随机变量的方差为： <span class="math display">\[
-Var(X)=E[(X-E(X)]^2\\
-=E[X^2]-[EX]^2
-\]</span></p>
-<h3 id="性质-1">性质</h3>
-<p>令<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
-class="math display">\[
-Var(C+X)=Var(X)\\
-Var(CX)=C^2Var(X)
-\]</span> 如何理解<span
-class="math inline">\(Var(CX)=C^2Var(X)\)</span>，<span
-class="math inline">\(X\)</span>乘以<span
-class="math inline">\(C\)</span>后，期望会变为<span
-class="math inline">\(CX\)</span>，这样离差也将变为原来的<span
-class="math inline">\(C\)</span>倍，离差再经过平方后，自然变为原来的<span
-class="math inline">\(C^2\)</span>倍。</p>
-<p>一般而言： <span class="math display">\[
-Var(X±Y)=Var(X)+Var(Y)±2Cov(X,Y)
-\]</span> 当<span class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立时： <span
-class="math display">\[
-Var(X±Y)=Var(X)+Var(Y)
-\]</span></p>
-<p>如何理解<span
-class="math inline">\(Var(X±Y)=Var(X)+Var(Y)±2Cov(X,Y)\)</span>？考虑有衣服上有左右两个口袋，每个口袋里有一堆数字卡片，左口袋内的卡片代表随机变量<span
-class="math inline">\(X\)</span>的可能取值，右口袋内的卡片代表随机变量<span
-class="math inline">\(Y\)</span>的可能取值，现在随机从两个口袋中各拿出一个卡片。如果<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>不相关，则无论从左口袋拿出的<span
-class="math inline">\(X\)</span>是大还是小，都不会影响到从右口袋中拿出的<span
-class="math inline">\(Y\)</span>的取值，此时二者和的方差为方差的和。而当<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>正相关时，当从左口袋拿出的<span
-class="math inline">\(X\)</span>是一个比较大的值（例如比期望值大），那么从右口袋拿出<span
-class="math inline">\(Y\)</span>的值往往也比较大，此时二者相加能得到比二者无关时相加更大的值，从而导致和的分散程度增大，也就是方差增大，而二者相减能得到比二者无关时相减更小的值，从而导致差的分散程度减小，也就是方差减小。反之二者负相关时也是类似的。</p>
-<h3 id="其他-1">其他</h3>
-<p>方差为二阶中心距<span
-class="math inline">\(E([X-E(X)])^2\)</span>，三阶中心矩为<span
-class="math inline">\(E([X-E(X)]^3)\)</span>，四阶中心距为<span
-class="math inline">\(E([X-E(X)]^4)\)</span>，等等。</p>
-<h2 id="协方差">协方差</h2>
-<h3 id="定义-1">定义</h3>
-<p>随机变量<span class="math inline">\(X\)</span>与随机变量<span
-class="math inline">\(Y\)</span>的协方差为： <span
-class="math display">\[
-Cov(X,Y)=E[(X-E(X))(Y-E(Y))]\\
-=E(XY)-E(X)E(Y)
-\]</span></p>
-<h3 id="性质-2">性质</h3>
-<p><span class="math display">\[
-Cov(aX,bY)=abCov(X,Y)
-\]</span></p>
-<p><span class="math inline">\(a,b\)</span>为常数 <span
-class="math display">\[
-Cov(X,Y+Z)=Cov(X,Y)+Cov(X,Z)
-\]</span></p>
-<h2 id="相关系数">相关系数</h2>
-<p>随机变量<span class="math inline">\(X\)</span>和随机变量<span
-class="math inline">\(Y\)</span>的相关系数为 <span
-class="math display">\[
-\rho=Corr(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
-\]</span></p>
-<h2 id="偏度和峰度">偏度和峰度</h2>
-<p>偏度为三阶标准化矩 <span class="math display">\[
-skewness=E([\frac{X-E(X)}{\sqrt {Var(X)}}]^3)
-\]</span> 正态分布的偏度为0。</p>
-<p>峰度为四阶标准化矩 <span class="math display">\[
-kurtosis=E([\frac{X-E(X)}{\sqrt{Var(X)}}]^4)
-\]</span> 正态分布的峰度为3。上面的量-3，为超额峰度。</p>
-<h1 id="随机向量的数字特征">随机向量的数字特征</h1>
-<p>随机向量<span class="math inline">\(\vec
-X\)</span>是指每一个分量均为随机变量的向量。它的数字特征有期望和协方差矩阵。</p>
-<p>协方差矩阵为： <span class="math display">\[
-Var(\vec X)=Cov(\vec X)=E[(\vec X-E(\vec X))(\vec X-E(\vec X))^T]\\
-=E(\vec X\vec X^T)-E(\vec X)[E(\vec X)]^T
-\]</span> 性质： <span class="math display">\[
-E(A\vec X)=AE(\vec X)\\
-Var(A\vec X)=AVar(\vec X)A^T
-\]</span> 这里的<span
-class="math inline">\(A\)</span>为常数矩阵。另外随机向量的协方差矩阵一定为半正定矩阵，因为：
-<span class="math display">\[
-Var(\vec v^T\vec X)=\vec v^T\vec X\vec v\ge 0
-\]</span></p>
-<h1 id="正态分布的性质">正态分布的性质</h1>
-<p>若<span class="math inline">\(X\sim
-N(\mu,\sigma^2)\)</span>，则其线性组合也为正态分布，根据期望和方差性质可得<span
-class="math inline">\(aX+b\sim N(a\mu+b,a^2\sigma^2)\)</span>；</p>
-<p>若<span class="math inline">\(X\sim N(\mu_1,\sigma_1^2),Y\sim
-N(\mu_2,\sigma_2^2)\)</span>，且<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立，则<span
-class="math inline">\(X+Y\)</span>以及<span
-class="math inline">\(X-Y\)</span>都服从正态分布。</p>
-<h1 id="常用抽样分布">常用抽样分布</h1>
-<h2 id="chi2分布"><span class="math inline">\(\chi^2\)</span>分布</h2>
-<p>若总体服从标准正态分布<span
-class="math inline">\(N(0,1)\)</span>，从中随机抽取一个样本容量为<span
-class="math inline">\(n\)</span>的样本<span
-class="math inline">\(X_1,X_2,...,X_n\)</span>，则随机变量<span
-class="math inline">\(Y\)</span>： <span class="math display">\[
-Y=X_1^2+X_2^2+...+X_n^2
-\]</span> 服从自由度为<span
-class="math inline">\(n\)</span>的卡方分布，记为： <span
-class="math display">\[
-Y\sim \chi^2(n)
-\]</span> 这里面要求<span
-class="math inline">\(X_1,X_2,...,X_n\)</span>是相互独立的。</p>
-<p><span class="math inline">\(\chi^2\)</span>分布有两个重要的性质：</p>
-<ol type="1">
-<li>可加性：两个相互独立的卡方分布相加后的统计量同样服从卡方分布，该分布的自由度为原来两个分布的自由度之和。</li>
-<li>期望为n，方差为2n。</li>
-</ol>
-<h2 id="t分布">T分布</h2>
-<p>若随机变量<span
-class="math inline">\(X\)</span>服从标准正态分布，即<span
-class="math inline">\(X\sim N(0,1)\)</span>，随机变量<span
-class="math inline">\(Y\)</span>服从自由度为<span
-class="math inline">\(n\)</span>的卡方分布，即<span
-class="math inline">\(Y\sim \chi^2(n)\)</span>，且<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立，则随机变量 <span
-class="math display">\[
-T=\frac{X}{\sqrt{\frac{Y}{n}}}\sim t(n)
-\]</span> 服从自由度为<span
-class="math inline">\(n\)</span>的t分布。</p>
-<h2 id="f分布">F分布</h2>
-<p>若随机变量<span class="math inline">\(X\)</span>服从自由度为<span
-class="math inline">\(n\)</span>的卡方分布，即<span
-class="math inline">\(X\sim \chi^2(n)\)</span>，随机变量<span
-class="math inline">\(Y\)</span>服从自由度为<span
-class="math inline">\(m\)</span>的卡方分布<span
-class="math inline">\(Y\sim\chi^2(m)\)</span>，且<span
-class="math inline">\(X\)</span>和<span
-class="math inline">\(Y\)</span>相互独立，则随机变量 <span
-class="math display">\[
-F=\frac{X/n}{Y/m}
-\]</span> 服从自由度为<span class="math inline">\((n,m)\)</span>的<span
-class="math inline">\(F\)</span>分布，记为： <span
-class="math display">\[
-F\sim F(n,m)
-\]</span></p>
-<h2 id="样本均值的分布">样本均值的分布</h2>
-<h3 id="正态总体">正态总体</h3>
-<p>若总体服从正态分布<span
-class="math inline">\(N(\mu,\sigma^2)\)</span>，则样本均值<span
-class="math inline">\(\bar
-X=\frac{1}{n}\sum_{i=1}^nX_i\)</span>服从<span
-class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>的正态分布。
-<span class="math display">\[
-\frac{\bar X-\mu}{\sigma/\sqrt{n}}\sim N(0,1)
-\]</span> <span class="math inline">\(\bar
-X\)</span>中每一个随机变量都是正态分布，其和也是正态分布。只需要计算一下<span
-class="math inline">\(\bar X\)</span>的期望和方差即可： <span
-class="math display">\[
-E(\bar
-X)=E(\frac{1}{n}\sum_{i=1}^nX_i)\\=\frac{1}{n}\sum_{i=1}^nE(X_i)\\=\frac{n\mu}{n}\\=\mu\\
-Var(\bar
-X)=Var(\frac{1}{n}\sum_{i=1}^nX_i)\\=\frac{1}{n^2}Var(\sum_{i=1}^nX_i)\\=\frac{n\sigma^2}{n^2}\\=\frac{\sigma^2}{n}
-\]</span></p>
-<p>这个是精确分布，而非渐进分布。</p>
-<h3 id="非正态总体">非正态总体</h3>
-<p>根据中心极限定理，不管总体是什么分布，大样本下，样本均值的渐进分布都是正态分布。
-<span class="math display">\[
-\bar X\mathop{\rightarrow}^dN(\mu,\frac{\sigma^2}{n})
-\]</span> <span class="math inline">\(\mu\)</span>和<span
-class="math inline">\(\sigma^2\)</span>是总体分布的期望和方差。</p>
-<h2 id="样本方差的分布">样本方差的分布</h2>
-<h3 id="正态总体-1">正态总体</h3>
-<p>基于卡方分布，可以导出样本方差的分布。若总体服从正态分布<span
-class="math inline">\(N(\mu,\sigma^2)\)</span>，则下面统计量服从卡方分布
-<span class="math display">\[
-Y=\sum_{i=1}^n[\frac{X_i-\mu}{\sigma}]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\mu]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\bar X+\bar X-\mu]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[(X_i-\bar X)^2+2(X_i-\bar X)(\bar
-X-\mu)+(\bar X-\mu)^2]\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{2(\bar
-X-\mu)}{\sigma^2}\sum_{i=1}^n(X_i-\bar
-X)+\frac{1}{\sigma^2}\sum_{i=1}^n(\bar X-\mu)^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{n}{\sigma^2}(\bar
-X-\mu)^2\\
-=\frac{(n-1)S^2}{\sigma^2}+\frac{n}{\sigma^2}(\bar X-\mu)^2\\
-\sim \chi^2(n)
-\]</span> 很显然，第二项是一个<span
-class="math inline">\(\chi^2(1)\)</span>分布，可以证明第二项和第一项相互独立，根据卡方分布的可加性性质，因此：
-<span class="math display">\[
-\frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)
-\]</span> 此结论只适用于总体是正态分布。</p>
-<h2 id="样本频率的分布">样本频率的分布</h2>
-<p>设随机变量<span class="math inline">\(X\)</span>服从伯努利分布<span
-class="math inline">\(B(1,p)\)</span>，可以计算其期望和方差为： <span
-class="math display">\[
-E(X)=1×p+0×(1-p)=p\\
-Var(X)=E(X^2)-(E(X))^2\\
-=1^2×p+0^2×(1-p)-p^2\\
-=p-p^2\\
-=p(1-p)
-\]</span> 若总体服从<span
-class="math inline">\(B(1,p)\)</span>，则根据中心极限定理，在大样本下：
-<span class="math display">\[
-\hat p\mathop{\rightarrow}^d  N(p,\frac{p(1-p)}{n})
-\]</span> <span class="math inline">\(\hat p\)</span>为样本频率。</p>
-<p>若随机变量<span class="math inline">\(X\)</span>服从二项分布<span
-class="math inline">\(B(n,p)\)</span>，若样本量较大，满足<span
-class="math inline">\(np\gt 5,np(1-p)\gt 5\)</span>，<span
-class="math inline">\(X\)</span>还将近似服从正态分布： <span
-class="math display">\[
-X\mathop{\rightarrow}^d N(np,np(1-p))
-\]</span> 注意这里的的<span
-class="math inline">\(X\)</span>是出现阳性结果的次数，不是样本均值（样本频率是样本均值），因此不能用中心极限定理。</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>数理统计</category>
-      </categories>
-      <tags>
-        <tag>数理统计</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>硬间隔支持向量机</title>
-    <url>/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/</url>
-    <content><![CDATA[<p>​</p>
-<span id="more"></span>
-<h1 id="模型">模型</h1>
-<p>SVM模型其实是寻找一个超平面： <span class="math display">\[
-\vec x^T\vec w+b=0
-\]</span> 然后用<span
-class="math inline">\(sign\)</span>函数来帮助决策： <span
-class="math display">\[
-sign(\vec x^T\vec w+b)
-\]</span> 当<span class="math inline">\(z\gt0\)</span>时，就判为为<span
-class="math inline">\(+1\)</span>，当<span class="math inline">\(z\lt
-0\)</span>时判为<span class="math inline">\(-1\)</span>。</p>
-<h1 id="损失">损失</h1>
-<p>在SVM模型中，如果将所有的正样本都分配到超平面<span
-class="math inline">\(\vec x^T\vec
-w+b=0\)</span>的一侧，所有的负样本都分配到超平面<span
-class="math inline">\(\vec x^T\vec
-w+b=0\)</span>的另一侧，就表示所有样本都分类正确了。容易发现，这时候的超平面满足：
-<span class="math display">\[
-y_i(\vec x_i^T\vec w+b)\gt0 \quad i=1,2,...,n
-\]</span>
-很显然这样的超平面有很多个，我们希望从中找到一个最优的超平面。怎么定义这个最优的超平面呢？一个自然的想法就是要求每一个数据点距离超平面都应该尽可能的远，只有这样才能保证所有数据都能分类正确，特别是对于那些本身距离超平面很接近的“危险点”。如果再深入思考一下，容易发现，其实我们只要能够保证距离超平面最近的数据点距离超平面尽可能的远，就能够实现这个目的了。由于超平面位于正负样本之间，因此我们需要既保证超平面距离最近负样本尽可能的远，也需要保证超平面距最近正样本尽可能的远，因此这个超平面只能过最近负样本和最近正样本连线的中点处，且与最近正样本和最近负样本距离相等才行，记这个距离为“间隔”，用字母<span
-class="math inline">\(d\)</span>表示，它表示了最近正样本或最近负样本距离超平面的距离。已知点到超平面的距离公式为：
-<span class="math display">\[
-d=\frac{|\vec x^T\vec w+b|}{||\vec w||_2}
-\]</span> 我们需要做的就是最大化这个间隔<span
-class="math inline">\(d\)</span>。为了方便运算，我们可以令公式的分子部分等于1，即：
-<span class="math display">\[
-d=\frac{1}{||\vec w||_2}
-\]</span>
-这是可行的，因为分母部分会自动进行缩放，并不影响最终的超平面。进一步，最大化<span
-class="math inline">\(d\)</span>，等价于： <span class="math display">\[
-\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w
-\]</span> 别忘了还有约束条件呢。由于最近正样本/负样本<span
-class="math inline">\(x_j\)</span>满足<span class="math inline">\(|\vec
-x_j^T\vec w+b|=1\)</span>，因此对于所有样本点都会有<span
-class="math inline">\(|\vec x_i^T\vec w+b|\ge
-1\)</span>，最终SVM实际上要解决的是： <span class="math display">\[
-\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w\\
-s.t. \quad y_i(\vec x_i^T\vec w+b)\ge 1\quad i=1,2,...,n
-\]</span> 我们定义这个约束优化问题为SVM的原问题。</p>
-<h1 id="优化">优化</h1>
-<p>容易发现SVM最终是一个约束优化问题，我们通常使用拉格朗日对偶来解决。首先构造拉格朗日函数：
-<span class="math display">\[
-L=\frac{1}{2}\vec w^T\vec w+\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
-w+b))
-\]</span> 上述约束优化问题实际上等价于： <span class="math display">\[
-\mathop{min}_{\vec w,b}\mathop{max}_{\alpha_i}L\\
-s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
-\]</span> 这是显然易见的。因为如果<span class="math inline">\(\vec
-x_i\)</span>满足约束条件<span class="math inline">\(1-y_i(\vec x_i^T\vec
-w+b)\le0\)</span>，则<span class="math inline">\(\alpha_i(1-y_i(\vec
-x_i^T\vec w+b))\le 0\)</span>，这时候<span
-class="math inline">\(\mathop{max}_{\alpha}L\)</span>就要要求<span
-class="math inline">\(\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
-w+b))=0\)</span>，这时候<span
-class="math inline">\(\mathop{max}_{\alpha_i}L=\frac{1}{2}\vec w^T\vec
-w\)</span>。</p>
-<p>相反，如果<span class="math inline">\(\vec
-x_i\)</span>不满足约束条件，即<span class="math inline">\(1-y_i(\vec
-x_i^T\vec w+b)\gt0\)</span>，则<span
-class="math inline">\(\alpha_i(1-y_i(\vec x_i^T\vec w+b))\gt
-0\)</span>，则<span class="math inline">\(max_{\alpha_i}L\rightarrow
-+\infty\)</span>。</p>
-<p>进而再取最小值<span class="math inline">\(\mathop{min}_{\vec
-w,b}\)</span>时，其实就是<span class="math inline">\(min_{\vec
-w,b}(\frac{1}{2}\vec w^T\vec w,+\infty)=min_{\vec w,b}\frac{1}{2}\vec
-w^T\vec w\)</span>，因此与上面推导的约束问题等价。</p>
-<p>拉格朗日对偶问题为： <span class="math display">\[
-\mathop{max}_{\alpha_i}\mathop{min}_{\vec w,b}L\\
-s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
-\]</span>
-可以证明，对于SVM，原问题和拉格朗日对偶问题的最优解和最优值都是相同的（参见凸优化教程）。因此对原问题的求解
-可以转化为对拉格朗日对偶问题的求解。</p>
-<p>先看内层<span class="math inline">\(min_{\vec
-w,b}L\)</span>，容易发现它是关于<span class="math inline">\(\vec
-w,b\)</span>的凸函数，因此最优解在梯度为0处取得： <span
-class="math display">\[
-\frac{\partial L}{\partial \vec w}=\vec w-\sum_{i=1}^n\alpha_iy_i\vec
-x_i\\
-\frac{\partial L}{\partial b}=\sum_{i=1}^n\alpha_iy_i
-\]</span> 可得： <span class="math display">\[
-\vec w=\sum_{i=1}^n\alpha_iy_i\vec x_i\\
-\sum_{i=1}^n\alpha_iy_i=0
-\]</span> 将得到的解带回到拉格朗日函数中，可以得到： <span
-class="math display">\[
-L=\frac{1}{2}\sum_{i=1}^n\alpha_iy_i\vec
-x_i^T\sum_{j=1}^n\alpha_jy_j\vec
-x_j^T+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\alpha_iy_i\vec
-x_i^T\sum_{j=1}^n\alpha_jy_j\vec x_j-b\sum_{i=1}^n\alpha_iy_i
-\]</span> 整理得： <span class="math display">\[
-L=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec
-x_j+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j\\
-=\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j
-\]</span> 再看外层是针对<span
-class="math inline">\(max_{\alpha_i}\)</span>的最大化问题，因此问题转换为：
-<span class="math display">\[
-\mathop{max}_{\alpha_i}[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j]
-\]</span> 别忘了还有两个约束条件：<span
-class="math inline">\(\alpha_i\ge
-0,\sum_{i=1}^n\alpha_iy_i=0\)</span>。由于我们习惯求最小化，因此问题还等价于：
-<span class="math display">\[
-\mathop{min}_{\alpha_i}[\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j-\sum_{i=1}^n\alpha_i]\\
-s.t.\quad \alpha_i\ge0\\
-\sum_{i=1}^n\alpha_iy_i=0,\quad i=1,2,...,n
-\]</span></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>分类</tag>
-      </tags>
   </entry>
   <entry>
     <title>常用假设检验方法</title>
@@ -4960,32 +4921,125 @@ class="math inline">\(y\)</span>时的情况。</p>
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/12/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a
-href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a
-href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+    <title>硬间隔支持向量机</title>
+    <url>/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/</url>
+    <content><![CDATA[<p>​</p>
 <span id="more"></span>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h1 id="模型">模型</h1>
+<p>SVM模型其实是寻找一个超平面： <span class="math display">\[
+\vec x^T\vec w+b=0
+\]</span> 然后用<span
+class="math inline">\(sign\)</span>函数来帮助决策： <span
+class="math display">\[
+sign(\vec x^T\vec w+b)
+\]</span> 当<span class="math inline">\(z\gt0\)</span>时，就判为为<span
+class="math inline">\(+1\)</span>，当<span class="math inline">\(z\lt
+0\)</span>时判为<span class="math inline">\(-1\)</span>。</p>
+<h1 id="损失">损失</h1>
+<p>在SVM模型中，如果将所有的正样本都分配到超平面<span
+class="math inline">\(\vec x^T\vec
+w+b=0\)</span>的一侧，所有的负样本都分配到超平面<span
+class="math inline">\(\vec x^T\vec
+w+b=0\)</span>的另一侧，就表示所有样本都分类正确了。容易发现，这时候的超平面满足：
+<span class="math display">\[
+y_i(\vec x_i^T\vec w+b)\gt0 \quad i=1,2,...,n
+\]</span>
+很显然这样的超平面有很多个，我们希望从中找到一个最优的超平面。怎么定义这个最优的超平面呢？一个自然的想法就是要求每一个数据点距离超平面都应该尽可能的远，只有这样才能保证所有数据都能分类正确，特别是对于那些本身距离超平面很接近的“危险点”。如果再深入思考一下，容易发现，其实我们只要能够保证距离超平面最近的数据点距离超平面尽可能的远，就能够实现这个目的了。由于超平面位于正负样本之间，因此我们需要既保证超平面距离最近负样本尽可能的远，也需要保证超平面距最近正样本尽可能的远，因此这个超平面只能过最近负样本和最近正样本连线的中点处，且与最近正样本和最近负样本距离相等才行，记这个距离为“间隔”，用字母<span
+class="math inline">\(d\)</span>表示，它表示了最近正样本或最近负样本距离超平面的距离。已知点到超平面的距离公式为：
+<span class="math display">\[
+d=\frac{|\vec x^T\vec w+b|}{||\vec w||_2}
+\]</span> 我们需要做的就是最大化这个间隔<span
+class="math inline">\(d\)</span>。为了方便运算，我们可以令公式的分子部分等于1，即：
+<span class="math display">\[
+d=\frac{1}{||\vec w||_2}
+\]</span>
+这是可行的，因为分母部分会自动进行缩放，并不影响最终的超平面。进一步，最大化<span
+class="math inline">\(d\)</span>，等价于： <span class="math display">\[
+\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w
+\]</span> 别忘了还有约束条件呢。由于最近正样本/负样本<span
+class="math inline">\(x_j\)</span>满足<span class="math inline">\(|\vec
+x_j^T\vec w+b|=1\)</span>，因此对于所有样本点都会有<span
+class="math inline">\(|\vec x_i^T\vec w+b|\ge
+1\)</span>，最终SVM实际上要解决的是： <span class="math display">\[
+\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w\\
+s.t. \quad y_i(\vec x_i^T\vec w+b)\ge 1\quad i=1,2,...,n
+\]</span> 我们定义这个约束优化问题为SVM的原问题。</p>
+<h1 id="优化">优化</h1>
+<p>容易发现SVM最终是一个约束优化问题，我们通常使用拉格朗日对偶来解决。首先构造拉格朗日函数：
+<span class="math display">\[
+L=\frac{1}{2}\vec w^T\vec w+\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
+w+b))
+\]</span> 上述约束优化问题实际上等价于： <span class="math display">\[
+\mathop{min}_{\vec w,b}\mathop{max}_{\alpha_i}L\\
+s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
+\]</span> 这是显然易见的。因为如果<span class="math inline">\(\vec
+x_i\)</span>满足约束条件<span class="math inline">\(1-y_i(\vec x_i^T\vec
+w+b)\le0\)</span>，则<span class="math inline">\(\alpha_i(1-y_i(\vec
+x_i^T\vec w+b))\le 0\)</span>，这时候<span
+class="math inline">\(\mathop{max}_{\alpha}L\)</span>就要要求<span
+class="math inline">\(\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
+w+b))=0\)</span>，这时候<span
+class="math inline">\(\mathop{max}_{\alpha_i}L=\frac{1}{2}\vec w^T\vec
+w\)</span>。</p>
+<p>相反，如果<span class="math inline">\(\vec
+x_i\)</span>不满足约束条件，即<span class="math inline">\(1-y_i(\vec
+x_i^T\vec w+b)\gt0\)</span>，则<span
+class="math inline">\(\alpha_i(1-y_i(\vec x_i^T\vec w+b))\gt
+0\)</span>，则<span class="math inline">\(max_{\alpha_i}L\rightarrow
++\infty\)</span>。</p>
+<p>进而再取最小值<span class="math inline">\(\mathop{min}_{\vec
+w,b}\)</span>时，其实就是<span class="math inline">\(min_{\vec
+w,b}(\frac{1}{2}\vec w^T\vec w,+\infty)=min_{\vec w,b}\frac{1}{2}\vec
+w^T\vec w\)</span>，因此与上面推导的约束问题等价。</p>
+<p>拉格朗日对偶问题为： <span class="math display">\[
+\mathop{max}_{\alpha_i}\mathop{min}_{\vec w,b}L\\
+s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
+\]</span>
+可以证明，对于SVM，原问题和拉格朗日对偶问题的最优解和最优值都是相同的（参见凸优化教程）。因此对原问题的求解
+可以转化为对拉格朗日对偶问题的求解。</p>
+<p>先看内层<span class="math inline">\(min_{\vec
+w,b}L\)</span>，容易发现它是关于<span class="math inline">\(\vec
+w,b\)</span>的凸函数，因此最优解在梯度为0处取得： <span
+class="math display">\[
+\frac{\partial L}{\partial \vec w}=\vec w-\sum_{i=1}^n\alpha_iy_i\vec
+x_i\\
+\frac{\partial L}{\partial b}=\sum_{i=1}^n\alpha_iy_i
+\]</span> 可得： <span class="math display">\[
+\vec w=\sum_{i=1}^n\alpha_iy_i\vec x_i\\
+\sum_{i=1}^n\alpha_iy_i=0
+\]</span> 将得到的解带回到拉格朗日函数中，可以得到： <span
+class="math display">\[
+L=\frac{1}{2}\sum_{i=1}^n\alpha_iy_i\vec
+x_i^T\sum_{j=1}^n\alpha_jy_j\vec
+x_j^T+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\alpha_iy_i\vec
+x_i^T\sum_{j=1}^n\alpha_jy_j\vec x_j-b\sum_{i=1}^n\alpha_iy_i
+\]</span> 整理得： <span class="math display">\[
+L=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec
+x_j+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j\\
+=\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j
+\]</span> 再看外层是针对<span
+class="math inline">\(max_{\alpha_i}\)</span>的最大化问题，因此问题转换为：
+<span class="math display">\[
+\mathop{max}_{\alpha_i}[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j]
+\]</span> 别忘了还有两个约束条件：<span
+class="math inline">\(\alpha_i\ge
+0,\sum_{i=1}^n\alpha_iy_i=0\)</span>。由于我们习惯求最小化，因此问题还等价于：
+<span class="math display">\[
+\mathop{min}_{\alpha_i}[\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
+x_i^T\vec x_j-\sum_{i=1}^n\alpha_i]\\
+s.t.\quad \alpha_i\ge0\\
+\sum_{i=1}^n\alpha_iy_i=0,\quad i=1,2,...,n
+\]</span></p>
 ]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>分类</tag>
+      </tags>
   </entry>
 </search>

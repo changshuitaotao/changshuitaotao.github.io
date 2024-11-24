@@ -27,7 +27,7 @@
 <meta property="og:description" content="​">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-06T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-11-24T02:26:37.196Z">
+<meta property="article:modified_time" content="2024-11-24T04:29:13.478Z">
 <meta property="article:author" content="长水滔滔">
 <meta property="article:tag" content="数理统计">
 <meta name="twitter:card" content="summary">
@@ -273,7 +273,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-24 10:26:37" itemprop="dateModified" datetime="2024-11-24T10:26:37+08:00">2024-11-24</time>
+      <time title="修改时间：2024-11-24 12:29:13" itemprop="dateModified" datetime="2024-11-24T12:29:13+08:00">2024-11-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -348,9 +348,11 @@ E(X)=\int xf(x)dx
 <p>令<span class="math inline">\(X\)</span>和<span
 class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
 class="math display">\[
-E(CX)=CE(X)\\
+E(CX)=CE(X)
+\]</span> <span class="math display">\[
 E(X+Y)=E(X)+E(Y)
-\]</span> 当<span class="math inline">\(X\)</span>和<span
+\]</span></p>
+<p>当<span class="math inline">\(X\)</span>和<span
 class="math inline">\(Y\)</span>相互独立时，有： <span
 class="math display">\[
 E(XY)=E(X)E(Y)
@@ -363,17 +365,20 @@ class="math inline">\(E(X^3)\)</span>，等等</p>
 <h2 id="方差">方差</h2>
 <h3 id="定义">定义</h3>
 <p>随机变量的方差为： <span class="math display">\[
-Var(X)=E[(X-E(X)]^2\\
+Var(X)=E[(X-E(X)]^2
+\]</span></p>
+<p><span class="math display">\[
 =E[X^2]-[EX]^2
 \]</span></p>
 <h3 id="性质-1">性质</h3>
 <p>令<span class="math inline">\(X\)</span>和<span
 class="math inline">\(Y\)</span>为随机变量，C为常数，有： <span
 class="math display">\[
-Var(C+X)=Var(X)\\
+Var(C+X)=Var(X)
+\]</span> <span class="math display">\[
 Var(CX)=C^2Var(X)
-\]</span> 如何理解<span
-class="math inline">\(Var(CX)=C^2Var(X)\)</span>，<span
+\]</span></p>
+<p>如何理解<span class="math inline">\(Var(CX)=C^2Var(X)\)</span>，<span
 class="math inline">\(X\)</span>乘以<span
 class="math inline">\(C\)</span>后，期望会变为<span
 class="math inline">\(CX\)</span>，这样离差也将变为原来的<span
@@ -409,6 +414,8 @@ class="math inline">\(E([X-E(X)]^4)\)</span>，等等。</p>
 class="math inline">\(Y\)</span>的协方差为： <span
 class="math display">\[
 Cov(X,Y)=E[(X-E(X))(Y-E(Y))]\\
+\]</span></p>
+<p><span class="math display">\[
 =E(XY)-E(X)E(Y)
 \]</span></p>
 <h3 id="性质-2">性质</h3>
@@ -436,12 +443,19 @@ kurtosis=E([\frac{X-E(X)}{\sqrt{Var(X)}}]^4)
 <p>随机向量<span class="math inline">\(\vec
 X\)</span>是指每一个分量均为随机变量的向量。它的数字特征有期望和协方差矩阵。</p>
 <p>协方差矩阵为： <span class="math display">\[
-Var(\vec X)=Cov(\vec X)=E[(\vec X-E(\vec X))(\vec X-E(\vec X))^T]\\
+Var(\vec X)=Cov(\vec X)
+\]</span> <span class="math display">\[
+=E[(\vec X-E(\vec X))(\vec X-E(\vec X))^T]
+\]</span></p>
+<p><span class="math display">\[
 =E(\vec X\vec X^T)-E(\vec X)[E(\vec X)]^T
-\]</span> 性质： <span class="math display">\[
-E(A\vec X)=AE(\vec X)\\
+\]</span></p>
+<p>性质： <span class="math display">\[
+E(A\vec X)=AE(\vec X)
+\]</span> <span class="math display">\[
 Var(A\vec X)=AVar(\vec X)A^T
-\]</span> 这里的<span
+\]</span></p>
+<p>这里的<span
 class="math inline">\(A\)</span>为常数矩阵。另外随机向量的协方差矩阵一定为半正定矩阵，因为：
 <span class="math display">\[
 Var(\vec v^T\vec X)=\vec v^T\vec X\vec v\ge 0
@@ -517,10 +531,28 @@ class="math inline">\(N(\mu,\frac{\sigma^2}{n})\)</span>的正态分布。
 X\)</span>中每一个随机变量都是正态分布，其和也是正态分布。只需要计算一下<span
 class="math inline">\(\bar X\)</span>的期望和方差即可： <span
 class="math display">\[
-E(\bar
-X)=E(\frac{1}{n}\sum_{i=1}^nX_i)\\=\frac{1}{n}\sum_{i=1}^nE(X_i)\\=\frac{n\mu}{n}\\=\mu\\
-Var(\bar
-X)=Var(\frac{1}{n}\sum_{i=1}^nX_i)\\=\frac{1}{n^2}Var(\sum_{i=1}^nX_i)\\=\frac{n\sigma^2}{n^2}\\=\frac{\sigma^2}{n}
+E(\bar X)=E(\frac{1}{n}\sum_{i=1}^nX_i)
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{n}\sum_{i=1}^nE(X_i)
+\]</span></p>
+<p><span class="math display">\[
+=\frac{n\mu}{n}
+\]</span></p>
+<p><span class="math display">\[
+=\mu
+\]</span></p>
+<p><span class="math display">\[
+Var(\bar X)=Var(\frac{1}{n}\sum_{i=1}^nX_i)\\
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{n^2}Var(\sum_{i=1}^nX_i)\\
+\]</span></p>
+<p><span class="math display">\[
+=\frac{n\sigma^2}{n^2}\\
+\]</span></p>
+<p><span class="math display">\[
+=\frac{\sigma^2}{n}
 \]</span></p>
 <p>这个是精确分布，而非渐进分布。</p>
 <h3 id="非正态总体">非正态总体</h3>
@@ -534,19 +566,33 @@ class="math inline">\(\sigma^2\)</span>是总体分布的期望和方差。</p>
 <p>基于卡方分布，可以导出样本方差的分布。若总体服从正态分布<span
 class="math inline">\(N(\mu,\sigma^2)\)</span>，则下面统计量服从卡方分布
 <span class="math display">\[
-Y=\sum_{i=1}^n[\frac{X_i-\mu}{\sigma}]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\mu]^2\\
-=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\bar X+\bar X-\mu]^2\\
+Y=\sum_{i=1}^n[\frac{X_i-\mu}{\sigma}]^2
+\]</span> <span class="math display">\[
+=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\mu]^2
+\]</span></p>
+<p><span class="math display">\[
+=\frac{1}{\sigma^2}\sum_{i=1}^n[X_i-\bar X+\bar X-\mu]^2
+\]</span></p>
+<p><span class="math display">\[
 =\frac{1}{\sigma^2}\sum_{i=1}^n[(X_i-\bar X)^2+2(X_i-\bar X)(\bar
-X-\mu)+(\bar X-\mu)^2]\\
+X-\mu)+(\bar X-\mu)^2]
+\]</span></p>
+<p><span class="math display">\[
 =\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{2(\bar
 X-\mu)}{\sigma^2}\sum_{i=1}^n(X_i-\bar
-X)+\frac{1}{\sigma^2}\sum_{i=1}^n(\bar X-\mu)^2\\
+X)+\frac{1}{\sigma^2}\sum_{i=1}^n(\bar X-\mu)^2
+\]</span></p>
+<p><span class="math display">\[
 =\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2+\frac{n}{\sigma^2}(\bar
-X-\mu)^2\\
-=\frac{(n-1)S^2}{\sigma^2}+\frac{n}{\sigma^2}(\bar X-\mu)^2\\
+X-\mu)^2
+\]</span></p>
+<p><span class="math display">\[
+=\frac{(n-1)S^2}{\sigma^2}+\frac{n}{\sigma^2}(\bar X-\mu)^2
+\]</span></p>
+<p><span class="math display">\[
 \sim \chi^2(n)
-\]</span> 很显然，第二项是一个<span
+\]</span></p>
+<p>很显然，第二项是一个<span
 class="math inline">\(\chi^2(1)\)</span>分布，可以证明第二项和第一项相互独立，根据卡方分布的可加性性质，因此：
 <span class="math display">\[
 \frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)
@@ -555,12 +601,20 @@ class="math inline">\(\chi^2(1)\)</span>分布，可以证明第二项和第一�
 <p>设随机变量<span class="math inline">\(X\)</span>服从伯努利分布<span
 class="math inline">\(B(1,p)\)</span>，可以计算其期望和方差为： <span
 class="math display">\[
-E(X)=1×p+0×(1-p)=p\\
-Var(X)=E(X^2)-(E(X))^2\\
-=1^2×p+0^2×(1-p)-p^2\\
-=p-p^2\\
+E(X)=1×p+0×(1-p)=p
+\]</span> <span class="math display">\[
+Var(X)=E(X^2)-(E(X))^2
+\]</span></p>
+<p><span class="math display">\[
+=1^2×p+0^2×(1-p)-p^2
+\]</span></p>
+<p><span class="math display">\[
+=p-p^2
+\]</span></p>
+<p><span class="math display">\[
 =p(1-p)
-\]</span> 若总体服从<span
+\]</span></p>
+<p>若总体服从<span
 class="math inline">\(B(1,p)\)</span>，则根据中心极限定理，在大样本下：
 <span class="math display">\[
 \hat p\mathop{\rightarrow}^d  N(p,\frac{p(1-p)}{n})
