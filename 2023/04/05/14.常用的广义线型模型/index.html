@@ -19,28 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="​">
+    <meta name="description" content="广义线性模型框架 模型 \[ y|X\sim exp(\theta,\phi,a,b,c) \] \(exp(\theta,\phi,a,b,c)\)表示指数分布族 回归方程： \[ \mu&#x3D;E(y|X)\\ g(\mu)&#x3D;\eta\\ \eta&#x3D;X\vec\beta \] 高斯模型 这里的高斯模型主要指的就是线性回归模型，它其实要求\(y\)的分布来源于正态分布。已知正态分布">
 <meta property="og:type" content="article">
-<meta property="og:title" content="硬间隔支持向量机">
-<meta property="og:url" content="http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/index.html">
+<meta property="og:title" content="长水滔滔的博客">
+<meta property="og:url" content="http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="长水滔滔的博客">
-<meta property="og:description" content="​">
+<meta property="og:description" content="广义线性模型框架 模型 \[ y|X\sim exp(\theta,\phi,a,b,c) \] \(exp(\theta,\phi,a,b,c)\)表示指数分布族 回归方程： \[ \mu&#x3D;E(y|X)\\ g(\mu)&#x3D;\eta\\ \eta&#x3D;X\vec\beta \] 高斯模型 这里的高斯模型主要指的就是线性回归模型，它其实要求\(y\)的分布来源于正态分布。已知正态分布">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-12T14:46:25.133Z">
+<meta property="article:published_time" content="2023-04-05T09:54:53.199Z">
+<meta property="article:modified_time" content="2023-04-05T15:43:16.120Z">
 <meta property="article:author" content="长水滔滔">
-<meta property="article:tag" content="分类">
+<meta property="article:tag" content="python,机器学习,深度学习">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/">
+<link rel="canonical" href="http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/","path":"2023/01/12/硬间隔SVM/","title":"硬间隔支持向量机"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/","path":"2023/04/05/14.常用的广义线型模型/","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>硬间隔支持向量机 | 长水滔滔的博客</title>
+<title> | 长水滔滔的博客</title>
   
 
 
@@ -139,7 +139,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1"><span class="nav-number">2.</span> <span class="nav-text">损失</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">广义线性模型框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">高斯模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%BE%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">模型设定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1"><span class="nav-number">2.2.</span> <span class="nav-text">参数估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%9F%E5%90%88%E4%BC%98%E5%BA%A6"><span class="nav-number">2.3.</span> <span class="nav-text">拟合优度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%B7%AEdeviance%E7%BB%9F%E8%AE%A1%E9%87%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">偏差deviance统计量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pearson%E5%8D%A1%E6%96%B9%E7%BB%9F%E8%AE%A1%E9%87%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">Pearson卡方统计量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%A1%B9%E5%BC%8F%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">二项式模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">多项式模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E6%95%B0%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">计数模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%9F%E4%BA%8C%E9%A1%B9%E5%BC%8F%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">负二项式模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">排序模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gamma%E6%A8%A1%E5%9E%8B"><span class="nav-number">8.</span> <span class="nav-text">gamma模型</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -183,17 +183,24 @@
   </div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2023/01/27/12.%E7%BA%BF%E6%80%A7%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B/" rel="bookmark">
-        <time class="popular-posts-time">2023-01-27</time>
+      <a class="popular-posts-link" href="/2023/03/08/13.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="bookmark">
+        <time class="popular-posts-time">2023-03-08</time>
         <br>
-      线性混合模型
+      广义线性模型总论
       </a>
     </li>
     <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2022/12/28/5.%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" rel="bookmark">
-        <time class="popular-posts-time">2022-12-28</time>
+      <a class="popular-posts-link" href="/2023/01/07/8.%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="bookmark">
+        <time class="popular-posts-time">2023-01-07</time>
         <br>
-      集成学习
+      数理统计中的一些基本概念
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/01/08/9.%E5%B8%B8%E7%94%A8%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95/" rel="bookmark">
+        <time class="popular-posts-time">2023-01-08</time>
+        <br>
+      常用假设检验方法
       </a>
     </li>
     <li class="popular-posts-item">
@@ -201,6 +208,13 @@
         <time class="popular-posts-time">2022-12-24</time>
         <br>
       回归算法
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/01/28/11.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" rel="bookmark">
+        <time class="popular-posts-time">2023-01-28</time>
+        <br>
+      线性回归模型
       </a>
     </li>
   </ul>
@@ -223,7 +237,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/12/%E7%A1%AC%E9%97%B4%E9%9A%94SVM/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/05/14.%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%BF%E4%B9%89%E7%BA%BF%E5%9E%8B%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -236,12 +250,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="硬间隔支持向量机 | 长水滔滔的博客">
+      <meta itemprop="name" content=" | 长水滔滔的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          硬间隔支持向量机
+          
         </h1>
 
         <div class="post-meta-container">
@@ -253,16 +267,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-01-12 00:00:00 / 修改时间：22:46:25" itemprop="dateCreated datePublished" datetime="2023-01-12T00:00:00+08:00">2023-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
-        </span>
+      <time title="创建时间：2023-04-05 17:54:53 / 修改时间：23:43:16" itemprop="dateCreated datePublished" datetime="2023-04-05T17:54:53+08:00">2023-04-05</time>
     </span>
 
   
@@ -272,14 +277,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>980</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -290,117 +295,128 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​</p>
-<span id="more"></span>
-<h1 id="模型">模型</h1>
-<p>SVM模型其实是寻找一个超平面： <span class="math display">\[
-\vec x^T\vec w+b=0
-\]</span> 然后用<span
-class="math inline">\(sign\)</span>函数来帮助决策： <span
-class="math display">\[
-sign(\vec x^T\vec w+b)
-\]</span> 当<span class="math inline">\(z\gt0\)</span>时，就判为为<span
-class="math inline">\(+1\)</span>，当<span class="math inline">\(z\lt
-0\)</span>时判为<span class="math inline">\(-1\)</span>。</p>
-<h1 id="损失">损失</h1>
-<p>在SVM模型中，如果将所有的正样本都分配到超平面<span
-class="math inline">\(\vec x^T\vec
-w+b=0\)</span>的一侧，所有的负样本都分配到超平面<span
-class="math inline">\(\vec x^T\vec
-w+b=0\)</span>的另一侧，就表示所有样本都分类正确了。容易发现，这时候的超平面满足：
-<span class="math display">\[
-y_i(\vec x_i^T\vec w+b)\gt0 \quad i=1,2,...,n
-\]</span>
-很显然这样的超平面有很多个，我们希望从中找到一个最优的超平面。怎么定义这个最优的超平面呢？一个自然的想法就是要求每一个数据点距离超平面都应该尽可能的远，只有这样才能保证所有数据都能分类正确，特别是对于那些本身距离超平面很接近的“危险点”。如果再深入思考一下，容易发现，其实我们只要能够保证距离超平面最近的数据点距离超平面尽可能的远，就能够实现这个目的了。由于超平面位于正负样本之间，因此我们需要既保证超平面距离最近负样本尽可能的远，也需要保证超平面距最近正样本尽可能的远，因此这个超平面只能过最近负样本和最近正样本连线的中点处，且与最近正样本和最近负样本距离相等才行，记这个距离为“间隔”，用字母<span
-class="math inline">\(d\)</span>表示，它表示了最近正样本或最近负样本距离超平面的距离。已知点到超平面的距离公式为：
-<span class="math display">\[
-d=\frac{|\vec x^T\vec w+b|}{||\vec w||_2}
-\]</span> 我们需要做的就是最大化这个间隔<span
-class="math inline">\(d\)</span>。为了方便运算，我们可以令公式的分子部分等于1，即：
-<span class="math display">\[
-d=\frac{1}{||\vec w||_2}
-\]</span>
-这是可行的，因为分母部分会自动进行缩放，并不影响最终的超平面。进一步，最大化<span
-class="math inline">\(d\)</span>，等价于： <span class="math display">\[
-\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w
-\]</span> 别忘了还有约束条件呢。由于最近正样本/负样本<span
-class="math inline">\(x_j\)</span>满足<span class="math inline">\(|\vec
-x_j^T\vec w+b|=1\)</span>，因此对于所有样本点都会有<span
-class="math inline">\(|\vec x_i^T\vec w+b|\ge
-1\)</span>，最终SVM实际上要解决的是： <span class="math display">\[
-\mathop{min}_{\vec w,b}\frac{1}{2}\vec w^T\vec w\\
-s.t. \quad y_i(\vec x_i^T\vec w+b)\ge 1\quad i=1,2,...,n
-\]</span> 我们定义这个约束优化问题为SVM的原问题。</p>
-<h1 id="优化">优化</h1>
-<p>容易发现SVM最终是一个约束优化问题，我们通常使用拉格朗日对偶来解决。首先构造拉格朗日函数：
-<span class="math display">\[
-L=\frac{1}{2}\vec w^T\vec w+\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
-w+b))
-\]</span> 上述约束优化问题实际上等价于： <span class="math display">\[
-\mathop{min}_{\vec w,b}\mathop{max}_{\alpha_i}L\\
-s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
-\]</span> 这是显然易见的。因为如果<span class="math inline">\(\vec
-x_i\)</span>满足约束条件<span class="math inline">\(1-y_i(\vec x_i^T\vec
-w+b)\le0\)</span>，则<span class="math inline">\(\alpha_i(1-y_i(\vec
-x_i^T\vec w+b))\le 0\)</span>，这时候<span
-class="math inline">\(\mathop{max}_{\alpha}L\)</span>就要要求<span
-class="math inline">\(\sum_{i=1}^n\alpha_i(1-y_i(\vec x_i^T\vec
-w+b))=0\)</span>，这时候<span
-class="math inline">\(\mathop{max}_{\alpha_i}L=\frac{1}{2}\vec w^T\vec
-w\)</span>。</p>
-<p>相反，如果<span class="math inline">\(\vec
-x_i\)</span>不满足约束条件，即<span class="math inline">\(1-y_i(\vec
-x_i^T\vec w+b)\gt0\)</span>，则<span
-class="math inline">\(\alpha_i(1-y_i(\vec x_i^T\vec w+b))\gt
-0\)</span>，则<span class="math inline">\(max_{\alpha_i}L\rightarrow
-+\infty\)</span>。</p>
-<p>进而再取最小值<span class="math inline">\(\mathop{min}_{\vec
-w,b}\)</span>时，其实就是<span class="math inline">\(min_{\vec
-w,b}(\frac{1}{2}\vec w^T\vec w,+\infty)=min_{\vec w,b}\frac{1}{2}\vec
-w^T\vec w\)</span>，因此与上面推导的约束问题等价。</p>
-<p>拉格朗日对偶问题为： <span class="math display">\[
-\mathop{max}_{\alpha_i}\mathop{min}_{\vec w,b}L\\
-s.t.\quad \alpha_i\ge 0\quad i,=1,2,...,n
-\]</span>
-可以证明，对于SVM，原问题和拉格朗日对偶问题的最优解和最优值都是相同的（参见凸优化教程）。因此对原问题的求解
-可以转化为对拉格朗日对偶问题的求解。</p>
-<p>先看内层<span class="math inline">\(min_{\vec
-w,b}L\)</span>，容易发现它是关于<span class="math inline">\(\vec
-w,b\)</span>的凸函数，因此最优解在梯度为0处取得： <span
-class="math display">\[
-\frac{\partial L}{\partial \vec w}=\vec w-\sum_{i=1}^n\alpha_iy_i\vec
-x_i\\
-\frac{\partial L}{\partial b}=\sum_{i=1}^n\alpha_iy_i
-\]</span> 可得： <span class="math display">\[
-\vec w=\sum_{i=1}^n\alpha_iy_i\vec x_i\\
-\sum_{i=1}^n\alpha_iy_i=0
-\]</span> 将得到的解带回到拉格朗日函数中，可以得到： <span
-class="math display">\[
-L=\frac{1}{2}\sum_{i=1}^n\alpha_iy_i\vec
-x_i^T\sum_{j=1}^n\alpha_jy_j\vec
-x_j^T+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\alpha_iy_i\vec
-x_i^T\sum_{j=1}^n\alpha_jy_j\vec x_j-b\sum_{i=1}^n\alpha_iy_i
-\]</span> 整理得： <span class="math display">\[
-L=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec
-x_j+\sum_{i=1}^n\alpha_i-\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j\\
-=\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j
-\]</span> 再看外层是针对<span
-class="math inline">\(max_{\alpha_i}\)</span>的最大化问题，因此问题转换为：
-<span class="math display">\[
-\mathop{max}_{\alpha_i}[\sum_{i=1}^n\alpha_i-\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j]
-\]</span> 别忘了还有两个约束条件：<span
-class="math inline">\(\alpha_i\ge
-0,\sum_{i=1}^n\alpha_iy_i=0\)</span>。由于我们习惯求最小化，因此问题还等价于：
-<span class="math display">\[
-\mathop{min}_{\alpha_i}[\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n\alpha_i\alpha_jy_iy_j\vec
-x_i^T\vec x_j-\sum_{i=1}^n\alpha_i]\\
-s.t.\quad \alpha_i\ge0\\
-\sum_{i=1}^n\alpha_iy_i=0,\quad i=1,2,...,n
+        <h1 id="广义线性模型框架">广义线性模型框架</h1>
+<p>模型 <span class="math display">\[
+y|X\sim exp(\theta,\phi,a,b,c)
+\]</span> <span
+class="math inline">\(exp(\theta,\phi,a,b,c)\)</span>表示指数分布族</p>
+<p>回归方程： <span class="math display">\[
+\mu=E(y|X)\\
+g(\mu)=\eta\\
+\eta=X\vec\beta
 \]</span></p>
+<h1 id="高斯模型">高斯模型</h1>
+<p>这里的高斯模型主要指的就是线性回归模型，它其实要求<span
+class="math inline">\(y\)</span>的分布来源于正态分布。已知正态分布的密度为：
+<span class="math display">\[
+f(y)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y-\mu)^2}{2\sigma^2})\\
+=exp(-ln({\sqrt{2\pi}\sigma})-\frac{y^2-2y\mu+\mu^2}{2\sigma^2})\\
+=exp(\frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2}-ln({\sqrt{2\pi}\sigma})-\frac{y^2}{2\sigma^2})
+\]</span> 因此可知： <span class="math display">\[
+\theta=\mu\\
+b(\theta)=\frac{1}{2}\mu^2=\frac{1}{2}\theta^2\\
+a(\phi)=\sigma^2
+\]</span> 分布的均值为<span
+class="math inline">\(b\prime(\theta)\)</span>的一阶导数： <span
+class="math display">\[
+\mu=b\prime(\theta)
+\]</span> <span
+class="math inline">\(b\prime\prime(\theta)\)</span>为方差函数<span
+class="math inline">\(v(\mu)\)</span>，该例中为常数1，这意味着正态分布中均值和方差相互独立。分布的方差为<span
+class="math inline">\(b\prime\prime(\theta)a(\phi)\)</span>： <span
+class="math display">\[
+a(\phi)b\prime\prime(\theta)=\sigma^2
+\]</span></p>
+<h2 id="模型设定">模型设定</h2>
+<p>若<span
+class="math inline">\(y|X\)</span>为正态分布，当使用规范连接函数时，要求<span
+class="math inline">\(\theta=\eta\)</span>，因此模型的形式为： <span
+class="math display">\[
+g(\mu)=\eta=\theta=\mu
+\]</span> 即要求<span
+class="math inline">\(g(\mu)=\mu\)</span>，这意味着<span
+class="math inline">\(g\)</span>函数可以选择恒等连接函数，因此回归方程实际上为：
+<span class="math display">\[
+\mu=\eta=X\vec \beta
+\]</span> 这就是线性回归。</p>
+<h2 id="参数估计">参数估计</h2>
+<p>可以使用<code>IRLS</code>法进行参数估计，其迭代公式为： <span
+class="math display">\[
+\vec \beta_{k+1}=(X^TW_{k}X)^{-1}(X^TW_k\vec z_k)
+\]</span> <span class="math inline">\(\vec z_k\)</span>为工作向量，<span
+class="math inline">\(\vec z_k=X\hat{\vec \beta}_k+g\prime(\vec
+\mu_k)(\vec y-\vec \mu_k)\)</span>，因为选择了恒等连接，所以<span
+class="math inline">\(g(\mu)=\mu\)</span>，进而<span
+class="math inline">\(g\prime(\mu_k)=1\)</span>，所以<span
+class="math inline">\(\vec z_k=X\vec \beta_k+\vec y-\vec \mu_k=\vec
+y\)</span>。<span
+class="math inline">\(W_k\)</span>为权重矩阵，是一个对角矩阵，对角线上元素为<span
+class="math inline">\(\frac{1}{Var(y|X)[g\prime(\mu_k)]^2}\)</span>，如果假定了方差齐，即<span
+class="math inline">\(Var(y|X)=\sigma^2\)</span>，因此<span
+class="math inline">\(W_k\)</span>为： <span class="math display">\[
+W_k=\begin{bmatrix}
+\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2}\\
+\end{bmatrix}
+\]</span> 化简后得到迭代公式为: <span class="math display">\[
+\vec \beta_{k+1}=(X^TX)^{-1}X^T\vec y
+\]</span> 这和最小二乘法结果是一致的。如果方差不齐，则<span
+class="math inline">\(W_k\)</span>为： <span class="math display">\[
+W_k=\begin{bmatrix}
+\frac{1}{\sigma^2_1}&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_i}&amp;\cdot\cdot\cdot&amp;0\\
+\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot&amp;\cdot\cdot\cdot\\
+0&amp;\cdot\cdot\cdot&amp;0&amp;\cdot\cdot\cdot&amp;\frac{1}{\sigma^2_n}\\
+\end{bmatrix}=W
+\]</span> 此时迭代公式为： <span class="math display">\[
+\vec \beta_{k+1}=(X^TWX)^{-1}(X^TW\vec y)
+\]</span> 这是异方差最小二乘法。</p>
+<h2 id="拟合优度">拟合优度</h2>
+<h3 id="偏差deviance统计量">偏差deviance统计量</h3>
+<p>首先写出似然函数<span class="math inline">\(L\)</span>： <span
+class="math display">\[
+L=\prod_{i=1}^n\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y_i-\mu_i)^2}{2\sigma^2})
+\]</span> -2倍对数似然函数<span class="math inline">\(-2LL\)</span>为：
+<span class="math display">\[
+-2LL=nln(2\pi\sigma^2)+\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2
+\]</span> 饱和模型的-2倍对数似然函数<span
+class="math inline">\(-2LL_s\)</span>就是令<span
+class="math inline">\(\mu_i=y_i\)</span>，即为： <span
+class="math display">\[
+-2LL_s=nln(2\pi\sigma^2)
+\]</span> 因此deviance统计量<span class="math inline">\(D\)</span>为：
+<span class="math display">\[
+D=(-2LL-(-2LL_s))a(\phi)\\=\frac{1}{\sigma^2}\sum_{i=1}^n(y_i-\mu_i)^2\sigma^2\\=\sum_{i=1}^n(y_i-\mu_i)^2==SSE
+\]</span> 因此对于线性回归，deviance统计量实际上就是残差平方和<span
+class="math inline">\(SSE\)</span>。</p>
+<p>更进一步，scaled deviance统计量<span
+class="math inline">\(D^*\)</span>等于： <span class="math display">\[
+D^*=\frac{D}{a(\phi)}=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{\sigma^2}\sim
+\chi^2(n-p-1)
+\]</span> 与此同时，null deviance统计量<span
+class="math inline">\(D_0\)</span>等于： <span class="math display">\[
+D_0=\sum_{i=1}^n(y_i-\bar y)^2==SST
+\]</span> 这正好是线性回归中的总平方和<span
+class="math inline">\(SST\)</span>，而决定系数<span
+class="math inline">\(R^2\)</span>为： <span class="math display">\[
+R^2=1-\frac{D_0}{D}=1-\frac{SSE}{SST}
+\]</span></p>
+<h3 id="pearson卡方统计量">Pearson卡方统计量</h3>
+<p>对观测值<span class="math inline">\(y_i\)</span>和期望值<span
+class="math inline">\(\mu_i\)</span>做Pearson卡方检验，有： <span
+class="math display">\[
+\chi^2=\sum_{i=1}^n\frac{(y_i-\mu_i)^2}{Var(\mu_i)}
+\]</span></p>
+<h1 id="二项式模型">二项式模型</h1>
+<h1 id="多项式模型">多项式模型</h1>
+<h1 id="计数模型">计数模型</h1>
+<h1 id="负二项式模型">负二项式模型</h1>
+<h1 id="排序模型">排序模型</h1>
+<h1 id="gamma模型">gamma模型</h1>
 
     </div>
 
@@ -442,22 +458,16 @@ s.t.\quad \alpha_i\ge0\\
   </div>
 </div>
 
-          <div class="post-tags">
-              <a href="/tags/%E5%88%86%E7%B1%BB/" rel="tag"><i class="fa fa-tag"></i> 分类</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/01/09/10.%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93seaborn/" rel="prev" title="可视化库seaborn快速入门">
-                  <i class="fa fa-chevron-left"></i> 可视化库seaborn快速入门
+                <a href="/2023/03/09/ggplot2/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/01/27/12.%E7%BA%BF%E6%80%A7%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B/" rel="next" title="线性混合模型">
-                  线性混合模型 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
